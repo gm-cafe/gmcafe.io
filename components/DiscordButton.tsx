@@ -23,9 +23,10 @@ const DiscordButton = ({ authUrl, guildMember }: DiscordButtonProps) => {
   return (
     <button
       onClick={authorize}
-      className={classNames('rounded-xl bg-discord px-3 font-bold text-white', {
-        'hover:scale-105': !username,
-      })}
+      className={classNames(
+        'rounded-xl bg-discord px-3 font-bold text-white transition-transform',
+        { 'hover:scale-105': !username }
+      )}
     >
       {username ? name : 'Connect Discord'}
     </button>
