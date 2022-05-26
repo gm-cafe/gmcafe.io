@@ -1,4 +1,5 @@
-const GUILD_ID = '888903393677021246';
+export const GUILD_ID = '888903393677021246';
+export const PATRON_ROLE_ID = '891159552807043132';
 
 export const DISCORD_BASE_URL = 'https://discord.com/api/v10';
 export const DISCORD_TOKEN_URL = `${DISCORD_BASE_URL}/oauth2/token`;
