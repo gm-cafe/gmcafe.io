@@ -6,7 +6,7 @@ type Data = {
   message: string;
 };
 
-const claimCard = (address: string, discordId: string) =>
+const _claimCard = (address: string, discordId: string) =>
   fetch(API_URL, {
     method: 'POST',
     headers: {

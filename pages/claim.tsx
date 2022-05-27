@@ -1,8 +1,6 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
 import {
   CardClaimed,
   CardNotClaimed,

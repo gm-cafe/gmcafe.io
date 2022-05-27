@@ -15,8 +15,6 @@ const ClaimButton = ({ setClaimSuccess, discordId }: ClaimButtonProps) => {
 
   const connected = account && signer;
 
-  console.log({ account, signer })
-
   const claim = async () => {
     const hash = await signer?.signMessage(CLAIM_MESSAGE);
     const response = await fetch('/api/verify', {
