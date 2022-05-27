@@ -36,14 +36,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       return res.status(400).json({ message: 'No discord id found' });
     }
 
-    const address = verifyMessage(message, hash);
-    await claimCard(address, discord).then((response) => {
-      if (!response.ok) {
-        res.status(400).json({ message: 'Error occurred while claiming card' });
-      } else {
-        res.status(200).json({ message: 'Success' });
-      }
-    });
+    // TODO: Temporarily circumvent API request until backend is complete
+    const _address = verifyMessage(message, hash);
+    res.status(200).json({ message: 'Success' });
+
+    // await claimCard(address, discord).then((response) => {
+    //   if (!response.ok) {
+    //     res.status(400).json({ message: 'Error occurred while claiming card' });
+    //   } else {
+    //     res.status(200).json({ message: 'Success' });
+    //   }
+    // });
   } else {
     res.status(400).json({ message: 'Bad request' });
   }

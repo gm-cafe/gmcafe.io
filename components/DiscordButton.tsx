@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { GuildMember } from '../lib/util/discord';
 
-type DiscordButtonProps = {
+export type DiscordButtonProps = {
   authUrl: string;
   guildMember: GuildMember;
 };
@@ -24,7 +24,7 @@ const DiscordButton = ({ authUrl, guildMember }: DiscordButtonProps) => {
     <button
       onClick={authorize}
       className={classNames(
-        'rounded-xl bg-discord px-3 font-bold text-white transition-transform',
+        'rounded-xl bg-discord px-4 py-2 font-bold text-white transition-transform',
         { 'hover:scale-105': !username }
       )}
     >
