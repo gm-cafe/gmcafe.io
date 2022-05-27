@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -15,6 +17,9 @@ module.exports = {
         'yellow-light': '#fffeca',
         discord: '#5865F2',
       },
+    },
+    fontFamily: {
+      sans: ['Quicksand', ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [],
