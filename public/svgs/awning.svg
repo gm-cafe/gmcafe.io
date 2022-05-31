@@ -1,0 +1,10 @@
+<svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.99 66.33">
+  <defs>
+    <style>
+      .b{fill:#fff}
+    </style>
+  </defs>
+  <path class="b" d="M134.98-25.16h-45v68.98c0 12.43 10.07 22.5 22.5 22.5s22.5-10.07 22.5-22.5v-68.98ZM44.99 43.74V0H0v43.82c0 12.43 10.07 22.5 22.5 22.5S44.91 56.33 45 43.98v-.24Z"/>
+  <path d="M45 43.77V43.98c.08 12.35 10.12 22.34 22.5 22.34S90 56.25 90 43.82V0H45v43.77Z" style="fill:#ff7dbd"/>
+  <path style="fill:#8946ab;opacity:.3" d="M0-32.64h449.87V3.95H0z"/>
+</svg>
