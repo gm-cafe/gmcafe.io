@@ -1,7 +1,21 @@
+import { ReactNode } from 'react';
+
 const Navigation = () => {
   return (
     <nav className="relative flex w-full flex-col">
-      <div className="h-16 bg-pink"></div>
+      <div className="flex h-16 bg-pink">
+        <div className="flex flex-grow basis-0 items-center justify-evenly">
+          <NavItem href="/">HOME</NavItem>
+          <NavItem href="/">ABOUT</NavItem>
+          <NavItem href="/">TEAM</NavItem>
+        </div>
+        <div className="w-52" />
+        <div className="flex flex-grow basis-0 items-center justify-evenly">
+          <NavItem href="/">COFFEE CARD</NavItem>
+          <NavItem href="/">TRAITS</NavItem>
+          <NavItem href="/">BANNERS</NavItem>
+        </div>
+      </div>
       <Logo className="absolute left-0 right-0 z-10 mx-auto h-32" />
       <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
       <div className="absolute bottom-0 hidden h-20 w-full translate-y-20 md:flex">
@@ -9,6 +23,19 @@ const Navigation = () => {
         <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
       </div>
     </nav>
+  );
+};
+
+type NavItemProps = {
+  children: ReactNode | ReactNode[];
+  href?: string;
+};
+
+const NavItem = ({ children, href }: NavItemProps) => {
+  return (
+    <a className="font-gmcafe text-xl text-white" href={href}>
+      {children}
+    </a>
   );
 };
 
