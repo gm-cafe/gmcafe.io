@@ -34,7 +34,7 @@ const Navigation = () => {
             )
           }
         </Menu.Button>
-        <Menu.Items className="mobile-nav-height fixed top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col bg-purple-light">
+        <Menu.Items className="mobile-nav-height fixed top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col bg-purple-light focus:outline-none">
           <div className="mb-6 h-24">
             <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
           </div>
