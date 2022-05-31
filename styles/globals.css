@@ -6,3 +6,7 @@
   font-family: 'GMCafe';
   src: url('/gmcafe.ttf');
 }
+
+.mobile-nav-height {
+  height: calc(100vh - 4rem);
+}

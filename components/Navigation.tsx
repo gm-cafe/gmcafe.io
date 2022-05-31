@@ -1,22 +1,86 @@
 import { ReactNode } from 'react';
+import { MenuIcon, XIcon } from '@heroicons/react/solid';
+import { Menu } from '@headlessui/react';
+import classNames from 'classnames';
+import mobileNavFooter from '../public/mobile-nav-footer.png';
+import Image from 'next/image';
 
 const Navigation = () => {
+  const desktopNavItems = (
+    <div className="hidden h-16 bg-pink md:flex">
+      <div className="flex flex-grow basis-0 items-center justify-evenly">
+        <NavItem href="/">HOME</NavItem>
+        <NavItem href="/">ABOUT</NavItem>
+        <NavItem href="/">TEAM</NavItem>
+      </div>
+      <div className="w-52" />
+      <div className="flex flex-grow basis-0 items-center justify-evenly">
+        <NavItem href="/">COFFEE CARD</NavItem>
+        <NavItem href="/">TRAITS</NavItem>
+        <NavItem href="/">BANNERS</NavItem>
+      </div>
+    </div>
+  );
+
+  const mobileNavItems = (
+    <div className="flex h-16 justify-end bg-pink px-4 md:hidden">
+      <Menu>
+        <Menu.Button>
+          {({ open }) =>
+            open ? (
+              <XIcon className="m-1 h-8 w-8 text-white"></XIcon>
+            ) : (
+              <MenuIcon className="m-1 h-8 w-8 text-white" />
+            )
+          }
+        </Menu.Button>
+        <Menu.Items className="mobile-nav-height fixed top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col bg-purple-light">
+          <div className="mb-6 h-24">
+            <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
+          </div>
+          <Menu.Item>
+            <NavItem href="/" type="mobilePink">
+              HOME
+            </NavItem>
+          </Menu.Item>
+          <Menu.Item>
+            <NavItem href="/" type="mobileWhite">
+              ABOUT
+            </NavItem>
+          </Menu.Item>
+          <Menu.Item>
+            <NavItem href="/" type="mobilePink">
+              TEAM
+            </NavItem>
+          </Menu.Item>
+          <Menu.Item>
+            <NavItem href="/" type="mobileWhite">
+              COFFEE CARD
+            </NavItem>
+          </Menu.Item>
+          <Menu.Item>
+            <NavItem href="/" type="mobilePink">
+              TRAITS
+            </NavItem>
+          </Menu.Item>
+          <Menu.Item>
+            <NavItem href="/" type="mobileWhite">
+              BANNERS
+            </NavItem>
+          </Menu.Item>
+          <div className="mt-auto">
+            <Image src={mobileNavFooter} layout="responsive" alt="Mobile Navigation Footer" />
+          </div>
+        </Menu.Items>
+      </Menu>
+    </div>
+  );
+
   return (
     <nav className="relative flex w-full flex-col">
-      <div className="flex h-16 bg-pink">
-        <div className="flex flex-grow basis-0 items-center justify-evenly">
-          <NavItem href="/">HOME</NavItem>
-          <NavItem href="/">ABOUT</NavItem>
-          <NavItem href="/">TEAM</NavItem>
-        </div>
-        <div className="w-52" />
-        <div className="flex flex-grow basis-0 items-center justify-evenly">
-          <NavItem href="/">COFFEE CARD</NavItem>
-          <NavItem href="/">TRAITS</NavItem>
-          <NavItem href="/">BANNERS</NavItem>
-        </div>
-      </div>
-      <Logo className="absolute left-0 right-0 z-10 mx-auto h-32" />
+      {desktopNavItems}
+      {mobileNavItems}
+      <Logo className="absolute left-0 right-0 z-20 mx-auto h-32" />
       <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
       <div className="absolute bottom-0 hidden h-20 w-full translate-y-20 md:flex">
         <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-right bg-repeat-x" />
@@ -29,11 +93,20 @@ const Navigation = () => {
 type NavItemProps = {
   children: ReactNode | ReactNode[];
   href?: string;
+  type?: 'desktop' | 'mobilePink' | 'mobileWhite';
 };
 
-const NavItem = ({ children, href }: NavItemProps) => {
+const NavItem = ({ children, href, type = 'desktop' }: NavItemProps) => {
   return (
-    <a className="font-gmcafe text-xl text-white" href={href}>
+    <a
+      className={classNames(
+        'font-gmcafe',
+        { 'text-xl text-white': type === 'desktop' },
+        { 'p-4 text-center text-2xl text-purple': type === 'mobilePink' },
+        { 'p-4 text-center text-2xl text-purple': type === 'mobileWhite' }
+      )}
+      href={href}
+    >
       {children}
     </a>
   );
