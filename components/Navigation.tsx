@@ -2,8 +2,9 @@ const Navigation = () => {
   return (
     <nav className="relative flex w-full flex-col">
       <div className="h-16 bg-pink"></div>
-      <Logo className="absolute left-0 right-0 mx-auto h-32" />
-      <div className="flex h-20">
+      <Logo className="absolute left-0 right-0 z-10 mx-auto h-32" />
+      <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
+      <div className="absolute bottom-0 hidden h-20 w-full translate-y-20 md:flex">
         <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-right bg-repeat-x" />
         <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
       </div>
