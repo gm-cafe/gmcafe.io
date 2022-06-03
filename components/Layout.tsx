@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navigation />
-      <div>{children}</div>
+      {children}
     </>
   );
 };
