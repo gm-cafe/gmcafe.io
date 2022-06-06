@@ -4,7 +4,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import MemberCard, { members } from '../components/MemberCard';
-import banner from '../public/banner.png';
 import cloudsLeft from '../public/clouds_left.png';
 import cloudsRight from '../public/clouds_right.png';
 import polaroid from '../public/polaroid.mp4';
@@ -12,36 +11,12 @@ import polaroid from '../public/polaroid.mp4';
 const Home: NextPage = () => {
   return (
     <main>
-      <section className="relative mx-auto h-mobile w-full max-w-screen-screen md:h-[1000px]">
-        <img
-          src="banner.png"
-          className="block h-full w-full object-cover object-[40%_center] md:hidden"
-          alt="Café Banner"
-        />
-        <Image
-          className="hidden md:block"
-          src={banner}
-          layout="fill"
-          alt="Good Morning Café Banner"
-          objectFit="cover"
-          objectPosition="40% center"
-          priority={true}
-          quality={100}
-        />
-        <Image
-          src={cloudsLeft}
-          layout="fill"
-          alt="Clouds Left"
-          objectFit="cover"
-          objectPosition="left center"
-        />
-        <Image
-          src={cloudsRight}
-          layout="fill"
-          alt="Clouds Right"
-          objectFit="cover"
-          objectPosition="right center"
-        />
+      <section className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
+        <div className="relative mx-auto h-mobile max-w-screen-screen md:h-[1000px]">
+          <img src="banner.png" className="h-full w-full object-contain" alt="Café Banner" />
+          <Image src={cloudsLeft} layout="fill" alt="Clouds Left" objectFit="contain" />
+          <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="contain" />
+        </div>
       </section>
       <section className="bg-pink">
         <div className="mx-auto max-w-screen-screen px-10 py-12 text-xl font-bold text-white screen:px-0">

@@ -23,6 +23,9 @@ module.exports = {
       screens: {
         screen: '2000px',
       },
+      backgroundImage: {
+        'banner-repeat': "url('../public/bg_repeat.png')",
+      },
     },
     fontFamily: {
       sans: ['Quicksand', ...defaultTheme.fontFamily.sans],
