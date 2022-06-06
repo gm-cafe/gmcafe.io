@@ -20,6 +20,9 @@ module.exports = {
       height: {
         mobile: 'calc(100vh - 4rem)',
       },
+      screens: {
+        screen: '2000px',
+      },
     },
     fontFamily: {
       sans: ['Quicksand', ...defaultTheme.fontFamily.sans],
