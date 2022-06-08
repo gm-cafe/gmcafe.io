@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import getAssetsFromAddress from '../lib/util/getAssetsFromAddress';
 import { Asset } from '../lib/util/types';
 import toast from 'react-hot-toast';
+import classNames from 'classnames';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
@@ -30,23 +31,27 @@ const CheckIn: NextPage = () => {
       return;
     }
 
-    const hash = await signer?.signMessage(SIGN_MESSAGE);
-    const response = await fetch('/api/verify', {
-      method: 'POST',
-      body: JSON.stringify({
-        hash: hash,
-        tokens: assets.map((asset) => asset.token),
-        message: SIGN_MESSAGE,
-      }),
-    });
+    await signer
+      ?.signMessage(SIGN_MESSAGE)
+      .then(async (hash) => {
+        const response = await fetch('/api/verify', {
+          method: 'POST',
+          body: JSON.stringify({
+            hash: hash,
+            tokens: assets.map((asset) => asset.token),
+            message: SIGN_MESSAGE,
+          }),
+        });
 
-    const { message } = await response.json();
+        const { message } = await response.json();
 
-    if (!response.ok) {
-      toast.error(message);
-    } else {
-      toast.success(message);
-    }
+        if (!response.ok) {
+          toast.error(message);
+        } else {
+          toast.success(message);
+        }
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -60,7 +65,7 @@ const CheckIn: NextPage = () => {
             <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
           </div>
           <div className="ml-5 mr-4 flex h-[35vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[20vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
-            {!account && <CustomConnectButton />}
+            <CustomConnectButton className={classNames({ hidden: account })} />
             {account && (
               <button
                 className="rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105"
@@ -79,7 +84,11 @@ const CheckIn: NextPage = () => {
 
 export default CheckIn;
 
-export const CustomConnectButton = () => {
+type CustomConnectButtonProps = {
+  className?: string;
+};
+
+export const CustomConnectButton = ({ className }: CustomConnectButtonProps) => {
   return (
     <ConnectButton.Custom>
       {({ account, chain, openChainModal, openConnectModal, mounted }) => {
@@ -98,7 +107,10 @@ export const CustomConnectButton = () => {
               if (!mounted || !account || !chain) {
                 return (
                   <button
-                    className="rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105"
+                    className={classNames(
+                      'rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105',
+                      className
+                    )}
                     onClick={openConnectModal}
                     type="button"
                   >
@@ -110,7 +122,10 @@ export const CustomConnectButton = () => {
               if (chain.unsupported) {
                 return (
                   <button
-                    className="rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105"
+                    className={classNames(
+                      'rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105',
+                      className
+                    )}
                     onClick={openChainModal}
                     type="button"
                   >
