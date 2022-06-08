@@ -7,14 +7,15 @@ import { useAccount, useProvider, useSigner } from 'wagmi';
 import { useEffect, useState } from 'react';
 import getAssetsFromAddress from '../lib/util/getAssetsFromAddress';
 import { Asset } from '../lib/util/types';
-import toast from 'react-hot-toast';
 import classNames from 'classnames';
+import { Transition } from '@headlessui/react';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
 const CheckIn: NextPage = () => {
   const { data: account } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
+  const [message, setMessage] = useState<string>();
 
   const library = useProvider();
   const { data: signer } = useSigner();
@@ -27,7 +28,7 @@ const CheckIn: NextPage = () => {
 
   const migrate = async () => {
     if (assets.length <= 0) {
-      toast.error("Looks like you're not a part of the herd");
+      setMessage("Looks like you're not a part of the herd");
       return;
     }
 
@@ -43,28 +44,39 @@ const CheckIn: NextPage = () => {
           }),
         });
 
-        const { message } = await response.json();
+        const { message: responseMsg } = await response.json();
 
-        if (!response.ok) {
-          toast.error(message);
-        } else {
-          toast.success(message);
-        }
+        setMessage(responseMsg);
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => setMessage(error.message));
   };
 
   return (
     <main className="h-mobile overflow-hidden bg-pink-light">
       <section className="flex h-full items-end justify-center pt-20 2xl:pt-28">
         <div className="w-80 md:w-[28rem] 2xl:w-[36rem]">
+          <Transition
+            show={!!message}
+            enter="transition-opacity"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="flex h-40 w-56 translate-y-22 translate-x-32 items-center justify-center overflow-hidden break-words bg-speech-bubble bg-contain bg-center bg-no-repeat px-6 md:h-44 md:w-64 md:translate-y-32 md:translate-x-60 2xl:w-72 2xl:translate-x-80">
+              <p className="max-w-full font-gmcafe text-2xl font-semibold text-purple">
+                {message?.toUpperCase()}
+              </p>
+            </div>
+          </Transition>
           <div className="relative z-20 translate-y-22 md:translate-y-26 2xl:translate-y-28">
             <Image src={mooWrite} layout="responsive" alt="Moo with Pen" />
           </div>
           <div className="relative z-10 translate-y-14">
             <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
           </div>
-          <div className="ml-5 mr-4 flex h-[35vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[20vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
+          <div className="ml-5 mr-4 flex h-[32vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
             <CustomConnectButton className={classNames({ hidden: account })} />
             {account && (
               <button

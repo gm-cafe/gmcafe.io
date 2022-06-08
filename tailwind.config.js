@@ -25,6 +25,7 @@ module.exports = {
       },
       backgroundImage: {
         'banner-repeat': "url('../public/bg_repeat.png')",
+        'speech-bubble': "url('../public/speech_bubble.png')"
       },
       borderWidth: {
         6: '6px',
@@ -32,6 +33,7 @@ module.exports = {
       spacing: {
         22: '5.5rem',
         26: '6.5rem',
+        88: '22rem',
       },
     },
     fontFamily: {
