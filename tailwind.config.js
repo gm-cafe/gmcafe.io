@@ -26,6 +26,13 @@ module.exports = {
       backgroundImage: {
         'banner-repeat': "url('../public/bg_repeat.png')",
       },
+      borderWidth: {
+        6: '6px',
+      },
+      spacing: {
+        22: '5.5rem',
+        26: '6.5rem',
+      },
     },
     fontFamily: {
       sans: ['Quicksand', ...defaultTheme.fontFamily.sans],

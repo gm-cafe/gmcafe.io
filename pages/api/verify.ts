@@ -1,28 +1,44 @@
 import { verifyMessage } from 'ethers/lib/utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_URL } from '../../lib/util';
 
 type Data = {
   message: string;
 };
 
-const _claimCard = (address: string, discordId: string) =>
-  fetch(API_URL, {
+const addRecord = (address: string, tokens: string[]) => {
+  const records =
+    tokens.length > 0
+      ? tokens.map((token) => ({
+          fields: {
+            Address: address,
+            Token: token,
+          },
+        }))
+      : [
+          {
+            fields: {
+              Address: address,
+              Notes: 'Manual verification required',
+            },
+          },
+        ];
+
+  return fetch('https://api.airtable.com/v0/appkYCX1EewOs0WUP/API', {
     method: 'POST',
     headers: {
-      Authorization: '',
+      Authorization: `Bearer ${process.env.AIRTABLE_KEY}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      address: address,
-      discord: discordId,
+      records: records,
     }),
   });
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     const { body } = req;
-    const { hash, discord, message } = JSON.parse(body);
+    const { hash, tokens: _tokens, message } = JSON.parse(body);
 
     if (!hash || typeof hash !== 'string') {
       return res.status(400).json({ message: 'No hash found' });
@@ -32,21 +48,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       return res.status(400).json({ message: 'No sign message found' });
     }
 
-    if (!discord || typeof discord !== 'string') {
-      return res.status(400).json({ message: 'No discord id found' });
-    }
+    const tokens: string[] = Array.isArray(_tokens) ? _tokens : [];
 
-    // TODO: Temporarily circumvent API request until backend is complete
-    const _address = verifyMessage(message, hash);
-    res.status(200).json({ message: 'Success' });
-
-    // await claimCard(address, discord).then((response) => {
-    //   if (!response.ok) {
-    //     res.status(400).json({ message: 'Error occurred while claiming card' });
-    //   } else {
-    //     res.status(200).json({ message: 'Success' });
-    //   }
-    // });
+    const address = verifyMessage(message, hash);
+    await addRecord(address, tokens).then((response) => {
+      if (!response.ok) {
+        res.status(400).json({ message: 'Error occurred while storing address' });
+      } else {
+        res.status(200).json({ message: 'Address received' });
+      }
+    });
   } else {
     res.status(400).json({ message: 'Bad request' });
   }

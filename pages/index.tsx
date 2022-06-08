@@ -13,9 +13,13 @@ const Home: NextPage = () => {
     <main>
       <section className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
         <div className="relative mx-auto h-mobile max-w-screen-screen md:h-[1000px]">
-          <img src="banner.png" className="h-full w-full object-contain" alt="Café Banner" />
-          <Image src={cloudsLeft} layout="fill" alt="Clouds Left" objectFit="contain" />
-          <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="contain" />
+          <img
+            src="banner.png"
+            className="h-full w-full object-cover screen:object-contain"
+            alt="Café Banner"
+          />
+          <Image src={cloudsLeft} layout="fill" alt="Clouds Left" objectFit="cover" />
+          <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="cover" />
         </div>
       </section>
       <section className="bg-pink">
@@ -55,7 +59,7 @@ const Home: NextPage = () => {
           </video>
         </div>
       </section>
-      <section className="bg-pink py-10 px-10 screen:px-0">
+      <section className="bg-pink py-16 px-10 screen:px-0">
         <div className="mx-auto flex max-w-screen-screen flex-col gap-6 md:flex-row">
           {members.map((member) => (
             <MemberCard key={member.name} {...member} />

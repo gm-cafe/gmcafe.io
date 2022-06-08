@@ -17,7 +17,7 @@ const ClaimButton = ({ setClaimSuccess, discordId }: ClaimButtonProps) => {
 
   const claim = async () => {
     const hash = await signer?.signMessage(CLAIM_MESSAGE);
-    const response = await fetch('/api/verify', {
+    const response = await fetch('/api/claim', {
       method: 'POST',
       body: JSON.stringify({
         hash: hash,
