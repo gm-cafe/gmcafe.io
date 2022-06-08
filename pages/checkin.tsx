@@ -64,8 +64,8 @@ const CheckIn: NextPage = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="flex h-40 w-56 translate-y-22 translate-x-32 items-center justify-center overflow-hidden break-words bg-speech-bubble bg-contain bg-center bg-no-repeat px-6 md:h-44 md:w-64 md:translate-y-32 md:translate-x-60 2xl:w-72 2xl:translate-x-80">
-              <p className="max-w-full font-gmcafe text-2xl font-semibold text-purple">
+            <div className="flex h-40 w-56 translate-y-22 translate-x-32 items-center justify-center overflow-hidden break-words bg-speech-bubble bg-contain bg-center bg-no-repeat px-6 md:h-[15rem] md:w-[18rem] md:translate-y-[10.5rem] md:translate-x-[18.5rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-x-80">
+              <p className="max-w-full text-center font-gmcafe text-xl font-semibold text-purple md:text-2xl 2xl:text-4xl">
                 {message?.toUpperCase()}
               </p>
             </div>
