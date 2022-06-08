@@ -7,6 +7,7 @@ import { useAccount, useProvider, useSigner } from 'wagmi';
 import { useEffect, useState } from 'react';
 import getAssetsFromAddress from '../lib/util/getAssetsFromAddress';
 import { Asset } from '../lib/util/types';
+import toast from 'react-hot-toast';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
@@ -24,6 +25,11 @@ const CheckIn: NextPage = () => {
   }, [address, library]);
 
   const migrate = async () => {
+    if (assets.length <= 0) {
+      toast.error("Looks like you're not a part of the herd");
+      return;
+    }
+
     const hash = await signer?.signMessage(SIGN_MESSAGE);
     const response = await fetch('/api/verify', {
       method: 'POST',
@@ -37,9 +43,9 @@ const CheckIn: NextPage = () => {
     const { message } = await response.json();
 
     if (!response.ok) {
-      console.error(message);
+      toast.error(message);
     } else {
-      console.log(message);
+      toast.success(message);
     }
   };
 
