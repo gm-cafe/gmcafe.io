@@ -10,3 +10,42 @@
 .mobile-nav-height {
   height: calc(100vh - 4rem);
 }
+
+/* wallet titles/subtitles */
+/* [data-rk] .ju367vga {
+  font-family: 'GMCafe' !important;
+  font-size: 24px !important;
+  text-transform: uppercase !important;
+} */
+
+[data-rk] .ju367v1l {
+  font-family: 'GMCafe' !important;
+  font-size: 24px !important;
+  text-transform: uppercase !important;
+}
+
+/* wallet subtitle */
+[data-rk] .ju367v1r {
+  font-size: 16px !important;
+}
+
+/* wallet primary button */
+[data-rk] .ju367v9g {
+  padding: 14px 24px 10px 24px !important;
+  height: 48px !important;
+}
+
+/* wallet learn more link */
+[data-rk] .ju367vem {
+  font-size: 12px !important;
+}
+
+/* wallet left container */
+[data-rk] .ju367v57 {
+  margin-top: 30px !important;
+}
+
+/* wallet divider */
+[data-rk] .ju367v8y {
+  width: 5px !important;
+}
