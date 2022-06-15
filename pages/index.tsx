@@ -8,6 +8,7 @@ import cloudsLeft from '../public/clouds_left.png';
 import cloudsRight from '../public/clouds_right.png';
 import polaroid from '../public/polaroid.mp4';
 import { metadata } from '../lib/constants';
+import AnimatedPageSection from '../components/AnimatedPageSection';
 
 const Home: NextPage = () => {
   const moo = metadata[Math.floor(Math.random() * metadata.length)];
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
 
   return (
     <main>
-      <section className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
+      <AnimatedPageSection className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
         <div className="relative mx-auto h-mobile max-w-screen-screen md:h-[1000px]">
           <img
             src="banner.png"
@@ -25,8 +26,8 @@ const Home: NextPage = () => {
           <Image src={cloudsLeft} layout="fill" alt="Clouds Left" objectFit="cover" />
           <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="cover" />
         </div>
-      </section>
-      <section className="bg-pink px-10 py-12 screen:px-0">
+      </AnimatedPageSection>
+      <AnimatedPageSection className="bg-pink px-10 py-12 screen:px-0">
         <h2 className="mx-auto max-w-screen-screen text-center font-gmcafe text-4xl text-white md:text-6xl">
           GOOD MORNING CAFE
         </h2>
@@ -35,8 +36,8 @@ const Home: NextPage = () => {
           establishment in the metaverse. Come grab a cowffee, chill and unwind in a place where
           art, authenticity and community are still important.
         </div>
-      </section>
-      <section className="bg-white">
+      </AnimatedPageSection>
+      <AnimatedPageSection className="bg-white">
         <div className="mx-auto flex max-w-screen-screen flex-col px-10 py-12 lg:flex-row screen:px-0">
           <div className="flex flex-col justify-center">
             <h1 className="text-left font-gmcafe text-5xl uppercase text-purple">About</h1>
@@ -65,8 +66,8 @@ const Home: NextPage = () => {
             <source src={polaroid} />
           </video>
         </div>
-      </section>
-      <section className="bg-pink">
+      </AnimatedPageSection>
+      <AnimatedPageSection className="bg-pink">
         <div className="mx-auto flex max-w-screen-screen flex-col items-center px-10 py-12 md:flex-row md:py-20 screen:px-0">
           <div className="mb-12 w-full overflow-hidden rounded-lg md:mb-0 md:mr-12 md:basis-1/5">
             <Image
@@ -95,8 +96,8 @@ const Home: NextPage = () => {
             </p>
           </div>
         </div>
-      </section>
-      <section className="bg-white">
+      </AnimatedPageSection>
+      <AnimatedPageSection className="bg-white">
         <div className="mx-auto flex max-w-screen-screen flex-col-reverse items-center px-10 py-12 md:flex-row md:py-20 screen:px-0">
           <div className="basis-4/5">
             <h2 className="font-gmcafe text-5xl uppercase text-purple">Phase Two Collection</h2>
@@ -125,14 +126,14 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-      </section>
-      <section className="bg-pink py-16 px-10 screen:px-0">
+      </AnimatedPageSection>
+      <AnimatedPageSection className="bg-pink py-16 px-10 screen:px-0">
         <div className="mx-auto flex max-w-screen-screen flex-col gap-6 lg:flex-row">
           {members.map((member) => (
             <MemberCard key={member.name} {...member} />
           ))}
         </div>
-      </section>
+      </AnimatedPageSection>
     </main>
   );
 };

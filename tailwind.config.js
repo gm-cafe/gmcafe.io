@@ -25,7 +25,7 @@ module.exports = {
       },
       backgroundImage: {
         'banner-repeat': "url('../public/bg_repeat.png')",
-        'speech-bubble': "url('../public/speech_bubble.png')"
+        'speech-bubble': "url('../public/speech_bubble.png')",
       },
       borderWidth: {
         6: '6px',
@@ -34,6 +34,15 @@ module.exports = {
         22: '5.5rem',
         26: '6.5rem',
         88: '22rem',
+      },
+      keyframes: {
+        section: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
+      animation: {
+        section: 'section 1s',
       },
     },
     fontFamily: {
