@@ -14,7 +14,10 @@ const AnimatedPageSection = ({ className, children }: AnimatedPageSectionProps) 
   const inViewport = intersection && intersection.intersectionRatio > 0;
 
   return (
-    <section ref={ref} className={classNames(className, { 'animate-section': inViewport })}>
+    <section
+      ref={ref}
+      className={classNames(className, { 'animate-section': inViewport, 'opacity-0': !inViewport })}
+    >
       {children}
     </section>
   );
