@@ -15,7 +15,26 @@ const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 const CheckIn: NextPage = () => {
   const { data: account } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
-  const [message, setMessage] = useState<string>();
+  const [message, setMessage] = useState<string>('How can I help you today?');
+  const [unrenderedMessage, setUnrenderedMessage] = useState<string>('How can I help you today?');
+  const [isShowing, setIsShowing] = useState(true);
+
+  // Avoid the message from changing BEFORE the speech bubble disappears
+  // Set it to a buffer unrenderedMessage state, then
+  // the useEffect will rerender and run the timeoutFn to set what's actually being rendered
+  const updateMessage = (newMessage: string) => {
+    setIsShowing(false);
+    setUnrenderedMessage(newMessage);
+  };
+
+  useEffect(() => {
+    const timeoutFn = setTimeout(() => {
+      setMessage(unrenderedMessage);
+      setIsShowing(true);
+    }, 350);
+
+    return () => clearTimeout(timeoutFn);
+  }, [unrenderedMessage, isShowing]);
 
   const library = useProvider();
   const { data: signer } = useSigner();
@@ -28,7 +47,7 @@ const CheckIn: NextPage = () => {
 
   const migrate = async () => {
     if (assets.length <= 0) {
-      setMessage("Looks like you're not a part of the herd");
+      updateMessage("Looks like you're not a part of the herd");
       return;
     }
 
@@ -46,9 +65,9 @@ const CheckIn: NextPage = () => {
 
         const { message: responseMsg } = await response.json();
 
-        setMessage(responseMsg);
+        updateMessage(responseMsg);
       })
-      .catch((error) => setMessage(error.message));
+      .catch((error) => updateMessage(error.message));
   };
 
   return (
@@ -56,15 +75,16 @@ const CheckIn: NextPage = () => {
       <section className="flex h-full items-end justify-center pt-20 2xl:pt-28">
         <div className="w-80 md:w-[28rem] 2xl:w-[36rem]">
           <Transition
-            show={!!message}
-            enter="transition-opacity"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
+            show={isShowing}
+            className="h-40 w-56 translate-y-22 translate-x-32 md:h-[15rem] md:w-[18rem] md:translate-y-[10.5rem] md:translate-x-[18.5rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-x-80"
+            enter="transition duration-200 w-full h-full"
+            enterFrom="opacity-0 scale-50"
+            enterTo="opacity-100 scale-100"
             leave="transition-opacity"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="flex h-40 w-56 translate-y-22 translate-x-32 items-center justify-center overflow-hidden break-words bg-speech-bubble bg-contain bg-center bg-no-repeat px-6 md:h-[15rem] md:w-[18rem] md:translate-y-[10.5rem] md:translate-x-[18.5rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-x-80">
+            <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble bg-contain bg-center bg-no-repeat px-6">
               <p className="max-w-full text-center font-gmcafe text-xl font-semibold text-purple md:text-2xl 2xl:text-4xl">
                 {message?.toUpperCase()}
               </p>
