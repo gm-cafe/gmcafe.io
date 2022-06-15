@@ -11,20 +11,14 @@
   height: calc(100vh - 4rem);
 }
 
-/* wallet titles/subtitles */
-/* [data-rk] .ju367vga {
-  font-family: 'GMCafe' !important;
-  font-size: 24px !important;
-  text-transform: uppercase !important;
-} */
-
+/* wallet titles */
 [data-rk] .ju367v1l {
   font-family: 'GMCafe' !important;
   font-size: 24px !important;
   text-transform: uppercase !important;
 }
 
-/* wallet subtitle */
+/* wallet subtitles */
 [data-rk] .ju367v1r {
   font-size: 16px !important;
 }
