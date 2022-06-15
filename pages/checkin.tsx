@@ -15,9 +15,9 @@ const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 const CheckIn: NextPage = () => {
   const { data: account } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
-  const [message, setMessage] = useState<string>('How can I help you today?');
+  const [message, setMessage] = useState<string>();
   const [unrenderedMessage, setUnrenderedMessage] = useState<string>('How can I help you today?');
-  const [isShowing, setIsShowing] = useState(true);
+  const [isShowing, setIsShowing] = useState(false);
 
   // Avoid the message from changing BEFORE the speech bubble disappears
   // Set it to a buffer unrenderedMessage state, then
