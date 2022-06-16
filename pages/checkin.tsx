@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
 import mooWrite from '../public/moo_write.png';
 import tableCloth from '../public/table_cloth.png';
-import sparkles from '../public/sparkles.png';
 import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useProvider, useSigner } from 'wagmi';
@@ -95,7 +95,7 @@ const CheckIn: NextPage = () => {
       <section className="flex h-full items-end justify-center pt-20 2xl:pt-28">
         <div className="z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
           <div className="relative z-20 translate-y-[29rem] md:translate-y-[36rem] 2xl:translate-y-[44rem]">
-            <Image src={sparkles} layout="responsive" alt="sparkles" />
+            <img src="sparkles.png" alt="sparkles" />
           </div>
           <Transition
             show={isShowing}
