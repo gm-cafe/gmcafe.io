@@ -4,7 +4,7 @@ import tableCloth from '../public/table_cloth.png';
 import Image from 'next/image';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useProvider, useSigner } from 'wagmi';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import getAssetsFromAddress from '../lib/util/getAssetsFromAddress';
 import { Asset } from '../lib/util/types';
 import classNames from 'classnames';
@@ -15,14 +15,22 @@ const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 const CheckIn: NextPage = () => {
   const { data: account } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
-  const [message, setMessage] = useState<string>();
-  const [unrenderedMessage, setUnrenderedMessage] = useState<string>('How can I help you today?');
+  const [message, setMessage] = useState<ReactNode>();
+  const [unrenderedMessage, setUnrenderedMessage] = useState<ReactNode>(
+    <span>
+      GMOO!
+      <br />
+      Please show us
+      <br />
+      your succulent hooves!
+    </span>
+  );
   const [isShowing, setIsShowing] = useState(false);
 
   // Avoid the message from changing BEFORE the speech bubble disappears
   // Set it to a buffer unrenderedMessage state, then
   // the useEffect will rerender and run the timeoutFn to set what's actually being rendered
-  const updateMessage = (newMessage: string) => {
+  const updateMessage = (newMessage: ReactNode) => {
     setIsShowing(false);
     setUnrenderedMessage(newMessage);
   };
@@ -35,6 +43,17 @@ const CheckIn: NextPage = () => {
 
     return () => clearTimeout(timeoutFn);
   }, [unrenderedMessage, isShowing]);
+
+  useEffect(() => {
+    account &&
+      updateMessage(
+        <span>
+          Welcome, fellow moo!
+          <br />
+          Now you can check in
+        </span>
+      );
+  }, [account]);
 
   const library = useProvider();
   const { data: signer } = useSigner();
@@ -73,10 +92,10 @@ const CheckIn: NextPage = () => {
   return (
     <main className="h-mobile overflow-hidden bg-pink-light">
       <section className="flex h-full items-end justify-center pt-20 2xl:pt-28">
-        <div className="w-80 md:w-[28rem] 2xl:w-[36rem]">
+        <div className="z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
           <Transition
             show={isShowing}
-            className="h-40 w-56 translate-y-22 translate-x-32 md:h-[15rem] md:w-[18rem] md:translate-y-[10.5rem] md:translate-x-[18.5rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-x-80"
+            className="mx-auto h-52 w-56 translate-y-24 md:h-[15rem] md:w-[18rem] md:translate-y-[14rem] md:translate-x-[22rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-y-[12rem] 2xl:translate-x-[26rem]"
             enter="transition duration-200 w-full h-full"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
@@ -84,9 +103,9 @@ const CheckIn: NextPage = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble bg-contain bg-center bg-no-repeat px-6">
-              <p className="max-w-full text-center font-gmcafe text-xl font-semibold text-purple md:text-2xl 2xl:text-4xl">
-                {message?.toUpperCase()}
+            <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
+              <p className="max-w-full pb-2 text-center font-gmcafe text-xl font-semibold uppercase text-purple md:text-2xl 2xl:text-4xl">
+                {message}
               </p>
             </div>
           </Transition>

@@ -26,6 +26,7 @@ module.exports = {
       backgroundImage: {
         'banner-repeat': "url('../public/bg_repeat.png')",
         'speech-bubble': "url('../public/speech_bubble.png')",
+        'speech-bubble-mobile': "url('../public/speech_bubble_mobile.png')",
       },
       borderWidth: {
         6: '6px',
