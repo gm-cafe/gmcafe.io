@@ -95,7 +95,7 @@ const CheckIn: NextPage = () => {
         <div className="z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
           <Transition
             show={isShowing}
-            className="mx-auto h-52 w-56 translate-y-24 md:h-[15rem] md:w-[18rem] md:translate-y-[14rem] md:translate-x-[22rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-y-[12rem] 2xl:translate-x-[26rem]"
+            className="mx-auto h-52 w-56 translate-y-24 md:h-[15rem] md:w-[18rem] md:translate-y-[12rem] md:translate-x-[18rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-y-[12rem] 2xl:translate-x-[22rem]"
             enter="transition duration-200 w-full h-full"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
