@@ -119,7 +119,7 @@ const CheckIn: NextPage = () => {
           <div className="relative z-10 translate-y-14">
             <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
           </div>
-          <div className="ml-5 mr-4 flex h-[32vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
+          <div className="ml-5 mr-4 flex h-[20vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
             <CustomConnectButton className={classNames({ hidden: account })} />
             {account && (
               <button
