@@ -24,7 +24,7 @@ const Home: NextPage = () => {
           <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="cover" />
         </div>
       </AnimatedPageSection>
-      <AnimatedPageSection className="bg-white px-10 py-12 2xl:px-0">
+      <AnimatedPageSection className="bg-white px-16 py-12 2xl:px-0">
         <div className="mx-auto max-w-screen-2xl">
           <h2 className="font-gmcafe text-4xl uppercase text-purple md:text-5xl">
             Good Morning, Patron!
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </AnimatedPageSection>
-      <AnimatedPageSection className="bg-pink px-10 py-12 md:py-20 2xl:px-0">
+      <AnimatedPageSection className="bg-pink px-16 py-12 md:py-20 2xl:px-0">
         <div className="mx-auto flex max-w-screen-2xl flex-col justify-center">
           <h1 className="text-left font-gmcafe text-5xl uppercase text-white">About</h1>
           <p className="mt-4 text-left font-semibold text-white md:text-lg">
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
         <Marquee direction="right" />
       </AnimatedPageSection>
       <AnimatedPageSection className="bg-pink">
-        <div className="mx-auto max-w-screen-2xl px-10 py-12 md:py-20 2xl:px-0">
+        <div className="mx-auto max-w-screen-2xl px-16 py-12 md:py-20 2xl:px-0">
           <h2 className="font-gmcafe text-5xl uppercase text-white">Genesis Collection</h2>
           <p className="mt-6 text-lg font-semibold text-white">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -83,7 +83,7 @@ const Home: NextPage = () => {
         </div>
       </AnimatedPageSection>
       <AnimatedPageSection className="bg-white">
-        <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-10 md:flex-row 2xl:px-0">
+        <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-16 md:flex-row 2xl:px-0">
           <div className="basis-3/5">
             <h2 className="font-gmcafe text-5xl uppercase text-purple">Phase Two</h2>
             <p className="mt-6 text-lg font-semibold text-purple">
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </AnimatedPageSection>
-      <AnimatedPageSection className="bg-pink py-16 px-10 2xl:px-0">
+      <AnimatedPageSection className="bg-pink py-16 px-16 2xl:px-0">
         <div className="mx-auto flex max-w-screen-2xl flex-col gap-6 lg:flex-row">
           {members.map((member) => (
             <MemberCard key={member.name} {...member} />
