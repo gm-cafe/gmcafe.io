@@ -71,8 +71,8 @@ export const members: MemberCardProps[] = [
 const MemberCard = ({ name, title, description, image, twitter }: MemberCardProps) => {
   return (
     <div className="flex flex-col rounded-lg bg-white p-6 text-left shadow shadow-pink-light">
-      <div className="lg:w-50 relative mx-auto w-40 2xl:w-64">
-        <div className="lg:w-50 lg:h-50 relative z-10 h-40 w-40 overflow-hidden rounded-full 2xl:h-64 2xl:w-64">
+      <div className="lg:w-50 relative mx-auto w-40 2xl:w-60">
+        <div className="lg:w-50 lg:h-50 relative z-10 h-40 w-40 overflow-hidden rounded-full 2xl:h-60 2xl:w-60">
           <Image
             src={image}
             layout="fill"
