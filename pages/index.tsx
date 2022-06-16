@@ -9,6 +9,7 @@ import cloudsRight from '../public/clouds_right.png';
 import polaroid from '../public/polaroid.mp4';
 import { metadata } from '../lib/constants';
 import AnimatedPageSection from '../components/AnimatedPageSection';
+import Marquee from '../components/Marquee';
 
 const Home: NextPage = () => {
   const moo = metadata[Math.floor(Math.random() * metadata.length)];
@@ -133,6 +134,10 @@ const Home: NextPage = () => {
             <MemberCard key={member.name} {...member} />
           ))}
         </div>
+      </AnimatedPageSection>
+      <AnimatedPageSection className="bg-white py-10 screen:px-0">
+        <Marquee direction="left" />
+        <Marquee direction="right" />
       </AnimatedPageSection>
     </main>
   );
