@@ -7,17 +7,19 @@ import Image from 'next/image';
 
 const Navigation = () => {
   const desktopNavItems = (
-    <div className="hidden h-16 bg-pink md:flex">
-      <div className="flex flex-grow basis-0 items-center justify-evenly">
-        <NavItem href="/">HOME</NavItem>
-        <NavItem href="/">ABOUT</NavItem>
-        <NavItem href="/">TEAM</NavItem>
-      </div>
-      <div className="w-52" />
-      <div className="flex flex-grow basis-0 items-center justify-evenly">
-        <NavItem href="/">COFFEE CARD</NavItem>
-        <NavItem href="/">TRAITS</NavItem>
-        <NavItem href="/">BANNERS</NavItem>
+    <div className="hidden h-16 bg-pink md:block">
+      <div className="mx-auto flex h-full max-w-screen-2xl">
+        <div className="flex flex-grow basis-0 items-center justify-evenly">
+          <NavItem href="/">HOME</NavItem>
+          <NavItem href="/">ABOUT</NavItem>
+          <NavItem href="/">TEAM</NavItem>
+        </div>
+        <div className="w-52" />
+        <div className="flex flex-grow basis-0 items-center justify-evenly">
+          <NavItem href="/">COFFEE CARD</NavItem>
+          <NavItem href="/">TRAITS</NavItem>
+          <NavItem href="/">BANNERS</NavItem>
+        </div>
       </div>
     </div>
   );
@@ -39,32 +41,32 @@ const Navigation = () => {
             <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
           </div>
           <Menu.Item>
-            <NavItem href="/" type="mobilePink">
+            <NavItem href="/" type="mobile">
               HOME
             </NavItem>
           </Menu.Item>
           <Menu.Item>
-            <NavItem href="/" type="mobileWhite">
+            <NavItem href="/" type="mobile">
               ABOUT
             </NavItem>
           </Menu.Item>
           <Menu.Item>
-            <NavItem href="/" type="mobilePink">
+            <NavItem href="/" type="mobile">
               TEAM
             </NavItem>
           </Menu.Item>
           <Menu.Item>
-            <NavItem href="/" type="mobileWhite">
+            <NavItem href="/" type="mobile">
               COFFEE CARD
             </NavItem>
           </Menu.Item>
           <Menu.Item>
-            <NavItem href="/" type="mobilePink">
+            <NavItem href="/" type="mobile">
               TRAITS
             </NavItem>
           </Menu.Item>
           <Menu.Item>
-            <NavItem href="/" type="mobileWhite">
+            <NavItem href="/" type="mobile">
               BANNERS
             </NavItem>
           </Menu.Item>
@@ -93,7 +95,7 @@ const Navigation = () => {
 type NavItemProps = {
   children: ReactNode | ReactNode[];
   href?: string;
-  type?: 'desktop' | 'mobilePink' | 'mobileWhite';
+  type?: 'desktop' | 'mobile';
 };
 
 const NavItem = ({ children, href, type = 'desktop' }: NavItemProps) => {
@@ -101,9 +103,8 @@ const NavItem = ({ children, href, type = 'desktop' }: NavItemProps) => {
     <a
       className={classNames(
         'font-gmcafe',
-        { 'text-xl text-white': type === 'desktop' },
-        { 'p-4 text-center text-2xl text-purple': type === 'mobilePink' },
-        { 'p-4 text-center text-2xl text-purple': type === 'mobileWhite' }
+        { 'text-xl text-white transition duration-500 hover:text-pink-light': type === 'desktop' },
+        { 'p-4 text-center text-2xl text-purple': type === 'mobile' }
       )}
       href={href}
     >
