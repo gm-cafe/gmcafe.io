@@ -6,6 +6,7 @@ import Image from 'next/image';
 import MemberCard, { members } from '../components/MemberCard';
 import cloudsLeft from '../public/clouds_left.png';
 import cloudsRight from '../public/clouds_right.png';
+import mooPeek from '../public/moo_peek.png';
 import polaroid from '../public/polaroid.mp4';
 import AnimatedPageSection from '../components/AnimatedPageSection';
 import Marquee from '../components/Marquee';
@@ -24,8 +25,8 @@ const Home: NextPage = () => {
           <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="cover" />
         </div>
       </AnimatedPageSection>
-      <AnimatedPageSection className="bg-white px-10 py-12 sm:px-16 2xl:px-0">
-        <div className="mx-auto max-w-screen-2xl">
+      <AnimatedPageSection className="bg-white px-10 sm:px-16 2xl:px-0">
+        <div className="relative mx-auto max-w-screen-2xl pt-12 pb-28">
           <h2 className="font-gmcafe text-4xl uppercase text-purple md:text-5xl">
             Good Morning, Patron!
           </h2>
@@ -39,6 +40,9 @@ const Home: NextPage = () => {
               <span className="text-lg font-bold text-purple md:text-xl">Love,</span>
               <span className="font-gmcafe text-2xl text-purple md:text-3xl">Ben Colefax</span>
             </div>
+          </div>
+          <div className="absolute bottom-0 left-0 w-48 md:w-64 translate-y-[29px] -translate-x-[20px] md:translate-x-0 md:translate-y-[39px]">
+            <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
           </div>
         </div>
       </AnimatedPageSection>
