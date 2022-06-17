@@ -13,8 +13,8 @@ import Marquee from '../components/Marquee';
 const Home: NextPage = () => {
   return (
     <main>
-      <AnimatedPageSection className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
-        <div className="relative mx-auto h-mobile max-w-screen-screen md:h-[1000px]">
+      <AnimatedPageSection className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x pt-16">
+        <div className="relative mx-auto h-screen max-w-screen-screen md:h-[1000px]">
           <img
             src="banner.png"
             className="h-full w-full object-cover 2xl:object-contain"

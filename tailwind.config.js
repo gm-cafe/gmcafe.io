@@ -17,9 +17,6 @@ module.exports = {
         'yellow-light': '#fffeca',
         discord: '#5865F2',
       },
-      height: {
-        mobile: 'calc(100vh - 4rem)',
-      },
       screens: {
         screen: '2000px',
       },

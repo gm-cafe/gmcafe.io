@@ -77,7 +77,7 @@ const Navigation = () => {
   );
 
   return (
-    <nav className="relative flex w-full flex-col">
+    <nav className="absolute z-10 flex w-full flex-col">
       {desktopNavItems}
       {mobileNavItems}
       <Logo className="absolute left-0 right-0 z-20 mx-auto h-32" />

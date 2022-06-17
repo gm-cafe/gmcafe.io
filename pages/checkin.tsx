@@ -91,7 +91,7 @@ const CheckIn: NextPage = () => {
   };
 
   return (
-    <main className="h-mobile overflow-hidden bg-pink-light">
+    <main className="h-screen overflow-hidden bg-pink-light">
       <section className="flex h-full items-end justify-center pt-20 2xl:pt-28">
         <div className="z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
           <div className="relative z-20 translate-y-[29rem] md:translate-y-[36rem] 2xl:translate-y-[44rem]">
