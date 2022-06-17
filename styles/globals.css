@@ -7,6 +7,12 @@
   src: url('/gmcafe.ttf');
 }
 
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: 100dvh;
+  }
+}
+
 .mobile-nav-height {
   height: calc(100vh - 4rem);
 }
