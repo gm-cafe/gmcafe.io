@@ -10,6 +10,7 @@ import getAssetsFromAddress from '../lib/util/getAssetsFromAddress';
 import { Asset } from '../lib/util/types';
 import classNames from 'classnames';
 import { Transition } from '@headlessui/react';
+import Head from 'next/head';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
@@ -91,49 +92,54 @@ const CheckIn: NextPage = () => {
   };
 
   return (
-    <main className="h-screen overflow-hidden bg-pink-light">
-      <section className="flex h-full items-end justify-center">
-        <div className="z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
-          <div className="relative z-20 translate-y-[29rem] md:translate-y-[36rem] 2xl:translate-y-[44rem]">
-            <img src="sparkles.png" alt="sparkles" />
-          </div>
-          <Transition
-            show={isShowing}
-            className="relative z-20 mx-auto h-52 w-56 translate-y-24 md:h-[15rem] md:w-[18rem] md:translate-y-[12rem] md:translate-x-[18rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-y-[12rem] 2xl:translate-x-[22rem]"
-            enter="transition duration-200"
-            enterFrom="opacity-0 scale-50"
-            enterTo="opacity-100 scale-100"
-            leave="transition-opacity"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
-              <p className="max-w-full pb-2 text-center font-gmcafe text-xl font-semibold uppercase text-purple md:text-2xl 2xl:text-4xl">
-                {message}
-              </p>
+    <>
+      <Head>
+        <title>Good Morning Café | Check In</title>
+      </Head>
+      <main className="h-screen overflow-hidden bg-pink-light">
+        <section className="flex h-full items-end justify-center">
+          <div className="z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
+            <div className="relative z-20 translate-y-[29rem] md:translate-y-[36rem] 2xl:translate-y-[44rem]">
+              <img src="sparkles.png" alt="sparkles" />
             </div>
-          </Transition>
-          <div className="relative z-20 translate-y-22 md:translate-y-26 2xl:translate-y-28">
-            <Image src={mooWrite} layout="responsive" alt="Moo with Pen" />
+            <Transition
+              show={isShowing}
+              className="relative z-20 mx-auto h-52 w-56 translate-y-24 md:h-[15rem] md:w-[18rem] md:translate-y-[12rem] md:translate-x-[18rem] 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-y-[12rem] 2xl:translate-x-[22rem]"
+              enter="transition duration-200"
+              enterFrom="opacity-0 scale-50"
+              enterTo="opacity-100 scale-100"
+              leave="transition-opacity"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
+                <p className="max-w-full pb-2 text-center font-gmcafe text-xl font-semibold uppercase text-purple md:text-2xl 2xl:text-4xl">
+                  {message}
+                </p>
+              </div>
+            </Transition>
+            <div className="relative z-20 translate-y-22 md:translate-y-26 2xl:translate-y-28">
+              <Image src={mooWrite} layout="responsive" alt="Moo with Pen" />
+            </div>
+            <div className="relative z-10 translate-y-14">
+              <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
+            </div>
+            <div className="ml-5 mr-4 flex h-[20vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
+              <CustomConnectButton className={classNames({ hidden: account })} />
+              {account && (
+                <button
+                  className="rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105"
+                  type="button"
+                  onClick={migrate}
+                >
+                  Check In
+                </button>
+              )}
+            </div>
           </div>
-          <div className="relative z-10 translate-y-14">
-            <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
-          </div>
-          <div className="ml-5 mr-4 flex h-[20vh] translate-y-2 items-start justify-center rounded border-4 border-purple bg-white pt-14 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
-            <CustomConnectButton className={classNames({ hidden: account })} />
-            {account && (
-              <button
-                className="rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105"
-                type="button"
-                onClick={migrate}
-              >
-                Check In
-              </button>
-            )}
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 };
 
