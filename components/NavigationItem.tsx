@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { ReactNode, MouseEvent, forwardRef, Ref } from 'react';
-import scrollIntoView from 'scroll-into-view-if-needed';
 
 type NavItemProps = {
   children: ReactNode | ReactNode[];
@@ -19,10 +18,7 @@ const NavigationItem = (
 
   const anchorOnClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-
-    const node = href ? document.querySelector(href) : undefined;
-
-    href && node && scrollIntoView(node, { behavior: 'smooth', scrollMode: 'if-needed' });
+    href && document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     close && close();
   };
 
