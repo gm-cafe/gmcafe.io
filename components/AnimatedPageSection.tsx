@@ -3,11 +3,12 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useIntersection } from 'react-use';
 
 type AnimatedPageSectionProps = {
+  id?: string;
   className?: string;
   children: ReactNode | ReactNode[];
 };
 
-const AnimatedPageSection = ({ className, children }: AnimatedPageSectionProps) => {
+const AnimatedPageSection = ({ id, className, children }: AnimatedPageSectionProps) => {
   const [showAnimation, setShowAnimation] = useState(false);
   const ref = useRef(null);
   const intersection = useIntersection(ref, {});
@@ -19,6 +20,7 @@ const AnimatedPageSection = ({ className, children }: AnimatedPageSectionProps) 
 
   return (
     <section
+      id={id}
       ref={ref}
       className={classNames(className, {
         'animate-section': showAnimation,

@@ -1,33 +1,37 @@
-import { ReactNode } from 'react';
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
-import { Menu } from '@headlessui/react';
-import classNames from 'classnames';
+import { Popover } from '@headlessui/react';
 import mobileNavFooter from '../public/mobile-nav-footer.png';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import NavigationItem from './NavigationItem';
 
 const Navigation = () => {
-  const desktopNavItems = (
+  const router = useRouter();
+
+  const isHome = router.pathname === '/';
+
+  const desktopNavigationItems = (
     <div className="hidden h-16 bg-pink md:block">
       <div className="mx-auto flex h-full max-w-screen-2xl">
         <div className="flex flex-grow basis-0 items-center justify-evenly">
-          <NavItem href="/">HOME</NavItem>
-          <NavItem href="/">ABOUT</NavItem>
-          <NavItem href="/">TEAM</NavItem>
+          <NavigationItem href={isHome ? '#home' : '/'}>Home</NavigationItem>
+          <NavigationItem href={isHome ? '#about' : '/'}>About</NavigationItem>
+          <NavigationItem href={isHome ? '#team' : '/'}>Team</NavigationItem>
         </div>
         <div className="w-52" />
         <div className="flex flex-grow basis-0 items-center justify-evenly">
-          <NavItem href="/">COFFEE CARD</NavItem>
-          <NavItem href="/">TRAITS</NavItem>
-          <NavItem href="/">BANNERS</NavItem>
+          <NavigationItem href="/checkin">Check In</NavigationItem>
+          <NavigationItem href="https://traits.gmcafe.io">Traits</NavigationItem>
+          <NavigationItem href="https://banners.gmcafe.io">Banners</NavigationItem>
         </div>
       </div>
     </div>
   );
 
-  const mobileNavItems = (
+  const mobileNavigationItems = (
     <div className="flex h-16 justify-end bg-pink px-4 md:hidden">
-      <Menu>
-        <Menu.Button>
+      <Popover>
+        <Popover.Button>
           {({ open }) =>
             open ? (
               <XIcon className="m-1 h-8 w-8 text-white"></XIcon>
@@ -35,53 +39,45 @@ const Navigation = () => {
               <MenuIcon className="m-1 h-8 w-8 text-white" />
             )
           }
-        </Menu.Button>
-        <Menu.Items className="mobile-nav-height fixed top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col bg-purple-light focus:outline-none">
-          <div className="mb-6 h-24">
-            <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
-          </div>
-          <Menu.Item>
-            <NavItem href="/" type="mobile">
-              HOME
-            </NavItem>
-          </Menu.Item>
-          <Menu.Item>
-            <NavItem href="/" type="mobile">
-              ABOUT
-            </NavItem>
-          </Menu.Item>
-          <Menu.Item>
-            <NavItem href="/" type="mobile">
-              TEAM
-            </NavItem>
-          </Menu.Item>
-          <Menu.Item>
-            <NavItem href="/" type="mobile">
-              COFFEE CARD
-            </NavItem>
-          </Menu.Item>
-          <Menu.Item>
-            <NavItem href="/" type="mobile">
-              TRAITS
-            </NavItem>
-          </Menu.Item>
-          <Menu.Item>
-            <NavItem href="/" type="mobile">
-              BANNERS
-            </NavItem>
-          </Menu.Item>
-          <div className="mt-auto">
-            <Image src={mobileNavFooter} layout="responsive" alt="Mobile Navigation Footer" />
-          </div>
-        </Menu.Items>
-      </Menu>
+        </Popover.Button>
+        <Popover.Panel className="mobile-nav-height fixed top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col bg-purple-light focus:outline-none">
+          {({ close }) => (
+            <>
+              <div className="mb-6 h-24">
+                <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
+              </div>
+              <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+                Home
+              </NavigationItem>
+              <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+                About
+              </NavigationItem>
+              <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+                Team
+              </NavigationItem>
+              <NavigationItem href="/checkin" type="mobile" close={close}>
+                Check In
+              </NavigationItem>
+              <NavigationItem href="https://traits.gmcafe.io" type="mobile" close={close}>
+                Traits
+              </NavigationItem>
+              <NavigationItem href="https://banners.gmcafe.io" type="mobile" close={close}>
+                Banners
+              </NavigationItem>
+              <div className="mt-auto">
+                <Image src={mobileNavFooter} layout="responsive" alt="Mobile Navigation Footer" />
+              </div>
+            </>
+          )}
+        </Popover.Panel>
+      </Popover>
     </div>
   );
 
   return (
-    <nav className="absolute z-10 flex w-full flex-col">
-      {desktopNavItems}
-      {mobileNavItems}
+    <nav className="absolute z-30 flex w-full flex-col">
+      {desktopNavigationItems}
+      {mobileNavigationItems}
       <Logo className="absolute left-0 right-0 z-20 mx-auto h-32" />
       <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
       <div className="absolute bottom-0 z-10 hidden h-20 w-full translate-y-20 md:flex">
@@ -89,27 +85,6 @@ const Navigation = () => {
         <div className="bg-[size:100&_auto] flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
       </div>
     </nav>
-  );
-};
-
-type NavItemProps = {
-  children: ReactNode | ReactNode[];
-  href?: string;
-  type?: 'desktop' | 'mobile';
-};
-
-const NavItem = ({ children, href, type = 'desktop' }: NavItemProps) => {
-  return (
-    <a
-      className={classNames(
-        'font-gmcafe',
-        { 'text-xl text-white transition duration-500 hover:text-pink-light': type === 'desktop' },
-        { 'p-4 text-center text-2xl text-purple': type === 'mobile' }
-      )}
-      href={href}
-    >
-      {children}
-    </a>
   );
 };
 

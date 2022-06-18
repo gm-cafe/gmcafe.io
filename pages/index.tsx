@@ -18,8 +18,11 @@ const Home: NextPage = () => {
       <Head>
         <title>Good Morning Café</title>
       </Head>
-      <main className="pt-16">
-        <AnimatedPageSection className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
+      <main className="scroll-smooth pt-16">
+        <AnimatedPageSection
+          id="home"
+          className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x"
+        >
           <div className="relative mx-auto h-screen max-w-screen-screen md:h-[1000px]">
             <img
               src="banner.png"
@@ -30,7 +33,7 @@ const Home: NextPage = () => {
             <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="cover" />
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-white px-10 pt-12 pb-28 sm:px-16 2xl:px-0">
+        <AnimatedPageSection id="about" className="bg-white px-10 pt-12 pb-28 sm:px-16 2xl:px-0">
           <div className="mx-auto max-w-screen-2xl">
             <h2 className="font-gmcafe text-4xl uppercase text-purple md:text-5xl">
               Good Morning, Patron!
@@ -125,7 +128,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
+        <AnimatedPageSection id="team" className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col gap-6 lg:flex-row">
             {members.map((member) => (
               <MemberCard key={member.name} {...member} />
