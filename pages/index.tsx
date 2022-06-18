@@ -19,20 +19,20 @@ const Home: NextPage = () => {
         <title>Good Morning Café</title>
       </Head>
       <main className="scroll-smooth pt-16">
-        <AnimatedPageSection
+        <section
           id="home"
-          className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x"
+          className="w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x"
         >
           <div className="tw-h-screen relative mx-auto max-w-screen-screen md:h-[1000px]">
             <img
               src="banner.png"
-              className="h-full w-full object-cover 2xl:object-contain"
+              className="h-full w-full animate-section object-cover 2xl:object-contain"
               alt="Café Banner"
             />
             <Image src={cloudsLeft} layout="fill" alt="Clouds Left" objectFit="cover" />
             <Image src={cloudsRight} layout="fill" alt="Clouds Right" objectFit="cover" />
           </div>
-        </AnimatedPageSection>
+        </section>
         <AnimatedPageSection id="about" className="bg-white px-10 pt-12 pb-28 sm:px-16 2xl:px-0">
           <div className="mx-auto max-w-screen-2xl">
             <h2 className="font-gmcafe text-4xl uppercase text-purple md:text-5xl">
