@@ -49,10 +49,10 @@ const Navigation = () => {
               <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
                 Home
               </NavigationItem>
-              <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+              <NavigationItem href={isHome ? '#about' : '/'} type="mobile" close={close}>
                 About
               </NavigationItem>
-              <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+              <NavigationItem href={isHome ? '#team' : '/'} type="mobile" close={close}>
                 Team
               </NavigationItem>
               <NavigationItem href="/checkin" type="mobile" close={close}>

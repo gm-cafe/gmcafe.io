@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { ReactNode, MouseEvent, forwardRef, Ref } from 'react';
+import { useMedia } from 'react-use';
 
 type NavItemProps = {
   children: ReactNode | ReactNode[];
@@ -15,6 +16,8 @@ const NavigationItem = (
 ) => {
   const isAnchor = href && href.startsWith('#');
   const isInternalLink = href && href.startsWith('/');
+
+  const isMobile = useMedia('(max-width: 768px)', false);
 
   const anchorOnClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -51,7 +54,7 @@ const NavigationItem = (
     return null;
   }
 
-  return isInternalLink ? nextLink(href) : anchorTag(href);
+  return isInternalLink || (isMobile && isAnchor) ? nextLink(href) : anchorTag(href);
 };
 
 export default forwardRef(NavigationItem);
