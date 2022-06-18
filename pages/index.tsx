@@ -23,7 +23,7 @@ const Home: NextPage = () => {
           id="home"
           className="w-full bg-banner-repeat bg-contain bg-bottom bg-repeat-x"
         >
-          <div className="relative mx-auto h-screen max-w-screen-screen md:h-[1000px]">
+          <div className="tw-h-screen relative mx-auto max-w-screen-screen md:h-[1000px]">
             <img
               src="banner.png"
               className="h-full w-full object-cover 2xl:object-contain"

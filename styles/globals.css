@@ -7,6 +7,14 @@
   src: url('/gmcafe.ttf');
 }
 
+/* 
+  "polyfill" for h-screen, needed for homepage banner
+  on iOS mobile since we don't want 100dvh there
+*/
+.tw-h-screen {
+  height: 100vh;
+}
+
 @supports (-webkit-touch-callout: none) {
   .h-screen {
     height: 100dvh;
