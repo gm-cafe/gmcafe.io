@@ -11,6 +11,8 @@ import polaroid from '../public/polaroid.mp4';
 import AnimatedPageSection from '../components/AnimatedPageSection';
 import Marquee from '../components/Marquee';
 import Head from 'next/head';
+import Disclosure from '../components/Disclosure';
+import WalkingMoo from '../components/WalkingMoo';
 
 const Home: NextPage = () => {
   return (
@@ -76,8 +78,8 @@ const Home: NextPage = () => {
           <Marquee direction="left" />
           <Marquee direction="right" />
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-pink">
-          <div className="mx-auto max-w-screen-2xl px-10 py-12 sm:px-16 md:py-20 2xl:px-0">
+        <AnimatedPageSection className="bg-pink pt-12 pb-6 md:pt-20">
+          <div className="mx-auto max-w-screen-2xl px-10 pb-10 sm:px-16 2xl:px-0">
             <h2 className="font-gmcafe text-5xl uppercase text-white">Genesis Collection</h2>
             <p className="mt-6 text-lg font-semibold text-white">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -94,6 +96,7 @@ const Home: NextPage = () => {
               varius sit.
             </p>
           </div>
+          <WalkingMoo />
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-white">
           <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center px-10 sm:px-16 md:grid-cols-5 2xl:px-0">
@@ -128,11 +131,41 @@ const Home: NextPage = () => {
             </div>
           </div>
         </AnimatedPageSection>
+        <AnimatedPageSection className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
+          <div className="mx-auto max-w-screen-2xl">
+            <h2 className="font-gmcafe text-5xl uppercase text-white">Herd Perks</h2>
+            <p className="mt-6 text-lg font-semibold text-white">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Adipiscing tristique risus nec feugiat
+              in. Amet aliquam id diam maecenas ultricies mi eget mauris pharetra. Non tellus orci
+              ac auctor augue mauris augue neque gravida. Posuere ac ut consequat semper. Leo
+              integer malesuada nunc vel risus commodo viverra maecenas. Ultrices sagittis orci a
+              scelerisque purus semper eget. Justo nec ultrices dui sapien eget mi. In eu mi
+              bibendum neque egestas congue quisque egestas diam. Arcu vitae elementum curabitur
+              vitae nunc sed velit dignissim. Aliquet lectus proin nibh nisl condimentum id
+              venenatis a. Arcu non odio euismod lacinia at. A diam maecenas sed enim ut sem
+              viverra. Viverra orci sagittis eu volutpat odio facilisis mauris sit. Dignissim
+              convallis aenean et tortor at risus viverra. Proin libero nunc consequat interdum
+              varius sit.
+            </p>
+          </div>
+        </AnimatedPageSection>
+        <AnimatedPageSection className="bg-white py-16 px-10 sm:px-16 2xl:px-0">
+          <div className="mx-auto max-w-screen-2xl flex-col">
+            <h2 className="font-gmcafe text-5xl uppercase text-purple">FAQ</h2>
+            <div className="mt-10">
+              <Disclosure question="How big is the collection?" answer="250k sneks" />
+            </div>
+          </div>
+        </AnimatedPageSection>
         <AnimatedPageSection id="team" className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
-          <div className="mx-auto flex max-w-screen-2xl flex-col gap-6 lg:flex-row">
-            {members.map((member) => (
-              <MemberCard key={member.name} {...member} />
-            ))}
+          <div className="mx-auto flex max-w-screen-2xl flex-col">
+            <h2 className="font-gmcafe text-5xl uppercase text-white">Team</h2>
+            <div className="mt-6 flex gap-4">
+              {members.map((member) => (
+                <MemberCard key={member.name} {...member} />
+              ))}
+            </div>
           </div>
         </AnimatedPageSection>
       </main>
