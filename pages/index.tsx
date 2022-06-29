@@ -78,7 +78,7 @@ const Home: NextPage = () => {
           <Marquee direction="left" />
           <Marquee direction="right" />
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-pink pt-12 pb-6 md:pt-20">
+        <AnimatedPageSection className="overflow-x-hidden bg-pink pt-12 pb-6 md:pt-20">
           <div className="mx-auto max-w-screen-2xl px-10 pb-10 sm:px-16 2xl:px-0">
             <h2 className="font-gmcafe text-5xl uppercase text-white">Genesis Collection</h2>
             <p className="mt-6 text-lg font-semibold text-white">
@@ -161,7 +161,7 @@ const Home: NextPage = () => {
         <AnimatedPageSection id="team" className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col">
             <h2 className="font-gmcafe text-5xl uppercase text-white">Team</h2>
-            <div className="mt-6 flex gap-4">
+            <div className="mt-6 flex flex-col gap-4 md:flex-row">
               {members.map((member) => (
                 <MemberCard key={member.name} {...member} />
               ))}
