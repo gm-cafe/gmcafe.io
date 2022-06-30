@@ -44,7 +44,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Quicksand', ...defaultTheme.fontFamily.sans],
+      sans: ['Inter', ...defaultTheme.fontFamily.sans],
       gmcafe: ['GMCafe', ...defaultTheme.fontFamily.sans],
     },
   },

@@ -18,7 +18,7 @@ type MemberCardProps = {
 
 export const members: MemberCardProps[] = [
   {
-    name: 'Ben Colefax | Highland #1',
+    name: 'Ben Colefax • Highland #1',
     title: 'Creator',
     description: [
       'Ben has been drawing worlds of cute things for as long as he can remember. Dad of three. Always hungry. Three coffees a day kinda guy. Also on ',
@@ -35,7 +35,7 @@ export const members: MemberCardProps[] = [
     twitter: 'https://twitter.com/bencolefax',
   },
   {
-    name: 'Mum | Highland #238',
+    name: 'Mum • Highland #238',
     title: 'Boss Wife',
     description:
       "Mother of the Herd - and of three real life tiny humans. Mum is also Ben's better half who's always working hard behind the scenes to keep the café serving the hottest coffees.",
@@ -43,7 +43,7 @@ export const members: MemberCardProps[] = [
     twitter: 'https://twitter.com/gmcafenft',
   },
   {
-    name: 'Jane | Highland #229',
+    name: 'Jane • Highland #229',
     title: 'Cafe Manager & Dev',
     description:
       'Jane helps dad function on a daily basis and is a mega powerful front-end developer and artist. She is also the best daughter in the metaverse and serves a celebrity cat.',
@@ -51,7 +51,7 @@ export const members: MemberCardProps[] = [
     twitter: 'https://twitter.com/catlady_jane',
   },
   {
-    name: 'Loop | Highland #292',
+    name: 'Loop • Highland #292',
     title: 'Barista & Dev',
     description:
       "It's rumoured that Master Loop hasn't left the café in months and sleeps in the loft where all the excess napkins and paper cups go. Loves rainbow cowffee. Very based.",
@@ -59,7 +59,7 @@ export const members: MemberCardProps[] = [
     twitter: 'https://twitter.com/0xLoop_',
   },
   {
-    name: 'Raffy | Highland #270',
+    name: 'Raffy • Highland #270',
     title: 'Barista & Dev',
     description:
       'Raffy enjoys the silky touch of supple spandex as he rides his bicycle through paddocks of code and mathematical equations to produce truly amazing feats. Also likes diamonds.',
@@ -71,8 +71,8 @@ export const members: MemberCardProps[] = [
 const MemberCard = ({ name, title, description, image, twitter }: MemberCardProps) => {
   return (
     <div className="flex flex-col rounded-lg bg-white px-4 py-6 text-left shadow shadow-pink-light">
-      <div className="lg:w-52 relative mx-auto w-40 2xl:w-60">
-        <div className="lg:w-52 lg:h-52 relative z-10 h-40 w-40 overflow-hidden rounded-full 2xl:h-60 2xl:w-60">
+      <div className="relative mx-auto w-40 lg:w-52 2xl:w-60">
+        <div className="relative z-10 h-40 w-40 overflow-hidden rounded-full lg:h-52 lg:w-52 2xl:h-60 2xl:w-60">
           <Image
             src={image}
             layout="fill"
@@ -85,9 +85,9 @@ const MemberCard = ({ name, title, description, image, twitter }: MemberCardProp
           <TwitterIcon className="mx-1 h-4 w-4 lg:h-5 lg:w-5 2xl:h-6 2xl:w-6" />
         </a>
       </div>
-      <h1 className="mt-6 text-sm font-semibold lg:text-base">{name}</h1>
-      <h2 className="text-sm font-semibold text-purple lg:text-base">{title}</h2>
-      <p className="mt-2 text-sm lg:text-base">{description}</p>
+      <h1 className="mt-6 text-sm font-medium lg:text-base">{name}</h1>
+      <h2 className="text-sm font-medium text-purple lg:text-base">{title}</h2>
+      <p className="mt-2 text-sm font-light lg:text-base">{description}</p>
     </div>
   );
 };

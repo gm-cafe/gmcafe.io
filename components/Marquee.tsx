@@ -12,7 +12,7 @@ const Marquee = ({ direction }: MarqueeProps) => {
   return (
     <Marquee_ gradient={false} direction={direction}>
       {elements.map(({ imageUrl, token }) => (
-        <div className="mx-4 my-2" key={token}>
+        <div className="m-4" key={token}>
           <Image
             className="rounded-lg"
             src={imageUrl}

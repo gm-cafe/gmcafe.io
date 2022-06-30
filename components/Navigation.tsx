@@ -30,7 +30,7 @@ const Navigation = () => {
 
   const mobileNavigationItems = (
     <div className="flex h-16 justify-end bg-pink px-4 md:hidden">
-      <Popover>
+      <Popover className="flex items-center">
         <Popover.Button>
           {({ open }) =>
             open ? (
