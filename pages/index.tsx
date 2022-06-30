@@ -7,6 +7,7 @@ import MemberCard, { members } from '../components/MemberCard';
 import cloudsLeft from '../public/clouds_left.png';
 import cloudsRight from '../public/clouds_right.png';
 import mooPeek from '../public/moo_peek.png';
+import moo from '../public/moos/ben.png';
 import keeku from '../public/keeku.png';
 import AnimatedPageSection from '../components/AnimatedPageSection';
 import Marquee from '../components/Marquee';
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
           id="home"
           className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x"
         >
-          <div className="tw-h-screen relative mx-auto max-w-screen-screen md:h-[1000px]">
+          <div className="relative mx-auto h-[60vh] max-w-screen-screen md:h-[1000px]">
             <img
               src="banner.png"
               className="h-full w-full animate-section object-cover 2xl:object-contain"
@@ -87,27 +88,31 @@ const Home: NextPage = () => {
           <Marquee direction="left" />
           <Marquee direction="right" />
         </AnimatedPageSection>
-        <AnimatedPageSection className="overflow-x-hidden bg-pink py-12 pb-6 md:py-20">
-          <div className="mx-auto max-w-screen-2xl px-10 pb-10 sm:px-16 2xl:px-0">
-            <h2 className="font-gmcafe text-5xl uppercase text-white">Genesis Collection</h2>
-            <p className="mt-6 text-lg font-light text-white">
-              It is said that each Highland Cow chooses its owner using an unrelenting series of
-              vacant stares and whispered moos that connects deeply with the inner personality of
-              the beholder. Your Moo is your membership to “The Herd” - a succulent group of 333
-              similarly minded individuals all MOOving together.
-            </p>
-            <p className="mt-6 text-lg font-light text-white">
-              Launched in September 2021, the Highland Cow Genesis collection started as simple
-              artistic expression - a merging of multiple cultures all wrapped up in bovine floof.
-              Each Moo is 1/1 and individually hand drawn, colour matched, line-work sharpened, to
-              create a truely unique Ethereum blockchain dwelling entity.
-            </p>
+        <AnimatedPageSection className="overflow-x-hidden bg-pink py-12 md:py-20">
+          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center gap-16 px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="col-span-1 mx-8 overflow-hidden rounded-full">
+              <Image src={moo} layout="responsive" alt="Moo" />
+            </div>
+            <div className="col-span-1 md:col-span-2">
+              <h2 className="font-gmcafe text-5xl uppercase text-white">Genesis Collection</h2>
+              <p className="mt-6 text-lg font-light text-white">
+                It is said that each Highland Cow chooses its owner using an unrelenting series of
+                vacant stares and whispered moos that connects deeply with the inner personality of
+                the beholder. Your Moo is your membership to “The Herd” - a succulent group of 333
+                similarly minded individuals all MOOving together.
+              </p>
+              <p className="mt-6 text-lg font-light text-white">
+                Launched in September 2021, the Highland Cow Genesis collection started as simple
+                artistic expression - a merging of multiple cultures all wrapped up in bovine floof.
+                Each Moo is 1/1 and individually hand drawn, colour matched, line-work sharpened, to
+                create a truely unique Ethereum blockchain dwelling entity.
+              </p>
+            </div>
           </div>
-          {/* <WalkingMoo /> */}
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-white">
-          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center gap-8 px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
-            <div className="col-span-2 py-10 md:row-span-1 2xl:py-0">
+        <AnimatedPageSection className="bg-white py-12 md:py-20">
+          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center gap-16 px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="col-span-1 md:col-span-2">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">Phase Two</h2>
               <p className="mt-6 text-lg font-light text-purple">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -124,12 +129,12 @@ const Home: NextPage = () => {
                 varius sit.
               </p>
             </div>
-            <div className="col-span-1 m-16 self-end overflow-hidden rounded-full">
+            <div className="col-span-1 row-start-1 m-8 overflow-hidden rounded-full md:col-start-3">
               <Image src={keeku} layout="responsive" alt="Keeku" />
             </div>
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-gray-50 py-20">
+        <AnimatedPageSection className="bg-gray-50 py-12 md:py-20">
           <div className="mx-auto max-w-screen-2xl px-10 sm:px-16 md:grid-cols-5 2xl:px-0">
             <h2 className="font-gmcafe text-5xl uppercase text-purple">Utility</h2>
             <p className="mt-6 text-lg font-light text-purple">
