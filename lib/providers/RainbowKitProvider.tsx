@@ -5,7 +5,7 @@ import {
   getDefaultWallets,
   RainbowKitProvider as _RainbowKitProvider,
   lightTheme,
-  Theme
+  Theme,
 } from '@rainbow-me/rainbowkit';
 import merge from 'lodash.merge';
 import { chain, createClient, configureChains, WagmiConfig } from 'wagmi';
@@ -17,8 +17,8 @@ type RainbowKitProviderProps = {
 };
 
 export const RainbowKitProvider = ({ children }: RainbowKitProviderProps) => {
-  const { chains, provider } = configureChains(
-    [chain.mainnet, chain.rinkeby],
+  const { chains, provider, webSocketProvider } = configureChains(
+    [chain.mainnet],
     [infuraProvider({ infuraId: process.env.INFURA_KEY }), publicProvider()]
   );
 
@@ -30,6 +30,7 @@ export const RainbowKitProvider = ({ children }: RainbowKitProviderProps) => {
   const wagmiClient = createClient({
     connectors,
     provider,
+    webSocketProvider,
   });
 
   const cafeTheme = merge(lightTheme(), {
@@ -45,16 +46,18 @@ export const RainbowKitProvider = ({ children }: RainbowKitProviderProps) => {
       menuItemBackground: '#ffedf6', // light pink
     },
     fonts: {
-      body: 'Quicksand',
+      body: 'Inter',
     },
     shadows: {
-      dialog: '' // seems to remove the modal dialog shadow
-    }
+      dialog: '', // seems to remove the modal dialog shadow
+    },
   } as Theme);
 
   return (
     <WagmiConfig client={wagmiClient}>
-      <_RainbowKitProvider chains={chains} theme={cafeTheme}>{children}</_RainbowKitProvider>
+      <_RainbowKitProvider chains={chains} theme={cafeTheme}>
+        {children}
+      </_RainbowKitProvider>
     </WagmiConfig>
   );
 };
