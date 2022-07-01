@@ -90,7 +90,7 @@ const Home: NextPage = () => {
         </AnimatedPageSection>
         <AnimatedPageSection className="overflow-x-hidden bg-pink py-12 md:py-20">
           <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center gap-16 px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
-            <div className="col-span-1 mx-8 overflow-hidden rounded-full">
+            <div className="col-span-1 mx-16 overflow-hidden rounded-full md:mx-8">
               <Image src={moo} layout="responsive" alt="Moo" />
             </div>
             <div className="col-span-1 md:col-span-2">
@@ -129,7 +129,7 @@ const Home: NextPage = () => {
                 varius sit.
               </p>
             </div>
-            <div className="col-span-1 row-start-1 m-8 overflow-hidden rounded-full md:col-start-3">
+            <div className="col-span-1 row-start-1 mx-16 overflow-hidden rounded-full md:col-start-3 md:mx-8">
               <Image src={keeku} layout="responsive" alt="Keeku" />
             </div>
           </div>
