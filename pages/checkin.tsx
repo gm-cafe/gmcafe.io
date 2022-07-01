@@ -16,7 +16,7 @@ import { XIcon } from '@heroicons/react/solid';
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
 const CheckIn: NextPage = () => {
-  const { address } = useAccount();
+  const { data: account } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [message, setMessage] = useState<ReactNode>();
   const [unrenderedMessage, setUnrenderedMessage] = useState<ReactNode>(
@@ -49,7 +49,7 @@ const CheckIn: NextPage = () => {
   }, [unrenderedMessage, isShowing]);
 
   useEffect(() => {
-    address &&
+    account &&
       updateMessage(
         <span>
           Welcome, fellow Moo!
@@ -57,10 +57,12 @@ const CheckIn: NextPage = () => {
           Now you can check in.
         </span>
       );
-  }, [address]);
+  }, [account]);
 
   const library = useProvider();
   const { data: signer } = useSigner();
+
+  const address = account?.address;
 
   useEffect(() => {
     getAssetsFromAddress(library, address).then(setAssets);

@@ -10,10 +10,10 @@ type ClaimButtonProps = {
 };
 
 const ClaimButton = ({ setClaimSuccess, discordId }: ClaimButtonProps) => {
-  const { address } = useAccount();
+  const { data: account } = useAccount();
   const { data: signer } = useSigner();
 
-  const connected = address && signer;
+  const connected = account && signer;
 
   const claim = async () => {
     const hash = await signer?.signMessage(CLAIM_MESSAGE);
