@@ -10,10 +10,8 @@ type ClaimButtonProps = {
 };
 
 const ClaimButton = ({ setClaimSuccess, discordId }: ClaimButtonProps) => {
-  const { data: account } = useAccount();
+  const { isConnected } = useAccount();
   const { data: signer } = useSigner();
-
-  const connected = account && signer;
 
   const claim = async () => {
     const hash = await signer?.signMessage(CLAIM_MESSAGE);
@@ -37,8 +35,8 @@ const ClaimButton = ({ setClaimSuccess, discordId }: ClaimButtonProps) => {
 
   return (
     <>
-      {!connected && <ConnectButton />}
-      {connected && (
+      {!isConnected && <ConnectButton />}
+      {isConnected && (
         <button className="rounded-xl py-4 px-6 text-xl font-bold shadow-lg" onClick={claim}>
           Claim Card
         </button>
