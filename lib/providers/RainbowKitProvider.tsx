@@ -44,7 +44,7 @@ const cafeTheme = merge(lightTheme(), {
     menuItemBackground: '#ffedf6', // light pink
   },
   fonts: {
-    body: 'Inter',
+    body: 'Hepta Slab',
   },
   shadows: {
     dialog: '', // seems to remove the modal dialog shadow

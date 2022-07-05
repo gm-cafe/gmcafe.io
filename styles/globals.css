@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'GMCafe';
-  src: url('/gmcafe.ttf');
+  src: url('/gmcafe.otf');
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -15,6 +15,16 @@
 
 .mobile-nav-height {
   height: calc(100vh - 4rem);
+}
+
+.clip-home-section {
+  clip-path: polygon(0 0, 100% 0%, 100% 90%, 0% 100%);
+}
+
+@media (min-width: 768px) {
+  .clip-home-section {
+    clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);
+  }
 }
 
 /* wallet titles */

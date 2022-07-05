@@ -87,7 +87,7 @@ const MemberCard = ({ name, title, description, image, twitter }: MemberCardProp
       </div>
       <h1 className="mt-6 text-sm font-medium lg:text-base">{name}</h1>
       <h2 className="text-sm font-medium text-purple lg:text-base">{title}</h2>
-      <p className="mt-2 text-sm font-light lg:text-base">{description}</p>
+      <p className="mt-2 text-sm 2xl:text-base">{description}</p>
     </div>
   );
 };

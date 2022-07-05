@@ -1,18 +1,19 @@
 import { Disclosure as Disclosure_ } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { ReactNode } from 'react';
 
 type DisclosureProps = {
   question: string;
-  answer: string;
+  children?: ReactNode | ReactNode[];
 };
 
-const Disclosure = ({ question, answer }: DisclosureProps) => {
+const Disclosure = ({ question, children }: DisclosureProps) => {
   return (
     <Disclosure_>
       {({ open }) => (
         <>
-          <Disclosure_.Button className="flex items-center font-gmcafe text-2xl uppercase text-purple">
+          <Disclosure_.Button className="mt-2 flex items-center font-gmcafe text-2xl text-purple">
             <span className="mr-2">{question}</span>
             <ChevronUpIcon
               className={classNames(
@@ -21,9 +22,7 @@ const Disclosure = ({ question, answer }: DisclosureProps) => {
               )}
             />
           </Disclosure_.Button>
-          <Disclosure_.Panel className="font-gmcafe text-xl uppercase text-purple">
-            {answer}
-          </Disclosure_.Panel>
+          <Disclosure_.Panel className="mb-2 text-purple">{children}</Disclosure_.Panel>
         </>
       )}
     </Disclosure_>

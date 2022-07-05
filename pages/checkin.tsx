@@ -161,10 +161,28 @@ const CheckIn: NextPage = () => {
                 What is this?
               </Dialog.Title>
               <Dialog.Description>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Pharetra massa massa ultricies mi quis
-                hendrerit dolor magna. Laoreet sit amet cursus sit amet dictum sit. Nisi quis
-                eleifend quam adipiscing vitae proin. Quam vulputate dignissim suspendisse in est.
+                <p className="">
+                  The Great Moogration is happening! Cows are finally being migrated to their own
+                  custom contract.
+                </p>
+                <p className="mt-3">
+                  Clicking &apos;Check In&apos; will help us take attendance of all currently active
+                  Herd members in the space. This will help us determine how long to keep the
+                  migration time window open for.
+                </p>
+                <p className="mt-3">
+                  After the migration phase ends, anyone who does not successfully migrate by the
+                  deadline will have their cow(s) automatically minted to the Admin wallet. To claim
+                  your cow later, please open up a ticket in [
+                  <a href="https://discord.gg/gmcafe" target="_blank" rel="noreferrer">
+                    Discord
+                  </a>
+                  ] for next steps. Your cow will not be lost.
+                </p>
+                <p className="mt-3">
+                  The sooner we can complete the migration, the sooner we can delist the old
+                  collection on OpenSea to prevent any confusion.
+                </p>
               </Dialog.Description>
             </Dialog.Panel>
           </div>

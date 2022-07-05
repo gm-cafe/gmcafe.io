@@ -44,7 +44,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      sans: ['Hepta Slab', ...defaultTheme.fontFamily.sans],
       gmcafe: ['GMCafe', ...defaultTheme.fontFamily.sans],
     },
   },
