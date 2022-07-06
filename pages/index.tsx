@@ -49,7 +49,7 @@ const Home: NextPage = () => {
         </section>
         <section className="bg-pink px-16 py-4 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
-            <div className="mx-auto w-[28rem] shrink-0 translate-y-[63px]">
+            <div className="z-10 mx-auto w-[28rem] shrink-0 translate-y-[63px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
             </div>
             <div className="mt-12 flex flex-col">
@@ -74,7 +74,9 @@ const Home: NextPage = () => {
                   objectFit="contain"
                 />
               </div>
-              <div className="h-full w-16 translate-x-10 bg-[url('/svgs/squiggle.svg')] bg-contain bg-right bg-no-repeat" />
+              <div className="relative w-32 translate-x-20">
+                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
+              </div>
             </div>
             <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">The Moos</h2>
