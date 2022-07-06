@@ -96,7 +96,7 @@
   background-image: url('/svgs/squiggle.svg'); 
   height: 100%;
   z-index: 1;
-  min-width: 54px;
+  min-width: 51px;
 }
 
 .squiggle-tall {

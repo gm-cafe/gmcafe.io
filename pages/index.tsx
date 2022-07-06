@@ -8,7 +8,6 @@ import randy from '../public/randy.png';
 import genesisHighland from '../public/genesis_highland.png';
 import phase2Brewing from '../public/phase2_brewing.png';
 import faq from '../public/faq.png';
-import squiggle from '../public/svgs/squiggle.svg';
 import lockEm from '../public/lock_em.png';
 import AnimatedPageSection from '../components/AnimatedPageSection';
 import Head from 'next/head';
@@ -157,13 +156,13 @@ const Home: NextPage = () => {
               <h2 className="font-gmcafe text-5xl uppercase text-white">Moogration</h2>
               <p className="mt-6 text-lg font-medium text-white">
                 We started our NFT journey here in the cafe as pure artistic expression, built upon
-                the OpenSeas (ERC-1115) contract. Since then, we’ve all made many new friends and as
+                the OpenSeas (ERC-1155) contract. Since then, we’ve all made many new friends and as
                 a group investigated the best way to grow as a herd. It’s time to stand on our own
                 four hooves.
               </p>
               <p className="mt-6 text-lg font-medium text-white">
                 Over the coming weeks we will be executing our MOOgration from the existing basic
-                contract supplied by OpenSea to our own ERC-712 GMOO contract, complete with
+                contract supplied by OpenSea to our own ERC-721 GMOO contract, complete with
                 additional features like “Barn Safety”, where moos can be safely &quot;locked
                 up&quot; to help prevent theft.
               </p>
@@ -191,7 +190,7 @@ const Home: NextPage = () => {
                   >
                     OpenSea
                   </a>
-                  . Once we migrate the Highland Cows to their own contract, you'll be able to
+                  . Once we migrate the Highland Cows to their own contract, you&apos;ll be able to
                   purchase them across other reputable marketplaces.
                 </p>
                 <p className="mt-4">
@@ -216,7 +215,7 @@ const Home: NextPage = () => {
               <Disclosure question="What rights do I have to my Moo?">
                 <p>You are free to use your moo for personal use!</p>
                 <p className="mt-4">
-                  For commercial use, there are some limitations.{' '}
+                  For commercial use, there are some limitations.
                   <button className="h-6 w-6 rounded-full border-purple font-gmcafe text-purple shadow 2xl:border-[1px]">
                     i
                   </button>
