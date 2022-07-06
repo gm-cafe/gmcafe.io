@@ -3,16 +3,20 @@
 
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import MemberCard, { members } from '../components/MemberCard';
 import mooPeek from '../public/moo_peek.png';
-import moo from '../public/moos/ben.png';
-import keeku from '../public/keeku.png';
+import randy from '../public/randy.png';
+import genesisHighland from '../public/genesis_highland.png';
+import phase2Brewing from '../public/phase2_brewing.png';
+import faq from '../public/faq.png';
+import squiggle from '../public/svgs/squiggle.svg';
+import lockEm from '../public/lock_em.png';
 import AnimatedPageSection from '../components/AnimatedPageSection';
-import Marquee from '../components/Marquee';
 import Head from 'next/head';
-import Disclosure from '../components/Disclosure';
 import Logo from '../components/Logo';
+import Marquee from '../components/Marquee';
+import Disclosure from '../components/Disclosure';
 import Link from 'next/link';
+import MemberCard, { members } from '../components/MemberCard';
 
 const Home: NextPage = () => {
   return (
@@ -42,56 +46,225 @@ const Home: NextPage = () => {
             alt="Clouds Right"
             className="absolute bottom-0 h-full w-full object-cover object-bottom md:object-contain md:object-left"
           />
-          <div className="absolute -bottom-20 my-6 mx-6 sm:mx-12 md:hidden">
-            <h2 className="rounded-lg bg-white px-4 pt-3 pb-2 font-gmcafe text-4xl uppercase text-purple">
-              Good Morning
-            </h2>
-            <h2 className="inline-flex bg-white px-4 pb-3 font-gmcafe text-4xl uppercase text-purple">
-              Patron!
-            </h2>
+        </section>
+        <section className="bg-pink px-16 py-4 2xl:px-0">
+          <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
+            <div className="mx-auto w-[28rem] shrink-0 translate-y-[63px]">
+              <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
+            </div>
+            <div className="mt-12 flex flex-col">
+              <h2 className="font-gmcafe text-8xl uppercase text-white">Howdy!</h2>
+              <h1 className="font-gmcafe text-5xl text-white">
+                Welcome to the characters of the Good Morning Café!
+              </h1>
+            </div>
+            <div className="hidden w-48 shrink-0 translate-y-[100px] xl:block">
+              <Image src={randy} layout="responsive" alt="Randy" />
+            </div>
           </div>
         </section>
-        <AnimatedPageSection
-          id="about"
-          className="bg-white px-10 pt-12 pb-40 sm:px-16 md:pb-28 2xl:px-0"
-        >
-          <div className="mx-auto max-w-screen-2xl">
-            <h2 className="hidden font-gmcafe text-4xl uppercase text-purple md:block md:text-5xl">
-              Good Morning, Patron!
-            </h2>
-            <p className="pt-4 text-lg font-medium text-purple md:text-xl">
-              Welcome to the world and characters of GMCafé, most succulent and tantalising
-              establishment in the metaverse. Come grab a cowffee, chill and unwind in a place where
-              art, authenticity and community are still important.
-            </p>
-            <div className="mx-auto mt-6 grid max-w-screen-2xl">
-              <div className="inline-flex flex-col md:justify-self-end">
-                <span className="text-lg font-bold text-purple md:text-xl">Love,</span>
-                <span className="font-gmcafe text-2xl text-purple md:text-3xl">Ben Colefax</span>
+        <section className="bg-two-tone-gray overflow-x-hidden">
+          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="col-span-1 flex h-full">
+              <div className="relative my-28 flex-1">
+                <Image
+                  src={genesisHighland}
+                  layout="fill"
+                  alt="Genesis Highland"
+                  objectFit="contain"
+                />
+              </div>
+              <div className="h-full w-16 translate-x-10 bg-[url('/svgs/squiggle.svg')] bg-contain bg-right bg-no-repeat" />
+            </div>
+            <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
+              <h2 className="font-gmcafe text-5xl uppercase text-purple">The Moos</h2>
+              <p className="mt-6 text-lg font-medium text-purple">
+                It is said that each Highland Cow chooses its owner using a sophisticated series of
+                vacant stares and whispered moos that connects deeply with the inner personality of
+                the beholder. Your Moo is your membership to “The Herd” - a succulent group of 333
+                similarly minded individuals all MOOving together.
+              </p>
+              <p className="mt-6 text-lg font-medium text-purple">
+                Launched in September 2021, the Highland Cow Genesis collection started as cute
+                artistic expression - a merging of multiple cultures all wrapped up in bovine floof.
+                Each Moo is 1/1 and individually hand drawn by lifelong artist Ben Colefax, to
+                create a truely unique blockchain dwelling entity.
+              </p>
+              <div className="mt-6 flex gap-8">
+                <a
+                  className="rounded-full bg-pink px-4 pt-1 pb-0.5 font-gmcafe text-3xl uppercase text-white"
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://etherscan.io"
+                >
+                  Cow Contract
+                </a>
+                <a
+                  className="rounded-full bg-pink px-4 pt-1 pb-0.5 font-gmcafe text-3xl uppercase text-white"
+                  target="_blank"
+                  rel="noreferrer"
+                  href="https://etherscan.io"
+                >
+                  Buy on OpenSea
+                </a>
               </div>
             </div>
           </div>
+        </section>
+        <AnimatedPageSection className="bg-white py-4 2xl:px-0">
+          <Marquee direction="left" />
+          <Marquee direction="right" />
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-pink px-10 sm:px-16 2xl:px-0">
-          <div className="relative mx-auto flex max-w-screen-2xl flex-col justify-center py-12 md:py-20">
-            <div className="absolute top-0 left-0 w-48 -translate-y-[7.5rem] -translate-x-[20px] md:w-64 md:-translate-y-40 md:translate-x-0">
-              <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
+        <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
+          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="col-span-1 flex h-full">
+              <div className="relative my-32 flex-1">
+                <Image
+                  src={phase2Brewing}
+                  layout="fill"
+                  alt="Phase 2 Brewing"
+                  objectFit="contain"
+                />
+              </div>
+              <div className="relative w-32 translate-x-20">
+                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
+              </div>
             </div>
-            <h1 className="text-left font-gmcafe text-5xl uppercase text-white">About</h1>
-            <p className="mt-4 text-left font-medium text-white md:text-lg">
-              The Good Morning Café is founded on the sturdy pillars of art, tender cuteness, humble
-              commoonity and powerful cowffee. Lovingly drawn into existence by Ben Colefax, these
-              kawaii inspired characters started with a deep love of Parisian macarons, café vibes
-              and a lifelong vision that has converged into one pastel flavoured café.
-            </p>
-            <p className="mt-6 text-left font-medium text-white md:text-lg lg:mt-8">
-              As the ‘GMCafé’ brand expands to include more tantalisingly succulent characters, we
-              invite you to be immersed by our mission to create a safe space for all, with art
-              appreciation and chill community vibes at it’s cute core.
-            </p>
+            <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
+              <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
+              <p className="mt-6 text-lg font-medium text-purple">
+                The Moos are creatures of comfort, luxurious beasts who would prefer to graze
+                endlessly on the cool green grassland of the café estate. However, some cows like to
+                explore. They like to roll down hills, pet chickens, paint masterpieces,
+                accidentally discover whole new species hidden in the earth for 1000’s of years..
+              </p>
+              <p className="mt-6 text-lg font-medium text-purple">
+                Phase 2 is on the brew! A fresh new creature awaits their awakening.
+              </p>
+              <p className="mt-6 text-lg font-medium text-purple">
+                Check the
+                <a className="mx-1 font-semibold underline" href="https://discord.gg/gmcafe">
+                  Discord
+                </a>
+                for more details.
+              </p>
+            </div>
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-white py-4 2xl:px-0">
+        <AnimatedPageSection className="bg-two-tone-purple overflow-x-hidden">
+          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="col-span-1 flex h-full">
+              <div className="relative my-32 flex-1">
+                <Image src={lockEm} layout="fill" alt="Lock 'em in the Barn" objectFit="contain" />
+              </div>
+              <div className="relative w-32 translate-x-20">
+                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
+              </div>
+            </div>
+            <div className="col-span-1 bg-purple py-12 px-24 md:col-span-2 md:py-20">
+              <h2 className="font-gmcafe text-5xl uppercase text-white">Moogration</h2>
+              <p className="mt-6 text-lg font-medium text-white">
+                We started our NFT journey here in the cafe as pure artistic expression, built upon
+                the OpenSeas (ERC-1115) contract. Since then, we’ve all made many new friends and as
+                a group investigated the best way to grow as a herd. It’s time to stand on our own
+                four hooves.
+              </p>
+              <p className="mt-6 text-lg font-medium text-white">
+                Over the coming weeks we will be executing our MOOgration from the existing basic
+                contract supplied by OpenSea to our own ERC-712 GMOO contract, complete with
+                additional features like “Barn Safety”, where moos can be safely &quot;locked
+                up&quot; to help prevent theft.
+              </p>
+            </div>
+          </div>
+        </AnimatedPageSection>
+        <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
+          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="col-span-1 flex h-full">
+              <div className="relative my-48 flex-1">
+                <Image src={faq} layout="fill" alt="FAQ" objectFit="contain" />
+              </div>
+              <div className="relative w-32 translate-x-20">
+                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
+              </div>
+            </div>
+            <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
+              <Disclosure question="How can I get a Genesis Moo?">
+                <p>
+                  You can currently purchase Moos on
+                  <a
+                    className="ml-1.5 underline"
+                    href="https://opensea.io/collection/goodmorningcafe"
+                  >
+                    OpenSea
+                  </a>
+                  . Once we migrate the Moos to their own contract, you&apos;ll be able to purchase
+                  them across other marketplaces.
+                </p>
+                <p>
+                  If you&apos;re interested in a custom Moo, you can open up a ticket in our
+                  <a className="ml-1.5 mr-0.5 underline" href="https://discord.gg/gmcafe">
+                    Discord
+                  </a>
+                  for information on pricing, etc.
+                </p>
+              </Disclosure>
+              <Disclosure question="Will Moos be migrated to their own contract at some point?">
+                <p>
+                  Yes! We are almost set to start migrating. Head over to
+                  <Link href="/checkin">
+                    <a className="ml-1.5 mr-0.5 underline">Check In</a>
+                  </Link>
+                  for more details.
+                </p>
+              </Disclosure>
+              <Disclosure question="What rights do I have to my Moo?">
+                <p>???</p>
+              </Disclosure>
+              <Disclosure question="Is there a roadmap?">
+                <p>
+                  Does soft and tender moo art count? Let’s just say that we are creating a “new
+                  menu” and it looks delicious. Stay close to
+                  <a className="ml-1.5 mr-1 underline" href="https://twitter.com/gmcafeNFT">
+                    Twitter
+                  </a>
+                  and
+                  <a className="ml-1.5 mr-1 underline" href="https://discord.gg/gmcafe">
+                    Discord
+                  </a>
+                  for announcements.
+                </p>
+              </Disclosure>
+              <Disclosure question="When will Phase 2 launch?">
+                <p>
+                  Soon. Keep an eye on our
+                  <a className="ml-1.5 mr-1 underline" href="https://twitter.com/gmcafeNFT">
+                    Twitter
+                  </a>
+                  and
+                  <a className="ml-1.5 mr-1 underline" href="https://discord.gg/gmcafe">
+                    Discord
+                  </a>
+                  for updates.
+                </p>
+              </Disclosure>
+              <Disclosure question="Will holding a Moo give perks for Phase 2?">
+                <p>Yes! Mooooooooore details soon.</p>
+              </Disclosure>
+            </div>
+          </div>
+        </AnimatedPageSection>
+        <AnimatedPageSection id="team" className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
+          <div className="mx-auto flex max-w-screen-2xl flex-col">
+            <h2 className="font-gmcafe text-5xl uppercase text-white">Team</h2>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+              {members.map((member) => (
+                <MemberCard key={member.name} {...member} />
+              ))}
+            </div>
+          </div>
+        </AnimatedPageSection>
+        {/* <AnimatedPageSection className="bg-white py-4 2xl:px-0">
           <Marquee direction="left" />
           <Marquee direction="right" />
         </AnimatedPageSection>
@@ -236,7 +409,7 @@ const Home: NextPage = () => {
               </Disclosure>
             </div>
           </div>
-        </AnimatedPageSection>
+        </AnimatedPageSection> */}
       </main>
       <footer className="flex h-24 w-full items-center justify-center bg-gray-100 py-20">
         <div className="w-36">
