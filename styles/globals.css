@@ -69,3 +69,59 @@
 [data-rk] .ju367v8y {
   width: 5px !important;
 }
+
+.section-container {
+  min-height: 480px;
+  width:100%;
+}
+
+.left-container {
+  height:100%;
+  display: flex;
+}
+
+.container-image {
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.squiggle {
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('/svgs/squiggle.svg'); 
+  height: 100%;
+  z-index: 1;
+  min-width: 54px;
+}
+
+.squiggle-tall {
+  min-width: 60px;
+}
+
+.right-container {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+/* .squiggle:nth-child(1) { */
+  /* width: 50px;
+}
+
+.squiggle:nth-child(2) {
+  width: 54px;
+}
+
+.squiggle:nth-child(3) {
+  width: 55px;
+} */
+
+.squiggle span,
+.squiggle span img {
+  height: 100% !important;
+}

@@ -63,19 +63,17 @@ const Home: NextPage = () => {
             </div>
           </div>
         </section>
-        <section className="bg-two-tone-gray overflow-x-hidden">
-          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
-            <div className="col-span-1 flex h-full">
-              <div className="flex flex-1 items-center">
+        <section className="bg-two-tone-gray overflow-hidden">
+          <div className="section-container mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="left-container bg-gray-100">
+              <div className="container-image">
                 <div className="w-88">
                   <Image src={genesisHighland} layout="responsive" alt="FAQ" />
                 </div>
               </div>
-              <div className="relative w-32 translate-x-20">
-                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
-              </div>
+              <div className="squiggle squiggle-tall"/>
             </div>
-            <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
+            <div className="right-container col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">The Moos</h2>
               <p className="mt-6 text-lg font-medium text-purple">
                 It is said that each Highland Cow chooses its owner using a sophisticated series of
@@ -115,18 +113,16 @@ const Home: NextPage = () => {
           <Marquee direction="right" />
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
-          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
-            <div className="col-span-1 flex h-full">
-              <div className="flex flex-1 items-center">
+          <div className="section-container mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="left-container bg-gray-100">
+              <div className="container-image">
                 <div className="w-88">
                   <Image src={phase2Brewing} layout="responsive" alt="FAQ" />
                 </div>
               </div>
-              <div className="relative w-32 translate-x-20">
-                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
-              </div>
+              <div className="squiggle"/>
             </div>
-            <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
+            <div className="right-container col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
               <p className="mt-6 text-lg font-medium text-purple">
                 The Moos are creatures of comfort, luxurious beasts who would prefer to graze
@@ -148,18 +144,16 @@ const Home: NextPage = () => {
           </div>
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-purple overflow-x-hidden">
-          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
-            <div className="col-span-1 flex h-full">
-              <div className="flex flex-1 items-center">
+          <div className="section-container mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="left-container bg-purple">
+              <div className="container-image">
                 <div className="w-96">
                   <Image src={lockEm} layout="responsive" alt="FAQ" />
                 </div>
               </div>
-              <div className="relative w-32 translate-x-20">
-                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
-              </div>
+              <div className="squiggle"/>    
             </div>
-            <div className="col-span-1 bg-purple py-12 px-24 md:col-span-2 md:py-20">
+            <div className="right-container col-span-1 bg-purple py-12 px-24 md:col-span-2 md:py-20">
               <h2 className="font-gmcafe text-5xl uppercase text-white">Moogration</h2>
               <p className="mt-6 text-lg font-medium text-white">
                 We started our NFT journey here in the cafe as pure artistic expression, built upon
@@ -177,18 +171,16 @@ const Home: NextPage = () => {
           </div>
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
-          <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
-            <div className="col-span-1 flex h-full">
-              <div className="flex flex-1 items-center">
+          <div className="section-container mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
+            <div className="left-container bg-gray-100">
+              <div className="container-image">
                 <div className="w-96">
                   <Image src={faq} layout="responsive" alt="FAQ" />
                 </div>
               </div>
-              <div className="relative w-32 translate-x-20">
-                <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
-              </div>
+              <div className="squiggle"/>    
             </div>
-            <div className="col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
+            <div className="right-container col-span-1 bg-gray-100 py-12 px-24 md:col-span-2 md:py-20">
               <Disclosure question="How can I get a Genesis Moo?">
                 <p>
                   You can currently purchase Moos on
