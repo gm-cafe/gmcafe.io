@@ -108,20 +108,3 @@
   flex-flow: column;
   justify-content: center;
 }
-
-/* .squiggle:nth-child(1) { */
-  /* width: 50px;
-}
-
-.squiggle:nth-child(2) {
-  width: 54px;
-}
-
-.squiggle:nth-child(3) {
-  width: 55px;
-} */
-
-.squiggle span,
-.squiggle span img {
-  height: 100% !important;
-}
