@@ -214,9 +214,12 @@ const Home: NextPage = () => {
                 </p>
               </Disclosure>
               <Disclosure question="What rights do I have to my Moo?">
-                <p>
-                  You are free to use your moo for personal use! For commercial use, there are some
-                  limitations.
+                <p>You are free to use your moo for personal use!</p>
+                <p className="mt-4">
+                  For commercial use, there are some limitations.{' '}
+                  <button className="h-6 w-6 rounded-full border-purple font-gmcafe text-purple shadow 2xl:border-[1px]">
+                    i
+                  </button>
                 </p>
               </Disclosure>
               <Disclosure question="Is there a roadmap?">
