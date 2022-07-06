@@ -67,7 +67,7 @@ const Home: NextPage = () => {
           <div className="section-container mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="left-container bg-gray-100">
               <div className="container-image">
-                <div className="w-88">
+                <div className="w-96">
                   <Image src={genesisHighland} layout="responsive" alt="FAQ" />
                 </div>
               </div>
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
           <div className="section-container mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="left-container bg-gray-100">
               <div className="container-image">
-                <div className="w-88">
+                <div className="w-96">
                   <Image src={phase2Brewing} layout="responsive" alt="FAQ" />
                 </div>
               </div>
