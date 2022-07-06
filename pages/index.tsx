@@ -66,13 +66,10 @@ const Home: NextPage = () => {
         <section className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="col-span-1 flex h-full">
-              <div className="relative my-28 flex-1">
-                <Image
-                  src={genesisHighland}
-                  layout="fill"
-                  alt="Genesis Highland"
-                  objectFit="contain"
-                />
+              <div className="flex flex-1 items-center">
+                <div className="w-88">
+                  <Image src={genesisHighland} layout="responsive" alt="FAQ" />
+                </div>
               </div>
               <div className="relative w-32 translate-x-20">
                 <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
@@ -120,13 +117,10 @@ const Home: NextPage = () => {
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="col-span-1 flex h-full">
-              <div className="relative my-32 flex-1">
-                <Image
-                  src={phase2Brewing}
-                  layout="fill"
-                  alt="Phase 2 Brewing"
-                  objectFit="contain"
-                />
+              <div className="flex flex-1 items-center">
+                <div className="w-88">
+                  <Image src={phase2Brewing} layout="responsive" alt="FAQ" />
+                </div>
               </div>
               <div className="relative w-32 translate-x-20">
                 <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
@@ -156,8 +150,10 @@ const Home: NextPage = () => {
         <AnimatedPageSection className="bg-two-tone-purple overflow-x-hidden">
           <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="col-span-1 flex h-full">
-              <div className="relative my-32 flex-1">
-                <Image src={lockEm} layout="fill" alt="Lock 'em in the Barn" objectFit="contain" />
+              <div className="flex flex-1 items-center">
+                <div className="w-96">
+                  <Image src={lockEm} layout="responsive" alt="FAQ" />
+                </div>
               </div>
               <div className="relative w-32 translate-x-20">
                 <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
@@ -183,8 +179,10 @@ const Home: NextPage = () => {
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="col-span-1 flex h-full">
-              <div className="relative my-48 flex-1">
-                <Image src={faq} layout="fill" alt="FAQ" objectFit="contain" />
+              <div className="flex flex-1 items-center">
+                <div className="w-96">
+                  <Image src={faq} layout="responsive" alt="FAQ" />
+                </div>
               </div>
               <div className="relative w-32 translate-x-20">
                 <Image src={squiggle} layout="fill" objectFit="fill" alt="" />
