@@ -31,6 +31,10 @@
   background-image: linear-gradient(to right, #FFFFFF 50%, #8946AB 50%);
 }
 
+.text-shadow {
+  text-shadow: 0 4px 2px #e1a4cc;
+}
+
 @media (min-width: 768px) {
   .clip-home-section {
     clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);

@@ -5,6 +5,7 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import mooPeek from '../public/moo_peek.png';
 import randy from '../public/randy.png';
+import egg from '../public/egg.png';
 import genesisHighland from '../public/genesis_highland.png';
 import phase2Brewing from '../public/phase2_brewing.png';
 import faq from '../public/faq.png';
@@ -47,7 +48,7 @@ const Home: NextPage = () => {
         </section>
         <section className="bg-pink px-16 py-4 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
-            <div className="z-10 mx-auto w-[28rem] shrink-0 translate-y-[63px]">
+            <div className="z-20 mx-auto w-[28rem] shrink-0 translate-y-[63px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
             </div>
             <div className="mt-12 flex flex-col">
@@ -64,9 +65,9 @@ const Home: NextPage = () => {
         <section className="bg-two-tone-gray overflow-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="flex h-full bg-white">
-              <div className="flex h-full flex-1 items-center">
+              <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-88">
-                  <Image src={genesisHighland} layout="responsive" alt="FAQ" />
+                  <Image src={genesisHighland} layout="responsive" alt="Genesis Highland" />
                 </div>
               </div>
               <div className="squiggle min-w-[60px] bg-gray-100" />
@@ -87,7 +88,7 @@ const Home: NextPage = () => {
               </p>
               <div className="mt-6 flex gap-8">
                 <a
-                  className="rounded-full bg-pink px-4 pt-1 pb-0.5 font-gmcafe text-3xl uppercase text-white"
+                  className="text-shadow rounded-full bg-pink-light px-4 pt-1 pb-0.5 font-gmcafe text-3xl uppercase text-white"
                   target="_blank"
                   rel="noreferrer"
                   href="https://etherscan.io"
@@ -95,7 +96,7 @@ const Home: NextPage = () => {
                   Cow Contract
                 </a>
                 <a
-                  className="rounded-full bg-pink px-4 pt-1 pb-0.5 font-gmcafe text-3xl uppercase text-white"
+                  className="text-shadow rounded-full bg-pink-light px-4 pt-1 pb-0.5 font-gmcafe text-3xl uppercase text-white"
                   target="_blank"
                   rel="noreferrer"
                   href="https://etherscan.io"
@@ -113,9 +114,9 @@ const Home: NextPage = () => {
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="flex h-full bg-white">
-              <div className="flex h-full flex-1 items-center">
+              <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-88">
-                  <Image src={phase2Brewing} layout="responsive" alt="FAQ" />
+                  <Image src={phase2Brewing} layout="responsive" alt="Phase 2 Brewing" />
                 </div>
               </div>
               <div className="squiggle bg-gray-100" />
@@ -144,9 +145,9 @@ const Home: NextPage = () => {
         <AnimatedPageSection className="bg-two-tone-purple overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="flex h-full bg-white">
-              <div className="flex h-full flex-1 items-center">
+              <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-88">
-                  <Image src={lockEm} layout="responsive" alt="FAQ" />
+                  <Image src={lockEm} layout="responsive" alt="Lock 'Em in the Barn" />
                 </div>
               </div>
               <div className="squiggle bg-purple" />
@@ -171,7 +172,7 @@ const Home: NextPage = () => {
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center px-10 sm:px-16 md:grid-cols-3 2xl:px-0">
             <div className="flex h-full bg-white">
-              <div className="flex h-full flex-1 items-center">
+              <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-88">
                   <Image src={faq} layout="responsive" alt="FAQ" />
                 </div>
@@ -184,7 +185,10 @@ const Home: NextPage = () => {
           </div>
         </AnimatedPageSection>
         <AnimatedPageSection id="team" className="bg-pink py-16 px-10 sm:px-16 2xl:px-0">
-          <div className="mx-auto flex max-w-screen-2xl flex-col">
+          <div className="relative mx-auto flex max-w-screen-2xl flex-col">
+            <div className="absolute top-0 right-0 z-0 w-36 -translate-y-[100px]">
+              <Image src={egg} layout="responsive" alt="Egg" />
+            </div>
             <h2 className="font-gmcafe text-5xl uppercase text-white">Team</h2>
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
               {members.map((member) => (
@@ -199,25 +203,27 @@ const Home: NextPage = () => {
           <div className="flex flex-grow flex-col justify-end">
             <div className="flex gap-4">
               <a
-                className="rounded-full bg-pink px-5 pt-1 font-gmcafe text-3xl uppercase text-white shadow"
+                className="text-shadow rounded-full bg-pink-light px-5 pt-1 font-gmcafe text-3xl uppercase text-white"
                 href="https://discord.gg/gmcafe"
               >
                 Discord
               </a>
               <a
-                className="rounded-full bg-pink px-5 pt-1 font-gmcafe text-3xl uppercase text-white shadow"
+                className="text-shadow rounded-full bg-pink-light px-5 pt-1 font-gmcafe text-3xl uppercase text-white"
                 href="https://twitter.com/gmcafeNFT"
               >
                 Twitter
               </a>
               <a
-                className="rounded-full bg-pink px-5 pt-1 font-gmcafe text-3xl uppercase text-white shadow"
+                className="text-shadow rounded-full bg-pink-light px-5 pt-1 font-gmcafe text-3xl uppercase text-white"
                 href="https://discord.gg/gmcafe"
               >
                 OpenSea
               </a>
             </div>
-            <h2 className="pb-4 font-gmcafe text-9xl uppercase text-pink">Join the Herd</h2>
+            <h2 className="font-gmcafe text-10xl uppercase leading-none text-pink">
+              Join the Herd
+            </h2>
           </div>
           <div className="w-96 shrink-0">
             <Image src={highFive} layout="responsive" alt="Moos High Five" />

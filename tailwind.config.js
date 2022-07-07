@@ -9,7 +9,7 @@ module.exports = {
         blue: '#80e5ff',
         'green-light': '#cdfff0',
         green: '#a1ffe4',
-        'pink-light': '#ffc7e5',
+        'pink-light': '#f4bbd8',
         pink: '#ff7dbd',
         'purple-light': '#f4dffe',
         purple: '#8946ab',
@@ -42,6 +42,9 @@ module.exports = {
       },
       animation: {
         section: 'section 1s',
+      },
+      fontSize: {
+        '10xl': '10rem',
       },
     },
     fontFamily: {
