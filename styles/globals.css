@@ -70,25 +70,6 @@
   width: 5px !important;
 }
 
-.section-container {
-  min-height: 480px;
-  width:100%;
-}
-
-.left-container {
-  height:100%;
-  display: flex;
-}
-
-.container-image {
-  height: 100%;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  flex: 1;
-  z-index:1;
-}
-
 .squiggle {
   background-size: auto 100%;
   background-repeat: no-repeat;
@@ -97,15 +78,4 @@
   height: 100%;
   z-index: 1;
   min-width: 51px;
-}
-
-.squiggle-tall {
-  min-width: 60px;
-}
-
-.right-container {
-  height: 100%;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
 }

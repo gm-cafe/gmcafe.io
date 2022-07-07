@@ -16,6 +16,7 @@ module.exports = {
         'orange-light': '#fef0e5',
         'yellow-light': '#fffeca',
         discord: '#5865F2',
+        grass: '#acfad3',
       },
       screens: {
         screen: '2000px',
