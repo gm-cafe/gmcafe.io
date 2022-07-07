@@ -16,14 +16,14 @@ const Disclosure = ({ question, children, index, open, setOpen }: DisclosureProp
 
   return (
     <div>
-      <button className="mt-2 flex items-center font-gmcafe text-3xl text-purple" onClick={onClick}>
+      <button className="mt-2 flex font-gmcafe text-2xl text-purple xl:text-3xl" onClick={onClick}>
         <ChevronRightIcon
           className={classNames(
             { 'rotate-90 transform': isOpen },
-            'h-8 w-8 text-purple transition-transform'
+            'h-8 w-8 shrink-0 text-purple transition-transform'
           )}
         />
-        <span className="ml-2">{question}</span>
+        <span className="ml-2 text-left">{question}</span>
       </button>
       {isOpen && <div className="my-2 ml-10 text-purple">{children}</div>}
     </div>

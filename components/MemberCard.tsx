@@ -72,7 +72,7 @@ const MemberCard = ({ name, title, description, image, twitter }: MemberCardProp
   return (
     <div className="flex flex-col rounded-lg bg-white px-4 py-6 text-left shadow shadow-pink-light">
       <div className="relative mx-auto w-40 lg:w-52 2xl:w-60">
-        <div className="relative z-10 h-40 w-40 overflow-hidden rounded-full lg:h-52 lg:w-52 2xl:h-60 2xl:w-60">
+        <div className="relative z-10 h-40 w-40 overflow-hidden rounded-full lg:h-48 lg:w-48 2xl:h-60 2xl:w-60">
           <Image
             src={image}
             layout="fill"
@@ -81,7 +81,11 @@ const MemberCard = ({ name, title, description, image, twitter }: MemberCardProp
             alt={name}
           />
         </div>
-        <a className="absolute right-0 bottom-0" href={twitter} target="blank">
+        <a
+          className="absolute right-0 bottom-0 sm:right-2 sm:bottom-2 2xl:right-0 2xl:bottom-0"
+          href={twitter}
+          target="blank"
+        >
           <TwitterIcon className="mx-1 h-4 w-4 lg:h-5 lg:w-5 2xl:h-6 2xl:w-6" />
         </a>
       </div>
