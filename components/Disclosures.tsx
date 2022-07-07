@@ -17,7 +17,7 @@ const Disclosures = () => {
           . Once we migrate the Highland Cows to their own contract, you&apos;ll be able to purchase
           them across other reputable marketplaces.
         </p>
-        <p className="mt-4">
+        <p className="mt-2">
           The second, and only way to still get an original artist-issued Genesis moo, is via
           “Custom Moo”. Custom moos are designed by Ben using your ideas and inspiration and can be
           requested in the #support channel in the
@@ -48,11 +48,11 @@ const Disclosures = () => {
         question="What rights do I have to my Moo?"
       >
         <p>You are free to use your moo for personal use!</p>
-        <p className="mt-4">
+        <p className="mt-2">
           For commercial use, there are some limitations.
-          <button className="mx-1 h-6 w-6 rounded-full border-4 border-purple font-gmcafe leading-4 text-purple shadow">
-            i
-          </button>
+          <Link href="/rights">
+            <a className="ml-1.5 mr-0.5 underline">Learn More.</a>
+          </Link>
         </p>
       </Disclosure>
       <Disclosure index={3} open={open} setOpen={setOpen} question="Is there a roadmap?">
@@ -62,7 +62,7 @@ const Disclosures = () => {
           set for over 10 years, so roadmaps are less important when basically your whole career has
           been dedicated to it.
         </p>
-        <p className="mt-4">
+        <p className="mt-2">
           Our only realistic promise is original and passionate artistic expression and being part
           of this new phase of popular art culture.
         </p>

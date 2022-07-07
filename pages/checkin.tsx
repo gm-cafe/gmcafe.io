@@ -94,7 +94,7 @@ const CheckIn: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Good Morning Café | Check In</title>
+        <title>Check In</title>
       </Head>
       <main className="h-screen overflow-hidden bg-pink-light">
         <section className="relative flex h-full flex-col items-center justify-end">

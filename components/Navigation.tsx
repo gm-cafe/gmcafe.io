@@ -1,12 +1,20 @@
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
-import { Popover } from '@headlessui/react';
 import mobileNavFooter from '../public/mobile-nav-footer.png';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import NavigationItem from './NavigationItem';
+import { Dispatch, SetStateAction } from 'react';
+import Link from 'next/link';
 
-const Navigation = () => {
+type NavigationProps = {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+const Navigation = ({ open, setOpen }: NavigationProps) => {
   const router = useRouter();
+
+  const close = () => setOpen(false);
 
   const isHome = router.pathname === '/';
 
@@ -15,7 +23,7 @@ const Navigation = () => {
       <div className="mx-auto flex h-full max-w-screen-2xl">
         <div className="flex flex-grow basis-0 items-center justify-evenly">
           <NavigationItem href={isHome ? '#home' : '/'}>Home</NavigationItem>
-          <NavigationItem href={isHome ? '#about' : '/'}>About</NavigationItem>
+          <NavigationItem href={isHome ? '#faq' : '/'}>FAQ</NavigationItem>
           <NavigationItem href={isHome ? '#team' : '/'}>Team</NavigationItem>
         </div>
         <div className="w-52" />
@@ -30,47 +38,43 @@ const Navigation = () => {
 
   const mobileNavigationItems = (
     <div className="flex h-16 justify-end bg-pink px-4 md:hidden">
-      <Popover className="flex items-center">
-        <Popover.Button>
-          {({ open }) =>
-            open ? (
-              <XIcon className="m-1 h-8 w-8 text-white"></XIcon>
-            ) : (
-              <MenuIcon className="m-1 h-8 w-8 text-white" />
-            )
-          }
-        </Popover.Button>
-        <Popover.Panel className="mobile-nav-height fixed top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col bg-purple-light focus:outline-none">
-          {({ close }) => (
-            <>
-              <div className="mb-6 h-24">
-                <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
-              </div>
-              <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
-                Home
-              </NavigationItem>
-              <NavigationItem href={isHome ? '#about' : '/'} type="mobile" close={close}>
-                About
-              </NavigationItem>
-              <NavigationItem href={isHome ? '#team' : '/'} type="mobile" close={close}>
-                Team
-              </NavigationItem>
-              <NavigationItem href="/checkin" type="mobile" close={close}>
-                Check In
-              </NavigationItem>
-              <NavigationItem href="https://traits.gmcafe.io" type="mobile" close={close}>
-                Traits
-              </NavigationItem>
-              <NavigationItem href="https://banners.gmcafe.io" type="mobile" close={close}>
-                Banners
-              </NavigationItem>
-              <div className="mt-auto">
-                <Image src={mobileNavFooter} layout="responsive" alt="Mobile Navigation Footer" />
-              </div>
-            </>
+      <div className="flex items-center">
+        <button onClick={() => setOpen(!open)}>
+          {open ? (
+            <XIcon className="m-1 h-8 w-8 text-white"></XIcon>
+          ) : (
+            <MenuIcon className="m-1 h-8 w-8 text-white" />
           )}
-        </Popover.Panel>
-      </Popover>
+        </button>
+        {open && (
+          <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col overflow-y-hidden bg-purple-light focus:outline-none">
+            <div className="mb-4 h-24 shrink-0">
+              <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
+            </div>
+            <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+              Home
+            </NavigationItem>
+            <NavigationItem href={isHome ? '#faq' : '/'} type="mobile" close={close}>
+              FAQ
+            </NavigationItem>
+            <NavigationItem href={isHome ? '#team' : '/'} type="mobile" close={close}>
+              Team
+            </NavigationItem>
+            <NavigationItem href="/checkin" type="mobile" close={close}>
+              Check In
+            </NavigationItem>
+            <NavigationItem href="https://traits.gmcafe.io" type="mobile" close={close}>
+              Traits
+            </NavigationItem>
+            <NavigationItem href="https://banners.gmcafe.io" type="mobile" close={close}>
+              Banners
+            </NavigationItem>
+            <div className="mt-auto">
+              <Image src={mobileNavFooter} layout="responsive" alt="Mobile Navigation Footer" />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 
@@ -78,7 +82,11 @@ const Navigation = () => {
     <nav className="absolute z-30 flex w-full flex-col">
       {desktopNavigationItems}
       {mobileNavigationItems}
-      <Logo className="absolute left-0 right-0 z-20 mx-auto h-32" />
+      <Link href="/">
+        <a className="absolute left-0 right-0 z-20 mx-auto">
+          <Logo className="absolute left-0 right-0 z-20 mx-auto h-32" />
+        </a>
+      </Link>
       <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
       <div className="absolute bottom-0 z-10 hidden h-20 w-full translate-y-20 md:flex">
         <div className="bg-[size:100&_auto] flex-grow bg-[url('/svgs/awning.svg')] bg-right bg-repeat-x" />

@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import classNames from 'classnames';
+import { ReactNode, useState } from 'react';
 import Navigation from './Navigation';
 
 type LayoutProps = {
@@ -6,10 +7,11 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => {
+  const [navOpen, setNavOpen] = useState(false);
   return (
     <>
-      <Navigation />
-      {children}
+      <Navigation open={navOpen} setOpen={setNavOpen} />
+      <div className={classNames('h-screen', { 'overflow-y-hidden': navOpen })}>{children}</div>
     </>
   );
 };

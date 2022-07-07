@@ -24,11 +24,8 @@ const Home: NextPage = () => {
       <Head>
         <title>Good Morning Café</title>
       </Head>
-      <main className="scroll-smooth pt-16">
-        <section
-          id="home"
-          className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x"
-        >
+      <main id="home" className="scroll-smooth pt-16">
+        <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
           <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-16 md:h-auto">
             <img
               src="banner.png"
@@ -47,12 +44,12 @@ const Home: NextPage = () => {
             className="absolute bottom-0 h-full w-full object-cover object-bottom md:object-contain md:object-left"
           />
         </section>
-        <section className="bg-pink px-10 sm:px-16 py-4 2xl:px-0">
+        <section className="bg-pink px-10 py-4 sm:px-16 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
             <div className="z-20 mx-auto w-72 shrink-0 translate-y-[46.5px] sm:w-[28rem] sm:translate-y-[63.5px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
             </div>
-            <div className="mt-12 flex flex-col">
+            <div className="my-12 flex flex-col">
               <h2 className="font-gmcafe text-8xl uppercase text-white">Howdy!</h2>
               <h1 className="font-gmcafe text-5xl text-white">
                 Welcome to the characters of the Good Morning Café!
@@ -158,7 +155,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
+        <AnimatedPageSection id="faq" className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
@@ -168,7 +165,7 @@ const Home: NextPage = () => {
               </div>
               <div className="squiggle hidden min-w-[55px] bg-gray-100 md:block" />
             </div>
-            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 py-12 px-10 md:col-span-2 md:py-20 md:pl-20 lg:pl-14 lg:pr-10 2xl:px-24">
+            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 pt-12 pb-16 sm:py-12 md:col-span-2 md:py-20 md:pl-20 lg:pl-14 lg:pr-10 2xl:px-24">
               <Disclosures />
             </div>
           </div>
@@ -188,18 +185,18 @@ const Home: NextPage = () => {
         </AnimatedPageSection>
       </main>
       <footer className="relative flex w-full items-center justify-center overflow-hidden bg-gray-100 pb-12 pt-4">
-        <div className="mx-auto flex max-w-screen-2xl gap-8 px-10">
+        <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-10 sm:flex-row sm:gap-8">
           <div className="flex flex-grow flex-col justify-end">
             <div className="flex gap-4">
               <AnchorLink href="https://discord.gg/gmcafe">Discord</AnchorLink>
               <AnchorLink href="https://twitter.com/gmcafeNFT">Twitter</AnchorLink>
               <AnchorLink href="https://opensea.io/collection/goodmorningcafe">OpenSea</AnchorLink>
             </div>
-            <h2 className="mb-6 mt-2 text-center font-gmcafe text-6xl uppercase leading-none text-purple sm:mt-0 sm:text-left sm:text-7xl xl:mb-0 xl:text-9xl 2xl:text-10xl">
+            <h2 className="mt-2 text-center font-gmcafe text-6xl uppercase leading-none text-purple sm:mb-6 sm:mt-0 sm:text-left sm:text-7xl xl:mb-0 xl:text-9xl 2xl:text-10xl">
               Join the Herd
             </h2>
           </div>
-          <div className="hidden w-48 sm:block md:w-64 xl:w-88 2xl:w-96">
+          <div className="w-60 sm:block sm:w-48 md:w-64 xl:w-88 2xl:w-96">
             <Image src={highFive} layout="responsive" alt="Moos High Five" />
           </div>
         </div>

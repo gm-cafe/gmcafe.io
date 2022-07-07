@@ -70,13 +70,12 @@ export const members: MemberCardProps[] = [
 
 const MemberCard = ({ name, title, description, image, twitter }: MemberCardProps) => {
   return (
-    <div className="flex flex-col rounded-lg bg-white px-4 py-6 text-left shadow shadow-pink-light">
-      <div className="relative mx-auto w-40 lg:w-52 2xl:w-60">
-        <div className="relative z-10 h-40 w-40 overflow-hidden rounded-full lg:h-48 lg:w-48 2xl:h-60 2xl:w-60">
+    <div className="flex flex-col rounded-lg bg-white px-4 py-6 text-left shadow shadow-pink-light transition-transform hover:scale-105">
+      <div className="relative flex justify-center px-8 sm:px-0">
+        <div className="z-10 w-full overflow-hidden rounded-full">
           <Image
             src={image}
-            layout="fill"
-            objectFit="cover"
+            layout="responsive"
             onContextMenu={(e) => e.preventDefault()}
             alt={name}
           />
