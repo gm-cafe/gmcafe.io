@@ -44,7 +44,7 @@ module.exports = {
         section: 'section 1s',
       },
       fontSize: {
-        '10xl': '12rem',
+        '10xl': '11.5rem',
       },
     },
     fontFamily: {
