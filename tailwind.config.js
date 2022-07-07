@@ -17,6 +17,8 @@ module.exports = {
         'yellow-light': '#fffeca',
         discord: '#5865F2',
         grass: '#acfad3',
+        twitter: '#1d9bf0',
+        opensea: '#2081E2',
       },
       screens: {
         screen: '2000px',

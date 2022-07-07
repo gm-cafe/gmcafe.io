@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { useState } from 'react';
 import Disclosure from './Disclosure';
+import { Discord, Internal, OpenSea, Twitter } from './StyledLinks';
 
 const Disclosures = () => {
   const [open, setOpen] = useState<number | null>(null);
@@ -10,21 +10,14 @@ const Disclosures = () => {
       <Disclosure index={0} open={open} setOpen={setOpen} question="How can I get a Genesis Moo?">
         <p>
           There are currently two ways now to obtain a moo and only one way to get an artist-issued
-          moo. The first way is on the secondary market via
-          <a className="ml-1.5 underline" href="https://opensea.io/collection/goodmorningcafe">
-            OpenSea
-          </a>
-          . Once we migrate the Highland Cows to their own contract, you&apos;ll be able to purchase
-          them across other reputable marketplaces.
+          moo. The first way is on the secondary market via <OpenSea />. Once we migrate the
+          Highland Cows to their own contract, you&apos;ll be able to purchase them across other
+          reputable marketplaces.
         </p>
         <p className="mt-2">
           The second, and only way to still get an original artist-issued Genesis moo, is via
           “Custom Moo”. Custom moos are designed by Ben using your ideas and inspiration and can be
-          requested in the #support channel in the
-          <a className="ml-1.5 mr-0.5 underline" href="https://discord.gg/gmcafe">
-            Discord
-          </a>
-          .
+          requested in the #support channel in the <Discord />.
         </p>
       </Disclosure>
       <Disclosure
@@ -34,11 +27,8 @@ const Disclosures = () => {
         question="Will Moos be migrated to their own contract?"
       >
         <p>
-          Yes! We are almost set to start migrating. Head over to
-          <Link href="/checkin">
-            <a className="ml-1.5 mr-0.5 underline">Check In</a>
-          </Link>
-          for more details.
+          Yes! We are almost set to start migrating. Head over to{' '}
+          <Internal href="/checkin">Check In</Internal> for more details.
         </p>
       </Disclosure>
       <Disclosure
@@ -49,10 +39,8 @@ const Disclosures = () => {
       >
         <p>You are free to use your moo for personal use!</p>
         <p className="mt-2">
-          For commercial use, there are some limitations.
-          <Link href="/rights">
-            <a className="ml-1.5 mr-0.5 underline">Learn More.</a>
-          </Link>
+          For commercial use, there are some limitations.{' '}
+          <Internal href="/rights">Learn More</Internal>
         </p>
       </Disclosure>
       <Disclosure index={3} open={open} setOpen={setOpen} question="Is there a roadmap?">
@@ -69,15 +57,8 @@ const Disclosures = () => {
       </Disclosure>
       <Disclosure index={4} open={open} setOpen={setOpen} question="When will Phase 2 launch?">
         <p>
-          Phase 2 will soon be added to the menu and we hope it’s delicious. Stay close to
-          <a className="ml-1.5 mr-1 underline" href="https://twitter.com/gmcafeNFT">
-            Twitter
-          </a>
-          and
-          <a className="ml-1.5 mr-1 underline" href="https://discord.gg/gmcafe">
-            Discord
-          </a>
-          for announcements and updates.
+          Phase 2 will soon be added to the menu and we hope it’s delicious. Stay close to{' '}
+          <Twitter /> and <Discord /> for announcements and updates.
         </p>
       </Disclosure>
       <Disclosure

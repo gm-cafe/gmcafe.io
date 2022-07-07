@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { Discord } from '../components/StyledLinks';
 import highFive from '../public/high_five.png';
 
 const Rights = () => {
@@ -20,7 +21,7 @@ const Rights = () => {
             <p>
               If you can&apos;t be bothered reading on - basically if you wanna use the Moos for
               personal, go right ahead! If it&apos;s for commercial use, please send Ben a message
-              using #support in the Discord.
+              using #support in the <Discord />.
             </p>
             <p>How to use the Moo art for your own personal, non-commercial use:</p>
             <ul className="list-inside list-disc">
@@ -52,7 +53,7 @@ const Rights = () => {
             <ul className="list-inside list-disc">
               <li>
                 For any commercial use (including NFT derivatives), please contact the team via
-                #support in the Discord.
+                #support in the <Discord />.
               </li>
             </ul>
           </section>
