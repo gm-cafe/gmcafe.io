@@ -231,7 +231,9 @@ const Home: NextPage = () => {
         </div>
         <div className="absolute bottom-0 flex w-full flex-col justify-end">
           <div className="h-20 w-full bg-[url('/fence.png')] bg-[length:400px_auto] bg-bottom bg-repeat-x" />
-          <div className="h-10 bg-grass" />
+          <div className="flex h-10 items-end justify-center bg-grass pb-2 text-xs">
+            © 2022 Colefax Corp.
+          </div>
         </div>
       </footer>
     </>

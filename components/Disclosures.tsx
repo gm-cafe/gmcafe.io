@@ -31,7 +31,7 @@ const Disclosures = () => {
         index={1}
         open={open}
         setOpen={setOpen}
-        question="Will Moos be migrated to their own contract at some point?"
+        question="Will Moos be migrated to their own contract?"
       >
         <p>
           Yes! We are almost set to start migrating. Head over to

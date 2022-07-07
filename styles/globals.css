@@ -77,7 +77,7 @@
 .squiggle {
   background-size: auto 100%;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 75%;
   background-image: url('/svgs/squiggle.svg'); 
   height: 100%;
   z-index: 1;
