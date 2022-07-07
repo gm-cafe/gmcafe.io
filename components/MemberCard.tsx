@@ -70,7 +70,7 @@ export const members: MemberCardProps[] = [
 
 const MemberCard = ({ name, title, description, image, twitter }: MemberCardProps) => {
   return (
-    <div className="flex flex-col rounded-lg bg-white px-4 py-6 text-left shadow shadow-pink-light transition-transform hover:scale-105">
+    <div className="flex flex-col rounded-lg bg-white px-4 py-6 text-left shadow shadow-pink-light transition-transform betterhover:hover:scale-105">
       <div className="relative flex justify-center px-8 sm:px-0">
         <div className="z-10 w-full overflow-hidden rounded-full">
           <Image

@@ -20,6 +20,8 @@ module.exports = {
       },
       screens: {
         screen: '2000px',
+        // disables hover on mobile devices
+        betterhover: { raw: '(hover: hover)' },
       },
       backgroundImage: {
         'banner-repeat': "url('../public/bg_repeat.png')",
