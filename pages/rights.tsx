@@ -12,7 +12,7 @@ const Rights = () => {
       <div className="flex min-h-screen flex-col">
         <main className="flex-1 bg-gray-100 pt-48 text-lg font-medium text-purple">
           <section className="mx-10 flex max-w-screen-xl flex-col gap-6 xl:mx-auto">
-            <h1 className="text-center font-gmcafe text-8xl">Commercial Rights</h1>
+            <h1 className="text-center font-gmcafe text-7xl sm:text-8xl">Commercial Rights</h1>
             <p className="mt-8">
               The GMCafé is essentially over 30 years of artistic learnings and tribulations bundled
               into cute cows. These moos are an important part of Ben&apos;s art journey - thank you

@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { Dialog, Transition } from '@headlessui/react';
 import Head from 'next/head';
 import { XIcon } from '@heroicons/react/solid';
+import { Discord } from '../components/StyledLinks';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
@@ -100,7 +101,7 @@ const CheckIn: NextPage = () => {
         <section className="relative flex h-full flex-col items-center justify-end">
           <Transition
             show={isShowing}
-            className="z-30 mx-auto h-52 w-56 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-x-[22.5rem] 2xl:translate-y-56"
+            className="z-30 mx-auto h-72 w-72 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[19rem] 2xl:w-[23rem] 2xl:translate-x-[22.5rem] 2xl:translate-y-56"
             enter="transition duration-200"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
@@ -109,7 +110,7 @@ const CheckIn: NextPage = () => {
             leaveTo="opacity-0"
           >
             <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
-              <p className="max-w-full pb-2 text-center font-gmcafe text-lg font-semibold text-purple md:text-2xl 2xl:text-3xl">
+              <p className="max-w-full pb-2 text-center font-gmcafe text-xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
                 {message}
               </p>
             </div>
@@ -152,38 +153,33 @@ const CheckIn: NextPage = () => {
         </section>
         <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <Dialog.Panel className="relative mx-8 w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-12 text-left align-middle shadow-xl transition-all">
+            <Dialog.Panel className="relative mx-8 w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-12 text-left align-middle text-purple shadow-xl transition-all">
               <XIcon
-                className="absolute top-6 right-6 h-8 w-8 cursor-pointer text-purple"
+                className="absolute top-6 right-6 h-8 w-8 cursor-pointer"
                 onClick={() => setIsDialogOpen(false)}
               />
-              <Dialog.Title className="mb-4 font-gmcafe text-4xl uppercase text-purple">
+              <Dialog.Title className="mb-4 font-gmcafe text-4xl uppercase">
                 What is this?
               </Dialog.Title>
               <Dialog.Description>
-                <p className="">
-                  The Great Moogration is happening! Cows are finally being migrated to their own
-                  custom contract.
-                </p>
-                <p className="mt-3">
-                  Clicking &apos;Check In&apos; will help us take attendance of all currently active
-                  Herd members in the space. This will help us determine how long to keep the
-                  migration time window open for.
-                </p>
-                <p className="mt-3">
-                  After the migration phase ends, anyone who does not successfully migrate by the
-                  deadline will have their cow(s) automatically minted to the Admin wallet. To claim
-                  your cow later, please open up a ticket in [
-                  <a href="https://discord.gg/gmcafe" target="_blank" rel="noreferrer">
-                    Discord
-                  </a>
-                  ] for next steps. Your cow will not be lost.
-                </p>
-                <p className="mt-3">
-                  The sooner we can complete the migration, the sooner we can delist the old
-                  collection on OpenSea to prevent any confusion.
-                </p>
+                The Great Moogration is happening! Cows are finally being migrated to their own
+                custom contract.
               </Dialog.Description>
+              <p className="mt-3">
+                Clicking <span className="font-semibold">Check In</span> will help us take
+                attendance of all currently active Herd members in the space. This will help us
+                determine how long to keep the migration time window open for.
+              </p>
+              <p className="mt-3">
+                After the migration phase ends, anyone who does not successfully migrate by the
+                deadline will have their cow(s) automatically minted to the Admin wallet. To claim
+                your cow later, please open up a ticket in <Discord /> for next steps. Your cow will
+                not be lost.
+              </p>
+              <p className="mt-3">
+                The sooner we can complete the migration, the sooner we can delist the old
+                collection on OpenSea to prevent any confusion.
+              </p>
             </Dialog.Panel>
           </div>
         </Dialog>
