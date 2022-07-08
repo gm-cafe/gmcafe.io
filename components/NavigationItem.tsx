@@ -28,7 +28,7 @@ const NavigationItem = (
   const className = classNames(
     'font-gmcafe uppercase',
     { 'text-white text-2xl transition duration-500 hover:text-pink-light': type === 'desktop' },
-    { 'p-3 text-3xl text-center text-purple opacity-30': type === 'mobile' },
+    { 'text-5xl text-center text-purple text-border-white': type === 'mobile' },
     { 'cursor-pointer': isAnchor }
   );
 

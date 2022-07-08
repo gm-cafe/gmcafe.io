@@ -25,6 +25,10 @@
   text-shadow: 0 4px 2px #e1a4cc;
 }
 
+.text-border-white {
+  text-shadow: 6px 0 0 #fff, -6px 0 0 #fff, 0 6px 0 #fff, 0 -6px 0 #fff, 4px 4px #fff, -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff;
+}
+
 @media (min-width: 768px) {
   .clip-home-section {
     clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);

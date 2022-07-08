@@ -1,10 +1,9 @@
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
-import mobileNavFooter from '../public/mobile-nav-footer.png';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import NavigationItem from './NavigationItem';
 import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
+import { DiscordIcon, OpenSeaIcon, TwitterIcon } from './Icons';
 
 type NavigationProps = {
   open: boolean;
@@ -41,14 +40,14 @@ const Navigation = ({ open, setOpen }: NavigationProps) => {
       <div className="flex items-center">
         <button onClick={() => setOpen(!open)}>
           {open ? (
-            <XIcon className="m-1 h-8 w-8 text-white"></XIcon>
+            <XIcon className="m-1 h-10 w-10 text-white"></XIcon>
           ) : (
-            <MenuIcon className="m-1 h-8 w-8 text-white" />
+            <MenuIcon className="m-1 h-10 w-10 text-white" />
           )}
         </button>
         {open && (
-          <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col overflow-y-hidden bg-sky focus:outline-none">
-            <div className="mb-4 h-24 shrink-0">
+          <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col gap-4 overflow-y-hidden bg-[url('/mobile_nav.jpg')] bg-cover bg-bottom bg-no-repeat focus:outline-none">
+            <div className="h-24 shrink-0">
               <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
             </div>
             <NavigationItem href={isHome ? '#home' : '/#home'} type="mobile" close={close}>
@@ -69,8 +68,25 @@ const Navigation = ({ open, setOpen }: NavigationProps) => {
             <NavigationItem href="https://banners.gmcafe.io" type="mobile" close={close}>
               Banners
             </NavigationItem>
-            <div className="mt-auto">
-              <Image src={mobileNavFooter} layout="responsive" alt="Mobile Navigation Footer" />
+            <div className="flex justify-center space-x-3">
+              <a
+                className="flex h-10 w-10 items-center rounded-full bg-white p-1.5"
+                href="https://discord.gg/gmcafe"
+              >
+                <DiscordIcon fill="#8946ab" />
+              </a>
+              <a
+                className="flex h-10 w-10 items-center rounded-full bg-white p-1.5"
+                href="https://discord.gg/gmcafe"
+              >
+                <TwitterIcon fill="#8946ab" />
+              </a>
+              <a
+                className="flex h-10 w-10 items-center rounded-full bg-white p-1.5"
+                href="https://discord.gg/gmcafe"
+              >
+                <OpenSeaIcon fill="#8946ab" />
+              </a>
             </div>
           </div>
         )}

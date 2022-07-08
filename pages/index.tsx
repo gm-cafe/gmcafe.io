@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
           <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-16 md:h-auto">
             <img
-              src="banner.png"
+              src="banner.jpg"
               className="h-full max-h-[1000px] w-full animate-section object-cover object-bottom md:object-contain"
               alt="Café Banner"
             />
@@ -44,9 +44,9 @@ const Home: NextPage = () => {
             className="absolute bottom-0 h-full w-full object-cover object-bottom md:object-contain md:object-left"
           />
         </section>
-        <section className="bg-pink px-10 py-4 sm:px-16 2xl:px-0">
+        <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 lg:pt-4 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
-            <div className="z-20 mx-auto w-72 shrink-0 translate-y-[46.5px] sm:w-[28rem] sm:translate-y-[63.5px]">
+            <div className="z-20 mx-auto w-72 shrink-0 translate-y-[46.5px] sm:w-[28rem] sm:translate-y-[67px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
             </div>
             <div className="flex flex-col justify-center">
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
                 Welcome to the characters of the Good Morning Café!
               </h1>
             </div>
-            <div className="hidden w-48 shrink-0 translate-y-[100px] xl:block">
+            <div className="hidden w-48 shrink-0 translate-y-[130px] xl:block">
               <Image src={randy} layout="responsive" alt="Randy" />
             </div>
           </div>
@@ -184,7 +184,7 @@ const Home: NextPage = () => {
           </div>
         </AnimatedPageSection>
       </main>
-      <footer className="relative flex w-full items-center justify-center overflow-hidden bg-gray-100 pb-12 pt-4">
+      <footer className="relative flex w-full items-center justify-center overflow-hidden bg-sky pb-12 pt-4">
         <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-10 sm:flex-row sm:gap-8">
           <div className="flex flex-grow flex-col justify-end">
             <div className="flex gap-4">
@@ -192,7 +192,7 @@ const Home: NextPage = () => {
               <AnchorLink href="https://twitter.com/gmcafeNFT">Twitter</AnchorLink>
               <AnchorLink href="https://opensea.io/collection/goodmorningcafe">OpenSea</AnchorLink>
             </div>
-            <h2 className="mt-2 text-center font-gmcafe text-6xl uppercase leading-none text-purple sm:mb-6 sm:mt-0 sm:text-left sm:text-7xl xl:mb-0 xl:text-9xl 2xl:text-10xl">
+            <h2 className="text-border-white mt-2 text-center font-gmcafe text-6xl uppercase leading-none text-purple sm:mb-6 sm:mt-0 sm:text-left sm:text-7xl xl:mb-0 xl:text-9xl 2xl:text-10xl">
               Join the Herd
             </h2>
           </div>
@@ -201,7 +201,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="absolute bottom-0 flex w-full flex-col justify-end">
-          <div className="h-24 w-full bg-[url('/fence.png')] bg-[length:300px_auto] xl:bg-[length:460px_auto] bg-bottom bg-repeat-x" />
+          <div className="h-24 w-full bg-[url('/fence.png')] bg-[length:300px_auto] bg-bottom bg-repeat-x xl:bg-[length:460px_auto]" />
           <div className="flex h-10 items-end justify-center bg-grass pb-2">
             <p className="text-xs text-purple opacity-30">© 2022 Colefax Corp.</p>
           </div>
