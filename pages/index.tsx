@@ -11,6 +11,8 @@ import phase2Brewing from '../public/phase2_brewing.png';
 import faq from '../public/faq.png';
 import lockEm from '../public/lock_em.png';
 import highFive from '../public/high_five.png';
+import cowla from '../public/cowla.png';
+import coffeeSpill from '../public/coffee_spill.png';
 import AnimatedPageSection from '../components/AnimatedPageSection';
 import Head from 'next/head';
 import Marquee from '../components/Marquee';
@@ -98,7 +100,7 @@ const Home: NextPage = () => {
           <Marquee direction="right" />
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
-          <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
+          <div className="relative mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-60 xl:w-80 2xl:w-88">
@@ -128,6 +130,13 @@ const Home: NextPage = () => {
             </div>
           </div>
         </AnimatedPageSection>
+        <AnimatedPageSection>
+          <div className="relative mx-auto max-w-screen-2xl">
+            <div className="absolute right-4 -bottom-10 w-16 sm:right-0 sm:bottom-4 sm:w-28">
+              <Image src={coffeeSpill} layout="responsive" alt="Coffee Spill" />
+            </div>
+          </div>
+        </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-purple overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
@@ -152,6 +161,13 @@ const Home: NextPage = () => {
                 additional features like “Barn Safety”, where moos can be safely &quot;locked
                 up&quot; to help prevent theft.
               </p>
+            </div>
+          </div>
+        </AnimatedPageSection>
+        <AnimatedPageSection>
+          <div className="relative mx-auto max-w-screen-2xl">
+            <div className="absolute right-4 -top-12 w-16 sm:right-0 sm:-top-16 sm:w-28">
+              <Image src={cowla} layout="responsive" alt="Coffee Spill" />
             </div>
           </div>
         </AnimatedPageSection>
