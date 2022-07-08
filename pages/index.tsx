@@ -36,15 +36,15 @@ const Home: NextPage = () => {
           <img
             src="clouds_right.png"
             alt="Clouds Left"
-            className="absolute bottom-0 h-full w-full object-cover object-bottom md:object-contain md:object-right"
+            className="absolute top-0 h-full w-full object-cover object-bottom md:h-auto md:object-contain md:object-right"
           />
           <img
             src="clouds_left.png"
             alt="Clouds Right"
-            className="absolute bottom-0 h-full w-full object-cover object-bottom md:object-contain md:object-left"
+            className="absolute top-0 h-full w-full object-cover object-bottom md:h-auto md:object-contain md:object-left"
           />
         </section>
-        <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 lg:pt-4 2xl:px-0">
+        <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 2xl:px-0 2xl:pt-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
             <div className="z-20 mx-auto w-72 shrink-0 translate-y-[49px] sm:w-[28rem] sm:translate-y-[67.5px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
