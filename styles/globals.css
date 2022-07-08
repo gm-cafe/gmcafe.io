@@ -51,11 +51,11 @@
 }
 
 .cursor {
-  cursor: url('/cursor.png'), auto;
+  cursor: url('/cursor.png') 10 0, auto;
 }
 
 .cursor a, .cursor button {
-  cursor: url('/pointer.png'), pointer;
+  cursor: url('/pointer.png') 10 0, pointer;
 }
 
 /* wallet titles */
