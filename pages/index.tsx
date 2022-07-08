@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         </section>
         <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 lg:pt-4 2xl:px-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
-            <div className="z-20 mx-auto w-72 shrink-0 translate-y-[46.5px] sm:w-[28rem] sm:translate-y-[67px]">
+            <div className="z-20 mx-auto w-72 shrink-0 translate-y-[49px] sm:w-[28rem] sm:translate-y-[67.5px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
             </div>
             <div className="flex flex-col justify-center">

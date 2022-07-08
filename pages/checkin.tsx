@@ -114,7 +114,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
             leaveTo="opacity-0"
           >
             <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
-              <p className="max-w-full pb-2 text-center font-gmcafe text-xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
+              <p className="max-w-full pb-2 text-center font-speech text-2xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
                 {message}
               </p>
             </div>

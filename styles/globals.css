@@ -7,6 +7,11 @@
   src: url('/gmcafe.otf');
 }
 
+@font-face {
+  font-family: 'GMCafe Speech';
+  src: url('/gmcafe.ttf');
+}
+
 @supports (-webkit-touch-callout: none) {
   .h-screen {
     height: 100dvh;
