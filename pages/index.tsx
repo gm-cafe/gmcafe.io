@@ -36,12 +36,12 @@ const Home: NextPage = () => {
           <img
             src="clouds_right.png"
             alt="Clouds Left"
-            className="absolute top-0 h-full w-full object-cover object-bottom md:h-auto md:object-contain md:object-right"
+            className="absolute top-0 h-full max-h-[1050px] w-full object-cover object-bottom md:h-auto md:object-contain md:object-right"
           />
           <img
             src="clouds_left.png"
             alt="Clouds Right"
-            className="absolute top-0 h-full w-full object-cover object-bottom md:h-auto md:object-contain md:object-left"
+            className="absolute top-0 h-full max-h-[1050px] w-full object-cover object-bottom md:h-auto md:object-contain md:object-left"
           />
         </section>
         <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 2xl:px-0 2xl:pt-0">
