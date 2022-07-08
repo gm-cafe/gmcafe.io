@@ -19,6 +19,7 @@ module.exports = {
         grass: '#acfad3',
         twitter: '#1d9bf0',
         opensea: '#2081E2',
+        sky: '#aaf1ff',
       },
       screens: {
         screen: '2000px',

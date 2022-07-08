@@ -49,7 +49,7 @@ const Home: NextPage = () => {
             <div className="z-20 mx-auto w-72 shrink-0 translate-y-[46.5px] sm:w-[28rem] sm:translate-y-[63.5px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
             </div>
-            <div className="my-12 flex flex-col">
+            <div className="flex flex-col justify-center">
               <h2 className="font-gmcafe text-8xl uppercase text-white">Howdy!</h2>
               <h1 className="font-gmcafe text-5xl text-white">
                 Welcome to the characters of the Good Morning Café!
@@ -201,7 +201,7 @@ const Home: NextPage = () => {
           </div>
         </div>
         <div className="absolute bottom-0 flex w-full flex-col justify-end">
-          <div className="h-20 w-full bg-[url('/fence.png')] bg-[length:400px_auto] bg-bottom bg-repeat-x" />
+          <div className="h-24 w-full bg-[url('/fence.png')] bg-[length:300px_auto] xl:bg-[length:460px_auto] bg-bottom bg-repeat-x" />
           <div className="flex h-10 items-end justify-center bg-grass pb-2">
             <p className="text-xs text-purple opacity-30">© 2022 Colefax Corp.</p>
           </div>

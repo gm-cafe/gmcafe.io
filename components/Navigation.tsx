@@ -22,9 +22,9 @@ const Navigation = ({ open, setOpen }: NavigationProps) => {
     <div className="hidden h-16 bg-pink md:block">
       <div className="mx-auto flex h-full max-w-screen-2xl">
         <div className="flex flex-grow basis-0 items-center justify-evenly">
-          <NavigationItem href={isHome ? '#home' : '/'}>Home</NavigationItem>
-          <NavigationItem href={isHome ? '#faq' : '/'}>FAQ</NavigationItem>
-          <NavigationItem href={isHome ? '#team' : '/'}>Team</NavigationItem>
+          <NavigationItem href={isHome ? '#home' : '/#home'}>Home</NavigationItem>
+          <NavigationItem href={isHome ? '#faq' : '/#faq'}>FAQ</NavigationItem>
+          <NavigationItem href={isHome ? '#team' : '/#team'}>Team</NavigationItem>
         </div>
         <div className="w-52" />
         <div className="flex flex-grow basis-0 items-center justify-evenly">
@@ -47,17 +47,17 @@ const Navigation = ({ open, setOpen }: NavigationProps) => {
           )}
         </button>
         {open && (
-          <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col overflow-y-hidden bg-purple-light focus:outline-none">
+          <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col overflow-y-hidden bg-sky focus:outline-none">
             <div className="mb-4 h-24 shrink-0">
               <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
             </div>
-            <NavigationItem href={isHome ? '#home' : '/'} type="mobile" close={close}>
+            <NavigationItem href={isHome ? '#home' : '/#home'} type="mobile" close={close}>
               Home
             </NavigationItem>
-            <NavigationItem href={isHome ? '#faq' : '/'} type="mobile" close={close}>
+            <NavigationItem href={isHome ? '#faq' : '/#faq'} type="mobile" close={close}>
               FAQ
             </NavigationItem>
-            <NavigationItem href={isHome ? '#team' : '/'} type="mobile" close={close}>
+            <NavigationItem href={isHome ? '#team' : '/#team'} type="mobile" close={close}>
               Team
             </NavigationItem>
             <NavigationItem href="/checkin" type="mobile" close={close}>
