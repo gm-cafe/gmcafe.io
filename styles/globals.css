@@ -45,6 +45,14 @@
   }
 }
 
+.cursor {
+  cursor: url('/cursor.png'), auto;
+}
+
+.cursor a, .cursor button {
+  cursor: url('/pointer.png'), pointer;
+}
+
 /* wallet titles */
 [data-rk] .ju367v1l {
   font-family: 'GMCafe' !important;

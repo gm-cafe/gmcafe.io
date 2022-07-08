@@ -51,9 +51,6 @@ module.exports = {
       fontSize: {
         '10xl': '11.5rem',
       },
-      cursor: {
-        gmc: "url('../public/cursor.png'), default",
-      },
     },
     fontFamily: {
       sans: ['Hepta Slab', ...defaultTheme.fontFamily.sans],

@@ -21,7 +21,7 @@ export default function Document() {
 
         <script defer data-domain="gmcafe.io" src="/js/script.js"></script>
       </Head>
-      <body className="cursor-gmc font-sans">
+      <body className="cursor font-sans">
         <Main />
         <NextScript />
       </body>
