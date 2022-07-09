@@ -135,11 +135,11 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
             <div className="relative z-10 translate-y-14">
               <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
             </div>
-            <div className="ml-5 mr-4 flex h-[24vh] translate-y-2 flex-col items-center justify-start rounded border-4 border-purple bg-white pt-12 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
+            <div className="ml-5 mr-4 flex h-[24vh] translate-y-2 flex-col items-center justify-start gap-2 rounded border-4 border-purple bg-white pt-12 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[30vh] 2xl:border-8">
               <CustomConnectButton className={classNames({ hidden: address })} />
               {address && (
                 <button
-                  className="rounded-lg bg-pink px-6 py-3 font-speech text-2xl font-semibold uppercase text-white shadow transition-transform hover:scale-105"
+                  className="rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl"
                   type="button"
                   onClick={migrate}
                 >
@@ -148,7 +148,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
               )}
               <button
                 onClick={() => setIsDialogOpen(true)}
-                className="mt-2 rounded-lg bg-pink px-6 py-3 font-speech text-2xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 md:hidden"
+                className="rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl"
               >
                 What is this?
               </button>
@@ -218,7 +218,7 @@ export const CustomConnectButton = ({ className }: CustomConnectButtonProps) => 
           <div className={classNames({ 'pointer-events-none select-none opacity-0': !mounted })}>
             {(() => {
               const buttonClasses =
-                'rounded-lg bg-pink px-4 py-2 sm:px-6 sm:py-3 font-semibold text-white shadow transition-transform hover:scale-105 md:text-xl 2xl:text-2xl';
+                'rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl';
 
               if (!mounted || !account || !chain) {
                 return (

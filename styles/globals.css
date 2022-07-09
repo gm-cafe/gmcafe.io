@@ -58,36 +58,33 @@
   cursor: url('/pointer.png') 10 0, pointer;
 }
 
-/* wallet titles */
-[data-rk] .ju367v1l {
+/* "Connect a Wallet" and "What is a Wallet?" */
+[data-rk] .ju367v16 {
   font-family: 'GMCafe' !important;
   font-size: 24px !important;
   text-transform: uppercase !important;
 }
 
-/* wallet subtitles */
-[data-rk] .ju367v1r {
-  font-size: 16px !important;
+/* Wallet names and description titles */
+[data-rk] .ju367v1c {
+  font-family: 'GMCafe' !important;
+  font-size: 18px !important;
 }
 
-/* wallet primary button */
-[data-rk] .ju367v9g {
-  padding: 14px 24px 10px 24px !important;
-  height: 48px !important;
+/* "Get a Wallet" button wrapper */
+[data-rk] .ju367v93 {
+  height: auto !important;
+  padding: 8px 12px !important;
 }
 
-/* wallet learn more link */
-[data-rk] .ju367vem {
-  font-size: 12px !important;
-}
-
-/* wallet left container */
-[data-rk] .ju367v57 {
-  margin-top: 30px !important;
+/* "Get a Wallet" button text */
+[data-rk] .ju367vec {
+  font-size: 20px !important;
+  text-transform: uppercase !important;
 }
 
 /* wallet divider */
-[data-rk] .ju367v8y {
+[data-rk] .ju367v8k {
   width: 5px !important;
 }
 
