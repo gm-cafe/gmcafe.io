@@ -192,7 +192,7 @@ const Home: NextPage = () => {
               <Image src={egg} layout="responsive" alt="Egg" />
             </div>
             <h2 className="font-gmcafe text-5xl uppercase text-white">Team</h2>
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               {members.map((member) => (
                 <MemberCard key={member.name} {...member} />
               ))}
