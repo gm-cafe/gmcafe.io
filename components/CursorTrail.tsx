@@ -42,6 +42,7 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
         img.style.top = `${y}px`;
         img.style.width = img.style.height = `${s}px`;
         img.style.pointerEvents = 'none';
+        img.style.zIndex = '50';
         document.body.append(img);
         let pt = { x, y, s };
         stack.push(pt);
@@ -60,7 +61,7 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
   };
 
   useEffect(() => {
-    fetch('/sparkle.png')
+    fetch('https://home.antistupid.com/code/moo-cursor/sparkle.png')
       .then((r) => r.blob())
       .then((blob) => {
         document.addEventListener('wheel', spawn(blob));
