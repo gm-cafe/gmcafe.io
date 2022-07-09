@@ -26,7 +26,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Good Morning Café</title>
       </Head>
-      <main id="home" className="scroll-smooth pt-16">
+      <div id="home" className="scroll-smooth pt-16">
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
           <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-16 md:h-auto">
             <img
@@ -199,7 +199,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </AnimatedPageSection>
-      </main>
+      </div>
       <footer className="relative flex w-full items-center justify-center overflow-hidden bg-sky pb-12 pt-4">
         <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-10 sm:flex-row sm:gap-8">
           <div className="flex flex-grow flex-col justify-end">

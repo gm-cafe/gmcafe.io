@@ -1,16 +1,13 @@
 import { MenuIcon, XIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import NavigationItem from './NavigationItem';
-import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
 import { DiscordIcon, OpenSeaIcon, TwitterIcon } from './Icons';
+import { useState } from 'react';
 
-type NavigationProps = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
+const Navigation = () => {
+  const [open, setOpen] = useState(false);
 
-const Navigation = ({ open, setOpen }: NavigationProps) => {
   const router = useRouter();
 
   const close = () => setOpen(false);

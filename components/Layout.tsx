@@ -1,5 +1,4 @@
-import classNames from 'classnames';
-import { ReactNode, useRef, useState } from 'react';
+import { ReactNode, useRef } from 'react';
 import CursorTrail from './CursorTrail';
 import Navigation from './Navigation';
 
@@ -8,16 +7,13 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  const [navOpen, setNavOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   return (
-    <>
-      <Navigation open={navOpen} setOpen={setNavOpen} />
-      <div className={classNames('min-h-screen', { 'overflow-y-hidden': navOpen })} ref={ref}>
-        <CursorTrail parentRef={ref} />
-        {children}
-      </div>
-    </>
+    <main className="max-h-screen overflow-y-auto" ref={ref}>
+      <Navigation />
+      <CursorTrail parentRef={ref} />
+      {children}
+    </main>
   );
 };
 
