@@ -11,8 +11,8 @@ type Pos = {
 };
 
 const CursorTrail = ({ parentRef }: CursorTrailProps) => {
-  const jiggle = 15;
-  const minSize = 24;
+  const jiggle = 50;
+  const minSize = 8;
   const maxSize = 48;
   const maxCount = 200;
   const stack: Pos[] = [];
