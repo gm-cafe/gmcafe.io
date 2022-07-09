@@ -55,7 +55,7 @@ module.exports = {
     fontFamily: {
       sans: ['Hepta Slab', ...defaultTheme.fontFamily.sans],
       gmcafe: ['GMCafe', ...defaultTheme.fontFamily.sans],
-      speech: ['GMCafe Speech', ...defaultTheme.fontFamily.sans],
+      'gmcafe-skinny': ['GMCafe Skinny', ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [],

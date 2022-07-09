@@ -8,8 +8,8 @@
 }
 
 @font-face {
-  font-family: 'GMCafe Speech';
-  src: url('/gmcafe.ttf');
+  font-family: 'GMCafe Skinny';
+  src: url('/gmcafe_skinny.otf');
 }
 
 @supports (-webkit-touch-callout: none) {
