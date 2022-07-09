@@ -148,7 +148,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
               )}
               <button
                 onClick={() => setIsDialogOpen(true)}
-                className="rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl"
+                className="rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl md:hidden"
               >
                 What is this?
               </button>
