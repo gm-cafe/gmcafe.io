@@ -28,7 +28,7 @@ const Home: NextPage = () => {
       </Head>
       <div id="home" className="scroll-smooth pt-16">
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
-          <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-16 md:h-auto">
+          <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-12 md:h-auto">
             <img
               src="banner.jpg"
               className="h-full max-h-[1000px] w-full animate-section object-cover object-bottom md:object-contain"

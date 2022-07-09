@@ -102,8 +102,8 @@ const Navigation = () => {
       </Link>
       <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
       <div className="absolute bottom-0 z-10 hidden h-20 w-full translate-y-20 md:flex">
-        <div className="bg-[size:100&_auto] flex-grow bg-[url('/svgs/awning.svg')] bg-right bg-repeat-x" />
-        <div className="bg-[size:100&_auto] flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
+        <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-[length:auto_100%] bg-right bg-repeat-x" />
+        <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-[length:auto_100%] bg-repeat-x" />
       </div>
     </nav>
   );
