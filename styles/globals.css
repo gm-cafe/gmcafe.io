@@ -55,7 +55,7 @@
 }
 
 .cursor a, .cursor button {
-  cursor: url('/pointer.png') 10 0, pointer;
+  cursor: url('/pointer.png') 18 6, pointer;
 }
 
 /* "Connect a Wallet" and "What is a Wallet?" */
@@ -95,5 +95,4 @@
   background-image: url('/svgs/squiggle.svg'); 
   height: 100%;
   z-index: 1;
-  min-width: 51px;
 }

@@ -107,7 +107,7 @@ const Home: NextPage = () => {
                   <Image src={phase2Brewing} layout="responsive" alt="Phase 2 Brewing" />
                 </div>
               </div>
-              <div className="squiggle hidden bg-gray-100 md:block" />
+              <div className="squiggle hidden min-w-[51px] bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
@@ -132,7 +132,7 @@ const Home: NextPage = () => {
         </AnimatedPageSection>
         <AnimatedPageSection>
           <div className="relative mx-auto max-w-screen-2xl">
-            <div className="absolute right-4 -bottom-10 w-16 sm:right-0 sm:bottom-4 sm:w-28">
+            <div className="absolute right-4 -bottom-10 w-16 sm:right-8 sm:bottom-4 sm:w-24 2xl:right-0">
               <Image src={coffeeSpill} layout="responsive" alt="Coffee Spill" />
             </div>
           </div>
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
                   <Image src={lockEm} layout="responsive" alt="Lock 'Em in the Barn" />
                 </div>
               </div>
-              <div className="squiggle hidden bg-purple md:block" />
+              <div className="squiggle hidden min-w-[51px] bg-purple md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-purple py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-white">Moogration</h2>
@@ -164,13 +164,13 @@ const Home: NextPage = () => {
             </div>
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection>
+        <section>
           <div className="relative z-10 mx-auto max-w-screen-2xl">
-            <div className="absolute right-4 -top-12 z-10 w-16 sm:-top-24 sm:w-28 2xl:right-0">
+            <div className="absolute right-4 -top-12 z-10 w-16 sm:right-8 sm:-top-24 sm:w-28 2xl:right-0">
               <Image src={cowla} layout="responsive" alt="Coffee Spill" />
             </div>
           </div>
-        </AnimatedPageSection>
+        </section>
         <AnimatedPageSection id="faq" className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
@@ -179,7 +179,7 @@ const Home: NextPage = () => {
                   <Image src={faq} layout="responsive" alt="FAQ" />
                 </div>
               </div>
-              <div className="squiggle hidden min-w-[55px] bg-gray-100 md:block" />
+              <div className="squiggle hidden min-w-[54px] bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 pt-12 pb-16 sm:py-12 md:col-span-2 md:py-20 md:pl-20 lg:pl-14 lg:pr-10 2xl:px-24">
               <Disclosures />
