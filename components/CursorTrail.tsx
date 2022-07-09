@@ -67,7 +67,8 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
         document.addEventListener('wheel', spawn(blob));
         document.addEventListener('mousemove', spawn(blob));
       });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return null;
 };
 
