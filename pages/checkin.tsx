@@ -105,7 +105,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
         <section className="relative flex h-full flex-col items-center justify-end">
           <Transition
             show={isShowing}
-            className="z-20 mx-auto h-72 shrink-0 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:translate-x-[23rem] 2xl:translate-y-56"
+            className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[24rem] 2xl:translate-x-[23rem] 2xl:translate-y-56"
             enter="transition duration-200"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
@@ -122,7 +122,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
           <div className="relative z-20 w-80 md:w-[28rem] 2xl:w-[36rem]">
             <button
               onClick={() => setIsDialogOpen(true)}
-              className="absolute top-0 left-10 z-30 hidden h-16 w-16 rounded-full border-6 border-purple bg-white font-gmcafe text-4xl text-purple shadow md:block 2xl:border-[7px]"
+              className="absolute top-0 left-10 z-30 hidden h-16 w-16 rounded-full border-6 border-purple bg-white font-gmcafe text-4xl text-purple shadow transition md:block 2xl:border-[7px] betterhover:hover:scale-105 betterhover:hover:shadow"
             >
               i
             </button>
@@ -139,7 +139,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
               <CustomConnectButton className={classNames({ hidden: address })} />
               {address && (
                 <button
-                  className="rounded-lg bg-pink px-6 py-3 font-semibold text-white shadow transition-transform hover:scale-105"
+                  className="rounded-lg bg-pink px-6 py-3 font-speech text-2xl font-semibold uppercase text-white shadow transition-transform hover:scale-105"
                   type="button"
                   onClick={migrate}
                 >
@@ -148,7 +148,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
               )}
               <button
                 onClick={() => setIsDialogOpen(true)}
-                className="mt-2 rounded-lg bg-pink px-4 py-2 font-semibold text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 md:hidden md:text-xl 2xl:text-2xl"
+                className="mt-2 rounded-lg bg-pink px-6 py-3 font-speech text-2xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 md:hidden"
               >
                 What is this?
               </button>

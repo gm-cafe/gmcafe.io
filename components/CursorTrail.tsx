@@ -11,7 +11,7 @@ type Pos = {
 };
 
 const CursorTrail = ({ parentRef }: CursorTrailProps) => {
-  const jiggle = 50;
+  const jiggle = 15;
   const minSize = 8;
   const maxSize = 48;
   const maxCount = 200;
@@ -61,7 +61,7 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
   };
 
   useEffect(() => {
-    fetch('https://home.antistupid.com/code/moo-cursor/sparkle.png')
+    fetch('/sparkle.png')
       .then((r) => r.blob())
       .then((blob) => {
         document.addEventListener('wheel', spawn(blob));
