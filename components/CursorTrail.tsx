@@ -11,7 +11,7 @@ type Pos = {
 };
 
 const CursorTrail = ({ parentRef }: CursorTrailProps) => {
-  const jiggle = 50;
+  const jiggle = 40;
   const minSize = 8;
   const maxSize = 48;
   const maxCount = 200;
@@ -22,7 +22,7 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
       return;
     }
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 2; i++) {
       let s = Math.round(minSize + Math.random() * (maxSize - minSize));
       let x = Math.min(
         e.pageX + Math.round((2 * Math.random() - 1) * jiggle),

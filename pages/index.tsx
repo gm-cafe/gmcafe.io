@@ -170,7 +170,7 @@ const Home: NextPage = () => {
         </AnimatedPageSection>
         <AnimatedPageSection>
           <div className="relative mx-auto max-w-screen-2xl">
-            <div className="absolute right-4 -top-12 w-16 sm:right-0 sm:-top-24 sm:w-28">
+            <div className="absolute right-4 -top-12 w-16 sm:-top-24 sm:w-28 2xl:right-0">
               <Image src={cowla} layout="responsive" alt="Coffee Spill" />
             </div>
           </div>

@@ -81,9 +81,10 @@ const MemberCard = ({ name, title, description, image, twitter }: MemberCardProp
           />
         </div>
         <a
-          className="absolute right-0 bottom-0 sm:right-2 sm:bottom-2 2xl:right-0 2xl:bottom-0"
+          className="absolute right-0 bottom-0 z-10 sm:right-2 sm:bottom-2 2xl:right-0 2xl:bottom-0"
           href={twitter}
-          target="blank"
+          target="_blank"
+          rel="noreferrer"
         >
           <TwitterIcon className="mx-1 h-4 w-4 lg:h-5 lg:w-5 2xl:h-6 2xl:w-6" />
         </a>
