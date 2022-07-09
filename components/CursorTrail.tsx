@@ -1,5 +1,4 @@
 import { RefObject, useEffect } from 'react';
-import sparkle from '../public/sparkle.png';
 
 type CursorTrailProps = {
   parentRef: RefObject<HTMLDivElement>;
@@ -18,7 +17,7 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
   const maxCount = 200;
   const stack: Pos[] = [];
 
-  const spawn = (e: MouseEvent) => {
+  const spawn = (blob: Blob) => (e: MouseEvent) => {
     if (stack.length === maxCount) {
       return;
     }
@@ -35,8 +34,9 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
       );
 
       if (!stack.find((pt) => Math.hypot(pt.x - x, pt.y - y) < Math.max(pt.s, s))) {
+        let url = URL.createObjectURL(blob);
         let img = new Image();
-        img.src = sparkle.src;
+        img.src = url;
         img.style.position = 'absolute';
         img.style.left = `${x}px`;
         img.style.top = `${y}px`;
@@ -48,7 +48,7 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
 
         setTimeout(() => {
           img.remove();
-          URL.revokeObjectURL(sparkle.src);
+          URL.revokeObjectURL(url);
           let last = stack.pop();
           if (last && last != pt) {
             stack[stack.indexOf(pt)] = last;
@@ -60,13 +60,12 @@ const CursorTrail = ({ parentRef }: CursorTrailProps) => {
   };
 
   useEffect(() => {
-    document.addEventListener('wheel', spawn);
-    document.addEventListener('mousemove', spawn);
-
-    return () => {
-      document.removeEventListener('wheel', spawn);
-      document.removeEventListener('mousemove', spawn);
-    };
+    fetch('/sparkle.png')
+      .then((r) => r.blob())
+      .then((blob) => {
+        document.addEventListener('wheel', spawn(blob));
+        document.addEventListener('mousemove', spawn(blob));
+      });
   });
   return null;
 };
