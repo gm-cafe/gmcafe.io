@@ -41,11 +41,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const { hash, tokens: _tokens, message } = JSON.parse(body);
 
     if (!hash || typeof hash !== 'string') {
-      return res.status(400).json({ message: 'No hash found' });
+      return res.status(400).json({ message: 'No hash found...' });
     }
 
     if (!message || typeof message !== 'string') {
-      return res.status(400).json({ message: 'No sign message found' });
+      return res.status(400).json({ message: 'No sign message found...' });
     }
 
     const tokens: string[] = Array.isArray(_tokens) ? _tokens : [];
@@ -53,12 +53,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const address = verifyMessage(message, hash);
     await addRecord(address, tokens).then((response) => {
       if (!response.ok) {
-        res.status(400).json({ message: 'Error occurred while storing address' });
+        res.status(400).json({ message: 'Error occurred while storing address...' });
       } else {
-        res.status(200).json({ message: 'Address received' });
+        res.status(200).json({ message: 'Address received!' });
       }
     });
   } else {
-    res.status(400).json({ message: 'Bad request' });
+    res.status(400).json({ message: 'Bad request...' });
   }
 }

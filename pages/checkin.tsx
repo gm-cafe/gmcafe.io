@@ -17,10 +17,11 @@ import { Discord } from '../components/StyledLinks';
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
 type CheckInProps = {
-  count: number;
+  addresses: string[];
+  tokens: string[];
 };
 
-const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
+const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) => {
   const { isConnected, address } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [message, setMessage] = useState<ReactNode>();
@@ -35,6 +36,8 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
   );
   const [isShowing, setIsShowing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const alreadyCheckedIn = address && addresses.includes(address);
 
   // Avoid the message from changing BEFORE the speech bubble disappears
   // Set it to a buffer unrenderedMessage state, then
@@ -55,6 +58,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
 
   useEffect(() => {
     isConnected &&
+      !alreadyCheckedIn &&
       updateMessage(
         <span>
           Welcome, fellow Moo!
@@ -62,7 +66,8 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
           Now you can check in.
         </span>
       );
-  }, [isConnected]);
+    isConnected && alreadyCheckedIn && updateMessage(<span>You&apos;re already checked in!</span>);
+  }, [isConnected, alreadyCheckedIn]);
 
   const library = useProvider();
   const { data: signer } = useSigner();
@@ -139,9 +144,14 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
               <CustomConnectButton className={classNames({ hidden: address })} />
               {address && (
                 <button
-                  className="rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl"
+                  className={classNames(
+                    'rounded-lg px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform  sm:px-6 sm:py-3 sm:text-2xl',
+                    { 'bg-gray-400': alreadyCheckedIn },
+                    { 'bg-pink hover:scale-105': !alreadyCheckedIn }
+                  )}
                   type="button"
                   onClick={migrate}
+                  disabled={!!alreadyCheckedIn}
                 >
                   Check In
                 </button>
@@ -184,7 +194,7 @@ const CheckIn: NextPage<CheckInProps> = ({ count }: CheckInProps) => {
                 The sooner we can complete the migration, the sooner we can delist the old
                 collection on OpenSea to prevent any confusion.
               </p>
-              <span className="self-end text-sm">Checked-in Moos: {count}</span>
+              <span className="self-end text-sm">Checked-in Moos: {tokens.length}</span>
             </Dialog.Panel>
           </div>
         </Dialog>
@@ -197,11 +207,12 @@ export default CheckIn;
 
 export async function getServerSideProps() {
   const res = await fetch(`${process.env.API_URL}/api/checkin`);
-  const { count } = await res.json();
+  const { addresses, tokens } = await res.json();
 
   return {
     props: {
-      count,
+      addresses,
+      tokens,
     },
   };
 }
