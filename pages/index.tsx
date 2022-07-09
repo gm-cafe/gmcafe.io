@@ -19,14 +19,18 @@ import Marquee from '../components/Marquee';
 import MemberCard, { members } from '../components/MemberCard';
 import Disclosures from '../components/Disclosures';
 import AnchorLink from '../components/AnchorLink';
+import { useRef } from 'react';
+import CursorTrail from '../components/CursorTrail';
 
 const Home: NextPage = () => {
+  const ref = useRef<HTMLDivElement>(null);
   return (
     <>
       <Head>
         <title>Good Morning Café</title>
       </Head>
-      <main id="home" className="scroll-smooth pt-16">
+      <main id="home" className="scroll-smooth pt-16" ref={ref}>
+        <CursorTrail parentRef={ref} />
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
           <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-16 md:h-auto">
             <img
