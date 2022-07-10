@@ -51,7 +51,7 @@
 }
 
 .cursor {
-  cursor: url('/cursor.png') 10 0, auto;
+  cursor: url('/cursor.png') 18 7, auto;
 }
 
 .cursor a, .cursor button {
