@@ -1,5 +1,6 @@
 import { verifyMessage } from 'ethers/lib/utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { withSentry } from '@sentry/nextjs';
 
 type Data = {
   message: string;
@@ -35,7 +36,7 @@ const addRecord = (address: string, tokens: string[]) => {
   });
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   if (req.method === 'POST') {
     const { body } = req;
     const { hash, tokens: _tokens, message } = JSON.parse(body);
@@ -61,4 +62,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   } else {
     res.status(400).json({ message: 'Bad request...' });
   }
-}
+};
+
+export default withSentry(handler);

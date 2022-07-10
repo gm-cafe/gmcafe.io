@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { withSentry } from '@sentry/nextjs';
 
 export type Data = {
   addresses: string[];
@@ -14,7 +15,7 @@ type AirtableRecord = {
   };
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   return fetch(
     'https://api.airtable.com/v0/appkYCX1EewOs0WUP/API?fields%5B%5D=Token&fields%5B%5D=Address',
     {
@@ -42,4 +43,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       res.status(200).json({ addresses: dedupedAddresses, tokens: dedupedTokens });
     });
-}
+};
+
+export default withSentry(handler);
