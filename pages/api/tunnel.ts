@@ -42,3 +42,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 };
 
 export default withSentry(handler);
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

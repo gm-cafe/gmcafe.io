@@ -31,13 +31,13 @@ export async function getServerSideProps(context: NextPageContext) {
   const response: ErrorProps = {
     ...errorInitialProps,
     hasGetInitialPropsRun: true,
-    err,
+    err: err || null,
   };
 
   // Returning early because we don't want to log 404 errors to Sentry.
   if (res?.statusCode === 404) {
     return {
-      props: response
+      props: response,
     };
   }
 
