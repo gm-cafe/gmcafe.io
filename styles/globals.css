@@ -57,7 +57,7 @@
 
 .cursor a,
 .cursor button {
-  cursor: url('/pointer.png') 5 0, pointer;
+  cursor: url('/pointer.png') 4 5, pointer;
 }
 
 /* "Connect a Wallet" and "What is a Wallet?" */
