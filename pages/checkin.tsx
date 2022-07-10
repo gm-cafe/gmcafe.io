@@ -16,12 +16,12 @@ import { Discord } from '../components/StyledLinks';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
-type CheckInProps = {
+type CheckInData = {
   addresses: string[];
   tokens: string[];
 };
 
-const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) => {
+const CheckIn: NextPage = () => {
   const { isConnected, address } = useAccount();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [message, setMessage] = useState<ReactNode>();
@@ -36,6 +36,16 @@ const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) =>
   );
   const [isShowing, setIsShowing] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [{ addresses, tokens }, setCheckInData] = useState<CheckInData>({
+    addresses: [],
+    tokens: [],
+  });
+
+  useEffect(() => {
+    fetch('/api/checkin')
+      .then((res) => res.json())
+      .then(setCheckInData);
+  }, []);
 
   const alreadyCheckedIn = address && addresses.includes(address);
 
@@ -119,7 +129,7 @@ const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) =>
             leaveTo="opacity-0"
           >
             <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
-              <p className="max-w-full pb-2 text-center font-speech text-2xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
+              <p className="max-w-full pb-2 text-center font-gmcafe-skinny text-2xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
                 {message}
               </p>
             </div>
@@ -145,7 +155,7 @@ const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) =>
               {address && (
                 <button
                   className={classNames(
-                    'rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl',
+                    'rounded-lg bg-pink px-4 py-2 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl',
                     { hidden: alreadyCheckedIn }
                   )}
                   type="button"
@@ -157,7 +167,7 @@ const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) =>
               )}
               <button
                 onClick={() => setIsDialogOpen(true)}
-                className="rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl md:hidden"
+                className="rounded-lg bg-pink px-4 py-2 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl md:hidden"
               >
                 What is this?
               </button>
@@ -204,18 +214,6 @@ const CheckIn: NextPage<CheckInProps> = ({ addresses, tokens }: CheckInProps) =>
 
 export default CheckIn;
 
-export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_URL}/api/checkin`);
-  const { addresses, tokens } = await res.json();
-
-  return {
-    props: {
-      addresses,
-      tokens,
-    },
-  };
-}
-
 type CustomConnectButtonProps = {
   className?: string;
 };
@@ -228,7 +226,7 @@ export const CustomConnectButton = ({ className }: CustomConnectButtonProps) => 
           <div className={classNames({ 'pointer-events-none select-none opacity-0': !mounted })}>
             {(() => {
               const buttonClasses =
-                'rounded-lg bg-pink px-4 py-2 font-speech text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl';
+                'rounded-lg bg-pink px-4 py-2 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl';
 
               if (!mounted || !account || !chain) {
                 return (
