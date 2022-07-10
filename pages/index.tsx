@@ -35,9 +35,9 @@ const Home: NextPage = () => {
               alt="Café Banner"
             />
           </div>
-          <div className="cloud-container absolute top-0 w-full md:flex">
+          <div className="absolute top-0 hidden h-[125%] w-full min-w-[500px] flex-1 justify-center overflow-hidden md:flex">
             <img src="clouds_left.png" alt="Clouds Left" />
-            <div className="cloud-filler"></div>
+            <div className="min-w-[500px] flex-1"></div>
             <img src="clouds_right.png" alt="Clouds Right" />
           </div>
         </section>

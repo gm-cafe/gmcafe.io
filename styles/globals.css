@@ -98,15 +98,3 @@
   height: 100%;
   z-index: 1;
 }
-
-.cloud-container {
-  display: none;
-  justify-content: center;
-  overflow: hidden;
-  height: 125%;
-}
-
-.cloud-container .cloud-filler {
-  flex: 1;
-  min-width: 500px;
-}
