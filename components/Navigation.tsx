@@ -45,7 +45,9 @@ const Navigation = () => {
         {open && (
           <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col gap-4 overflow-y-hidden bg-[url('/mobile_nav.jpg')] bg-cover bg-bottom bg-no-repeat focus:outline-none">
             <div className="h-24 shrink-0">
-              <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x" />
+              <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x">
+                <div className="h-[5px] w-full bg-purple opacity-30" />
+              </div>
             </div>
             <NavigationItem href={isHome ? '#home' : '/#home'} type="mobile" close={close}>
               Home
@@ -102,8 +104,12 @@ const Navigation = () => {
       </Link>
       <div className="absolute bottom-0 h-1.5 w-full translate-y-1.5 bg-purple opacity-30 md:hidden" />
       <div className="absolute bottom-0 z-10 hidden h-20 w-full translate-y-20 md:flex">
-        <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-[length:auto_100%] bg-right bg-repeat-x" />
-        <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-[length:auto_100%] bg-repeat-x" />
+        <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-[length:auto_100%] bg-right bg-repeat-x">
+          <div className="h-[5px] w-full bg-purple opacity-30" />
+        </div>
+        <div className="flex-grow bg-[url('/svgs/awning.svg')] bg-[length:auto_100%] bg-repeat-x">
+          <div className="h-[5px] w-full bg-purple opacity-30" />
+        </div>
       </div>
     </nav>
   );
