@@ -155,7 +155,7 @@ const CheckIn: NextPage = () => {
               {address && (
                 <button
                   className={classNames(
-                    'rounded-lg bg-pink px-4 py-2 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl',
+                    'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl',
                     { hidden: alreadyCheckedIn }
                   )}
                   type="button"
@@ -167,7 +167,7 @@ const CheckIn: NextPage = () => {
               )}
               <button
                 onClick={() => setIsDialogOpen(true)}
-                className="rounded-lg bg-pink px-4 py-2 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl md:hidden"
+                className="rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl md:hidden"
               >
                 What is this?
               </button>
@@ -226,7 +226,7 @@ export const CustomConnectButton = ({ className }: CustomConnectButtonProps) => 
           <div className={classNames({ 'pointer-events-none select-none opacity-0': !mounted })}>
             {(() => {
               const buttonClasses =
-                'rounded-lg bg-pink px-4 py-2 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-2xl';
+                'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl';
 
               if (!mounted || !account || !chain) {
                 return (
