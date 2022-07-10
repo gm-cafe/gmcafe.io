@@ -36,9 +36,9 @@ const Home: NextPage = () => {
             />
           </div>
           <div className="absolute top-0 hidden h-[125%] w-full min-w-[500px] flex-1 justify-center overflow-hidden md:flex">
-            <img src="clouds_left.png" alt="Clouds Left" />
+            <img className="max-w-[800px]" src="clouds_left.png" alt="Clouds Left" />
             <div className="min-w-[500px] flex-1"></div>
-            <img src="clouds_right.png" alt="Clouds Right" />
+            <img className="max-w-[800px]" src="clouds_right.png" alt="Clouds Right" />
           </div>
         </section>
         <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 2xl:px-0 2xl:pt-0">

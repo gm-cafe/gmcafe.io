@@ -54,7 +54,7 @@ export const members: MemberCardProps[] = [
     name: 'Loop • Highland #292',
     title: 'Barista & Dev',
     description:
-      "It's rumoured that Master Loop hasn't left the café in months and sleeps in the loft where all the excess napkins and paper cups go. Loves rainbow cowffee. Very based.",
+      "Loop is the kindest, front-end coder moo in the entire universe. He hasn't left the café in months, sleeping in the loft with the excess napkins and paper cups. Rainbow cowffee specialist. Very based.",
     image: loop,
     twitter: 'https://twitter.com/0xLoop_',
   },
