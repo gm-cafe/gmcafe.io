@@ -161,12 +161,15 @@ const Home: NextPage = () => {
         </AnimatedPageSection>
         <section>
           <div className="relative z-10 mx-auto max-w-screen-2xl">
-            <div className="absolute right-4 -top-12 z-10 w-16 sm:right-8 sm:-top-24 sm:w-28 2xl:right-0">
+            <div
+              id="faq"
+              className="absolute right-4 -top-12 z-10 w-16 sm:right-8 sm:-top-24 sm:w-28 2xl:right-0"
+            >
               <Image src={cowla} layout="responsive" alt="Coffee Spill" />
             </div>
           </div>
         </section>
-        <AnimatedPageSection id="faq" className="bg-two-tone-gray overflow-x-hidden">
+        <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
