@@ -56,8 +56,13 @@
 }
 
 .cursor a,
-.cursor button {
+.cursor button,
+.cursor-pointer {
   cursor: url('/pointer.png') 4 5, pointer;
+}
+
+button.ju367v8i {
+  cursor: url('/pointer.png') 4 5, pointer !important;
 }
 
 /* "Connect a Wallet" and "What is a Wallet?" */
