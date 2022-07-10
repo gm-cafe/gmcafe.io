@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-12 md:h-auto">
             <img
               src="banner.jpg"
-              className="h-full max-h-[1000px] w-full animate-section object-cover object-bottom md:object-contain"
+              className="h-full max-h-[600px] w-full animate-section object-cover object-bottom md:object-contain 2xl:max-h-[1000px]"
               alt="Café Banner"
             />
           </div>
