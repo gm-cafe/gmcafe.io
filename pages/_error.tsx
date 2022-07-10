@@ -36,7 +36,9 @@ export async function getServerSideProps(context: NextPageContext) {
 
   // Returning early because we don't want to log 404 errors to Sentry.
   if (res?.statusCode === 404) {
-    return response;
+    return {
+      props: response
+    };
   }
 
   // Running on the server, the response object (`res`) is available.
@@ -59,7 +61,9 @@ export async function getServerSideProps(context: NextPageContext) {
     // https://vercel.com/docs/platform/limits#streaming-responses
     await flush(2000);
 
-    return response;
+    return {
+      props: response,
+    };
   }
 
   // If this point is reached, getInitialProps was called without any
@@ -68,7 +72,9 @@ export async function getServerSideProps(context: NextPageContext) {
   captureException(new Error(`_error.js getInitialProps missing data at path: ${asPath}`));
   await flush(2000);
 
-  return errorInitialProps;
+  return {
+    props: response,
+  };
 }
 
 export default CustomError;

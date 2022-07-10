@@ -34,9 +34,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       method: 'POST',
       body: envelope,
     });
-    return response.json();
+    return res.status(response.status).json({ status: response.statusText });
   } catch (e) {
-    console.error('hmm', e)
     captureException(e);
     return res.status(400).json({ status: 'invalid request' });
   }
