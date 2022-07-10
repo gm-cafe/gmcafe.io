@@ -70,7 +70,7 @@ const Home: NextPage = () => {
                   <Image src={genesisHighland} layout="responsive" alt="Genesis Highland" />
                 </div>
               </div>
-              <div className="squiggle hidden min-w-[60px] bg-gray-100 md:block" />
+              <div className="squiggle hidden min-w-[60px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">The Moos</h2>
@@ -107,7 +107,7 @@ const Home: NextPage = () => {
                   <Image src={phase2Brewing} layout="responsive" alt="Phase 2 Brewing" />
                 </div>
               </div>
-              <div className="squiggle hidden min-w-[51px] bg-gray-100 md:block" />
+              <div className="squiggle hidden min-w-[51px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
                   <Image src={lockEm} layout="responsive" alt="Lock 'Em in the Barn" />
                 </div>
               </div>
-              <div className="squiggle hidden min-w-[51px] bg-purple md:block" />
+              <div className="squiggle hidden min-w-[51px] border-r border-purple bg-purple md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-purple py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-white">Moogration</h2>
@@ -179,7 +179,7 @@ const Home: NextPage = () => {
                   <Image src={faq} layout="responsive" alt="FAQ" />
                 </div>
               </div>
-              <div className="squiggle hidden min-w-[54px] bg-gray-100 md:block" />
+              <div className="squiggle hidden min-w-[54px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 pt-12 pb-16 sm:py-12 md:col-span-2 md:py-20 md:pl-20 lg:pl-14 lg:pr-10 2xl:px-24">
               <Disclosures />
