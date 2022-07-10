@@ -16,7 +16,6 @@ type AirtableRecord = {
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  throw new Error('API throw error test');
   return fetch(
     'https://api.airtable.com/v0/appkYCX1EewOs0WUP/API?fields%5B%5D=Token&fields%5B%5D=Address',
     {

@@ -86,14 +86,6 @@ const Home: NextPage = () => {
                 <AnchorLink href="https://opensea.io/collection/goodmorningcafe">
                   Buy on OpenSea
                 </AnchorLink>
-                <button
-                  type="button"
-                  onClick={() => {
-                    throw new Error('Sentry Frontend Error');
-                  }}
-                >
-                  Throw error
-                </button>
               </div>
             </div>
           </div>
