@@ -31,7 +31,8 @@
 }
 
 .text-border-white {
-  text-shadow: 6px 0 0 #fff, -6px 0 0 #fff, 0 6px 0 #fff, 0 -6px 0 #fff, 4px 4px #fff, -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff;
+  text-shadow: 6px 0 0 #fff, -6px 0 0 #fff, 0 6px 0 #fff, 0 -6px 0 #fff, 4px 4px #fff,
+    -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff;
 }
 
 @media (min-width: 768px) {
@@ -40,13 +41,13 @@
   }
 
   .bg-two-tone-gray {
-    background-color: #FFFFFF;
-    background-image: linear-gradient(to right, #FFFFFF 50%, #F3F4F6 50%);
+    background-color: #ffffff;
+    background-image: linear-gradient(to right, #ffffff 50%, #f3f4f6 50%);
   }
-  
+
   .bg-two-tone-purple {
-    background-color: #FFFFFF;
-    background-image: linear-gradient(to right, #FFFFFF 50%, #8946AB 50%);
+    background-color: #ffffff;
+    background-image: linear-gradient(to right, #ffffff 50%, #8946ab 50%);
   }
 }
 
@@ -54,7 +55,8 @@
   cursor: url('/cursor.png') 18 7, auto;
 }
 
-.cursor a, .cursor button {
+.cursor a,
+.cursor button {
   cursor: url('/pointer.png') 18 6, pointer;
 }
 
@@ -92,7 +94,19 @@
   background-size: auto 101%;
   background-repeat: no-repeat;
   background-position: 75%;
-  background-image: url('/svgs/squiggle.svg'); 
+  background-image: url('/svgs/squiggle.svg');
   height: 100%;
   z-index: 1;
+}
+
+.cloud-container {
+  display: none;
+  justify-content: center;
+  overflow: hidden;
+  height: 125%;
+}
+
+.cloud-container .cloud-filler {
+  flex: 1;
+  min-width: 500px;
 }

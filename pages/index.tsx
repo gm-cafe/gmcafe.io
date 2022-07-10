@@ -35,16 +35,11 @@ const Home: NextPage = () => {
               alt="Café Banner"
             />
           </div>
-          <img
-            src="clouds_right.png"
-            alt="Clouds Left"
-            className="absolute top-0 h-full max-h-[1050px] w-full object-cover object-bottom md:h-auto md:object-contain md:object-right"
-          />
-          <img
-            src="clouds_left.png"
-            alt="Clouds Right"
-            className="absolute top-0 h-full max-h-[1050px] w-full object-cover object-bottom md:h-auto md:object-contain md:object-left"
-          />
+          <div className="cloud-container absolute top-0 w-full md:flex">
+            <img src="clouds_left.png" alt="Clouds Left" />
+            <div className="cloud-filler"></div>
+            <img src="clouds_right.png" alt="Clouds Right" />
+          </div>
         </section>
         <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 2xl:px-0 2xl:pt-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
