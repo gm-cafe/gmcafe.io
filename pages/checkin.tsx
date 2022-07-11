@@ -120,7 +120,7 @@ const CheckIn: NextPage = () => {
         <section className="relative flex h-full flex-col items-center justify-end">
           <Transition
             show={isShowing}
-            className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[20rem] 2xl:translate-x-[20rem] 2xl:translate-y-[16rem]"
+            className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-28 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[20rem] 2xl:translate-x-[20rem] 2xl:translate-y-[16rem]"
             enter="transition duration-200"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
@@ -176,7 +176,7 @@ const CheckIn: NextPage = () => {
         </section>
         <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <Dialog.Panel className="relative mx-8 flex w-full max-w-xl transform flex-col gap-3 overflow-hidden rounded-2xl bg-white p-12 text-left align-middle text-purple shadow-xl transition-all">
+            <Dialog.Panel className="relative mx-8 flex max-h-[75dvh] w-full max-w-xl transform flex-col gap-3 overflow-hidden overflow-y-auto rounded-2xl bg-white p-12 text-left text-purple shadow-xl transition-all">
               <XIcon
                 className="absolute top-6 right-6 h-8 w-8 cursor-pointer"
                 onClick={() => setIsDialogOpen(false)}
