@@ -21,7 +21,7 @@ const Rights = () => {
             <p>
               If you can&apos;t be bothered reading on - basically if you wanna use the Moos for
               personal, go right ahead! If it&apos;s for commercial use, please send Ben a message
-              using #support in the <Discord />.
+              using the #support channel in the <Discord />.
             </p>
             <p>How to use the Moo art for your own personal, non-commercial use:</p>
             <ul className="list-inside list-disc">
