@@ -76,13 +76,13 @@ const Navigation = () => {
               </a>
               <a
                 className="flex h-10 w-10 items-center rounded-full bg-white p-1.5"
-                href="https://discord.gg/gmcafe"
+                href="https://twitter.com/gmcafeNFT"
               >
                 <TwitterIcon fill="#8946ab" />
               </a>
               <a
                 className="flex h-10 w-10 items-center rounded-full bg-white p-1.5"
-                href="https://discord.gg/gmcafe"
+                href="https://opensea.io/collection/goodmorningcafe"
               >
                 <OpenSeaIcon fill="#8946ab" />
               </a>
