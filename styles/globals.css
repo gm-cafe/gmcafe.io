@@ -19,7 +19,7 @@
 }
 
 .mobile-nav-height {
-  height: calc(100vh - 4rem);
+  height: calc(100dvh - 4rem);
 }
 
 .clip-home-section {
