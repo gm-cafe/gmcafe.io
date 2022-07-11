@@ -9,7 +9,7 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   const ref = useRef<HTMLDivElement>(null);
   return (
-    <main className="max-h-screen overflow-y-auto" ref={ref}>
+    <main className="max-h-d-screen overflow-y-auto md:max-h-screen" ref={ref}>
       <Navigation />
       <CursorTrail parentRef={ref} />
       {children}

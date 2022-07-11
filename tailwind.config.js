@@ -38,6 +38,7 @@ module.exports = {
         22: '5.5rem',
         26: '6.5rem',
         88: '22rem',
+        'd-screen': '100dvh',
       },
       keyframes: {
         section: {
