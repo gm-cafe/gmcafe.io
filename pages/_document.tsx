@@ -12,6 +12,7 @@ export default function Document() {
         />
 
         <meta name="description" content={description} />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
         <meta property="og:url" content="https://gmcafe.io" />
         <meta property="og:type" content="website" />
