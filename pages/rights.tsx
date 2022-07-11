@@ -23,23 +23,41 @@ const Rights = () => {
               personal, go right ahead! If it&apos;s for commercial use, please send Ben a message
               using the #support channel in the <Discord />.
             </p>
-            <p>How to use the Moo art for your own personal, non-commercial use:</p>
+            <p className="font-semibold">
+              What am I allowed to do with the art associated with my NFT?
+            </p>
             <ul className="list-inside list-disc">
+              <li>Use the GMCafé art for your own personal, non-commercial use</li>
               <li>
-                Use the Moo art when you&apos;re on a marketplace that allows the purchase and sale
-                of your Moo, so long as the marketplace cryptographically verifies that you are the
-                owner.
+                Use the GMCafé art when you&apos;re on a marketplace that allows the purchase and
+                sale of your NFT, so long as the marketplace cryptographically verifies that you are
+                the owner
               </li>
               <li>
-                Use the Moo art when you&apos;re on a third party website or app that allows the
-                inclusion, involvement, or participation of your Moo, so long as the website/app
-                cryptographically verifies that you are the owner, and the art doesn&apos;t stay on
-                the website/app after you&apos;ve left it. ie. Twitter.
+                Use the GMCafé art when you&apos;re on a third party website or app that allows the
+                inclusion, involvement, or participation of your NFT, so long as the website/app
+                cryptographically verifies that you are the owner, and the GMCafé art doesn&apos;t
+                stay on the website/app after you&apos;ve left
               </li>
               <li>
-                Use the Moo art to create your own merchandise, provided that you aren&apos;t
-                earning more than $50,000 in revenue each year from doing so. Before which approval
-                and agreement will be needed to protect the overall brand.
+                Use the GMCafé art to commercialize your own merchandise, provided that you
+                aren&apos;t earning more than $50,000 in revenue each year from doing so, before
+                which approval and agreement will be needed to protect the overall brand
+              </li>
+            </ul>
+            <p className="font-semibold">
+              What am I NOT allowed to do with the art associated with my NFT?
+            </p>
+            <ul className="list-inside list-disc">
+              <li>Creating a GMCafé derivative collection without explicit permission</li>
+              <li>Using the GMCafé art to market or sell third-party products</li>
+              <li>
+                Using the GMCafé art in connection with images of hatred, violence, or other
+                inappropriate behavior
+              </li>
+              <li>
+                Trying to trademark the GMCafé art, or otherwise acquire intellectual property
+                rights in it
               </li>
             </ul>
             <p>
