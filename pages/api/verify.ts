@@ -56,7 +56,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       if (!response.ok) {
         res.status(400).json({ message: 'Error occurred while storing address...' });
       } else {
-        res.status(200).json({ message: 'Address received!' });
+        res.status(200).json({ message: 'SUCCESS! Address received.' });
       }
     });
   } else {
