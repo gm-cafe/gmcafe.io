@@ -120,7 +120,7 @@ const CheckIn: NextPage = () => {
         <section className="relative flex h-full flex-col items-center justify-end">
           <Transition
             show={isShowing}
-            className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[24rem] 2xl:translate-x-[20rem] 2xl:translate-y-56"
+            className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-20 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[20rem] 2xl:translate-x-[20rem] 2xl:translate-y-56"
             enter="transition duration-200"
             enterFrom="opacity-0 scale-50"
             enterTo="opacity-100 scale-100"
