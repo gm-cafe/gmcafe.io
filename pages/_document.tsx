@@ -20,6 +20,12 @@ export default function Document() {
         <meta property="og:description" content={description} />
         <meta property="og:image" content="/meta_image.png" />
 
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@gmcafeNFT" />
+        <meta name="twitter:title" content="Good Morning Café" />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="/meta_image.png" />
+
         <script defer data-domain="gmcafe.io" src="/js/script.js"></script>
       </Head>
       <body className="cursor font-sans">
