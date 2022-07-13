@@ -3,7 +3,6 @@ import { NextPage } from 'next';
 import mooWrite from '../public/moo_write.png';
 import tableCloth from '../public/table_cloth.png';
 import Image from 'next/image';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount, useProvider, useSigner } from 'wagmi';
 import { ReactNode, useEffect, useState } from 'react';
 import getAssetsFromAddress from '../lib/util/getAssetsFromAddress';
@@ -13,6 +12,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import Head from 'next/head';
 import { XIcon } from '@heroicons/react/solid';
 import { Discord } from '../components/StyledLinks';
+import CustomConnectButton from '../components/CustomConnectButton';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
@@ -151,7 +151,10 @@ const CheckIn: NextPage = () => {
               <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
             </div>
             <div className="ml-5 mr-4 flex h-[24vh] translate-y-2 flex-col items-center justify-start gap-2 rounded border-4 border-purple bg-white pt-12 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[20vh] 2xl:border-8">
-              <CustomConnectButton className={classNames({ hidden: address })} />
+              <CustomConnectButton
+                className={classNames({ hidden: address })}
+                variation="checkin"
+              />
               {address && (
                 <button
                   className={classNames(
@@ -213,50 +216,3 @@ const CheckIn: NextPage = () => {
 };
 
 export default CheckIn;
-
-type CustomConnectButtonProps = {
-  className?: string;
-};
-
-export const CustomConnectButton = ({ className }: CustomConnectButtonProps) => {
-  return (
-    <ConnectButton.Custom>
-      {({ account, chain, openChainModal, openConnectModal, mounted }) => {
-        return (
-          <div className={classNames({ 'pointer-events-none select-none opacity-0': !mounted })}>
-            {(() => {
-              const buttonClasses =
-                'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl';
-
-              if (!mounted || !account || !chain) {
-                return (
-                  <button
-                    className={classNames(buttonClasses, className)}
-                    onClick={openConnectModal}
-                    type="button"
-                  >
-                    Connect Wallet
-                  </button>
-                );
-              }
-
-              if (chain.unsupported) {
-                return (
-                  <button
-                    className={classNames(buttonClasses, className)}
-                    onClick={openChainModal}
-                    type="button"
-                  >
-                    Wrong network
-                  </button>
-                );
-              }
-
-              return null;
-            })()}
-          </div>
-        );
-      }}
-    </ConnectButton.Custom>
-  );
-};
