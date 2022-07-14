@@ -16,7 +16,7 @@ type RainbowKitProviderProps = {
 };
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet, ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [chain.rinkeby] : [])],
+  [chain.rinkeby],
   [infuraProvider({ infuraId: '47434bfa14b446bab19576bdab9d5205' }), publicProvider()]
 );
 

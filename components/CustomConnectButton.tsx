@@ -16,37 +16,37 @@ export const CustomConnectButton = ({ className, variation }: CustomConnectButto
   return (
     <ConnectButton.Custom>
       {({ account, chain, openChainModal, openConnectModal, mounted }) => {
-        return (
-          <div className={classNames({ 'pointer-events-none select-none opacity-0': !mounted })}>
-            {(() => {
-              if (!mounted || !account || !chain) {
-                return (
-                  <button
-                    className={classNames(buttonClasses, className)}
-                    onClick={openConnectModal}
-                    type="button"
-                  >
-                    Connect Wallet
-                  </button>
-                );
-              }
+        return (() => {
+          if (!mounted || !account || !chain) {
+            return (
+              <button
+                className={classNames(
+                  buttonClasses,
+                  { 'pointer-events-none select-none opacity-0': !mounted },
+                  className
+                )}
+                onClick={openConnectModal}
+                type="button"
+              >
+                Connect Wallet
+              </button>
+            );
+          }
 
-              if (chain.unsupported) {
-                return (
-                  <button
-                    className={classNames(buttonClasses, className)}
-                    onClick={openChainModal}
-                    type="button"
-                  >
-                    Wrong network
-                  </button>
-                );
-              }
+          if (chain.unsupported) {
+            return (
+              <button
+                className={classNames(buttonClasses, className)}
+                onClick={openChainModal}
+                type="button"
+              >
+                Wrong network
+              </button>
+            );
+          }
 
-              return null;
-            })()}
-          </div>
-        );
+          return null;
+        })();
       }}
     </ConnectButton.Custom>
   );
