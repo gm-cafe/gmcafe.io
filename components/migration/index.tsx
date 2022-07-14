@@ -3,7 +3,7 @@ import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import CustomConnectButton from '../CustomConnectButton';
 
-const fakeSeaContract = '0x8d2372F1689B3cf8367E650814038E9473041Dbe';
+export const fakeSeaContract = '0x8d2372F1689B3cf8367E650814038E9473041Dbe';
 export const gmooContractOwner = '0x51050ec063d393217B436747617aD1C2285Aeeee';
 export const gmooContract = '0x51f806e65FdE63C6bE7DC75aBbA7fcE0918B13Dc';
 

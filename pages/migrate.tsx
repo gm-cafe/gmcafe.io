@@ -10,7 +10,7 @@ import {
   Migrate as MigrateMoos,
   gmooContract,
   gmooABI,
-  gmooContractOwner,
+  fakeSeaContract,
 } from '../components/migration';
 import { useAccount, useContractRead } from 'wagmi';
 import { BigNumber } from 'ethers';
@@ -28,7 +28,7 @@ const Migrate = () => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'getMigratableTokens',
-    args: address || gmooContractOwner,
+    args: address || fakeSeaContract,
   });
 
   const assets = tokens
