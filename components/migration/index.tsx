@@ -1,13 +1,17 @@
 import classNames from 'classnames';
 import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
-import { useContractWrite, useWaitForTransaction } from 'wagmi';
+import { useAccount, useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
+import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 
 export const fakeSeaContract = '0x8d2372F1689B3cf8367E650814038E9473041Dbe';
 export const gmooContractOwner = '0x51050ec063d393217B436747617aD1C2285Aeeee';
-export const gmooContract = '0x51f806e65FdE63C6bE7DC75aBbA7fcE0918B13Dc';
+export const gmooContract = '0xA7b92650CB392fBeFCb8fc02E32BAbDe854742F1';
 
-const fakeSeaABI = ['function setApprovalForAll(address _operator, bool _approved) external'];
+const fakeSeaABI = [
+  'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
+  'function setApprovalForAll(address _operator, bool _approved) external',
+];
 export const gmooABI = [
   'function getMigratableTokens(address sender) public view returns (uint256[] memory tokens)',
   'function isMigrationApproved(address sender) public view returns (bool)',
@@ -18,8 +22,8 @@ export const gmooABI = [
 
 type StateProps = {
   next: () => void;
-  loading?: boolean;
-  setLoading?: Dispatch<SetStateAction<boolean>>;
+  loading?: LoadingState;
+  setLoading?: Dispatch<SetStateAction<LoadingState>>;
 };
 
 export const Connect = () => {
@@ -39,6 +43,14 @@ export const Approve = ({ next, setLoading }: StateProps) => {
     functionName: 'setApprovalForAll',
   });
 
+  const { address } = useAccount();
+  const { data: alreadyApproved } = useContractRead({
+    addressOrName: fakeSeaContract,
+    contractInterface: fakeSeaABI,
+    functionName: 'isApprovedForAll',
+    args: [address, gmooContract],
+  });
+
   const { isFetched } = useWaitForTransaction({
     hash: data?.hash,
   });
@@ -46,13 +58,15 @@ export const Approve = ({ next, setLoading }: StateProps) => {
   useEffect(() => {
     if (isSuccess) {
       if (isFetched) {
-        setLoading && setLoading(false);
+        setLoading && setLoading(undefined);
         next();
       } else {
-        setLoading && setLoading(true);
+        setLoading && setLoading('approve');
       }
+    } else if (alreadyApproved) {
+      next();
     }
-  }, [isSuccess, next, setLoading, isFetched]);
+  }, [isSuccess, next, setLoading, isFetched, alreadyApproved]);
 
   return (
     <>
@@ -68,7 +82,7 @@ type MigrateProps = StateProps & {
   tokens: string[];
 };
 
-export const Migrate = ({ next, tokens, setLoading }: MigrateProps) => {
+export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => {
   const { data, isLoading, write, isSuccess } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
@@ -82,13 +96,22 @@ export const Migrate = ({ next, tokens, setLoading }: MigrateProps) => {
   useEffect(() => {
     if (isSuccess) {
       if (isFetched) {
-        setLoading && setLoading(false);
+        setLoading && setLoading(undefined);
         next();
       } else {
-        setLoading && setLoading(true);
+        setLoading && setLoading('migrate');
       }
     }
   }, [isSuccess, next, setLoading, isFetched]);
+
+  if (loading === 'migrate') {
+    return (
+      <>
+        <h1>MOOOOOoooooOOoooo!</h1>
+        <p>Moograting in progress...</p>
+      </>
+    );
+  }
 
   return (
     <>
@@ -104,15 +127,6 @@ export const Migrate = ({ next, tokens, setLoading }: MigrateProps) => {
   );
 };
 
-export const Migrating = () => {
-  return (
-    <>
-      <h1>MOOOOOoooooOOoooo!</h1>
-      <p>Moograting in progress...</p>
-    </>
-  );
-};
-
 export const Migrated = () => {
   return (
     <>
@@ -120,6 +134,14 @@ export const Migrated = () => {
       <p>
         Your herd has successfully crossed the moogical portal and has safely landed in your wallet.
       </p>
+    </>
+  );
+};
+
+export const NoMoo = () => {
+  return (
+    <>
+      <p>Looks like this wallet doesn&apos;t have any moos in it...</p>
     </>
   );
 };
@@ -135,7 +157,7 @@ const Button = ({ onClick, children, loading }: ButtonProps) => {
     <button
       className={classNames(
         { 'pointer-events-none': loading },
-        'relative max-w-max self-end rounded bg-pink px-6 py-0.5 font-gmcafe text-base text-white'
+        'text-shadow relative max-w-max self-end rounded-full bg-pink-light px-6 py-0.5 font-gmcafe text-base uppercase text-white'
       )}
       onClick={onClick}
       disabled={loading}

@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import moo from '../public/migrate/moo.png';
+import wave from '../public/migrate/wave.png';
+import heart from '../public/migrate/heart.png';
 import cup from '../public/migrate/cup.png';
+import portal from '../public/migrate/portal.png';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import {
@@ -11,17 +14,19 @@ import {
   gmooContract,
   gmooABI,
   fakeSeaContract,
+  NoMoo,
 } from '../components/migration';
 import { useAccount, useContractRead } from 'wagmi';
 import { BigNumber } from 'ethers';
 import { metadata } from '../lib/constants';
 import { Asset } from '../lib/util/types';
 
-type State = 'connect' | 'approve' | 'migrate' | 'migrating' | 'migrated';
+type State = 'connect' | 'approve' | 'migrate' | 'migrated';
+export type LoadingState = 'approve' | 'migrate' | undefined;
 
 const Migrate = () => {
   const [state, setState] = useState<State>('connect');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<LoadingState>();
 
   const { isConnected, address } = useAccount();
   const { data: tokens } = useContractRead({
@@ -41,18 +46,29 @@ const Migrate = () => {
     isConnected && setState('approve');
   }, [isConnected]);
 
+  const cupLoading = (
+    <div className="mb-48 flex max-w-max flex-col sm:mb-0">
+      <p className="ml-6 text-center font-gmcafe text-purple">Approving...</p>
+      <Image src={cup} width={96} height={96} alt="Loading Cup" />
+    </div>
+  );
+
+  const portalLoading = (
+    <div className="mb-48 flex max-w-max flex-col sm:mb-0">
+      <Image src={portal} width={400} height={400} alt="Loading Cup" />
+    </div>
+  );
+
   return (
-    <div className="flex min-h-screen bg-pink-light pt-28">
+    <div className="flex min-h-screen bg-pink-background pt-28">
       <div
         className={classNames(
           { hidden: !isLoading },
           'fixed z-10 flex h-full w-full items-center justify-center bg-white bg-opacity-40'
         )}
       >
-        <div className="flex max-w-max flex-col">
-          <p className="ml-5 text-center font-gmcafe text-purple">Loading...</p>
-          <Image src={cup} width={96} height={96} alt="Loading Cup" />
-        </div>
+        {isLoading === 'approve' && cupLoading}
+        {isLoading === 'migrate' && portalLoading}
       </div>
       <div className="mx-auto mt-24 flex max-w-screen-sm flex-1 flex-col">
         <span
@@ -76,27 +92,32 @@ const Migrate = () => {
             </div>
           ))}
         </div>
-        <div className="relative mx-auto mt-auto max-w-screen-sm">
-          <div className="absolute left-0 bottom-0 w-52">
-            <Image src={moo} layout="responsive" alt="Frankie" />
+        <div className="relative z-20 mt-auto max-w-screen-sm">
+          <div className="absolute left-0 bottom-0 w-48 -translate-x-6 sm:w-56 sm:-translate-x-0">
+            <Image
+              src={state === 'connect' ? wave : state === 'migrated' ? heart : moo}
+              layout="responsive"
+              alt="Frankie"
+            />
           </div>
-          <div className="ml-36 mr-2 mb-2">
-            <span className="rounded border-x-4 border-purple bg-purple py-0.5 pl-16 pr-4 font-gmcafe text-sm text-white">
-              Frankie
+          <div className="ml-28 mr-2 sm:mb-2 sm:ml-36">
+            <span className="rounded-t-full border-x-4 border-purple bg-purple py-1 pl-16 pr-6 font-gmcafe tracking-wider text-white sm:pl-20">
+              Harold
             </span>
-            <div className="box-border flex w-full max-w-max flex-col rounded border-4 border-purple bg-white py-2 pl-16 pr-4 text-sm text-purple">
+            <div className="box-border flex h-28 w-full flex-col space-y-2 rounded border-4 border-purple bg-white py-3 pl-16 pr-4 text-sm text-purple sm:pl-20">
               {state === 'connect' && <Connect />}
-              {state === 'approve' && (
+              {state === 'approve' && assets.length > 0 && (
                 <Approve next={() => setState('migrate')} setLoading={setIsLoading} />
               )}
+              {state === 'approve' && assets.length <= 0 && <NoMoo />}
               {state === 'migrate' && (
                 <MigrateMoos
                   next={() => setState('migrated')}
                   tokens={assets.map((asset) => asset.token)}
+                  loading={isLoading}
                   setLoading={setIsLoading}
                 />
               )}
-              {/* {state === 'migrating' && <Migrating next={() => setState('migrated')} />} */}
               {state === 'migrated' && <Migrated />}
             </div>
           </div>

@@ -72,7 +72,7 @@
 }
 
 .migration-drop-shadow {
-  filter: drop-shadow(0 0 4px #8946ab)
+  filter: drop-shadow(0 0 4px #f4dffe) drop-shadow(0 0 4px #f4dffe)
 }
 
 @media (min-width: 768px) {
