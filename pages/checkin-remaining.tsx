@@ -13,7 +13,8 @@ const CheckInRemaining: NextPage = () => {
       .then((json) => setTokens(json.tokens));
   }, []);
 
-  const assets = metadata.filter((asset) => !tokens.includes(asset.token));
+  const assets =
+    tokens.length === 0 ? [] : metadata.filter((asset) => !tokens.includes(asset.token));
 
   return (
     <>
@@ -26,7 +27,7 @@ const CheckInRemaining: NextPage = () => {
             <div className="w-full overflow-hidden rounded-full">
               <Image src={imageUrl} width={600} height={600} layout="responsive" alt={name} />
             </div>
-            <div className="flex-1 text-center">{name}</div>
+            <div className="flex-1 text-center text-sm">{name}</div>
           </div>
         ))}
       </div>
