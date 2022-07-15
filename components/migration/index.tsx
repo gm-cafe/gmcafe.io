@@ -30,7 +30,7 @@ export const Connect = () => {
   return (
     <>
       <h1>GMOO!</h1>
-      <p>Please connect your wallet to continue.</p>
+      <p className="mb-2">Please connect your wallet to continue.</p>
       <CustomConnectButton className="max-w-max self-end" variation="migration" />
     </>
   );
@@ -70,7 +70,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
 
   return (
     <>
-      <p>Please grant your approval to start the moogration process.</p>
+      <p className="mb-2">Please grant your approval to start the moogration process.</p>
       <Button onClick={() => write({ args: [gmooContract, true] })} loading={isLoading}>
         Approve
       </Button>
@@ -116,7 +116,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
   return (
     <>
       <h1>Approved!</h1>
-      <p>Are you ready to enter the moogical portal?</p>
+      <p className="mb-2">Are you ready to enter the moogical portal?</p>
       <Button
         onClick={() => write({ args: tokens.length > 1 ? [tokens] : tokens[0] })}
         loading={isLoading}

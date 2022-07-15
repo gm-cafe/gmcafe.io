@@ -60,54 +60,55 @@ const Migrate = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-pink-background pt-28">
+    <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
       <div
         className={classNames(
           { hidden: !isLoading },
-          'fixed z-10 flex h-full w-full items-center justify-center bg-white bg-opacity-40'
+          { 'bg-white bg-opacity-40': isLoading === 'approve' },
+          'fixed z-10 flex h-full w-full items-center justify-center'
         )}
       >
         {isLoading === 'approve' && cupLoading}
         {isLoading === 'migrate' && portalLoading}
       </div>
-      <div className="mx-auto mt-24 flex max-w-screen-sm flex-1 flex-col">
-        <span
-          className={classNames(
-            { hidden: assets.length <= 0 },
-            'max-w-max rounded-lg bg-purple px-4 font-gmcafe text-xl uppercase text-white'
-          )}
-        >
-          Your Herd
-        </span>
-        <div className="mt-4 grid max-w-screen-sm grid-cols-2 gap-4">
+      <div className="mx-auto flex max-w-screen-sm flex-1 flex-col sm:mt-12">
+        {assets.length > 0 && (
+          <span className="mx-4 max-w-max rounded-lg bg-purple px-4 font-gmcafe text-xl uppercase text-white">
+            Your Herd
+          </span>
+        )}
+        <div className="my-4 mx-2 grid max-w-screen-sm grid-cols-2 gap-4 overflow-y-auto px-2">
           {assets.map(({ name, imageUrl, token }) => (
             <div
               className={classNames(
                 { 'migration-drop-shadow': state === 'migrated' },
-                'overflow-hidden rounded-lg border-4 border-purple'
+                { 'animation-pulse': state === 'migrate' },
+                'rounded-xl border-4 border-purple'
               )}
               key={token}
             >
-              <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
+              <div className="overflow-hidden rounded-lg">
+                <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
+              </div>
             </div>
           ))}
         </div>
         <div className="relative z-20 mt-auto max-w-screen-sm">
-          <div className="absolute left-0 bottom-0 w-48 -translate-x-6 sm:w-56 sm:-translate-x-0">
+          <div className="absolute left-0 bottom-0 w-60 -translate-x-16 sm:w-56 sm:-translate-x-0">
             <Image
               src={state === 'connect' ? wave : state === 'migrated' ? heart : moo}
               layout="responsive"
-              alt="Frankie"
+              alt="Moo Waving"
             />
           </div>
-          <div className="ml-28 mr-2 sm:mb-2 sm:ml-36">
-            <span className="rounded-t-full border-x-4 border-purple bg-purple py-1 pl-16 pr-6 font-gmcafe tracking-wider text-white sm:pl-20">
+          <div className="ml-28 h-min sm:mr-2 sm:mb-2 sm:ml-36">
+            <span className="rounded-full bg-pink py-2 pl-16 pr-6 font-gmcafe text-lg tracking-wider text-white sm:pl-20">
               Harold
             </span>
-            <div className="box-border flex h-28 w-full flex-col space-y-2 rounded border-4 border-purple bg-white py-3 pl-16 pr-4 text-sm text-purple sm:pl-20">
+            <div className="-mt-2 box-border flex h-36 w-full flex-col rounded bg-white pt-6 pb-2 pl-16 pr-2 text-sm text-purple shadow-xl sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20">
               {state === 'connect' && <Connect />}
               {state === 'approve' && assets.length > 0 && (
-                <Approve next={() => setState('migrate')} setLoading={setIsLoading} />
+                <Approve next={() => setState('migrated')} setLoading={setIsLoading} />
               )}
               {state === 'approve' && assets.length <= 0 && <NoMoo />}
               {state === 'migrate' && (
