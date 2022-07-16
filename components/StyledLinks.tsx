@@ -52,3 +52,16 @@ export const Internal = ({ href, children }: InternalProps) => {
     </Link>
   );
 };
+
+export const Default = ({ href, children }: InternalProps) => {
+  return (
+    <a
+      className="font-semibold underline underline-offset-4"
+      href={href}
+      rel="noreferrer"
+      target="_blank"
+    >
+      {children}
+    </a>
+  );
+};
