@@ -112,106 +112,103 @@ const CheckIn: NextPage = () => {
   };
 
   return (
-    <>
+    <main className="h-screen overflow-hidden bg-pink-light">
       <Head>
         <title>Check In</title>
+        <meta property="og:image" content="https://gmcafe.io/meta_image.png" />
+        <meta name="twitter:image" content="https://gmcafe.io/meta_image.png" />
       </Head>
-      <main className="h-screen overflow-hidden bg-pink-light">
-        <section className="relative flex h-full flex-col items-center justify-end">
-          <Transition
-            show={isShowing}
-            className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-28 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[20rem] 2xl:translate-x-[20rem] 2xl:translate-y-[16rem]"
-            enter="transition duration-200"
-            enterFrom="opacity-0 scale-50"
-            enterTo="opacity-100 scale-100"
-            leave="transition-opacity"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+      <section className="relative flex h-full flex-col items-center justify-end">
+        <Transition
+          show={isShowing}
+          className="z-20 mx-auto h-72 w-72 shrink-0 translate-y-28 md:-right-52 md:top-1/3 md:h-[15rem] md:w-[18rem] md:translate-x-56 md:translate-y-32 lg:translate-x-72 lg:translate-y-48 2xl:h-[20rem] 2xl:w-[20rem] 2xl:translate-x-[20rem] 2xl:translate-y-[16rem]"
+          enter="transition duration-200"
+          enterFrom="opacity-0 scale-50"
+          enterTo="opacity-100 scale-100"
+          leave="transition-opacity"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
+            <p className="max-w-full pb-2 text-center font-gmcafe-skinny text-2xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
+              {message}
+            </p>
+          </div>
+        </Transition>
+        <div className="relative z-20 w-80 md:w-[28rem]">
+          <button
+            onClick={() => setIsDialogOpen(true)}
+            className="absolute top-0 left-10 z-30 hidden h-16 w-16 rounded-full border-6 border-purple bg-white font-gmcafe text-4xl text-purple shadow transition md:block 2xl:border-[7px] betterhover:hover:scale-105 betterhover:hover:shadow"
           >
-            <div className="flex h-full w-full items-center justify-center overflow-hidden break-words bg-speech-bubble-mobile bg-contain bg-center bg-no-repeat px-6 md:bg-speech-bubble">
-              <p className="max-w-full pb-2 text-center font-gmcafe-skinny text-2xl font-semibold tracking-wide text-purple md:text-2xl 2xl:text-3xl">
-                {message}
-              </p>
-            </div>
-          </Transition>
-          <div className="relative z-20 w-80 md:w-[28rem]">
+            i
+          </button>
+          <div className="absolute top-10 z-20">
+            <img src="sparkles.png" alt="sparkles" />
+          </div>
+          <div className="relative z-20 translate-y-22 md:translate-y-26 2xl:translate-y-28">
+            <Image src={mooWrite} layout="responsive" alt="Moo with Pen" />
+          </div>
+          <div className="relative z-10 translate-y-14">
+            <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
+          </div>
+          <div className="ml-5 mr-4 flex h-[24vh] translate-y-2 flex-col items-center justify-start gap-2 rounded border-4 border-purple bg-white pt-12 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[20vh] 2xl:border-8">
+            <CustomConnectButton className={classNames({ hidden: address })} variation="checkin" />
+            {address && (
+              <button
+                className={classNames(
+                  'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl',
+                  { hidden: alreadyCheckedIn }
+                )}
+                type="button"
+                onClick={migrate}
+                disabled={!!alreadyCheckedIn}
+              >
+                Check In
+              </button>
+            )}
             <button
               onClick={() => setIsDialogOpen(true)}
-              className="absolute top-0 left-10 z-30 hidden h-16 w-16 rounded-full border-6 border-purple bg-white font-gmcafe text-4xl text-purple shadow transition md:block 2xl:border-[7px] betterhover:hover:scale-105 betterhover:hover:shadow"
+              className="rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl md:hidden"
             >
-              i
+              What is this?
             </button>
-            <div className="absolute top-10 z-20">
-              <img src="sparkles.png" alt="sparkles" />
-            </div>
-            <div className="relative z-20 translate-y-22 md:translate-y-26 2xl:translate-y-28">
-              <Image src={mooWrite} layout="responsive" alt="Moo with Pen" />
-            </div>
-            <div className="relative z-10 translate-y-14">
-              <Image src={tableCloth} layout="responsive" alt="Table Cloth" />
-            </div>
-            <div className="ml-5 mr-4 flex h-[24vh] translate-y-2 flex-col items-center justify-start gap-2 rounded border-4 border-purple bg-white pt-12 md:ml-7 md:mr-6 md:h-[18vh] md:border-6 2xl:mr-8 2xl:ml-10 2xl:h-[20vh] 2xl:border-8">
-              <CustomConnectButton
-                className={classNames({ hidden: address })}
-                variation="checkin"
-              />
-              {address && (
-                <button
-                  className={classNames(
-                    'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl',
-                    { hidden: alreadyCheckedIn }
-                  )}
-                  type="button"
-                  onClick={migrate}
-                  disabled={!!alreadyCheckedIn}
-                >
-                  Check In
-                </button>
-              )}
-              <button
-                onClick={() => setIsDialogOpen(true)}
-                className="rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe-skinny text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl md:hidden"
-              >
-                What is this?
-              </button>
-            </div>
           </div>
-        </section>
-        <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <Dialog.Panel className="relative mx-8 flex max-h-[75dvh] w-full max-w-xl transform flex-col gap-3 overflow-hidden overflow-y-auto rounded-2xl bg-white p-12 text-left text-purple shadow-xl transition-all">
-              <XIcon
-                className="absolute top-6 right-6 h-8 w-8 cursor-pointer"
-                onClick={() => setIsDialogOpen(false)}
-              />
-              <Dialog.Title className="mb-4 font-gmcafe text-4xl uppercase">
-                What is this?
-              </Dialog.Title>
-              <Dialog.Description>
-                The Great Moogration is happening! Cows are finally being migrated to their own
-                custom contract.
-              </Dialog.Description>
-              <p>
-                Clicking <span className="font-semibold">Check In</span> will help us take
-                attendance of all currently active Herd members in the space. This will help us
-                determine how long to keep the migration time window open for.
-              </p>
-              <p>
-                After the migration phase ends, anyone who does not successfully migrate by the
-                deadline will have their cow(s) automatically minted to the Admin wallet. To claim
-                your cow later, please open up a ticket in <Discord /> for next steps. Your cow will
-                not be lost.
-              </p>
-              <p>
-                The sooner we can complete the migration, the sooner we can delist the old
-                collection on OpenSea to prevent any confusion.
-              </p>
-              <span className="self-end text-sm">Checked-in Moos: {tokens.length}</span>
-            </Dialog.Panel>
-          </div>
-        </Dialog>
-      </main>
-    </>
+        </div>
+      </section>
+      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <Dialog.Panel className="relative mx-8 flex max-h-[75dvh] w-full max-w-xl transform flex-col gap-3 overflow-hidden overflow-y-auto rounded-2xl bg-white p-12 text-left text-purple shadow-xl transition-all">
+            <XIcon
+              className="absolute top-6 right-6 h-8 w-8 cursor-pointer"
+              onClick={() => setIsDialogOpen(false)}
+            />
+            <Dialog.Title className="mb-4 font-gmcafe text-4xl uppercase">
+              What is this?
+            </Dialog.Title>
+            <Dialog.Description>
+              The Great Moogration is happening! Cows are finally being migrated to their own custom
+              contract.
+            </Dialog.Description>
+            <p>
+              Clicking <span className="font-semibold">Check In</span> will help us take attendance
+              of all currently active Herd members in the space. This will help us determine how
+              long to keep the migration time window open for.
+            </p>
+            <p>
+              After the migration phase ends, anyone who does not successfully migrate by the
+              deadline will have their cow(s) automatically minted to the Admin wallet. To claim
+              your cow later, please open up a ticket in <Discord /> for next steps. Your cow will
+              not be lost.
+            </p>
+            <p>
+              The sooner we can complete the migration, the sooner we can delist the old collection
+              on OpenSea to prevent any confusion.
+            </p>
+            <span className="self-end text-sm">Checked-in Moos: {tokens.length}</span>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+    </main>
   );
 };
 
