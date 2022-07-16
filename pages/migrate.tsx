@@ -220,7 +220,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             >
               {state === 'connect' && <Connect />}
               {state === 'approve' && assets.length > 0 && (
-                <Approve next={() => setState('approve')} setLoading={setIsLoading} />
+                <Approve next={() => setState('migrate')} setLoading={setIsLoading} />
               )}
               {state === 'approve' && assets.length <= 0 && <NoMoo />}
               {state === 'migrate' && (

@@ -3,6 +3,7 @@ import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { useAccount, useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
+import Typewriter from 'typewriter-effect';
 
 export const fakeSeaContract = '0x8d2372F1689B3cf8367E650814038E9473041Dbe';
 export const gmooContractOwner = '0x51050ec063d393217B436747617aD1C2285Aeeee';
@@ -30,8 +31,12 @@ export const Connect = () => {
   return (
     <>
       <h1>GMOO!</h1>
-      <p className="mb-2">Please connect your wallet to continue.</p>
-      <CustomConnectButton className="max-w-max self-end" variation="migration" />
+      <Typewriter
+        onInit={(typewriter) => {
+          typewriter.changeDelay(50).typeString('Please connect your wallet to continue.').start();
+        }}
+      />
+      <CustomConnectButton className="mt-2 max-w-max self-end" variation="migration" />
     </>
   );
 };
@@ -70,8 +75,19 @@ export const Approve = ({ next, setLoading }: StateProps) => {
 
   return (
     <>
-      <p className="mb-2">Please grant your approval to start the moogration process.</p>
-      <Button onClick={() => write({ args: [gmooContract, true] })} loading={isLoading}>
+      <Typewriter
+        onInit={(typewriter) => {
+          typewriter
+            .changeDelay(50)
+            .typeString('Please grant your approval to start the moogration process.')
+            .start();
+        }}
+      />
+      <Button
+        className="mt-2"
+        onClick={() => write({ args: [gmooContract, true] })}
+        loading={isLoading}
+      >
         Approve
       </Button>
     </>
@@ -116,8 +132,16 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
   return (
     <>
       <h1>Approved!</h1>
-      <p className="mb-2">Are you ready to enter the moogical portal?</p>
+      <Typewriter
+        onInit={(typewriter) => {
+          typewriter
+            .changeDelay(50)
+            .typeString('Are you ready to enter the moogical portal?')
+            .start();
+        }}
+      />
       <Button
+        className="mt-2"
         onClick={() => write({ args: tokens.length > 1 ? [tokens] : tokens[0] })}
         loading={isLoading}
       >
@@ -131,9 +155,16 @@ export const Migrated = () => {
   return (
     <>
       <h1>CONGRATULATIONS!</h1>
-      <p>
-        Your herd has successfully crossed the moogical portal and has safely landed in your wallet.
-      </p>
+      <Typewriter
+        onInit={(typewriter) => {
+          typewriter
+            .changeDelay(50)
+            .typeString(
+              'Your herd has successfully crossed the moogical portal and has safely landed in your wallet.'
+            )
+            .start();
+        }}
+      />
     </>
   );
 };
@@ -141,21 +172,30 @@ export const Migrated = () => {
 export const NoMoo = () => {
   return (
     <>
-      <p>Looks like this wallet doesn&apos;t have any moos in it...</p>
+      <Typewriter
+        onInit={(typewriter) => {
+          typewriter
+            .changeDelay(50)
+            .typeString('Looks like this wallet doesn&apos;t have any moos in it...')
+            .start();
+        }}
+      />
     </>
   );
 };
 
 type ButtonProps = {
+  className?: string;
   children: ReactNode | ReactNode[];
   onClick: () => void;
   loading?: boolean;
 };
 
-const Button = ({ onClick, children, loading }: ButtonProps) => {
+const Button = ({ className, onClick, children, loading }: ButtonProps) => {
   return (
     <button
       className={classNames(
+        className,
         { 'pointer-events-none': loading },
         'text-shadow relative max-w-max self-end rounded-full bg-pink-light px-6 py-0.5 font-gmcafe text-base uppercase text-white'
       )}
