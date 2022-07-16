@@ -1,7 +1,6 @@
+/* Vercel's Image Optimization doesn't work on animated PNGs */
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
-import moo from '../public/migrate/moo.png';
-import wave from '../public/migrate/wave.png';
-import heart from '../public/migrate/heart.png';
 import cup from '../public/migrate/cup.png';
 import portal from '../public/migrate/portal.png';
 import { useEffect, useState } from 'react';
@@ -174,9 +173,14 @@ const Migrate = () => {
             id="moo"
             className="absolute left-0 bottom-0 w-52 -translate-x-12 sm:w-56 sm:-translate-x-0"
           >
-            <Image
-              src={state === 'connect' ? wave : state === 'migrated' ? heart : moo}
-              layout="responsive"
+            <img
+              src={
+                state === 'connect'
+                  ? 'migrate/wave.png'
+                  : state === 'migrated'
+                  ? 'migrate/heart.png'
+                  : 'migrate/moo.png'
+              }
               alt="Moo Waving"
             />
           </div>
