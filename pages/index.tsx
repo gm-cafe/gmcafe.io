@@ -25,8 +25,6 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Good Morning Café</title>
-        <meta property="og:image" content="https://gmcafe.io/meta_image.png" key="ogImage" />
-        <meta name="twitter:image" content="https://gmcafe.io/meta_image.png" key="twitterImage" />
       </Head>
       <div id="home" className="scroll-smooth pt-16">
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
