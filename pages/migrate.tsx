@@ -16,22 +16,22 @@ import {
   NoMoo,
 } from '../components/migration';
 import { useAccount, useContractRead } from 'wagmi';
-import { BigNumber } from 'ethers';
-import { metadata } from '../lib/constants';
 import { Asset } from '../lib/util/types';
 import AnchorLink from '../components/AnchorLink';
 import Particles from 'react-tsparticles';
 import { Engine } from 'tsparticles-engine';
 import { loadFull } from 'tsparticles';
 import { Default, Discord } from '../components/StyledLinks';
-import { intervalToDuration, formatDuration } from 'date-fns';
 import Head from 'next/head';
 import { NextPageContext } from 'next';
+import Countdown from '../components/Countdown';
+import { metadata } from '../lib/constants';
+import { BigNumber } from 'ethers';
 
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
 
-const endTimestamp = 1664510400000;
+const endTime = 1664510400000;
 
 type MigrateProps = {
   ogImage: string;
@@ -40,21 +40,24 @@ type MigrateProps = {
 const Migrate = ({ ogImage }: MigrateProps) => {
   const [state, setState] = useState<State>('connect');
   const [isLoading, setIsLoading] = useState<LoadingState>();
-  const [time, setTime] = useState(Date.now());
 
   const { isConnected, address } = useAccount();
-  const { data: tokens } = useContractRead({
+  const { data } = useContractRead({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'getMigratableTokens',
     args: address || fakeSeaContract,
   });
 
+  const moos: BigNumber[] = data?.moos || [];
+  const tokens: BigNumber[] = data?.tokens || [];
+
   const assets = tokens
     ? tokens
         .map((token: BigNumber) => metadata.find((asset) => asset.token === token.toString()))
         .filter((asset): asset is Asset => !!asset)
     : [];
+  const shareMooTokenId = moos[0] ? moos[0].toString() : undefined;
 
   useEffect(() => {
     isConnected && setState('approve');
@@ -76,17 +79,6 @@ const Migrate = ({ ogImage }: MigrateProps) => {
   const particlesInit = async (engine: Engine) => {
     await loadFull(engine);
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime(Date.now()), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const duration = intervalToDuration({
-    start: time,
-    end: endTimestamp,
-  });
-  const timeLeft = formatDuration(duration);
 
   return (
     <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
@@ -117,36 +109,39 @@ const Migrate = ({ ogImage }: MigrateProps) => {
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">What is this?</h1>
             <p className="text-sm sm:text-base">
-              The Great Moogration is happening! Cows are finally being migrated to their own custom
-              contract.
+              The Great Moogration is happening! Our precious Highland Cows are finally being
+              migrated to their own custom contract with much more luxurious pastures to graze in.
             </p>
             <p className="text-sm sm:text-base">
-              To migrate your cow, you will need to complete 2 low-cost transactions.
+              Before going any further, please keep in mind that there is zero risk in migrating,
+              you will not lose your Cow! Here&apos;s the steps...
+            </p>
+            <p className="text-sm sm:text-base">
+              To effortlessly migrate, there will be two low-cost transactions:
             </p>
             <ol className="list-inside list-decimal text-sm sm:text-base">
-              <li>Give approval to the contract to interact with your cow(s)</li>
+              <li>Give approval to the contract to interact with your Cow(s)</li>
               <li>
-                Send your old cow(s) to the burn address, and mint brand new, shiny cow(s) to your
-                connected wallet
+                Send your old Cow(s) to the burn address, and mint brand new, shiny cow(s) to your
+                connected wallet.
               </li>
             </ol>
             <p className="text-sm sm:text-base">
-              Although sending something to the burn address sounds scary, it really isn&apos;t!
-              This step is required to make sure that 2 different versions of your cow don&apos;t
-              exist at the same time. Remember, there is zero risk in losing your cow.
+              Although sending something to a burn address may sound a little bit scary, it really
+              isn&apos;t. This step is just required to make sure that two different versions
+              don&apos;t exist at the same time. After the moogration period ends, anyone who has
+              not successfully migrated by the deadline will have their soft and supple Moo-Moo(s)
+              automatically minted to the Admin wallet, where they will be eagerly waiting for you.
             </p>
             <p className="text-sm sm:text-base">
-              After the migration phase ends, anyone who does not successfully migrate by the
-              deadline will have their cow(s) automatically minted to the Admin wallet. To claim
-              your cow later, please open up a ticket in <Discord /> for next steps. Don&apos;t
-              worry--your precious cow(s) will be eagerly waiting for you.
+              To claim your Cow later, simply open up a support ticket in the <Discord /> for next
+              steps. The sooner we can complete the migration, the sooner we can delist the old
+              collection on OpenSea to prevent any confusion. The new home for the collection is
+              located <Default href="https://opensea.io">here</Default>.
             </p>
             <p className="text-sm sm:text-base">
-              The sooner we can complete the migration, the sooner we can delist the old collection
-              on OpenSea to prevent any confusion. Our new collection is located{' '}
-              <Default href="https://opensea.io">here</Default>.
+              Migration ends in <Countdown endTime={endTime} />.
             </p>
-            <p className="text-sm sm:text-base">Migration ends in {timeLeft}.</p>
           </div>
         )}
         {state === 'migrated' && (
@@ -170,7 +165,13 @@ const Migrate = ({ ogImage }: MigrateProps) => {
               <AnchorLink href={`https://opensea.io/${address}/goodmorningcafe`}>
                 View on Opensea
               </AnchorLink>
-              <AnchorLink href={`https://twitter.com`}>Tweet it</AnchorLink>
+              <AnchorLink
+                href={`https://twitter.com/intent/tweet?text=%23GMOO%20The%20Herd%20is%20Moograting!%20%40gmcafeNFT%0Ahttps%3A%2F%2Fgmcafe.io%2Fmigrate${
+                  shareMooTokenId ? `%3Fid%3D${shareMooTokenId}` : ''
+                }`}
+              >
+                Share on Twitter
+              </AnchorLink>
             </div>
           </div>
         )}
