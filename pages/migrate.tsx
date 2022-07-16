@@ -26,23 +26,21 @@ import { loadFull } from 'tsparticles';
 import { Default, Discord } from '../components/StyledLinks';
 import { intervalToDuration, formatDuration } from 'date-fns';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
 
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
 
 const endTimestamp = 1664510400000;
 
-const Migrate = () => {
+type MigrateProps = {
+  ogImage: string;
+};
+
+const Migrate = ({ ogImage }: MigrateProps) => {
   const [state, setState] = useState<State>('connect');
   const [isLoading, setIsLoading] = useState<LoadingState>();
   const [time, setTime] = useState(Date.now());
-
-  const { query } = useRouter();
-  const id = query['id'];
-  const ogImage = id
-    ? `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${id}.jpg`
-    : 'https://gmcafe.io/meta_image.png';
 
   const { isConnected, address } = useAccount();
   const { data: tokens } = useContractRead({
@@ -373,3 +371,17 @@ const Migrate = () => {
 };
 
 export default Migrate;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const { query } = context;
+  const id = query['id'];
+  const ogImage = id
+    ? `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${id}.jpg`
+    : 'https://gmcafe.io/meta_image.png';
+
+  return {
+    props: {
+      ogImage,
+    },
+  };
+};
