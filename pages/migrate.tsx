@@ -24,13 +24,17 @@ import Particles from 'react-tsparticles';
 import { Engine } from 'tsparticles-engine';
 import { loadFull } from 'tsparticles';
 import { Default, Discord } from '../components/StyledLinks';
+import { intervalToDuration, formatDuration } from 'date-fns';
 
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
 
+const endTimestamp = 1664510400000;
+
 const Migrate = () => {
   const [state, setState] = useState<State>('connect');
   const [isLoading, setIsLoading] = useState<LoadingState>();
+  const [time, setTime] = useState(Date.now());
 
   const { isConnected, address } = useAccount();
   const { data: tokens } = useContractRead({
@@ -66,6 +70,17 @@ const Migrate = () => {
   const particlesInit = async (engine: Engine) => {
     await loadFull(engine);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(Date.now()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const duration = intervalToDuration({
+    start: time,
+    end: endTimestamp,
+  });
+  const timeLeft = formatDuration(duration);
 
   return (
     <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
@@ -121,7 +136,7 @@ const Migrate = () => {
               on OpenSea to prevent any confusion. Our new collection is located{' '}
               <Default href="https://opensea.io">here</Default>.
             </p>
-            <p className="text-sm sm:text-base">Migration ends in 29 days 10 hours 12 minutes.</p>
+            <p className="text-sm sm:text-base">Migration ends in {timeLeft}.</p>
           </div>
         )}
         {state === 'migrated' && (
