@@ -91,8 +91,8 @@ const Migrate = ({ ogImage }: MigrateProps) => {
   return (
     <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
       <Head>
-        <meta property="og:image" content={ogImage} key="ogImage" />
-        <meta name="twitter:image" content={ogImage} key="twitterImage" />
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:image" content={ogImage} />
       </Head>
       <div
         className={classNames(
