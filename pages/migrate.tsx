@@ -148,7 +148,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
               located <Default href="https://opensea.io">here</Default>.
             </p>
             <p className="text-sm 2xl:text-base">
-              Migration ends in <Countdown />.
+              <Countdown />
             </p>
           </div>
         )}

@@ -31,10 +31,14 @@ type StateProps = {
 export const Connect = () => {
   return (
     <>
-      <h1>GMOO!</h1>
       <Typewriter
         onInit={(typewriter) => {
-          typewriter.changeDelay(50).typeString('Please connect your wallet to continue.').start();
+          typewriter
+            .changeDelay(50)
+            .typeString(
+              'GMOO! Please connect your luxurious, lavender scented wallet to get started.'
+            )
+            .start();
         }}
       />
       <CustomConnectButton className="mt-auto max-w-max self-end" variation="migration" />
@@ -43,7 +47,7 @@ export const Connect = () => {
 };
 
 export const Approve = ({ next, setLoading }: StateProps) => {
-  const { data, isLoading, write, isSuccess } = useContractWrite({
+  const { data, isLoading, write, isSuccess, isError } = useContractWrite({
     addressOrName: fakeSeaContract,
     contractInterface: fakeSeaABI,
     functionName: 'setApprovalForAll',
@@ -71,8 +75,11 @@ export const Approve = ({ next, setLoading }: StateProps) => {
       }
     } else if (alreadyApproved) {
       next();
+    } else if (isError) {
+      // if user cancels tx, reset loading state
+      setLoading && setLoading(undefined);
     }
-  }, [isSuccess, next, setLoading, isFetched, alreadyApproved]);
+  }, [isSuccess, next, setLoading, isFetched, alreadyApproved, isError]);
 
   return (
     <>
@@ -80,7 +87,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
         onInit={(typewriter) => {
           typewriter
             .changeDelay(50)
-            .typeString('Please grant your approval to start the moogration process.')
+            .typeString('Welcome, tender Herd! Please grant approval to start the moogical portal.')
             .start();
         }}
       />
@@ -100,7 +107,7 @@ type MigrateProps = StateProps & {
 };
 
 export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => {
-  const { data, isLoading, write, isSuccess } = useContractWrite({
+  const { data, isLoading, write, isSuccess, isError } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: tokens.length > 1 ? 'migrateMoos' : 'migrateMoo',
@@ -120,8 +127,11 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
       } else {
         setLoading && setLoading('migrate');
       }
+    } else if (isError) {
+      // if user cancels tx, reset loading state
+      setLoading && setLoading(undefined);
     }
-  }, [isSuccess, next, setLoading, isFetched, isLoading]);
+  }, [isSuccess, next, setLoading, isFetched, isLoading, isError]);
 
   if (loading === 'migrate') {
     return (
@@ -134,12 +144,11 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
 
   return (
     <>
-      <h1>Approved!</h1>
       <Typewriter
         onInit={(typewriter) => {
           typewriter
             .changeDelay(50)
-            .typeString('Are you ready to enter the moogical portal?')
+            .typeString('Approved! You can now enter the magical portal to finalise moogration!')
             .start();
         }}
       />
@@ -157,13 +166,12 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
 export const Migrated = () => {
   return (
     <>
-      <h1>CONGRATULATIONS!</h1>
       <Typewriter
         onInit={(typewriter) => {
           typewriter
             .changeDelay(50)
             .typeString(
-              'Your herd has successfully crossed the moogical portal and has safely landed in your wallet.'
+              'CONGRATULATIONS! MOOOOO! Your succulent Herd has passed through the moogration portal and back into your luscious wallet! '
             )
             .start();
         }}
@@ -179,7 +187,7 @@ export const NoMoo = () => {
         onInit={(typewriter) => {
           typewriter
             .changeDelay(50)
-            .typeString("Looks like this wallet doesn't have any moos in it...")
+            .typeString("Uh oh, this wallet doesn't seem to have any Moos in it..")
             .start();
         }}
       />

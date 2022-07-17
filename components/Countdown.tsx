@@ -2,6 +2,7 @@ import { formatDuration, intervalToDuration } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useContractRead } from 'wagmi';
 import { gmooContract, gmooABI } from './migration';
+import { Discord } from './StyledLinks';
 
 const Countdown = () => {
   const { data } = useContractRead({
@@ -25,7 +26,14 @@ const Countdown = () => {
     format: ['years', 'months', 'weeks', 'days', 'hours', 'minutes'],
   });
 
-  return <>{timeLeft}</>;
+  return time > endTime ? (
+    <>
+      Migration has ended. If you own a Cow and did not get a chance to migrate in time, don&apos;t
+      stress! Please open a support ticket in <Discord />.
+    </>
+  ) : (
+    <>Migration ends in {timeLeft}.</>
+  );
 };
 
 export default Countdown;
