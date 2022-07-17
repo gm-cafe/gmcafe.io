@@ -106,38 +106,39 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             className="mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple shadow-lg sm:p-8"
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">What is this?</h1>
-            <p className="text-sm sm:text-base">
+            <p className="text-sm 2xl:text-base">
               The Great Moogration is happening! Our precious Highland Cows are finally being
               migrated to their own custom contract with much more luxurious pastures to graze in.
             </p>
-            <p className="text-sm sm:text-base">
+            <p className="text-sm 2xl:text-base">
               Before going any further, please keep in mind that there is zero risk in migrating,
               you will not lose your Cow! Here&apos;s the steps...
             </p>
-            <p className="text-sm sm:text-base">
+            <p className="text-sm 2xl:text-base">
               To effortlessly migrate, there will be two low-cost transactions:
             </p>
-            <ol className="list-inside list-decimal text-sm sm:text-base">
-              <li>Give approval to the contract to interact with your Cow(s)</li>
-              <li>
-                Send your old Cow(s) to the burn address, and mint brand new, shiny cow(s) to your
-                connected wallet.
-              </li>
+            <ol className="list-inside list-decimal text-sm 2xl:text-base">
+              <li>Approve: allow the migration contract to interact with your cow(s)</li>
+              <li>Migrate: exchange each cow in your wallet for a new cow</li>
             </ol>
-            <p className="text-sm sm:text-base">
-              Although sending something to a burn address may sound a little bit scary, it really
-              isn&apos;t. This step is just required to make sure that two different versions
-              don&apos;t exist at the same time. After the moogration period ends, anyone who has
-              not successfully migrated by the deadline will have their soft and supple Moo-Moo(s)
-              automatically minted to the Admin wallet, where they will be eagerly waiting for you.
+            <p className="text-sm 2xl:text-base">
+              Under the hood, the migration contract will confirm you are the owner of each cow,
+              burn your old cow, and mint a new cow. Although burning sounds scary, this step is
+              necessary to ensure that each cow can only be migrated once. After the migration
+              transaction is complete, your cows are immediately available for use.
             </p>
-            <p className="text-sm sm:text-base">
+            <p className="text-sm 2xl:text-base">
+              After the moogration period ends, anyone who has not successfully migrated by the
+              deadline will have their soft and supple Moo-Moo(s) automatically minted to the Admin
+              wallet, where they will be eagerly waiting for you.
+            </p>
+            <p className="text-sm 2xl:text-base">
               To claim your Cow later, simply open up a support ticket in the <Discord /> for next
               steps. The sooner we can complete the migration, the sooner we can delist the old
               collection on OpenSea to prevent any confusion. The new home for the collection is
               located <Default href="https://opensea.io">here</Default>.
             </p>
-            <p className="text-sm sm:text-base">
+            <p className="text-sm 2xl:text-base">
               Migration ends in <Countdown />.
             </p>
           </div>
@@ -148,7 +149,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             className="mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple shadow-lg sm:p-8 2xl:gap-4"
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">Congratulations!</h1>
-            <p className="text-sm sm:text-base">
+            <p className="text-sm 2xl:text-base">
               You&apos;ve successfully migrated your cow(s). We&apos;d appreciate if you could share
               on Twitter so we can spread the word to the rest of the herd!
             </p>
@@ -164,7 +165,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
                 View on Opensea
               </AnchorLink>
               <AnchorLink
-                href={`https://twitter.com/intent/tweet?text=%23GMOO%20The%20Herd%20is%20Moograting!%20%40gmcafeNFT%0Ahttps%3A%2F%2Fgmcafe.io%2Fmigrate${
+                href={`https://twitter.com/intent/tweet?text=%23GMOO%20The%20Herd%20is%20Moograting!%20%40gmcafeNFT%0A%0Ahttps%3A%2F%2Fgmcafe.io%2Fmigrate${
                   shareMooTokenId ? `%3Fid%3D${shareMooTokenId}` : ''
                 }`}
               >
