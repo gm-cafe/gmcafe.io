@@ -37,7 +37,7 @@ export const Connect = () => {
           typewriter.changeDelay(50).typeString('Please connect your wallet to continue.').start();
         }}
       />
-      <CustomConnectButton className="mt-2 max-w-max self-end" variation="migration" />
+      <CustomConnectButton className="mt-auto max-w-max self-end" variation="migration" />
     </>
   );
 };
@@ -85,7 +85,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
         }}
       />
       <Button
-        className="mt-2"
+        className="mt-auto"
         onClick={() => write({ args: [gmooContract, true] })}
         loading={isLoading}
       >
@@ -111,7 +111,9 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isLoading) {
+      setLoading && setLoading('migrate');
+    } else if (isSuccess) {
       if (isFetched) {
         setLoading && setLoading(undefined);
         next();
@@ -119,7 +121,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
         setLoading && setLoading('migrate');
       }
     }
-  }, [isSuccess, next, setLoading, isFetched]);
+  }, [isSuccess, next, setLoading, isFetched, isLoading]);
 
   if (loading === 'migrate') {
     return (
@@ -142,7 +144,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
         }}
       />
       <Button
-        className="mt-2"
+        className="mt-auto"
         onClick={() => write({ args: tokens.length > 1 ? [tokens] : tokens[0] })}
         loading={isLoading}
       >
@@ -177,7 +179,7 @@ export const NoMoo = () => {
         onInit={(typewriter) => {
           typewriter
             .changeDelay(50)
-            .typeString('Looks like this wallet doesn&apos;t have any moos in it...')
+            .typeString("Looks like this wallet doesn't have any moos in it...")
             .start();
         }}
       />

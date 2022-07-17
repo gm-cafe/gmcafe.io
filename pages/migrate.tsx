@@ -1,8 +1,6 @@
 /* Vercel's Image Optimization doesn't work on animated PNGs */
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
-import cup from '../public/migrate/cup.png';
-import portal from '../public/migrate/portal.png';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import {
@@ -63,14 +61,14 @@ const Migrate = ({ ogImage }: MigrateProps) => {
 
   const cupLoading = (
     <div className="mb-48 flex max-w-max flex-col sm:mb-0">
-      <p className="ml-6 text-center font-gmcafe text-purple">Approving...</p>
-      <Image src={cup} width={96} height={96} alt="Loading Cup" />
+      <p className="ml-5 text-center font-gmcafe text-purple">Approving...</p>
+      <img src="migrate/cup.png" width={96} height={96} alt="Loading Cup" />
     </div>
   );
 
   const portalLoading = (
     <div className="mb-48 flex max-w-max flex-col sm:mb-0">
-      <Image src={portal} width={400} height={400} alt="Loading Cup" />
+      <img src="migrate/portal.png" width={400} height={400} alt="Loading Portal" />
     </div>
   );
 
@@ -150,8 +148,9 @@ const Migrate = ({ ogImage }: MigrateProps) => {
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">Congratulations!</h1>
             <p className="text-sm 2xl:text-base">
-              You&apos;ve successfully migrated your cow(s). We&apos;d appreciate if you could share
-              on Twitter so we can spread the word to the rest of the herd!
+              You&apos;ve successfully migrated your tender floof to the fancy new{' '}
+              <span className="font-semibold">GMOO</span> contract! Please help your fellow Herd by
+              sharing on the Tweeters. <span className="font-semibold">#LETSMOO!</span>
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               {assets.map(({ token, imageUrl, name }) => (
@@ -160,7 +159,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
                 </div>
               ))}
             </div>
-            <div className="mt-2 flex gap-4">
+            <div className="mt-2 flex flex-wrap justify-center gap-4">
               <AnchorLink href={`https://opensea.io/${address}/goodmorningcafe`}>
                 View on Opensea
               </AnchorLink>
@@ -174,25 +173,26 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             </div>
           </div>
         )}
-        <div
-          id="moos"
-          className="my-4 mx-2 grid max-w-screen-sm grid-cols-2 gap-4 overflow-y-auto px-2"
-        >
-          {assets.map(({ name, imageUrl, token }) => (
-            <div
-              className={classNames(
-                { 'migration-drop-shadow': state === 'migrated' },
-                { 'animation-pulse': state === 'migrate' },
-                'rounded-xl border-4 border-purple'
-              )}
-              key={token}
-            >
-              <div className="overflow-hidden rounded-lg">
-                <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
+        {state !== 'migrated' && (
+          <div
+            id="moos"
+            className="my-4 mx-2 grid max-w-screen-sm grid-cols-2 gap-4 overflow-y-auto px-2"
+          >
+            {assets.map(({ name, imageUrl, token }) => (
+              <div
+                className={classNames(
+                  { 'animation-pulse': state === 'migrate' },
+                  'rounded-xl border-4 border-purple'
+                )}
+                key={token}
+              >
+                <div className="overflow-hidden rounded-lg">
+                  <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         <div id="npc" className="relative z-20 mt-auto max-w-screen-sm">
           <div
             id="moo"
