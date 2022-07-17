@@ -16,6 +16,9 @@ import CustomConnectButton from '../components/CustomConnectButton';
 
 const SIGN_MESSAGE = 'Check in to assist with Moo migration';
 
+const description =
+  'Welcome to the world and characters of GMCafé, most succulent and tantalising establishment in the metaverse.';
+
 type CheckInData = {
   addresses: string[];
   tokens: string[];
@@ -117,6 +120,9 @@ const CheckIn: NextPage = () => {
         <title>Check In</title>
         <meta property="og:image" content="https://gmcafe.io/meta_image.png" />
         <meta name="twitter:image" content="https://gmcafe.io/meta_image.png" />
+        <meta name="description" content={description} key="desc" />
+        <meta property="og:description" content={description} key="ogDesc" />
+        <meta name="twitter:description" content={description} key="twitterDesc" />
       </Head>
       <section className="relative flex h-full flex-col items-center justify-end">
         <Transition

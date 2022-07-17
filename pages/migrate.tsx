@@ -26,6 +26,9 @@ import Countdown from '../components/Countdown';
 import { metadata } from '../lib/constants';
 import { BigNumber } from 'ethers';
 
+const description =
+  'The Great Moogration is happening! Our precious Highland Cows are finally being migrated to their own custom contract with much more luxurious pastures to graze in.';
+
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
 
@@ -81,8 +84,12 @@ const Migrate = ({ ogImage }: MigrateProps) => {
   return (
     <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
       <Head>
+        <title>Good Morning Café</title>
         <meta property="og:image" content={ogImage} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="description" content={description} key="desc" />
+        <meta property="og:description" content={description} key="ogDesc" />
+        <meta name="twitter:description" content={description} key="twitterDesc" />
       </Head>
       <div
         className={classNames(
@@ -193,7 +200,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
                 <div className="overflow-hidden rounded-lg">
                   <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
                 </div>
-                <span className="absolute top-0 right-0 rounded-bl-lg bg-purple pl-2 pr-1 font-gmcafe text-lg 2xl:text-2xl text-white">
+                <span className="absolute top-0 right-0 rounded-bl-lg bg-purple pl-2 pr-1 font-gmcafe text-lg text-white 2xl:text-2xl">
                   {moos[idx].toString()}
                 </span>
               </div>
