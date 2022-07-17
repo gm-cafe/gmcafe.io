@@ -35,7 +35,7 @@ type MigrateProps = {
 
 const Migrate = ({ ogImage }: MigrateProps) => {
   const [state, setState] = useState<State>('connect');
-  const [isLoading, setIsLoading] = useState<LoadingState>('migrate');
+  const [isLoading, setIsLoading] = useState<LoadingState>();
 
   const { isConnected, address } = useAccount();
   const { data } = useContractRead({
