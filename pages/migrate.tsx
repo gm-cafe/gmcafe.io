@@ -31,8 +31,6 @@ import { BigNumber } from 'ethers';
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
 
-const endTime = 1664510400000;
-
 type MigrateProps = {
   ogImage: string;
 };
@@ -140,7 +138,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
               located <Default href="https://opensea.io">here</Default>.
             </p>
             <p className="text-sm sm:text-base">
-              Migration ends in <Countdown endTime={endTime} />.
+              Migration ends in <Countdown />.
             </p>
           </div>
         )}

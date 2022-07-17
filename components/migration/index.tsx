@@ -14,6 +14,7 @@ const fakeSeaABI = [
   'function setApprovalForAll(address _operator, bool _approved) external',
 ];
 export const gmooABI = [
+  'function _claimableTime() public view returns (uint256)',
   'function getMigratableTokens(address sender) public view returns (uint256[] memory tokens, uint256[] memory moos)',
   'function isMigrationApproved(address sender) public view returns (bool)',
   'function migrateMoo(uint256 token) public',

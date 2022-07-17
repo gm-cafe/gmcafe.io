@@ -1,11 +1,15 @@
 import { formatDuration, intervalToDuration } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { useContractRead } from 'wagmi';
+import { gmooContract, gmooABI } from './migration';
 
-type CountdownProps = {
-  endTime: number;
-};
-
-const Countdown = ({ endTime }: CountdownProps) => {
+const Countdown = () => {
+  const { data } = useContractRead({
+    addressOrName: gmooContract,
+    contractInterface: gmooABI,
+    functionName: '_claimableTime',
+  });
+  const endTime = data ? parseInt(data.toString()) * 1000 : Date.now();
   const [time, setTime] = useState(Date.now());
 
   useEffect(() => {
@@ -17,7 +21,9 @@ const Countdown = ({ endTime }: CountdownProps) => {
     start: time,
     end: endTime,
   });
-  const timeLeft = formatDuration(duration);
+  const timeLeft = formatDuration(duration, {
+    format: ['years', 'months', 'weeks', 'days', 'hours', 'minutes'],
+  });
 
   return <>{timeLeft}</>;
 };
