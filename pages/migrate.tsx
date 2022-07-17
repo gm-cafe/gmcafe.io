@@ -208,7 +208,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
         <div id="npc" className="relative z-20 mt-auto max-w-screen-sm">
           <div
             id="moo"
-            className="absolute left-0 bottom-0 w-52 -translate-x-12 sm:w-56 sm:-translate-x-0"
+            className="absolute left-0 bottom-0 w-56 -translate-x-16 sm:w-56 sm:-translate-x-0"
           >
             <img
               src={
@@ -221,13 +221,13 @@ const Migrate = ({ ogImage }: MigrateProps) => {
               alt="Moo Waving"
             />
           </div>
-          <div className="ml-16 h-min sm:mr-2 sm:mb-2 sm:ml-36">
-            <span className="rounded-full bg-pink py-1.5 pl-20 pr-10 font-gmcafe text-xl tracking-wider text-white sm:pl-20">
+          <div className="ml-14 h-min sm:mr-2 sm:mb-2 sm:ml-36">
+            <span className="rounded-full bg-pink py-1.5 pl-22 pr-10 font-gmcafe text-xl tracking-wider text-white sm:pl-20">
               Harold
             </span>
             <div
               id="speech"
-              className="-mt-2 box-border flex h-36 w-full flex-col rounded bg-white pt-6 pb-2 pl-24 pr-4 text-sm text-purple shadow-xl sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
+              className="-mt-2 box-border flex h-40 w-full flex-col rounded bg-white pt-6 pb-2 pl-[6.5rem] pr-4 text-sm text-purple shadow-xl sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
             >
               {state === 'connect' && <Connect />}
               {state === 'approve' && assets.length > 0 && (
