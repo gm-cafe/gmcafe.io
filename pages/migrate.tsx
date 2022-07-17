@@ -183,7 +183,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             {assets.map(({ name, imageUrl, token }) => (
               <div
                 className={classNames(
-                  { 'animation-pulse': state === 'migrate' },
+                  { 'animate-pulse': state === 'migrate' && isLoading === 'migrate' },
                   'rounded-xl border-4 border-purple'
                 )}
                 key={token}
