@@ -35,7 +35,7 @@ type MigrateProps = {
 
 const Migrate = ({ ogImage }: MigrateProps) => {
   const [state, setState] = useState<State>('connect');
-  const [isLoading, setIsLoading] = useState<LoadingState>();
+  const [isLoading, setIsLoading] = useState<LoadingState>('migrate');
 
   const { isConnected, address } = useAccount();
   const { data } = useContractRead({
@@ -68,7 +68,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
 
   const portalLoading = (
     <div className="mb-48 flex max-w-max flex-col sm:mb-0">
-      <img src="migrate/portal.png" width={400} height={400} alt="Loading Portal" />
+      <img src="migrate/portal.png" width={300} alt="Loading Portal" />
     </div>
   );
 
@@ -86,7 +86,9 @@ const Migrate = ({ ogImage }: MigrateProps) => {
         className={classNames(
           { hidden: !isLoading },
           { 'bg-white bg-opacity-40': isLoading === 'approve' },
-          'fixed z-10 flex h-full w-full items-center justify-center'
+          { 'z-10': isLoading === 'approve' },
+          { 'z-30': isLoading === 'migrate' },
+          'fixed flex h-full w-full items-center justify-center'
         )}
       >
         {isLoading === 'approve' && cupLoading}
