@@ -51,8 +51,6 @@ const Migrate = ({ ogImage }: MigrateProps) => {
   const moos: BigNumber[] = data?.moos || [];
   const tokens: BigNumber[] = data?.tokens || [];
 
-  console.log({ moos, tokens });
-
   const assets = tokens
     ? tokens
         .map((token: BigNumber) => metadata.find((asset) => asset.token === token.toString()))
