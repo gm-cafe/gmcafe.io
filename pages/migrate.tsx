@@ -48,6 +48,8 @@ const Migrate = ({ ogImage }: MigrateProps) => {
   const moos: BigNumber[] = data?.moos || [];
   const tokens: BigNumber[] = data?.tokens || [];
 
+  console.log({ moos, tokens });
+
   const assets = tokens
     ? tokens
         .map((token: BigNumber) => metadata.find((asset) => asset.token === token.toString()))
@@ -96,7 +98,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
       </div>
       <div className="mx-auto flex max-w-screen-sm flex-1 flex-col sm:mt-12">
         {assets.length > 0 && state !== 'migrated' && (
-          <span className="mx-4 max-w-max rounded-lg bg-purple px-4 font-gmcafe text-xl uppercase text-white">
+          <span className="mx-4 max-w-max rounded-full bg-purple px-6 font-gmcafe text-xl uppercase text-white">
             Your Herd
           </span>
         )}
@@ -180,17 +182,20 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             id="moos"
             className="my-4 mx-2 grid max-w-screen-sm grid-cols-2 gap-4 overflow-y-auto px-2"
           >
-            {assets.map(({ name, imageUrl, token }) => (
+            {assets.map(({ name, imageUrl, token }, idx) => (
               <div
                 className={classNames(
                   { 'animate-pulse': state === 'migrate' && isLoading === 'migrate' },
-                  'rounded-xl border-4 border-purple'
+                  'relative rounded-xl border-4 border-purple bg-purple bg-clip-border'
                 )}
                 key={token}
               >
                 <div className="overflow-hidden rounded-lg">
                   <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
                 </div>
+                <span className="absolute top-0 right-0 rounded-bl-lg bg-purple pl-2 pr-1 font-gmcafe text-lg 2xl:text-2xl text-white">
+                  {moos[idx].toString()}
+                </span>
               </div>
             ))}
           </div>
