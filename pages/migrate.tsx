@@ -105,7 +105,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
       </div>
       <div className="mx-auto flex max-w-screen-sm flex-1 flex-col sm:mt-12">
         {assets.length > 0 && state !== 'migrated' && (
-          <span className="mx-4 max-w-max rounded-full bg-purple px-6 font-gmcafe text-xl uppercase text-white">
+          <span className="mx-4 max-w-max rounded-full bg-pink px-6 font-gmcafe text-xl uppercase text-white">
             Your Herd
           </span>
         )}
@@ -193,14 +193,14 @@ const Migrate = ({ ogImage }: MigrateProps) => {
               <div
                 className={classNames(
                   { 'animate-pulse': state === 'migrate' && isLoading === 'migrate' },
-                  'relative rounded-xl border-4 border-purple bg-purple bg-clip-border'
+                  'relative rounded-xl border-4 border-white bg-white bg-clip-border'
                 )}
                 key={token}
               >
                 <div className="overflow-hidden rounded-lg">
                   <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
                 </div>
-                <span className="absolute top-0 right-0 rounded-bl-lg bg-purple pl-2 pr-1 font-gmcafe text-lg text-white 2xl:text-2xl">
+                <span className="absolute top-0 right-0 rounded-bl-lg bg-white pl-2 pr-1 font-gmcafe text-lg text-purple 2xl:text-2xl">
                   {moos[idx].toString()}
                 </span>
               </div>
