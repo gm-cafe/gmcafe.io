@@ -38,6 +38,9 @@ export const Connect = () => {
             .typeString(
               'GMOO! Please connect your luxurious, lavender scented wallet to get started.'
             )
+            .callFunction((obj) => {
+              obj.elements.cursor.remove();
+            })
             .start();
         }}
       />
@@ -88,6 +91,9 @@ export const Approve = ({ next, setLoading }: StateProps) => {
           typewriter
             .changeDelay(50)
             .typeString('Welcome, tender Herd! Please grant approval to start the moogical portal.')
+            .callFunction((obj) => {
+              obj.elements.cursor.remove();
+            })
             .start();
         }}
       />
@@ -149,6 +155,9 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
           typewriter
             .changeDelay(50)
             .typeString('Approved! You can now enter the magical portal to finalise moogration!')
+            .callFunction((obj) => {
+              obj.elements.cursor.remove();
+            })
             .start();
         }}
       />
@@ -173,6 +182,9 @@ export const Migrated = () => {
             .typeString(
               'CONGRATULATIONS! MOOOOO! Your succulent Herd has passed through the moogration portal and back into your luscious wallet! '
             )
+            .callFunction((obj) => {
+              obj.elements.cursor.remove();
+            })
             .start();
         }}
       />
@@ -188,6 +200,9 @@ export const NoMoo = () => {
           typewriter
             .changeDelay(50)
             .typeString("Uh oh, this wallet doesn't seem to have any Moos in it..")
+            .callFunction((obj) => {
+              obj.elements.cursor.remove();
+            })
             .start();
         }}
       />
