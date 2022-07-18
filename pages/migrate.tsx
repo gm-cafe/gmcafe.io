@@ -110,7 +110,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
         {assets.length <= 0 && (
           <div
             id="what-is-this"
-            className="mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple shadow-lg sm:p-8"
+            className="shadow-lg-purple mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple sm:p-8"
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">What is this?</h1>
             <p className="text-sm 2xl:text-base">
@@ -153,7 +153,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
         {state === 'migrated' && (
           <div
             id="success"
-            className="mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple shadow-lg sm:p-8 2xl:gap-4"
+            className="shadow-lg-purple mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple sm:p-8 2xl:gap-4"
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">Congratulations!</h1>
             <p className="text-sm 2xl:text-base">
@@ -227,7 +227,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             </span>
             <div
               id="speech"
-              className="-mt-2 box-border flex h-40 w-full flex-col rounded bg-white pt-6 pb-2 pl-[6.5rem] pr-4 text-sm text-purple shadow-xl sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
+              className="shadow-lg-purple -mt-2 box-border flex h-40 w-full flex-col rounded bg-white pt-6 pb-2 pl-[6.5rem] pr-4 text-sm text-purple sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
             >
               {state === 'connect' && <Connect />}
               {state === 'approve' && assets.length > 0 && (
