@@ -53,8 +53,8 @@ module.exports = {
       fontSize: {
         '10xl': '11.25rem',
       },
-      dropShadow: {
-        'lg-purple': ['0 10px 8px rgb(137 70 171 / 0.04)', '0 4px 3px rgb(137 70 171 / 0.1)'],
+      boxShadow: {
+        'lg-purple': '0 10px 15px -3px rgb(137 70 171 / 0.1), 0 4px 6px -4px rgb(137 70 171 / 0.1)',
       },
     },
     fontFamily: {
