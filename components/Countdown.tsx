@@ -10,7 +10,7 @@ const Countdown = () => {
     contractInterface: gmooABI,
     functionName: '_claimableTime',
   });
-  const endTime = data ? parseInt(data.toString()) * 1000 : Date.now();
+  const endTime = data ? parseInt(data.toString()) * 1000 : 0;
   const [time, setTime] = useState(Date.now());
 
   useEffect(() => {

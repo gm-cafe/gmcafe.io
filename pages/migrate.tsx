@@ -10,7 +10,6 @@ import {
   Migrate as MigrateMoos,
   gmooContract,
   gmooABI,
-  fakeSeaContract,
   NoMoo,
 } from '../components/migration';
 import { useAccount, useContractRead } from 'wagmi';
@@ -45,7 +44,8 @@ const Migrate = ({ ogImage }: MigrateProps) => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'getMigratableTokens',
-    args: address || fakeSeaContract,
+    args: address,
+    enabled: !!address,
   });
 
   const moos: BigNumber[] = data?.moos || [];
@@ -61,6 +61,11 @@ const Migrate = ({ ogImage }: MigrateProps) => {
   useEffect(() => {
     isConnected && setState('approve');
   }, [isConnected]);
+
+  // Reset state to approve when address has changed
+  useEffect(() => {
+    address && setState('approve');
+  }, [address]);
 
   const cupLoading = (
     <div className="mb-48 flex max-w-max flex-col sm:mb-0">
@@ -110,7 +115,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
         {assets.length <= 0 && (
           <div
             id="what-is-this"
-            className="shadow-lg-purple mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple sm:p-8"
+            className="mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple shadow-lg-purple sm:p-8"
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">What is this?</h1>
             <p className="text-sm 2xl:text-base">
@@ -153,7 +158,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
         {state === 'migrated' && (
           <div
             id="success"
-            className="shadow-lg-purple mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple sm:p-8 2xl:gap-4"
+            className="mx-4 flex flex-col items-center gap-3 overflow-y-auto rounded-lg bg-white p-6 text-purple shadow-lg-purple sm:p-8 2xl:gap-4"
           >
             <h1 className="font-gmcafe text-4xl sm:text-5xl">Congratulations!</h1>
             <p className="text-sm 2xl:text-base">
@@ -227,7 +232,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
             </span>
             <div
               id="speech"
-              className="shadow-lg-purple -mt-2 box-border flex h-40 w-full flex-col rounded bg-white pt-6 pb-2 pl-[6.5rem] pr-4 text-sm text-purple sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
+              className="-mt-2 box-border flex h-40 w-full flex-col rounded bg-white pt-6 pb-2 pl-[6.5rem] pr-4 text-sm text-purple shadow-lg-purple sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
             >
               {state === 'connect' && <Connect />}
               {state === 'approve' && assets.length > 0 && (
