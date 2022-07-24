@@ -29,8 +29,6 @@ const CheckInRemaining: NextPage = () => {
       : asset;
   });
 
-  console.log(assetsWithSocials);
-
   return (
     <>
       <Head>
