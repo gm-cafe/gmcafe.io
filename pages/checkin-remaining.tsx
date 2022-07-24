@@ -42,7 +42,7 @@ const CheckInRemaining: NextPage = () => {
               href={`https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/${token}`}
               rel="noreferrer"
             >
-              <ExternalLinkIcon className="absolute top-0 right-0 m-1 h-5 w-5 cursor-pointer text-gray-400 transition-colors hover:text-gray-600" />
+              <ExternalLinkIcon className="absolute top-0 right-0 z-10 m-1 h-5 w-5 cursor-pointer text-gray-400 transition-colors hover:text-gray-600" />
             </a>
             <div className="w-full overflow-hidden rounded-full">
               <Image src={imageUrl} width={600} height={600} layout="responsive" alt={name} />
