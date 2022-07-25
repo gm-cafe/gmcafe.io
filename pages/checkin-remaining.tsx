@@ -301,6 +301,10 @@ const socials: Socials[] = [
     discord: 'mina#8080',
     twitter: 'minasnft',
   },
+  {
+    token: '81086769033880357206596084476994515861067324006954129146728570297675348443137',
+    twitter: 'rickyrick93',
+  }
 ];
 
 export default CheckInRemaining;
