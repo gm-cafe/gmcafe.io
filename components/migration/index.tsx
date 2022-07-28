@@ -5,9 +5,8 @@ import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
 
-export const fakeSeaContract = '0x8d2372F1689B3cf8367E650814038E9473041Dbe';
-export const gmooContractOwner = '0x51050ec063d393217B436747617aD1C2285Aeeee';
-export const gmooContract = '0xA7b92650CB392fBeFCb8fc02E32BAbDe854742F1';
+export const fakeSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
+export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
 
 const fakeSeaABI = [
   'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
@@ -17,7 +16,6 @@ export const gmooABI = [
   'function _claimableTime() public view returns (uint256)',
   'function getMigratableTokens(address sender) public view returns (uint256[] memory tokens, uint256[] memory moos)',
   'function isMigrationApproved(address sender) public view returns (bool)',
-  'function migrateMoo(uint256 token) public',
   'function migrateMoos(uint256[] calldata tokens) public',
   'function getWallet(address owner) public view returns (uint256[] memory moos, uint256 touched)',
 ];
@@ -116,7 +114,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
   const { data, isLoading, write, isSuccess, isError } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
-    functionName: tokens.length > 1 ? 'migrateMoos' : 'migrateMoo',
+    functionName: 'migrateMoos',
   });
 
   const { isFetched } = useWaitForTransaction({
@@ -161,11 +159,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button
-        className="mt-auto"
-        onClick={() => write({ args: tokens.length > 1 ? [tokens] : tokens[0] })}
-        loading={isLoading}
-      >
+      <Button className="mt-auto" onClick={() => write({ args: [tokens] })} loading={isLoading}>
         Migrate
       </Button>
     </>

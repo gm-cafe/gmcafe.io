@@ -16,7 +16,7 @@ type RainbowKitProviderProps = {
 };
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.rinkeby],
+  [chain.mainnet],
   [infuraProvider({ infuraId: '47434bfa14b446bab19576bdab9d5205' }), publicProvider()]
 );
 
