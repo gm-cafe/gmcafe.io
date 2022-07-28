@@ -148,7 +148,7 @@ const Migrate = ({ ogImage }: MigrateProps) => {
               To claim your Cow later, simply open up a support ticket in the <Discord /> for next
               steps. The sooner we can complete the migration, the sooner we can delist the old
               collection on OpenSea to prevent any confusion. The new home for the collection is
-              located <Default href="https://opensea.io">here</Default>.
+              located <Default href="https://opensea.io/collection/goodmorningcafe">here</Default>.
             </p>
             <p className="text-sm 2xl:text-base">
               <Countdown />

@@ -90,7 +90,7 @@ const Home: NextPage = () => {
                 create a truely unique blockchain dwelling entity.
               </p>
               <div className="mt-6 flex flex-wrap gap-4 lg:gap-8">
-                <AnchorLink href="https://etherscan.io" disabled>
+                <AnchorLink href="https://etherscan.io/address/0xe43d741e21d8bf30545a88c46e4ff5681518ebad">
                   Cow Contract
                 </AnchorLink>
                 <AnchorLink href="https://opensea.io/collection/goodmorningcafe">
