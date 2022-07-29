@@ -27,6 +27,20 @@ const moduleExports = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/checkin',
+        destination: '/migrate',
+        permanent: false,
+      },
+      {
+        source: '/migration',
+        destination: '/migrate',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 const sentryWebpackPluginOptions = {
