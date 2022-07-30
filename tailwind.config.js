@@ -11,6 +11,7 @@ module.exports = {
         green: '#a1ffe4',
         'pink-light': '#ffb8d9',
         pink: '#ff7dbd',
+        'pink-background': '#ffd6ea',
         'purple-light': '#f4dffe',
         purple: '#8946ab',
         'orange-light': '#fef0e5',
@@ -51,6 +52,9 @@ module.exports = {
       },
       fontSize: {
         '10xl': '11.25rem',
+      },
+      boxShadow: {
+        'lg-purple': '0 10px 15px -3px rgb(137 70 171 / 0.1), 0 4px 6px -4px rgb(137 70 171 / 0.1)',
       },
     },
     fontFamily: {

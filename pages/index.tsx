@@ -20,11 +20,19 @@ import MemberCard, { members } from '../components/MemberCard';
 import Disclosures from '../components/Disclosures';
 import AnchorLink from '../components/AnchorLink';
 
+const description =
+  'Welcome to the world and characters of GMCafé, most succulent and tantalising establishment in the metaverse.';
+
 const Home: NextPage = () => {
   return (
     <>
       <Head>
         <title>Good Morning Café</title>
+        <meta property="og:image" content="https://gmcafe.io/meta_image.png" key="ogImage" />
+        <meta name="twitter:image" content="https://gmcafe.io/meta_image.png" key="twitterImage" />
+        <meta name="description" content={description} key="desc" />
+        <meta property="og:description" content={description} key="ogDesc" />
+        <meta name="twitter:description" content={description} key="twitterDesc" />
       </Head>
       <div id="home" className="scroll-smooth pt-16">
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
@@ -82,12 +90,13 @@ const Home: NextPage = () => {
                 create a truely unique blockchain dwelling entity.
               </p>
               <div className="mt-6 flex flex-wrap gap-4 lg:gap-8">
-                <AnchorLink href="https://etherscan.io" disabled>
+                <AnchorLink href="https://etherscan.io/address/0xe43d741e21d8bf30545a88c46e4ff5681518ebad">
                   Cow Contract
                 </AnchorLink>
                 <AnchorLink href="https://opensea.io/collection/goodmorningcafe">
                   Buy on OpenSea
                 </AnchorLink>
+                <AnchorLink href="/migrate">Migrate your Cow</AnchorLink>
               </div>
             </div>
           </div>

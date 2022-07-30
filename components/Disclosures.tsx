@@ -27,8 +27,8 @@ const Disclosures = () => {
         question="Will Moos be migrated to their own contract?"
       >
         <p>
-          Yes! We are almost set to start migrating. Head over to{' '}
-          <Internal href="/checkin">Check In</Internal> for more details.
+          Yes! We are moograting as we speak! Visit the{' '}
+          <Internal href="/migrate">migration page</Internal> if you haven&apos;t yet moograted!
         </p>
       </Disclosure>
       <Disclosure
