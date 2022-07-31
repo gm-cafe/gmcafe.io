@@ -3,15 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import {
-  Approve,
-  Connect,
-  Migrated,
-  Migrate as MigrateMoos,
-  gmooContract,
-  gmooABI,
-  NoMoo,
-} from '../components/migration';
+import { Approve, Connect, Migrated, Migrate as MigrateMoos, NoMoo } from '../components/migration';
 import { useAccount, useContractRead } from 'wagmi';
 import { Asset } from '../lib/util/types';
 import AnchorLink from '../components/AnchorLink';
@@ -24,6 +16,7 @@ import { NextPageContext } from 'next';
 import Countdown from '../components/Countdown';
 import { metadata } from '../lib/constants';
 import { BigNumber } from 'ethers';
+import { gmooContract, gmooABI } from '../lib/util/addresses';
 
 const description =
   'The Great Moogration is happening! Our precious Highland Cows are finally being migrated to their own custom contract with much more luxurious pastures to graze in.';
