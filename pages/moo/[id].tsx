@@ -1,17 +1,11 @@
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
 import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-const Moo = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
-  const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
-
-  const metadata = useTokenURI(tokenId);
+const Moo = ({ id }: { id?: number }) => {
+  const metadata = useTokenURI(id);
 
   if (!metadata) {
     return <div />;
@@ -97,9 +91,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params?.id;
+  const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
   return {
     props: {
-      id: params?.id,
+      id: tokenId,
     },
   };
 };
