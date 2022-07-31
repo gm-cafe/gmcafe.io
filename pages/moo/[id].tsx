@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
 import Head from 'next/head';
+import { GetStaticPaths } from 'next';
 
 const Moo = () => {
   const router = useRouter();
@@ -81,3 +82,16 @@ const Moo = () => {
 };
 
 export default Moo;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = Array.from({ length: 333 }, (_, idx) => ({
+    params: {
+      id: (idx + 1).toString(),
+    },
+  }));
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
+};
