@@ -3,6 +3,10 @@ import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
 import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import classNames from 'classnames';
+
+const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
+const traitValueStyle = 'text-sm text-purple';
 
 const Moo = ({ id }: { id?: number }) => {
   const metadata = useTokenURI(id);
@@ -12,7 +16,7 @@ const Moo = ({ id }: { id?: number }) => {
   }
 
   const { image, name, attributes, description } = metadata;
-  const { bgColor, owner } = metadata.info;
+  const { bgColor, fgColor, owner } = metadata.info;
 
   const customRenderTraits = ['Birth', 'Status'];
   const timestamp = attributes.find(({ trait_type }) => trait_type === 'Birth')?.value;
@@ -30,7 +34,7 @@ const Moo = ({ id }: { id?: number }) => {
         <meta name="twitter:description" content={description} />
       </Head>
       <div className="mx-auto flex max-w-screen-lg gap-4 rounded-xl bg-white p-4">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-4">
           <div className="w-64">
             <Image
               className="rounded-lg"
@@ -41,31 +45,55 @@ const Moo = ({ id }: { id?: number }) => {
               alt={name}
             />
           </div>
-          <div>
-            <span className="font-gmcafe text-sm uppercase tracking-wider text-purple">
-              Birthday
-            </span>
-            <p className="text-sm text-purple">{birthday}</p>
-          </div>
-          <div>
-            <span className="font-gmcafe text-sm uppercase tracking-wider text-purple">Status</span>
-            <p className="text-sm text-purple">{status}</p>
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1">
+            <div>
+              <span className={traitTypeStyle}>ID</span>
+              <p className={traitValueStyle}>{id}</p>
+            </div>
+            <div>
+              <span className={traitTypeStyle}>Birthday</span>
+              <p className={traitValueStyle}>{birthday}</p>
+            </div>
+            <div>
+              <span className={traitTypeStyle}>Swatch</span>
+              <div className="flex gap-1">
+                <div
+                  style={{ backgroundColor: fgColor }}
+                  className={classNames(
+                    { 'border border-purple-light': fgColor === '#ffffff' },
+                    'h-4 w-4 rounded-full'
+                  )}
+                />
+                <div
+                  style={{ backgroundColor: bgColor }}
+                  className={classNames(
+                    { 'border border-purple-light': bgColor === '#ffffff' },
+                    'h-4 w-4 rounded-full'
+                  )}
+                />
+              </div>
+            </div>
+            <div>
+              <span className={traitTypeStyle}>Status</span>
+              <p className={traitValueStyle}>{status}</p>
+            </div>
           </div>
         </div>
         <div>
           <h1 className="font-gmcafe text-4xl text-purple">{name}</h1>
-          <p style={{ borderColor: bgColor }} className="border-b pb-2 text-xs text-purple">
+          <p style={{ borderColor: bgColor }} className="border-b-4 pt-1 pb-2 text-xs text-purple">
             {owner}
           </p>
-          <div className="grid grid-cols-2 pt-2">
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1 pt-2">
             {attributes
-              .filter(({ trait_type }) => !customRenderTraits.includes(trait_type))
+              .filter(
+                ({ trait_type, value }) =>
+                  !customRenderTraits.includes(trait_type) && value !== 'None'
+              )
               .map(({ value, trait_type }) => (
                 <div key={`${trait_type}-${value}`}>
-                  <span className="font-gmcafe text-sm uppercase tracking-wider text-purple">
-                    {trait_type}
-                  </span>
-                  <p className="text-sm text-purple">{value}</p>
+                  <span className={traitTypeStyle}>{trait_type}</span>
+                  <p className={traitValueStyle}>{value}</p>
                 </div>
               ))}
           </div>
