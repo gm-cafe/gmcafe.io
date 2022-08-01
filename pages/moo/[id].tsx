@@ -25,12 +25,14 @@ const Moo = ({ id }: { id?: number }) => {
   const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM Lo') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
+  const image256 = `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${id}.jpg`;
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
       <Head>
         <title>{name}</title>
-        <meta property="og:image" content={image} />
-        <meta name="twitter:image" content={image} />
+        <meta property="og:image" content={image256} />
+        <meta name="twitter:image" content={image256} />
         <meta name="description" content={description} />
         <meta property="og:description" content={description} />
         <meta name="twitter:description" content={description} />
