@@ -4,6 +4,8 @@ import { format, fromUnixTime } from 'date-fns';
 import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import classNames from 'classnames';
+import { OpenSeaIcon } from '../../components/Icons';
+import { gmooContract } from '../../lib/util/addresses';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
@@ -80,7 +82,16 @@ const Moo = ({ id }: { id?: number }) => {
           </div>
         </div>
         <div>
-          <h1 className="font-gmcafe text-4xl text-purple">{name}</h1>
+          <div className="flex items-center gap-4">
+            <h1 className="font-gmcafe text-4xl text-purple">{name}</h1>
+            <a
+              href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <OpenSeaIcon className="h-8 w-8" fill="#2081E2" />
+            </a>
+          </div>
           <p style={{ borderColor: bgColor }} className="border-b-4 pt-1 pb-2 text-xs text-purple">
             {owner}
           </p>
