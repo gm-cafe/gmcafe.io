@@ -26,7 +26,7 @@ const Moo = ({ id }: { id?: number }) => {
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-pink-background pt-40">
+    <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
       <Head>
         <title>{name}</title>
         <meta property="og:image" content={image} />
@@ -35,9 +35,9 @@ const Moo = ({ id }: { id?: number }) => {
         <meta property="og:description" content={description} />
         <meta name="twitter:description" content={description} />
       </Head>
-      <div className="mx-auto flex max-w-screen-lg gap-4 rounded-xl bg-white p-4">
+      <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
         <div className="flex flex-col gap-4">
-          <div className="w-64">
+          <div className="w-full md:w-64">
             <Image
               className="rounded-lg"
               src={image}
