@@ -10,7 +10,7 @@ import { gmooContract } from '../../lib/util/addresses';
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
 
-const Moo = ({ id, image256 }: { id?: number, image256?: string }) => {
+const Moo = ({ id, image256 }: { id?: number; image256?: string }) => {
   const metadata = useTokenURI(id);
 
   if (!metadata) {
@@ -26,7 +26,7 @@ const Moo = ({ id, image256 }: { id?: number, image256?: string }) => {
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
+    <>
       <Head>
         <title>{name}</title>
         <meta property="og:image" content={image256} />
@@ -35,82 +35,87 @@ const Moo = ({ id, image256 }: { id?: number, image256?: string }) => {
         <meta property="og:description" content={description} />
         <meta name="twitter:description" content={description} />
       </Head>
-      <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
-        <div className="flex flex-col gap-4">
-          <div className="w-full md:w-64">
-            <Image
-              className="rounded-lg"
-              src={image}
-              width={800}
-              height={800}
-              layout="responsive"
-              alt={name}
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-x-2 gap-y-1">
-            <div>
-              <span className={traitTypeStyle}>ID</span>
-              <p className={traitValueStyle}>{id}</p>
+      <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
+        <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
+          <div className="flex flex-col gap-4">
+            <div className="w-full md:w-64">
+              <Image
+                className="rounded-lg"
+                src={image}
+                width={800}
+                height={800}
+                layout="responsive"
+                alt={name}
+              />
             </div>
-            <div>
-              <span className={traitTypeStyle}>Birthday</span>
-              <p className={traitValueStyle}>{birthday}</p>
-            </div>
-            <div>
-              <span className={traitTypeStyle}>Swatch</span>
-              <div className="flex gap-1">
-                <div
-                  style={{ backgroundColor: fgColor }}
-                  className={classNames(
-                    { 'border border-purple-light': fgColor === '#ffffff' },
-                    'h-4 w-4 rounded-full'
-                  )}
-                />
-                <div
-                  style={{ backgroundColor: bgColor }}
-                  className={classNames(
-                    { 'border border-purple-light': bgColor === '#ffffff' },
-                    'h-4 w-4 rounded-full'
-                  )}
-                />
+            <div className="grid grid-cols-2 gap-x-2 gap-y-1">
+              <div>
+                <span className={traitTypeStyle}>ID</span>
+                <p className={traitValueStyle}>{id}</p>
+              </div>
+              <div>
+                <span className={traitTypeStyle}>Birthday</span>
+                <p className={traitValueStyle}>{birthday}</p>
+              </div>
+              <div>
+                <span className={traitTypeStyle}>Swatch</span>
+                <div className="flex gap-1">
+                  <div
+                    style={{ backgroundColor: fgColor }}
+                    className={classNames(
+                      { 'border border-purple-light': fgColor === '#ffffff' },
+                      'h-4 w-4 rounded-full'
+                    )}
+                  />
+                  <div
+                    style={{ backgroundColor: bgColor }}
+                    className={classNames(
+                      { 'border border-purple-light': bgColor === '#ffffff' },
+                      'h-4 w-4 rounded-full'
+                    )}
+                  />
+                </div>
+              </div>
+              <div>
+                <span className={traitTypeStyle}>Status</span>
+                <p className={traitValueStyle}>{status}</p>
               </div>
             </div>
-            <div>
-              <span className={traitTypeStyle}>Status</span>
-              <p className={traitValueStyle}>{status}</p>
+          </div>
+          <div>
+            <div className="flex items-center gap-4">
+              <h1 className="font-gmcafe text-4xl text-purple">{name}</h1>
+              <a
+                href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <OpenSeaIcon className="h-8 w-8" fill="#2081E2" />
+              </a>
             </div>
-          </div>
-        </div>
-        <div>
-          <div className="flex items-center gap-4">
-            <h1 className="font-gmcafe text-4xl text-purple">{name}</h1>
-            <a
-              href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}
-              target="_blank"
-              rel="noreferrer"
+            <p
+              style={{ borderColor: bgColor }}
+              className="border-b-4 pt-1 pb-2 text-xs text-purple"
             >
-              <OpenSeaIcon className="h-8 w-8" fill="#2081E2" />
-            </a>
-          </div>
-          <p style={{ borderColor: bgColor }} className="border-b-4 pt-1 pb-2 text-xs text-purple">
-            {owner}
-          </p>
-          <div className="grid grid-cols-2 gap-x-2 gap-y-1 pt-2">
-            {attributes
-              .filter(
-                ({ trait_type, value }) =>
-                  !customRenderTraits.includes(trait_type) && value !== 'None'
-              )
-              .map(({ value, trait_type }) => (
-                <div key={`${trait_type}-${value}`}>
-                  <span className={traitTypeStyle}>{trait_type}</span>
-                  <p className={traitValueStyle}>{value}</p>
-                </div>
-              ))}
+              {owner}
+            </p>
+            <div className="grid grid-cols-2 gap-x-2 gap-y-1 pt-2">
+              {attributes
+                .filter(
+                  ({ trait_type, value }) =>
+                    !customRenderTraits.includes(trait_type) && value !== 'None'
+                )
+                .map(({ value, trait_type }) => (
+                  <div key={`${trait_type}-${value}`}>
+                    <span className={traitTypeStyle}>{trait_type}</span>
+                    <p className={traitValueStyle}>{value}</p>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
