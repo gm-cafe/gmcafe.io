@@ -2,15 +2,15 @@ import Image from 'next/image';
 import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
 import Head from 'next/head';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import classNames from 'classnames';
 import { OpenSeaIcon } from '../../components/Icons';
 import { gmooContract } from '../../lib/util/addresses';
+import { GetServerSideProps } from 'next';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
 
-const Moo = ({ id, image256 }: { id?: number; image256?: string }) => {
+const Moo = ({ id }: { id?: number }) => {
   const metadata = useTokenURI(id);
 
   if (!metadata) {
@@ -29,8 +29,8 @@ const Moo = ({ id, image256 }: { id?: number; image256?: string }) => {
     <>
       <Head>
         <title>{name}</title>
-        <meta property="og:image" content={image256} />
-        <meta name="twitter:image" content={image256} />
+        <meta property="og:image" content={image} />
+        <meta name="twitter:image" content={image} />
         <meta name="description" content={description} />
         <meta property="og:description" content={description} />
         <meta name="twitter:description" content={description} />
@@ -121,28 +121,13 @@ const Moo = ({ id, image256 }: { id?: number; image256?: string }) => {
 
 export default Moo;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Array.from({ length: 333 }, (_, idx) => ({
-    params: {
-      id: (idx + 1).toString(),
-    },
-  }));
-
-  return {
-    paths: paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params?.id;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { id } = ctx.query;
   const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
-  const image256 = `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${tokenId}.jpg`;
 
   return {
     props: {
       id: tokenId,
-      image256: image256,
     },
   };
 };
