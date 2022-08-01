@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
+import Head from 'next/head';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import classNames from 'classnames';
 import { OpenSeaIcon } from '../../components/Icons';
 import { gmooContract } from '../../lib/util/addresses';
-import { NextSeo } from 'next-seo';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
@@ -27,17 +27,14 @@ const Moo = ({ id, image256 }: { id?: number; image256?: string }) => {
 
   return (
     <>
-      <NextSeo
-        title={name}
-        description={description}
-        openGraph={{
-          images: [
-            {
-              url: image256 || 'https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/unknown.jpg',
-            },
-          ],
-        }}
-      />
+      <Head>
+        <title>{name}</title>
+        <meta property="og:image" content={image256} />
+        <meta name="twitter:image" content={image256} />
+        <meta name="description" content={description} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:description" content={description} />
+      </Head>
       <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
         <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
           <div className="flex flex-col gap-4">
