@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { ReactNode } from 'react';
 
 import ben from '../public/moos/ben.png';
