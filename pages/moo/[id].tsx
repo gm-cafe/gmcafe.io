@@ -10,7 +10,7 @@ import { gmooContract } from '../../lib/util/addresses';
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
 
-const Moo = ({ id }: { id?: number }) => {
+const Moo = ({ id, image256 }: { id?: number, image256?: string }) => {
   const metadata = useTokenURI(id);
 
   if (!metadata) {
@@ -24,8 +24,6 @@ const Moo = ({ id }: { id?: number }) => {
   const timestamp = attributes.find(({ trait_type }) => trait_type === 'Birth')?.value;
   const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM Lo') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
-
-  const image256 = `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${id}.jpg`;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
@@ -134,9 +132,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.id;
   const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
+  const image256 = `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${tokenId}.jpg`;
+
   return {
     props: {
       id: tokenId,
+      image256: image256,
     },
   };
 };
