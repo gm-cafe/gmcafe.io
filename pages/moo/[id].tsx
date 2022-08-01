@@ -6,18 +6,26 @@ import classNames from 'classnames';
 import { OpenSeaIcon } from '../../components/Icons';
 import { gmooContract } from '../../lib/util/addresses';
 import { GetServerSideProps } from 'next';
+import { Moo } from '../../lib/util/types';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
 
-const Moo = ({ id }: { id?: number }) => {
+type Props = {
+  id: number;
+  title: string;
+  metaImage: string;
+  metaDescription: string;
+};
+
+const Moo = ({ id, title, metaImage, metaDescription }: Props) => {
   const metadata = useTokenURI(id);
 
   if (!metadata) {
     return <div />;
   }
 
-  const { image, name, attributes, description } = metadata;
+  const { image, name, attributes } = metadata;
   const { bgColor, fgColor, owner } = metadata.info;
 
   const customRenderTraits = ['Birth', 'Status'];
@@ -28,12 +36,12 @@ const Moo = ({ id }: { id?: number }) => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
       <Head>
-        <title>{name}</title>
-        <meta property="og:image" content={image} />
-        <meta name="twitter:image" content={image} />
-        <meta name="description" content={description} />
-        <meta property="og:description" content={description} />
-        <meta name="twitter:description" content={description} />
+        <title>{title}</title>
+        <meta property="og:image" content={metaImage} />
+        <meta name="twitter:image" content={metaImage} />
+        <meta name="description" content={metaDescription} />
+        <meta property="og:description" content={metaDescription} />
+        <meta name="twitter:description" content={metaDescription} />
       </Head>
       <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
         <div className="flex flex-col gap-4">
@@ -120,9 +128,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
   const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
 
+  const moo: Moo = await fetch(
+    `https://api.gmcafe.io/metadata/gmoo/${String(tokenId).padStart(3, '0')}.json`
+  ).then((res) => {
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+    return res.json();
+  });
+
   return {
     props: {
       id: tokenId,
+      title: moo.name,
+      metaImage: moo.image,
+      metaDescription: moo.description,
     },
   };
 };
