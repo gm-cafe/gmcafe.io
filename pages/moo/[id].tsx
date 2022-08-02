@@ -105,7 +105,7 @@ const Moo = ({ id }: Props) => {
               target="_blank"
               rel="noreferrer"
             >
-              <OpenSeaIcon className="h-8 w-8" fill="#2081E2" />
+              <OpenSeaIcon className="h-6 w-6" fill="#2081E2" />
             </a>
           </div>
           <div
