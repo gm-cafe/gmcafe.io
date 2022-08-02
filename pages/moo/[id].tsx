@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
-import Head from 'next/head';
 import classNames from 'classnames';
 import { OpenSeaIcon } from '../../components/Icons';
 import { gmooContract } from '../../lib/util/addresses';
@@ -13,12 +12,9 @@ const traitValueStyle = 'text-sm text-purple';
 
 type Props = {
   id: number;
-  title: string;
-  metaImage: string;
-  metaDescription: string;
 };
 
-const Moo = ({ id, title, metaImage, metaDescription }: Props) => {
+const Moo = ({ id }: Props) => {
   const metadata = useTokenURI(id);
 
   if (!metadata) {
@@ -35,14 +31,6 @@ const Moo = ({ id, title, metaImage, metaDescription }: Props) => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
-      <Head>
-        <title>{title}</title>
-        <meta property="og:image" content={metaImage} />
-        <meta name="twitter:image" content={metaImage} />
-        <meta name="description" content={metaDescription} />
-        <meta property="og:description" content={metaDescription} />
-        <meta name="twitter:description" content={metaDescription} />
-      </Head>
       <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
         <div className="flex flex-col gap-4">
           <div className="w-full md:w-64">
