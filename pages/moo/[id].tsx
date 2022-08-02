@@ -29,6 +29,46 @@ const Moo = ({ id }: Props) => {
   const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM Lo') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
+  const isCustom =
+    attributes.find(({ trait_type }) => trait_type === 'Delivery')?.value === 'Custom';
+  const displayName = isCustom ? name.substring(name.indexOf(' - ') + 3) : name;
+
+  const separateAttributes = (
+    <>
+      <div>
+        <span className={traitTypeStyle}>ID</span>
+        <p className={traitValueStyle}>{id}</p>
+      </div>
+      <div>
+        <span className={traitTypeStyle}>Birthday</span>
+        <p className={traitValueStyle}>{birthday}</p>
+      </div>
+      <div>
+        <span className={traitTypeStyle}>Swatch</span>
+        <div className="flex gap-1">
+          <div
+            style={{ backgroundColor: fgColor }}
+            className={classNames(
+              { 'border border-purple-light': fgColor === '#ffffff' },
+              'h-4 w-4 rounded-full'
+            )}
+          />
+          <div
+            style={{ backgroundColor: bgColor }}
+            className={classNames(
+              { 'border border-purple-light': bgColor === '#ffffff' },
+              'h-4 w-4 rounded-full'
+            )}
+          />
+        </div>
+      </div>
+      <div>
+        <span className={traitTypeStyle}>Status</span>
+        <p className={traitValueStyle}>{status}</p>
+      </div>
+    </>
+  );
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-pink-background pt-36 pb-4 md:pt-40">
       <div className="mx-4 flex max-w-screen-lg flex-col gap-4 rounded-xl bg-white p-4 md:flex-row lg:mx-auto">
@@ -43,43 +83,11 @@ const Moo = ({ id }: Props) => {
               alt={name}
             />
           </div>
-          <div className="grid grid-cols-2 gap-x-2 gap-y-1">
-            <div>
-              <span className={traitTypeStyle}>ID</span>
-              <p className={traitValueStyle}>{id}</p>
-            </div>
-            <div>
-              <span className={traitTypeStyle}>Birthday</span>
-              <p className={traitValueStyle}>{birthday}</p>
-            </div>
-            <div>
-              <span className={traitTypeStyle}>Swatch</span>
-              <div className="flex gap-1">
-                <div
-                  style={{ backgroundColor: fgColor }}
-                  className={classNames(
-                    { 'border border-purple-light': fgColor === '#ffffff' },
-                    'h-4 w-4 rounded-full'
-                  )}
-                />
-                <div
-                  style={{ backgroundColor: bgColor }}
-                  className={classNames(
-                    { 'border border-purple-light': bgColor === '#ffffff' },
-                    'h-4 w-4 rounded-full'
-                  )}
-                />
-              </div>
-            </div>
-            <div>
-              <span className={traitTypeStyle}>Status</span>
-              <p className={traitValueStyle}>{status}</p>
-            </div>
-          </div>
+          <div className="hidden grid-cols-2 gap-x-2 gap-y-1 md:grid">{separateAttributes}</div>
         </div>
         <div>
           <div className="flex items-center gap-4">
-            <h1 className="font-gmcafe text-4xl text-purple">{name}</h1>
+            <h1 className="font-gmcafe text-4xl text-purple">{displayName}</h1>
             <a
               href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}
               target="_blank"
@@ -88,10 +96,14 @@ const Moo = ({ id }: Props) => {
               <OpenSeaIcon className="h-8 w-8" fill="#2081E2" />
             </a>
           </div>
-          <p style={{ borderColor: bgColor }} className="border-b-4 pt-1 pb-2 text-xs text-purple">
+          <p
+            style={{ borderColor: bgColor }}
+            className="mb-2 border-b-4 pt-1 pb-2 text-xs text-purple"
+          >
             {owner}
           </p>
-          <div className="grid grid-cols-2 gap-x-2 gap-y-1 pt-2">
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1 md:hidden">{separateAttributes}</div>
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1">
             {attributes
               .filter(
                 ({ trait_type, value }) =>
