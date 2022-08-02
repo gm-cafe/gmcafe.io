@@ -9,7 +9,7 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
         <meta property="og:url" content="https://gmcafe.io" />
         <meta property="og:type" content="website" />

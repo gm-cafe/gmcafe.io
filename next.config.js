@@ -13,7 +13,7 @@ const moduleExports = {
     return config;
   },
   images: {
-    domains: ['lh3.googleusercontent.com'],
+    domains: ['lh3.googleusercontent.com', 'gmcafe.s3.us-east-2.amazonaws.com'],
   },
   async rewrites() {
     return [

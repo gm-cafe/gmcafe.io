@@ -1,7 +1,7 @@
 import { formatDuration, intervalToDuration } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useContractRead } from 'wagmi';
-import { gmooContract, gmooABI } from './migration';
+import { gmooABI, gmooContract } from '../lib/util/addresses';
 import { Discord } from './StyledLinks';
 
 const Countdown = () => {

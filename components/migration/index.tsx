@@ -4,21 +4,7 @@ import { useAccount, useContractRead, useContractWrite, useWaitForTransaction } 
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
-
-export const fakeSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
-export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
-
-const fakeSeaABI = [
-  'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
-  'function setApprovalForAll(address _operator, bool _approved) external',
-];
-export const gmooABI = [
-  'function _claimableTime() public view returns (uint256)',
-  'function getMigratableTokens(address sender) public view returns (uint256[] memory tokens, uint256[] memory moos)',
-  'function isMigrationApproved(address sender) public view returns (bool)',
-  'function migrateMoos(uint256[] calldata tokens) public',
-  'function getWallet(address owner) public view returns (uint256[] memory moos, uint256 touched)',
-];
+import { openSeaContract, gmooContract, openSeaABI, gmooABI } from '../../lib/util/addresses';
 
 type StateProps = {
   next: () => void;
@@ -49,15 +35,15 @@ export const Connect = () => {
 
 export const Approve = ({ next, setLoading }: StateProps) => {
   const { data, isLoading, write, isSuccess, isError } = useContractWrite({
-    addressOrName: fakeSeaContract,
-    contractInterface: fakeSeaABI,
+    addressOrName: openSeaContract,
+    contractInterface: openSeaABI,
     functionName: 'setApprovalForAll',
   });
 
   const { address } = useAccount();
   const { data: alreadyApproved } = useContractRead({
-    addressOrName: fakeSeaContract,
-    contractInterface: fakeSeaABI,
+    addressOrName: openSeaContract,
+    contractInterface: openSeaABI,
     functionName: 'isApprovedForAll',
     args: [address, gmooContract],
   });
