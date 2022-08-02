@@ -112,8 +112,14 @@ const Moo = ({ id }: Props) => {
             style={{ borderColor: bgColor }}
             className="mb-2 flex items-center gap-1 border-b-4 pt-1 pb-2"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="h-4 w-4 rounded-full" src={ensAvatar || '/ens.png'} alt="ENS Avatar" />
+            {ensName && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                className="h-4 w-4 rounded-full"
+                src={ensAvatar || '/ens.png'}
+                alt="ENS Avatar"
+              />
+            )}
             <p className="text-xs text-purple">{ensName || owner}</p>
           </div>
           <div className="grid grid-cols-2 gap-x-2 gap-y-1 md:hidden">{separateAttributes}</div>
