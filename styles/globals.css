@@ -147,3 +147,19 @@ button.ju367v8i {
   height: 100%;
   z-index: 1;
 }
+
+.moo-tag-shadow {
+  background-image: url('../public/moo_tag_shadow.png');
+  background-repeat: no-repeat;
+  background-position: 10.6rem 15px;
+  background-size: 22px;
+}
+
+@media (min-width: 768px) {
+  .moo-tag-shadow {
+    background-image: url('../public/moo_tag_shadow.png');
+    background-repeat: no-repeat;
+    background-position: 21.6rem 26px;
+    background-size: 31px;
+  }
+}
