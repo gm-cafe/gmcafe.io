@@ -7,7 +7,7 @@ import { gmooContract } from '../../lib/util/addresses';
 import { GetServerSideProps } from 'next';
 import { Moo } from '../../lib/util/types';
 import { useEnsAvatar, useEnsName } from 'wagmi';
-import mootag from '../../public/moo_tag.png';
+import mootag from '../../public/profile/moo_tag.png';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
