@@ -164,6 +164,22 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
   const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
 
+  if (!tokenId || tokenId < 1) {
+    return {
+      redirect: {
+        destination: '/moo/1',
+        permanent: false,
+      },
+    };
+  } else if (tokenId > 333) {
+    return {
+      redirect: {
+        destination: '/moo/333',
+        permanent: false,
+      },
+    };
+  }
+
   const moo: Moo = await fetch(
     `https://api.gmcafe.io/metadata/gmoo/${String(tokenId).padStart(3, '0')}.json`
   ).then((res) => {
