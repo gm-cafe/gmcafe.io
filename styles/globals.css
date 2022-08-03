@@ -163,3 +163,10 @@ button.ju367v8i {
     background-size: 31px;
   }
 }
+
+.moo-verified-herd {
+  background-image: url('../public/profile/verified_herd.png');
+  background-repeat: no-repeat;
+  background-position: right 1rem bottom 1rem;
+  background-size: 12rem;
+}

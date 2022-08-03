@@ -98,7 +98,7 @@ const Moo = ({ id }: Props) => {
           <Image src={mootag} layout="responsive" alt="Moo Tag" />
         </div>
       </div>
-      <div className="mx-4 flex w-[22.125rem] flex-col gap-4 rounded-b-xl bg-white px-6 pt-6 pb-8 md:w-[44rem] md:flex-row md:px-12 md:pb-10 md:pt-0 lg:mx-auto">
+      <div className="moo-verified-herd mx-4 flex w-[22.125rem] flex-col gap-4 rounded-b-3xl bg-white px-6 pt-6 pb-8 md:w-[44rem] md:flex-row md:px-12 md:pb-10 md:pt-0 lg:mx-auto">
         <div className="flex flex-col gap-4">
           <div className="w-full md:w-64">
             <Image
