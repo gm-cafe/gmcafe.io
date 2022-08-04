@@ -147,3 +147,26 @@ button.ju367v8i {
   height: 100%;
   z-index: 1;
 }
+
+.moo-tag-shadow {
+  background-image: url('../public/profile/moo_tag_shadow.png');
+  background-repeat: no-repeat;
+  background-position: 11.5rem 11px;
+  background-size: 22px;
+}
+
+@media (min-width: 768px) {
+  .moo-tag-shadow {
+    background-image: url('../public/profile/moo_tag_shadow.png');
+    background-repeat: no-repeat;
+    background-position: 21.6rem 28px;
+    background-size: 31px;
+  }
+}
+
+.moo-verified-herd {
+  background-image: url('../public/profile/verified_herd.png');
+  background-repeat: no-repeat;
+  background-position: right 1rem bottom 1rem;
+  background-size: 12rem;
+}
