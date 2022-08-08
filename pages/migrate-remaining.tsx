@@ -41,7 +41,7 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
               href={`https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/${osToken}`}
               target="_blank"
               rel="noreferrer"
-              className="w-40"
+              className="w-40 transition-transform hover:-translate-y-1"
               key={id}
             >
               <div className="relative">
@@ -70,7 +70,7 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
                     >
                       <TwitterIcon className="h-3 w-3" fill="#ffffff" />
                       <p className="ml-1.5 overflow-hidden whitespace-nowrap font-default text-xs text-white">
-                        @{twitter}
+                        {twitter}
                       </p>
                     </a>
                   )}
