@@ -13,6 +13,9 @@ const lazyMintedMoos = [
 
 const sheetId = '1fWX_s0XrbBIJcC0jenzwvQtiiOnT8yjc2c57kWxyJUA';
 
+const description =
+  'The Great Moogration is happening! Our precious Highland Cows are finally being migrated to their own custom contract with much more luxurious pastures to graze in.';
+
 const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
   const { data } = useContractRead({
     addressOrName: gmooContract,
@@ -29,6 +32,11 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
     <div className="min-h-screen bg-pink-background pt-36 pb-12 md:pt-40">
       <Head>
         <title>Remaining Moos</title>
+        <meta property="og:image" content="/migrate/moo.png" />
+        <meta name="twitter:image" content="/migrate/moo.png" />
+        <meta name="description" content={description} key="desc" />
+        <meta property="og:description" content={description} key="ogDesc" />
+        <meta name="twitter:description" content={description} key="twitterDesc" />
       </Head>
       <div className="mx-auto flex max-w-screen-xl flex-wrap justify-center gap-4">
         {unmigratedMoos.map((id) => {
