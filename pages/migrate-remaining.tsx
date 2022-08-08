@@ -13,7 +13,11 @@ const lazyMintedMoos = [
 
 const sheetId = '1fWX_s0XrbBIJcC0jenzwvQtiiOnT8yjc2c57kWxyJUA';
 
-const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => {
+const MigrateRemaining = ({
+  contact,
+}: {
+  contact: ((Contact & { osToken: string }) | undefined)[];
+}) => {
   const { data } = useContractRead({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
@@ -34,9 +38,16 @@ const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => 
         {unmigratedMoos.map((id) => {
           const twitter = contact[id]?.twitter;
           const discord = contact[id]?.discordName;
+          const osToken = contact[id]?.osToken;
 
           return (
-            <div className="w-40" key={id}>
+            <a
+              href={`https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/${osToken}`}
+              rel="noreferrer"
+              target="_blank"
+              className="w-40"
+              key={id}
+            >
               <div className="relative">
                 <Image
                   className={classNames('rounded-t-xl', {
@@ -77,7 +88,7 @@ const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => 
                   )}
                 </div>
               )}
-            </div>
+            </a>
           );
         })}
       </div>
@@ -93,15 +104,19 @@ type Contact = {
   discordId?: string;
 };
 
+type Owner = {
+  address: string;
+  osToken: string;
+};
+
 export const getStaticProps: GetStaticProps = async () => {
   // one-indexed
   const owners = await fetch(
-    `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=GMOO&range=AI:AI`
+    `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=GMOO&range=AI:AJ`
   )
     .then((response) => response.text())
     .then((v) => Papa.parse<string[]>(v))
-    .then(({ data }) => data.map((row) => row[0]))
-    .catch((err) => console.log(err));
+    .then(({ data }) => data.map<Owner>((row) => ({ address: row[0], osToken: row[1] })));
 
   const contact: Record<string, Contact> = {};
   // twitter, discord name, discord id, address
@@ -123,7 +138,19 @@ export const getStaticProps: GetStaticProps = async () => {
       })
     );
 
-  const mooContact = owners?.map((owner) => contact[owner] || null) || [];
+  const mooContact =
+    owners?.map<(Contact & { osToken: string }) | null>((owner) => {
+      const ownerContact = contact[owner.address];
+
+      if (!ownerContact) {
+        return null;
+      }
+
+      return {
+        ...ownerContact,
+        osToken: owner.osToken,
+      };
+    }) || [];
 
   return {
     props: {
