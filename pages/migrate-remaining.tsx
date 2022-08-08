@@ -13,7 +13,7 @@ const lazyMintedMoos = [
 
 const sheetId = '1fWX_s0XrbBIJcC0jenzwvQtiiOnT8yjc2c57kWxyJUA';
 
-const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => {
+const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
   const { data } = useContractRead({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
@@ -32,11 +32,18 @@ const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => 
       </Head>
       <div className="mx-auto flex max-w-screen-xl flex-wrap justify-center gap-4">
         {unmigratedMoos.map((id) => {
+          const osToken = contact[id].osToken;
           const twitter = contact[id]?.twitter;
           const discord = contact[id]?.discordName;
 
           return (
-            <div className="w-40" key={id}>
+            <a
+              href={`https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/${osToken}`}
+              target="_blank"
+              rel="noreferrer"
+              className="w-40"
+              key={id}
+            >
               <div className="relative">
                 <Image
                   className={classNames('rounded-t-xl', {
@@ -77,7 +84,7 @@ const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => 
                   )}
                 </div>
               )}
-            </div>
+            </a>
           );
         })}
       </div>
@@ -88,46 +95,44 @@ const MigrateRemaining = ({ contact }: { contact: (Contact | undefined)[] }) => 
 export default MigrateRemaining;
 
 type Contact = {
+  osToken: string;
   twitter?: string;
   discordName?: string;
   discordId?: string;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  // one-indexed
-  const owners = await fetch(
-    `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=GMOO&range=AI:AI`
+  const gmooSheet = await fetch(
+    `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=GMOO&range=AI:AJ`
   )
     .then((response) => response.text())
     .then((v) => Papa.parse<string[]>(v))
-    .then(({ data }) => data.map((row) => row[0]))
-    .catch((err) => console.log(err));
+    .then(({ data }) => data);
 
-  const contact: Record<string, Contact> = {};
-  // twitter, discord name, discord id, address
-  await fetch(
+  const contactSheet = await fetch(
     `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Contact&range=B:E`
   )
     .then((response) => response.text())
     .then((v) => Papa.parse<string[]>(v))
-    .then(({ data }) =>
-      data.forEach((row) => {
-        const address = row[3];
-        if (address && !contact[address]) {
-          contact[address] = {
-            twitter: row[0],
-            discordName: row[1],
-            discordId: row[2],
-          };
-        }
-      })
-    );
+    .then(({ data }) => data);
 
-  const mooContact = owners?.map((owner) => contact[owner] || null) || [];
+  const contacts = gmooSheet.map<Contact>(([address, osToken]) => {
+    const contact = contactSheet.find((row) => row[3] === address);
+    return contact
+      ? {
+          osToken: osToken,
+          twitter: contact[0],
+          discordName: contact[1],
+          discordId: contact[2],
+        }
+      : {
+          osToken: osToken,
+        };
+  });
 
   return {
     props: {
-      contact: mooContact,
+      contact: contacts,
     },
   };
 };
