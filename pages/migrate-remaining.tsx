@@ -68,24 +68,24 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
                 </span>
               </div>
               {(twitter || discord) && (
-                <div className="flex flex-col gap-2 rounded-b-xl bg-white p-2">
+                <div className="flex flex-col gap-2 rounded-b-xl bg-white p-2 items-center">
                   {twitter && (
                     <a
-                      className="flex max-w-full items-center rounded-full bg-twitter px-2 py-1 transition betterhover:hover:scale-105"
+                      className="flex w-max max-w-full items-center rounded-full bg-twitter px-2 py-1 transition betterhover:hover:scale-105"
                       href={`https://twitter.com/${twitter}`}
                       rel="noreferrer"
                       target="_blank"
                     >
                       <TwitterIcon className="h-3 w-3" fill="#ffffff" />
-                      <p className="ml-1.5 overflow-hidden truncate whitespace-nowrap font-default text-xs text-white">
+                      <p className="ml-1.5 overflow-hidden truncate whitespace-nowrap pr-0.5 font-default text-xs text-white">
                         {twitter}
                       </p>
                     </a>
                   )}
                   {discord && (
-                    <span className="flex max-w-full items-center rounded-full bg-discord px-2 py-1">
+                    <span className="flex w-max max-w-full items-center rounded-full bg-discord px-2 py-1">
                       <DiscordIcon className="h-3 w-3" />
-                      <p className="ml-1.5 overflow-hidden truncate whitespace-nowrap font-default text-xs text-white">
+                      <p className="ml-1.5 overflow-hidden truncate whitespace-nowrap pr-0.5 font-default text-xs text-white">
                         {discord}
                       </p>
                     </span>
