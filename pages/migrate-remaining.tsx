@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import Papa from 'papaparse';
 import { TwitterIcon, DiscordIcon } from '../components/Icons';
-import classNames from 'classnames';
 
 const lazyMintedMoos = [
   206, 223, 235, 238, 300, 308, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 333,
@@ -49,14 +48,12 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
               href={`https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/${osToken}`}
               target="_blank"
               rel="noreferrer"
-              className="w-40 transition-transform hover:-translate-y-1"
+              className="flex h-max w-40 flex-col gap-2 transition-transform hover:-translate-y-1"
               key={id}
             >
               <div className="relative">
                 <Image
-                  className={classNames('rounded-t-xl', {
-                    'rounded-b-xl': !twitter && !discord,
-                  })}
+                  className="rounded-xl"
                   src={`https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg/${id}.jpg`}
                   layout="responsive"
                   width={800}
@@ -68,7 +65,7 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
                 </span>
               </div>
               {(twitter || discord) && (
-                <div className="flex flex-col gap-2 rounded-b-xl bg-white p-2 items-center">
+                <div className="flex flex-col items-center gap-2 rounded-xl bg-white p-2">
                   {twitter && (
                     <a
                       className="flex w-max max-w-full items-center rounded-full bg-twitter px-2 py-1 transition betterhover:hover:scale-105"
