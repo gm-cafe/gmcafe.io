@@ -69,7 +69,7 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
                       target="_blank"
                     >
                       <TwitterIcon className="h-3 w-3" fill="#ffffff" />
-                      <p className="ml-1.5 overflow-hidden whitespace-nowrap font-default text-xs text-white">
+                      <p className="ml-1.5 overflow-hidden truncate whitespace-nowrap font-default text-xs text-white">
                         {twitter}
                       </p>
                     </a>
@@ -77,7 +77,7 @@ const MigrateRemaining = ({ contact }: { contact: Contact[] }) => {
                   {discord && (
                     <span className="flex max-w-full items-center rounded-full bg-discord px-2 py-1">
                       <DiscordIcon className="h-3 w-3" />
-                      <p className="ml-1.5 overflow-hidden whitespace-nowrap font-default text-xs text-white">
+                      <p className="ml-1.5 overflow-hidden truncate whitespace-nowrap font-default text-xs text-white">
                         {discord}
                       </p>
                     </span>
