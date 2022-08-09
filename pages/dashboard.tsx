@@ -6,13 +6,12 @@ import { useAccount, useContractRead, useContractReads } from 'wagmi';
 import { gmooABI, gmooContract } from '../lib/util/addresses';
 import { Moo } from '../lib/util/types';
 
-type AsyncState = 'initialized' | 'loading' | 'loaded';
+// tokenId (initialized) | fetching (api.gmcafe.io) | fetched
+type MooState = number | true | Moo;
 
 const Dashboard = () => {
   const [hasMounted, setHasMounted] = useState(false);
-  const [moos, setMoos] = useState<Moo[]>([]);
-  const [mooIds, setMooIds] = useState<number[]>([]);
-  const [mooState, setMooState] = useState<AsyncState[]>([]);
+  const [moos, setMoos] = useState<MooState[]>([]);
   const { address, isConnected } = useAccount();
 
   useEffect(() => {
@@ -30,15 +29,12 @@ const Dashboard = () => {
       if (moos.length === mooBigNs.length) {
         return;
       }
-
-      setMoos(Array(mooBigNs.length).fill(null));
-      setMooIds(mooBigNs.map((n) => n.toNumber()));
-      setMooState(Array(mooBigNs.length).fill('initialized'));
+      setMoos(mooBigNs.map((n) => n.toNumber()));
     },
   });
 
   useContractReads({
-    contracts: mooIds.map((id) => ({
+    contracts: moos.filter(Number.isInteger).map((id) => ({
       addressOrName: gmooContract,
       contractInterface: gmooABI,
       functionName: 'tokenURI',
@@ -48,27 +44,18 @@ const Dashboard = () => {
       const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
       mooTokenUris.forEach((tokenUri, idx) => {
         // Don't fetch again if moo id is fetching or already fetched
-        if (mooState[idx] !== 'initialized') {
+        if (!Number.isInteger(moos[idx])) {
           return;
         }
 
         const front = moos.slice(0, idx);
         const back = moos.slice(idx + 1, moos.length);
-        setMooState([
-          ...mooState.slice(0, idx),
-          'loading',
-          ...mooState.slice(idx + 1, mooState.length + 1),
-        ]);
+        setMoos([...moos.slice(0, idx), true, ...moos.slice(idx + 1, moos.length + 1)]);
 
         fetch(tokenUri)
           .then((res) => res.json())
           .then((moo: Moo) => {
             setMoos([...front, moo, ...back]);
-            setMooState([
-              ...mooState.slice(0, idx),
-              'loaded',
-              ...mooState.slice(idx + 1, mooState.length + 1),
-            ]);
           });
       });
     },
@@ -84,7 +71,7 @@ const Dashboard = () => {
         <nav className={classNames({ 'justify-end': isConnected })}>
           <ConnectButton />
         </nav>
-        <div className="flex flex-col"></div>
+        <div className="flex flex-col">{}</div>
       </div>
     </div>
   );
