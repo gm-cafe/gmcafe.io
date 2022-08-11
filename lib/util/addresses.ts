@@ -14,4 +14,5 @@ export const gmooABI = [
   'function getWallet(address owner) public view returns (uint256[] memory moos, uint256 touched)',
   'function getHerd() public view returns (bytes32[] memory ret)',
   'function tokenURI(uint256 moo) public view returns (string memory uri)',
+  'function lockMoo(uint256 moo, uint256 price, bytes32 hash) public',
 ];

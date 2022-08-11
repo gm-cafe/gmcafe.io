@@ -1,8 +1,11 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
+import { utils } from 'ethers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
+import { useContractWrite } from 'wagmi';
+import { gmooABI, gmooContract } from '../../lib/util/addresses';
 import { Attribute, Moo } from '../../lib/util/types';
 import { MooState } from '../../pages/dashboard';
 
@@ -25,8 +28,19 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
 
   const isLocked = checkLocked(attributes);
 
+  const { write: lock } = useContractWrite({
+    addressOrName: gmooContract,
+    contractInterface: gmooABI,
+    functionName: 'lockMoo',
+  });
+
   const lockMoo = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const priceInGwei = lockPrice * Math.pow(10, 9);
+    const hashedPassword = utils.keccak256(utils.toUtf8Bytes(lockPassword));
+    lock({
+      args: [id, priceInGwei, hashedPassword],
+    });
   };
 
   const cancelLock = (e: FormEvent<HTMLInputElement>) => {
@@ -74,14 +88,14 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="mx-auto max-w-screen-sm rounded-xl bg-white p-6">
+          <Dialog.Panel className="mx-auto max-w-screen-sm rounded-xl bg-white p-8">
             <Dialog.Title className="font-gmcafe text-3xl text-purple">Lock Moo</Dialog.Title>
             <Dialog.Description className="text-purple">
               Locking your moo will give you special benefits...
             </Dialog.Description>
             <form className="my-4 flex flex-col gap-4" onSubmit={lockMoo}>
               <div className="flex">
-                <div className="flex flex-col">
+                <div className="flex flex-1 flex-col">
                   <label className="px-2 font-gmcafe text-lg text-purple" htmlFor="tokenId">
                     ID
                   </label>
@@ -91,7 +105,6 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                     id="tokenId"
                     name="tokenId"
                     value={id}
-                    min={0}
                     disabled
                     required
                   />
@@ -103,14 +116,17 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                     Price
                   </label>
                   <input
-                    className="rounded bg-white py-1 px-2 text-purple outline outline-2 outline-purple"
+                    className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
                     type="number"
                     id="price"
                     name="price"
                     value={lockPrice}
                     step="any"
                     required
-                    onChange={(e) => setLockPrice(parseFloat(e.target.value))}
+                    min={0}
+                    onChange={({ target: { value } }) =>
+                      value ? setLockPrice(parseFloat(value)) : setLockPrice(0)
+                    }
                   />
                 </div>
                 <div className="flex flex-col">
@@ -118,7 +134,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                     Password
                   </label>
                   <input
-                    className="rounded bg-white py-1 px-2 text-purple outline outline-2 outline-purple"
+                    className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
                     type="password"
                     id="password"
                     name="password"
