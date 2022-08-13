@@ -1,9 +1,10 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
 import { utils } from 'ethers';
+import { Field, Form, Formik } from 'formik';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useContractWrite } from 'wagmi';
 import { gmooABI, gmooContract } from '../../lib/util/addresses';
 import { Attribute, Moo } from '../../lib/util/types';
@@ -18,9 +19,6 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
 
-  const [lockPrice, setLockPrice] = useState<number>(0);
-  const [lockPassword, setLockPassword] = useState<string>('');
-
   const { name, image, attributes } = moo;
 
   const idRegexCapture = idRegex.exec(name)?.at(1);
@@ -33,22 +31,6 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
     contractInterface: gmooABI,
     functionName: 'lockMoo',
   });
-
-  const lockMoo = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const priceInGwei = lockPrice * Math.pow(10, 9);
-    const hashedPassword = utils.keccak256(utils.toUtf8Bytes(lockPassword));
-    lock({
-      args: [id, priceInGwei, hashedPassword],
-    });
-  };
-
-  const cancelLock = (e: FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setLockPrice(0);
-    setLockPassword('');
-    setLockModalOpen(false);
-  };
 
   return (
     <div className="flex items-center gap-2 rounded-xl bg-white p-4">
@@ -93,70 +75,85 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
             <Dialog.Description className="text-purple">
               Locking your moo will give you special benefits...
             </Dialog.Description>
-            <form className="my-4 flex flex-col gap-4" onSubmit={lockMoo}>
-              <div className="flex">
-                <div className="flex flex-1 flex-col">
-                  <label className="px-2 font-gmcafe text-lg text-purple" htmlFor="tokenId">
-                    ID
-                  </label>
-                  <input
-                    className="cursor-not-allowed rounded border-2 border-purple bg-gray-100 py-1 px-2 text-purple"
-                    type="number"
-                    id="tokenId"
-                    name="tokenId"
-                    value={id}
-                    disabled
-                    required
+            <Formik
+              initialValues={{
+                tokenId: id,
+                lockPrice: 0,
+                lockPassword: '',
+              }}
+              onSubmit={async ({ tokenId, lockPrice, lockPassword }) => {
+                const priceInGwei = lockPrice * Math.pow(10, 9);
+                const hashedPassword = utils.keccak256(utils.toUtf8Bytes(lockPassword));
+                lock({
+                  args: [tokenId, priceInGwei, hashedPassword],
+                });
+              }}
+              onReset={(values, actions) => {
+                actions.setValues({
+                  tokenId: id,
+                  lockPrice: 0,
+                  lockPassword: '',
+                });
+                setLockModalOpen(false);
+              }}
+            >
+              <Form className="my-4 flex flex-col gap-4">
+                <div className="flex">
+                  <div className="flex flex-1 flex-col">
+                    <label className="px-2 font-gmcafe text-lg text-purple" htmlFor="tokenId">
+                      ID
+                    </label>
+                    <Field
+                      className="cursor-not-allowed rounded border-2 border-purple bg-gray-100 py-1 px-2 text-purple"
+                      type="number"
+                      id="tokenId"
+                      name="tokenId"
+                      disabled
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex flex-col">
+                    <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">
+                      Price
+                    </label>
+                    <Field
+                      className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
+                      type="number"
+                      id="lockPrice"
+                      name="lockPrice"
+                      step="any"
+                      required
+                      min={0}
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="font-gmcafe text-lg text-purple" htmlFor="lockPassword">
+                      Password
+                    </label>
+                    <Field
+                      className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
+                      type="password"
+                      id="lockPassword"
+                      name="lockPassword"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-4">
+                  <Field
+                    className="cursor-pointer rounded-xl border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
+                    type="reset"
+                    value="Cancel"
+                  />
+                  <Field
+                    className="cursor-pointer rounded-xl bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+                    type="submit"
+                    value="Lock"
                   />
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex flex-col">
-                  <label className="font-gmcafe text-lg text-purple" htmlFor="price">
-                    Price
-                  </label>
-                  <input
-                    className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
-                    type="number"
-                    id="price"
-                    name="price"
-                    value={lockPrice}
-                    step="any"
-                    required
-                    min={0}
-                    onChange={({ target: { value } }) =>
-                      value ? setLockPrice(parseFloat(value)) : setLockPrice(0)
-                    }
-                  />
-                </div>
-                <div className="flex flex-col">
-                  <label className="font-gmcafe text-lg text-purple" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={lockPassword}
-                    onChange={(e) => setLockPassword(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="flex justify-end gap-4">
-                <input
-                  className="cursor-pointer rounded-xl border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
-                  type="button"
-                  value="Cancel"
-                  onClick={cancelLock}
-                />
-                <input
-                  className="cursor-pointer rounded-xl bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-                  type="submit"
-                  value="Lock"
-                />
-              </div>
-            </form>
+              </Form>
+            </Formik>
           </Dialog.Panel>
         </div>
       </Dialog>
