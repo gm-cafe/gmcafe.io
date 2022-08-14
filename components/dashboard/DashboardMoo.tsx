@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
 import { utils } from 'ethers';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikErrors } from 'formik';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -11,6 +11,12 @@ import { Attribute, Moo } from '../../lib/util/types';
 import { MooState } from '../../pages/dashboard';
 
 const idRegex = /#(\d{1,3})/;
+
+interface LockMooFormValues {
+  tokenId: string;
+  lockPrice: number;
+  lockPassword: string;
+}
 
 const checkLocked = (attributes: Attribute[]) =>
   attributes.find(({ trait_type }) => trait_type === 'Status')?.value === 'Locked 🔒';
@@ -81,8 +87,8 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                 lockPrice: 0,
                 lockPassword: '',
               }}
-              onSubmit={async ({ tokenId, lockPrice, lockPassword }) => {
-                const priceInGwei = lockPrice * Math.pow(10, 9);
+              onSubmit={({ tokenId, lockPrice, lockPassword }) => {
+                const priceInGwei = utils.parseEther(lockPrice.toString());
                 const hashedPassword = utils.keccak256(utils.toUtf8Bytes(lockPassword));
                 lock({
                   args: [tokenId, priceInGwei, hashedPassword],
@@ -95,6 +101,17 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                   lockPassword: '',
                 });
                 setLockModalOpen(false);
+              }}
+              validate={({ lockPrice, lockPassword }) => {
+                let errors: FormikErrors<LockMooFormValues> = {};
+                if (lockPrice <= 0) {
+                  errors.lockPrice = 'Price must be greater than 0.';
+                }
+
+                if (lockPassword === '') {
+                  errors.lockPassword = 'Password cannot be empty.';
+                }
+                return errors;
               }}
             >
               <Form className="my-4 flex flex-col gap-4">
@@ -118,14 +135,22 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                     <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">
                       Price
                     </label>
-                    <Field
-                      className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
-                      type="number"
-                      id="lockPrice"
+                    <div className="flex items-center gap-2 rounded border-2 border-purple">
+                      <Field
+                        className="py-1 pl-2 text-purple focus-within:outline-0"
+                        type="number"
+                        id="lockPrice"
+                        name="lockPrice"
+                        step="any"
+                        required
+                        min={0}
+                      />
+                      <span className="pr-2 font-medium text-purple">Ξ</span>
+                    </div>
+                    <ErrorMessage
+                      component="span"
+                      className="text-right text-xs text-pink"
                       name="lockPrice"
-                      step="any"
-                      required
-                      min={0}
                     />
                   </div>
                   <div className="flex flex-col">
@@ -136,6 +161,11 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
                       className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
                       type="password"
                       id="lockPassword"
+                      name="lockPassword"
+                    />
+                    <ErrorMessage
+                      component="span"
+                      className="text-right text-xs text-pink"
                       name="lockPassword"
                     />
                   </div>
