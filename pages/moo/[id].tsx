@@ -98,7 +98,7 @@ const Moo = ({ id }: Props) => {
       >
         <div className="flex items-center">
           {!isStart && (
-            <div className="mt-20">
+            <div className="mt-20 hidden md:block">
               <Link href={`/moo/${id - 1}`}>
                 <ChevronLeftIcon className="h-14 w-14 cursor-pointer text-pink" />
               </Link>
@@ -180,9 +180,27 @@ const Moo = ({ id }: Props) => {
                 </div>
               </div>
             </div>
+            <div className="mx-4 md:hidden">
+              <div className="mt-2 flex justify-center gap-2">
+                {!isStart && (
+                  <div className="w-max cursor-pointer rounded-xl bg-white p-2">
+                    <Link href={`/moo/${id - 1}`}>
+                      <ChevronLeftIcon className="h-6 w-6 text-pink" />
+                    </Link>
+                  </div>
+                )}
+                {!isEnd && (
+                  <div className="w-max cursor-pointer rounded-xl bg-white p-2">
+                    <Link href={`/moo/${id + 1}`}>
+                      <ChevronRightIcon className="h-6 w-6 text-pink" />
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
           {!isEnd && (
-            <div className="mt-20">
+            <div className="mt-20 hidden md:block">
               <Link href={`/moo/${id + 1}`}>
                 <ChevronRightIcon className="h-14 w-14 cursor-pointer text-pink" />
               </Link>
