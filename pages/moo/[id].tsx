@@ -41,7 +41,7 @@ const Moo = ({ id }: Props) => {
 
   const customRenderTraits = ['Birth', 'Status'];
   const timestamp = attributes.find(({ trait_type }) => trait_type === 'Birth')?.value;
-  const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM do') : '???';
+  const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM do, yyyy') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
   const isCustom =
@@ -53,15 +53,15 @@ const Moo = ({ id }: Props) => {
 
   const separateAttributes = (
     <>
-      <div>
+      <div className="md:col-span-2">
         <span className={traitTypeStyle}>ID</span>
         <p className={traitValueStyle}>{id}</p>
       </div>
-      <div>
+      <div className="md:col-span-3">
         <span className={traitTypeStyle}>Birthday</span>
         <p className={traitValueStyle}>{birthday}</p>
       </div>
-      <div>
+      <div className="md:col-span-2">
         <span className={traitTypeStyle}>Swatch</span>
         <div className="flex gap-1">
           <div
@@ -80,7 +80,7 @@ const Moo = ({ id }: Props) => {
           />
         </div>
       </div>
-      <div>
+      <div className="md:col-span-3">
         <span className={traitTypeStyle}>Status</span>
         <p className={traitValueStyle}>{status}</p>
       </div>
@@ -130,7 +130,7 @@ const Moo = ({ id }: Props) => {
                     alt={name}
                   />
                 </div>
-                <div className="hidden grid-cols-2 gap-x-2 gap-y-1 md:grid">
+                <div className="hidden grid-cols-5 gap-x-2 gap-y-1 md:grid">
                   {separateAttributes}
                 </div>
               </div>
