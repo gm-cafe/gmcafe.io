@@ -41,7 +41,7 @@ const Moo = ({ id }: Props) => {
 
   const customRenderTraits = ['Birth', 'Status'];
   const timestamp = attributes.find(({ trait_type }) => trait_type === 'Birth')?.value;
-  const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM Lo') : '???';
+  const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM do') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
   const isCustom =
@@ -97,13 +97,11 @@ const Moo = ({ id }: Props) => {
         enterTo="opacity-100 translate-y-0"
       >
         <div className="flex items-center">
-          {!isStart && (
-            <div className="mt-20 hidden md:block">
-              <Link href={`/moo/${id - 1}`}>
-                <ChevronLeftIcon className="h-14 w-14 cursor-pointer text-pink" />
-              </Link>
-            </div>
-          )}
+          <div className="mt-20 hidden md:block">
+            <Link href={isStart ? '/moo/333' : `/moo/${id - 1}`}>
+              <ChevronLeftIcon className="h-14 w-14 cursor-pointer text-pink" />
+            </Link>
+          </div>
           <div>
             <div className="moo-tag-shadow relative pt-7 md:pt-12">
               <svg
@@ -182,30 +180,24 @@ const Moo = ({ id }: Props) => {
             </div>
             <div className="mx-4 md:hidden">
               <div className="mt-2 flex justify-center gap-2">
-                {!isStart && (
-                  <div className="w-max cursor-pointer rounded-xl bg-white p-2">
-                    <Link href={`/moo/${id - 1}`}>
-                      <ChevronLeftIcon className="h-6 w-6 text-pink" />
-                    </Link>
-                  </div>
-                )}
-                {!isEnd && (
-                  <div className="w-max cursor-pointer rounded-xl bg-white p-2">
-                    <Link href={`/moo/${id + 1}`}>
-                      <ChevronRightIcon className="h-6 w-6 text-pink" />
-                    </Link>
-                  </div>
-                )}
+                <div className="w-max cursor-pointer rounded-xl bg-white p-2">
+                  <Link href={isStart ? '/moo/333' : `/moo/${id - 1}`}>
+                    <ChevronLeftIcon className="h-6 w-6 text-pink" />
+                  </Link>
+                </div>
+                <div className="w-max cursor-pointer rounded-xl bg-white p-2">
+                  <Link href={isEnd ? '/moo/1' : `/moo/${id + 1}`}>
+                    <ChevronRightIcon className="h-6 w-6 text-pink" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-          {!isEnd && (
-            <div className="mt-20 hidden md:block">
-              <Link href={`/moo/${id + 1}`}>
-                <ChevronRightIcon className="h-14 w-14 cursor-pointer text-pink" />
-              </Link>
-            </div>
-          )}
+          <div className="mt-20 hidden md:block">
+            <Link href={isEnd ? '/moo/1' : `/moo/${id + 1}`}>
+              <ChevronRightIcon className="h-14 w-14 cursor-pointer text-pink" />
+            </Link>
+          </div>
         </div>
       </Transition>
     </div>
