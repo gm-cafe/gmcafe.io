@@ -19,6 +19,8 @@ export default function Document() {
         <meta name="twitter:site" content="@gmcafeNFT" />
         <meta name="twitter:title" content="Good Morning Café" />
 
+        <meta name="theme-color" content="#ff7dbd" />
+
         <script defer data-domain="gmcafe.io" src="/js/script.js"></script>
       </Head>
       <body className="cursor font-sans">
