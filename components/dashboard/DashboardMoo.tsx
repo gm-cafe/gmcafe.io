@@ -36,7 +36,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
       </div>
       <h2 className="font-gmcafe text-2xl text-purple">{name}</h2>
       <div className="ml-auto flex gap-4 rounded-lg bg-gray-100 p-1">
-        {isLocked && (
+        {/* {isLocked && (
           <button onClick={() => setUnlockModalOpen(true)}>
             <LockOpenIcon
               className="w-8 cursor-pointer text-purple transition-transform hover:scale-105"
@@ -48,7 +48,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
           <button onClick={() => setLockModalOpen(true)}>
             <LockClosedIcon className="w-8 cursor-pointer text-purple transition-transform hover:scale-105" />
           </button>
-        )}
+        )} */}
         <Link href={`/moo/${id}`}>
           <ArrowsExpandIcon className="w-8 cursor-pointer text-purple transition-transform hover:scale-105" />
         </Link>
