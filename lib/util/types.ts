@@ -26,3 +26,17 @@ export type Moo = {
   image: string;
   info: MooInfo;
 };
+
+export type HerdInfo = {
+  locked: boolean;
+  moo: number;
+  tag: number;
+  transfers: number;
+  block: number;
+  owner: string;
+};
+
+export type HerdInfoByOwner = {
+  owner: string;
+  herd: HerdInfo[];
+};
