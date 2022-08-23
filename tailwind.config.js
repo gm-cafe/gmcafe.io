@@ -10,6 +10,7 @@ module.exports = {
         'green-light': '#cdfff0',
         green: '#a1ffe4',
         'pink-light': '#ffb8d9',
+        'pink-lighter': '#fff3f9',
         pink: '#ff7dbd',
         'pink-background': '#ffd6ea',
         'purple-light': '#f4dffe',
