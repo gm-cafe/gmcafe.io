@@ -2,6 +2,7 @@ import { ExternalLinkIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HerdInfoByOwner } from '../../lib/util/types';
+import ENSName from '../ENSName';
 
 type Props = HerdInfoByOwner;
 
@@ -15,7 +16,7 @@ const Herd = ({ owner, herd }: Props) => {
           target="_blank"
           rel="noreferrer"
         >
-          <p className="truncate text-xs text-white md:text-sm">{owner}</p>
+          <ENSName className="truncate text-xs text-white md:text-sm" address={owner} />
         </a>
         <a
           className="ml-auto"
@@ -35,8 +36,8 @@ const Herd = ({ owner, herd }: Props) => {
                 src={`https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${moo}.jpg`}
                 alt={`Moo ${moo}`}
                 layout="responsive"
-                width={300}
-                height={300}
+                width={128}
+                height={128}
               />
               <div className="absolute inset-0 flex h-full w-full items-center justify-center rounded-lg bg-white bg-opacity-40 font-gmcafe text-lg text-purple opacity-0 transition-opacity hover:opacity-100 md:text-2xl">
                 #{moo}
