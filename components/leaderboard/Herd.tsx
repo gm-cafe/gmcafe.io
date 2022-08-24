@@ -27,7 +27,7 @@ const Herd = ({ owner, herd }: Props) => {
           <ExternalLinkIcon className="h-6 w-6 text-white" />
         </a>
       </div>
-      <div className="flex flex-wrap gap-4 rounded-b-lg bg-pink-lighter p-4">
+      <div className="flex flex-wrap gap-4 rounded-b-lg bg-[#f8f6fa] p-4">
         {herd.map(({ moo }) => (
           <Link href={`/moo/${moo}`} key={`${owner}-${moo}`}>
             <a className="relative h-[61px] w-[61px] transition hover:scale-105 md:h-[98px] md:w-[98px]">
