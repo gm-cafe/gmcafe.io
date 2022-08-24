@@ -49,7 +49,7 @@ const Leaderboard: NextPage = () => {
         <meta property="og:description" content={description} key="ogDesc" />
         <meta name="twitter:description" content={description} key="twitterDesc" />
       </Head>
-      <div className="flex w-full max-w-screen-md flex-col items-center gap-8 px-4 pt-44 pb-4 md:mx-auto">
+      <div className="flex w-full max-w-screen-md flex-col items-center gap-8 px-6 pt-44 pb-6 md:mx-auto">
         <h1 className="text-border-white font-gmcafe text-5xl text-purple">Leaderboard</h1>
         {orderedHerdInfoByCount.map(([count, herdByOwner], idx) => (
           <HerdGroup key={count} count={parseInt(count)} herdByOwner={herdByOwner} rank={idx + 1} />
