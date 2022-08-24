@@ -30,7 +30,7 @@ const Herd = ({ owner, herd }: Props) => {
       <div className="flex flex-wrap gap-4 rounded-b-lg bg-[#f8f6fa] p-4">
         {herd.map(({ moo }) => (
           <Link href={`/moo/${moo}`} key={`${owner}-${moo}`}>
-            <a className="relative h-[61px] w-[61px] transition hover:scale-105 md:h-[98px] md:w-[98px]">
+            <a className="relative h-[57px] w-[57px] transition hover:scale-105 md:h-[98px] md:w-[98px]">
               <Image
                 className="rounded-lg"
                 src={`https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${moo}.jpg`}
