@@ -6,11 +6,11 @@ import { OpenSeaIcon } from '../../components/Icons';
 import { gmooContract } from '../../lib/util/addresses';
 import { GetServerSideProps } from 'next';
 import { Moo } from '../../lib/util/types';
-import { useEnsAvatar, useEnsName } from 'wagmi';
 import mootag from '../../public/profile/moo_tag.png';
 import { Transition } from '@headlessui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import ENSName from '../../components/ENSName';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
@@ -22,22 +22,12 @@ type Props = {
 const Moo = ({ id }: Props) => {
   const metadata = useTokenURI(id);
 
-  const { data: ensName } = useEnsName({
-    address: metadata?.info?.owner,
-    enabled: !!metadata?.info?.owner,
-  });
-
-  const { data: ensAvatar } = useEnsAvatar({
-    addressOrName: metadata?.info?.owner,
-    enabled: !!metadata?.info?.owner,
-  });
-
   if (!metadata) {
     return <div />;
   }
 
   const { image, name, attributes } = metadata;
-  const { bgColor, fgColor, owner } = metadata.info;
+  const { bgColor, fgColor } = metadata.info;
 
   const customRenderTraits = ['Birth', 'Status'];
   const timestamp = attributes.find(({ trait_type }) => trait_type === 'Birth')?.value;
@@ -146,20 +136,11 @@ const Moo = ({ id }: Props) => {
                     <OpenSeaIcon className="h-6 w-6" fill="#2081E2" />
                   </a>
                 </div>
-                <div
+                <ENSName
                   style={{ borderColor: bgColor }}
-                  className="mb-2 flex items-center gap-1 border-b-4 pt-1 pb-2"
-                >
-                  {ensName && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      className="h-4 w-4 rounded-full"
-                      src={ensAvatar || '/ens.png'}
-                      alt="ENS Avatar"
-                    />
-                  )}
-                  <p className="truncate text-xs text-purple">{ensName || owner}</p>
-                </div>
+                  className="mb-2 border-b-4 pt-1 pb-2 text-xs text-purple"
+                  address={metadata?.info?.owner}
+                />
                 <div className="grid grid-cols-2 gap-x-2 gap-y-1 md:hidden">
                   {separateAttributes}
                 </div>
