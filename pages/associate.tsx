@@ -8,6 +8,8 @@ import { useAccount, useSignMessage } from 'wagmi';
 import { LoadingIcon } from '../components/Icons';
 import { Discord } from '../components/StyledLinks';
 
+const description = 'Associate your wallet with your Discord username using the M007 bot.';
+
 const Associate: NextPage = () => {
   const [apiSuccess, setApiSuccess] = useState(false);
   const [apiLoading, setApiLoading] = useState(false);
@@ -18,7 +20,7 @@ const Associate: NextPage = () => {
   const { nonce } = query;
 
   const { signMessage } = useSignMessage({
-    message: `GMOO!\nOwner: ${address}\nNonce: ${nonce}`,
+    message: `Moo! Please sign to link your wallet address to your Discord account.\n\nOwner: ${address}\nNonce: ${nonce}`,
     onMutate: () => setApiLoading(true),
     onSettled: () => setApiLoading(false),
     onSuccess: (data) => {
@@ -36,11 +38,12 @@ const Associate: NextPage = () => {
   });
 
   const nonceNotFound = (
-    <div className="m-4 flex max-w-screen-sm flex-col gap-2 rounded-xl bg-white p-4 md:mx-auto">
+    <div className="m-4 flex max-w-screen-sm flex-col gap-2 rounded-xl bg-white p-6 md:mx-auto">
       <h1 className="font-gmcafe text-4xl text-purple">Invalid Discord URL</h1>
       <p className="text-sm text-purple">
-        Please try again using the link generated from the /associate Discord command, or open a
-        Support ticket in the <Discord /> Server.
+        Please try again using the link generated from the{' '}
+        <span className="font-semibold">/associate</span> Discord command, or open a Support ticket
+        in the <Discord /> Server.
       </p>
     </div>
   );
@@ -62,7 +65,7 @@ const Associate: NextPage = () => {
   );
 
   const successMessage = (
-    <div className="m-4 flex max-w-screen-sm flex-col gap-2 rounded-xl bg-white p-4 md:mx-auto">
+    <div className="m-4 flex max-w-screen-sm flex-col gap-2 rounded-xl bg-white p-6 md:mx-auto">
       <h1 className="font-gmcafe text-4xl text-purple">Success!</h1>
       <p className="text-sm text-purple">
         Your wallet is successfully associated with your Discord username and you can now close this
@@ -75,11 +78,8 @@ const Associate: NextPage = () => {
     <div className="flex min-h-screen bg-pink-background">
       <Head>
         <title>Associate</title>
-        <meta
-          name="description"
-          content="Associate your wallet with your Discord username using the M007 bot."
-          key="desc"
-        />
+        <meta name="description" content={description} key="desc" />
+        <meta property="og:description" content={description} key="ogDesc" />
       </Head>
       <div className="flex flex-1 flex-col items-center justify-center gap-4">
         {!nonce && nonceNotFound}
