@@ -75,6 +75,11 @@ const Associate: NextPage = () => {
     <div className="flex min-h-screen bg-pink-background">
       <Head>
         <title>Associate</title>
+        <meta
+          name="description"
+          content="Associate your wallet with your Discord username using the M007 bot."
+          key="desc"
+        />
       </Head>
       <div className="flex flex-1 flex-col items-center justify-center gap-4">
         {!nonce && nonceNotFound}
