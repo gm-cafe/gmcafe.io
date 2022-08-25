@@ -27,6 +27,8 @@ const Associate: NextPage = () => {
       const body = {
         owner: address,
         sig: data,
+        token: nonce,
+        date: new Date(),
       };
       fetch('https://api.gmcafe.io/bot-api/associate', {
         method: 'POST',
