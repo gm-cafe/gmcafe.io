@@ -1,7 +1,7 @@
 import { ContractInterface } from 'ethers';
-import toast from 'react-hot-toast';
 import { useContractRead as useWagmiContractRead } from 'wagmi';
 import { gmooABI, gmooContract } from '../util/addresses';
+import { toastError } from '../util/toast';
 
 type Arguments = {
   functionName: string;
@@ -27,7 +27,7 @@ const useContractRead = ({
     args,
     enabled,
     onError: (err) => {
-      toast.error(err.message);
+      toastError(err);
       onError && onError(err);
     },
   });
