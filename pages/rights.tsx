@@ -1,22 +1,10 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import { Discord } from '../components/StyledLinks';
 import highFive from '../public/high_five.png';
 
-const description =
-  'Welcome to the world and characters of GMCafé, most succulent and tantalising establishment in the metaverse.';
-
 const Rights = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <Head>
-        <title>Commercial Rights</title>
-        <meta property="og:image" content="https://gmcafe.io/meta_image.png" key="ogImage" />
-        <meta name="twitter:image" content="https://gmcafe.io/meta_image.png" key="twitterImage" />
-        <meta name="description" content={description} key="desc" />
-        <meta property="og:description" content={description} key="ogDesc" />
-        <meta name="twitter:description" content={description} key="twitterDesc" />
-      </Head>
       <main className="flex-1 bg-gray-100 pt-48 text-lg font-medium text-purple">
         <section className="mx-10 flex max-w-screen-xl flex-col gap-6 xl:mx-auto">
           <h1 className="text-center font-gmcafe text-7xl sm:text-8xl">Commercial Rights</h1>
@@ -101,3 +89,14 @@ const Rights = () => {
 };
 
 export default Rights;
+
+export const getServerSideProps = () => {
+  return {
+    props: {
+      title: 'Good Morning Café',
+      metaImage: 'https://gmcafe.io/meta_image.png',
+      metaDescription:
+        'Welcome to the world and characters of GMCafé, most succulent and tantalising establishment in the metaverse.',
+    },
+  };
+};

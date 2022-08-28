@@ -14,26 +14,14 @@ import highFive from '../public/high_five.png';
 import cowla from '../public/cowla.png';
 import coffeeSpill from '../public/coffee_spill.png';
 import AnimatedPageSection from '../components/AnimatedPageSection';
-import Head from 'next/head';
 import Marquee from '../components/Marquee';
 import MemberCard, { members } from '../components/MemberCard';
 import Disclosures from '../components/Disclosures';
 import AnchorLink from '../components/AnchorLink';
 
-const description =
-  'Welcome to the world and characters of GMCafé, most succulent and tantalising establishment in the metaverse.';
-
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Good Morning Café</title>
-        <meta property="og:image" content="https://gmcafe.io/meta_image.png" key="ogImage" />
-        <meta name="twitter:image" content="https://gmcafe.io/meta_image.png" key="twitterImage" />
-        <meta name="description" content={description} key="desc" />
-        <meta property="og:description" content={description} key="ogDesc" />
-        <meta name="twitter:description" content={description} key="twitterDesc" />
-      </Head>
       <div id="home" className="scroll-smooth pt-16">
         <section className="relative w-full animate-section bg-banner-repeat bg-contain bg-bottom bg-repeat-x">
           <div className="relative mx-auto h-[60vh] max-h-[1000px] max-w-screen-screen md:mt-12 md:h-auto">
@@ -237,3 +225,14 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = () => {
+  return {
+    props: {
+      title: 'Good Morning Café',
+      metaImage: 'https://gmcafe.io/meta_image.png',
+      metaDescription:
+        'Welcome to the world and characters of GMCafé, most succulent and tantalising establishment in the metaverse.',
+    },
+  };
+};

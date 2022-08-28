@@ -1,14 +1,11 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import classNames from 'classnames';
 import { NextPage } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 import { LoadingIcon } from '../components/Icons';
 import { Discord } from '../components/StyledLinks';
-
-const description = 'Associate your wallet with your Discord username using the M007 bot.';
 
 const Associate: NextPage = () => {
   const [apiSuccess, setApiSuccess] = useState(false);
@@ -78,11 +75,6 @@ const Associate: NextPage = () => {
 
   return (
     <div className="flex min-h-screen bg-pink-background">
-      <Head>
-        <title>Associate</title>
-        <meta name="description" content={description} key="desc" />
-        <meta property="og:description" content={description} key="ogDesc" />
-      </Head>
       <div className="flex flex-1 flex-col items-center justify-center gap-4">
         {!nonce && nonceNotFound}
         {!apiSuccess && nonce && <ConnectButton />}
@@ -94,3 +86,12 @@ const Associate: NextPage = () => {
 };
 
 export default Associate;
+
+export const getServerSideProps = () => {
+  return {
+    props: {
+      title: 'Associate',
+      metaDescription: 'Associate your wallet with your Discord account using the M007 bot.',
+    },
+  };
+};
