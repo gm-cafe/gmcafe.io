@@ -5,7 +5,7 @@ import { Discord } from './StyledLinks';
 
 const Countdown = () => {
   const { data } = useContractRead({
-    functionName: '_claimableTimexx',
+    functionName: '_claimableTime',
   });
   const endTime = data ? parseInt(data.toString()) * 1000 : 0;
   const [time, setTime] = useState(Date.now());
