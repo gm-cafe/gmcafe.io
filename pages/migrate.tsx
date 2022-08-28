@@ -11,24 +11,16 @@ import Particles from 'react-tsparticles';
 import { Engine } from 'tsparticles-engine';
 import { loadFull } from 'tsparticles';
 import { Default, Discord } from '../components/StyledLinks';
-import Head from 'next/head';
 import { NextPageContext } from 'next';
 import Countdown from '../components/Countdown';
 import { metadata } from '../lib/constants';
 import { BigNumber } from 'ethers';
 import { gmooContract, gmooABI } from '../lib/util/addresses';
 
-const description =
-  'The Great Moogration is happening! Our precious Highland Cows are finally being migrated to their own custom contract with much more luxurious pastures to graze in.';
-
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
 
-type MigrateProps = {
-  ogImage: string;
-};
-
-const Migrate = ({ ogImage }: MigrateProps) => {
+const Migrate = () => {
   const [state, setState] = useState<State>('connect');
   const [isLoading, setIsLoading] = useState<LoadingState>();
 
@@ -79,14 +71,6 @@ const Migrate = ({ ogImage }: MigrateProps) => {
 
   return (
     <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
-      <Head>
-        <title>Good Morning Café</title>
-        <meta property="og:image" content={ogImage} />
-        <meta name="twitter:image" content={ogImage} />
-        <meta name="description" content={description} key="desc" />
-        <meta property="og:description" content={description} key="ogDesc" />
-        <meta name="twitter:description" content={description} key="twitterDesc" />
-      </Head>
       <div
         className={classNames(
           { hidden: !isLoading },
@@ -385,13 +369,16 @@ export default Migrate;
 export const getServerSideProps = async (context: NextPageContext) => {
   const { query } = context;
   const id = query['id'];
-  const ogImage = id
+  const metaImage = id
     ? `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/jpg-256/${id}.jpg`
     : 'https://gmcafe.io/meta_image.png';
 
   return {
     props: {
-      ogImage,
+      title: 'Good Morning Café',
+      metaImage,
+      metaDescription:
+        'The Great Moogration is happening! Our precious Highland Cows are finally being migrated to their own custom contract with much more luxurious pastures to graze in.',
     },
   };
 };
