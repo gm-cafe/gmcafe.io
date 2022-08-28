@@ -125,18 +125,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      contact: contacts,
-    },
-  };
-};
-
-export const getServerSideProps = () => {
-  return {
-    props: {
       title: 'Remaining Moos',
       metaImage: '/migrate/moo.png',
       metaDescription:
         'The Great Moogration is happening! Our precious Highland Cows are finally being migrated to their own custom contract with much more luxurious pastures to graze in.',
+      contact: contacts,
     },
   };
 };
