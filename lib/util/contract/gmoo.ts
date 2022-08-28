@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useContractRead } from 'wagmi';
+import useContractRead from '../../hooks/useContractRead';
 import { gmooABI, gmooContract } from '../addresses';
 import { Moo } from '../types';
 

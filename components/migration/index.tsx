@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
-import { useAccount, useContractRead, useContractWrite, useWaitForTransaction } from 'wagmi';
+import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
 import { openSeaContract, gmooContract, openSeaABI, gmooABI } from '../../lib/util/addresses';
 import { LoadingIcon } from '../Icons';
+import useContractRead from '../../lib/hooks/useContractRead';
 
 type StateProps = {
   next: () => void;
