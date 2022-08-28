@@ -25,7 +25,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <RainbowKitProvider>
         <div>
-          <Toaster position="bottom-right" />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                color: '#8946ab',
+              },
+            }}
+          />
         </div>
         <Layout>
           <Component {...props} />

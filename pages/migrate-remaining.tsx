@@ -1,4 +1,4 @@
-import { useContractRead } from 'wagmi';
+import useContractRead from '../lib/hooks/useContractRead';
 import { gmooABI, gmooContract } from '../lib/util/addresses';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';

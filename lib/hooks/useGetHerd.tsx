@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { useContractRead } from 'wagmi';
+import useContractRead from './useContractRead';
 import { gmooContract, gmooABI } from '../util/addresses';
 import { HerdInfo } from '../util/types';
 
