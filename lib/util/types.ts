@@ -20,6 +20,7 @@ type MooInfo = {
 };
 
 export type Moo = {
+  id: number;
   name: string;
   description: string;
   attributes: Attribute[];
