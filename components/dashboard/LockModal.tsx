@@ -122,7 +122,7 @@ const LockModal = ({ id, open, setOpen }: Props) => {
                   />
                 </div>
               </div>
-              <div className="flex justify-end gap-4">
+              <div className="mt-2 flex justify-end gap-4">
                 <Field
                   className="cursor-pointer rounded-xl border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
                   type="reset"
