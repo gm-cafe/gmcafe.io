@@ -13,6 +13,8 @@ export const gmooABI = [
   'function migrateMoos(uint256[] calldata tokens) public',
   'function getWallet(address owner) public view returns (uint256[] memory moos, uint256 touched)',
   'function getHerd() public view returns (bytes32[] memory ret)',
+  'function getMoo(uint256 moo) public view returns (address owner, uint32 transfers, uint32 block0, uint32 blocksHeld, uint16 tag, bool isLocked, uint256 unlockPrice)',
   'function tokenURI(uint256 moo) public view returns (string memory uri)',
   'function lockMoo(uint256 moo, uint256 price, bytes32 hash) public',
+  'function unlockMoo(uint256 moo, string memory password, address transfer) payable public',
 ];
