@@ -8,6 +8,7 @@
     "metadata": "ts-node ./scripts/metadata.ts"
   },
   "dependencies": {
+    "@floating-ui/react-dom-interactions": "^0.9.3",
     "@headlessui/react": "^1.6.4",
     "@heroicons/react": "^1.0.6",
     "@rainbow-me/rainbowkit": "^0.4.1",
