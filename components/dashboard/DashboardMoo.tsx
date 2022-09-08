@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import useContractRead from '../../lib/hooks/useContractRead';
-import { Attribute, Moo } from '../../lib/util/types';
+import { Moo } from '../../lib/util/types';
 import { MooState } from '../../pages/dashboard';
 import LockModal from './LockModal';
 import UnlockModal from './UnlockModal';
@@ -62,6 +62,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
     </div>
   );
 };
+
 const DashboardMooLoading = () => {
   return <div>Loading...</div>;
 };
