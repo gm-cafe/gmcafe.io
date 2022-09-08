@@ -18,7 +18,7 @@ const LockBasic = ({ id, setOpen }: Props) => {
   });
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="mt-8 flex items-center justify-center">
       <button
         className="flex items-center gap-2 rounded-lg bg-purple py-2 pl-4 pr-6"
         onClick={() => lock({ args: [id, 0, constants.HashZero] })}
