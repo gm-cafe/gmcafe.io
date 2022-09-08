@@ -1,6 +1,8 @@
-import { Dialog } from '@headlessui/react';
+import { Dialog, Tab } from '@headlessui/react';
+import classNames from 'classnames';
 import { Dispatch, SetStateAction } from 'react';
 import LockAdvanced from './LockAdvanced';
+import LockBasic from './LockBasic';
 
 type Props = {
   id: number;
@@ -18,7 +20,44 @@ const LockModal = ({ id, open, setOpen }: Props) => {
           <Dialog.Description className="text-purple">
             Locking your moo will give you special benefits...
           </Dialog.Description>
-          <LockAdvanced id={id} setOpen={setOpen} />
+          <Tab.Group>
+            <Tab.List className="my-4 flex justify-center gap-2">
+              <Tab>
+                {({ selected }) => (
+                  <button
+                    className={classNames(
+                      'rounded px-3 py-1 font-gmcafe text-xl',
+                      { 'bg-purple text-white ': selected },
+                      { 'bg-purple/40 text-white ': !selected }
+                    )}
+                  >
+                    Basic
+                  </button>
+                )}
+              </Tab>
+              <Tab disabled>
+                {({ selected }) => (
+                  <button
+                    className={classNames(
+                      'rounded px-3 py-1 font-gmcafe text-xl',
+                      { 'bg-purple text-white ': selected },
+                      { 'bg-purple/40 text-white ': !selected }
+                    )}
+                  >
+                    Advanced
+                  </button>
+                )}
+              </Tab>
+            </Tab.List>
+            <Tab.Panels>
+              <Tab.Panel>
+                <LockBasic id={id} setOpen={setOpen} />
+              </Tab.Panel>
+              <Tab.Panel>
+                <LockAdvanced id={id} setOpen={setOpen} />
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
         </Dialog.Panel>
       </div>
     </Dialog>
