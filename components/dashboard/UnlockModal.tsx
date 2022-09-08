@@ -30,6 +30,7 @@ const UnlockModal = ({ id, open, setOpen }: Props) => {
     contractInterface: gmooABI,
     functionName: 'getMoo',
     args: id,
+    enabled: open,
   });
 
   const unlockPriceWei: BigNumber = data?.unlockPrice;

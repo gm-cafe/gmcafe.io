@@ -2,6 +2,7 @@ import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import useContractRead from '../../lib/hooks/useContractRead';
 import { Attribute, Moo } from '../../lib/util/types';
 import { MooState } from '../../pages/dashboard';
 import LockModal from './LockModal';
@@ -9,19 +10,21 @@ import UnlockModal from './UnlockModal';
 
 const idRegex = /#(\d{1,3})/;
 
-const checkLocked = (attributes: Attribute[]) =>
-  attributes.find(({ trait_type }) => trait_type === 'Status')?.value === 'Locked 🔒';
-
 const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
 
-  const { name, image, attributes } = moo;
+  const { name, image } = moo;
 
   const idRegexCapture = idRegex.exec(name)?.at(1);
   const id = idRegexCapture ? parseInt(idRegexCapture) : 0;
 
-  const isLocked = checkLocked(attributes);
+  const { data } = useContractRead({
+    functionName: 'getMoo',
+    args: id,
+  });
+
+  const isLocked = !!data?.isLocked;
 
   return (
     <div className="flex items-center gap-2 rounded-xl bg-white p-4">
@@ -37,7 +40,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
       </div>
       <h2 className="font-gmcafe text-2xl text-purple">{name}</h2>
       <div className="ml-auto flex gap-4 rounded-lg bg-gray-100 p-1">
-        {isLocked && (
+        {!isLocked && (
           <button onClick={() => setUnlockModalOpen(true)}>
             <LockOpenIcon
               className="w-8 cursor-pointer text-purple transition-transform hover:scale-105"
