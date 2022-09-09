@@ -48,8 +48,11 @@ const LockModal = ({ id, open, setOpen }: Props) => {
                 </Tab>
               </Tab.List>
             </div>
-            <Dialog.Description className="text-purple">
-              Locking your moo will give you special benefits...
+            <Dialog.Description className="text-sm text-purple">
+              Locking your Moo in the barn will add a layer of protection against the scares in the
+              Web3 world. If you accidentally give permission for someone else to access your Moo
+              (i.e. signing a setApprovalForAll transaction), this feature will help ensure your Moo
+              stays safe in your wallet.
             </Dialog.Description>
             <Tab.Panels>
               <Tab.Panel>
