@@ -17,9 +17,9 @@ const UnlockModal = ({ id, open, setOpen }: Props) => {
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="mx-auto w-full max-w-screen-sm rounded-xl bg-white p-8">
           <Tab.Group>
-            <div className="mb-2 flex">
+            <div className="mb-2 flex flex-wrap gap-y-2">
               <Dialog.Title className="font-gmcafe text-4xl text-purple">Unlock Moo</Dialog.Title>
-              <Tab.List className="ml-auto flex justify-center gap-2">
+              <Tab.List className="flex justify-center gap-2 md:ml-auto">
                 <Tab>
                   {({ selected }) => (
                     <button

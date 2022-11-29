@@ -22,7 +22,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
   const { data } = useContractRead({
     functionName: 'getMoo',
     args: id,
-    watch: true
+    watch: true,
   });
 
   const isLocked = !!data?.isLocked;

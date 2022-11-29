@@ -15,11 +15,11 @@ const LockModal = ({ id, open, setOpen }: Props) => {
     <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="mx-auto max-w-screen-sm rounded-xl bg-white p-8">
+        <Dialog.Panel className="mx-auto mt-12 max-h-[80%] max-w-screen-sm overflow-y-auto rounded-xl bg-white p-8">
           <Tab.Group>
-            <div className="mb-2 flex">
+            <div className="mb-2 flex flex-wrap gap-y-2">
               <Dialog.Title className="font-gmcafe text-4xl text-purple">Lock Moo</Dialog.Title>
-              <Tab.List className="ml-auto flex justify-center gap-2">
+              <Tab.List className="flex justify-center gap-2 md:ml-auto">
                 <Tab>
                   {({ selected }) => (
                     <button
