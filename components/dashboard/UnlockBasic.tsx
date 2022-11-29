@@ -3,7 +3,7 @@ import { constants } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
-import { toastError } from '../../lib/util/toast';
+import { toastError, toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 
 type Props = {
@@ -35,6 +35,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
+      unlockSuccess && toastSuccess('Unlocked Moo!')
     }
   }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
 
