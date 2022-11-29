@@ -1,8 +1,10 @@
 import { LockOpenIcon } from '@heroicons/react/solid';
 import { constants } from 'ethers';
-import { Dispatch, SetStateAction } from 'react';
-import { useContractWrite } from 'wagmi';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import { toastError } from '../../lib/util/toast';
+import { LoadingIcon } from '../Icons';
 
 type Props = {
   id: number;
@@ -10,20 +12,46 @@ type Props = {
 };
 
 const UnlockBasic = ({ id, setOpen }: Props) => {
-  const { write: unlock } = useContractWrite({
+  const [loading, setLoading] = useState(false);
+
+  const {
+    write: unlock,
+    data,
+    isSuccess,
+    isError,
+  } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'unlockMoo',
-    onSettled: () => setOpen(false),
+    onSuccess: console.log,
+    onError: toastError,
   });
+
+  const { isSuccess: unlockSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  useEffect(() => {
+    if ((isSuccess && unlockSuccess) || isError) {
+      setLoading(false);
+      setOpen(false);
+    }
+  }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
+
+  const onClick = () => {
+    setLoading(true);
+    unlock({ args: [id, '', constants.AddressZero] });
+  };
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6">
       <button
         className="flex items-center gap-2 rounded-lg bg-purple py-2 pl-4 pr-6"
-        onClick={() => unlock({ args: [id, '', constants.AddressZero] })}
+        onClick={onClick}
+        disabled={loading}
       >
-        <LockOpenIcon className="h-8 w-8 text-white" />
+        {!loading && <LockOpenIcon className="h-8 w-8 text-white" />}
+        {loading && <LoadingIcon className="static" />}
         <span className="font-gmcafe text-3xl text-white">Unlock</span>
       </button>
     </div>

@@ -60,7 +60,7 @@ export const DiscordIcon = ({ className, fill = '#ffffff' }: IconProps) => (
 export const LoadingIcon = ({ className, fill = 'none' }: IconProps) => {
   return (
     <svg
-      className={classNames('absolute inset-auto h-5 w-5 animate-spin text-white', className)}
+      className={classNames('inset-auto h-5 w-5 animate-spin text-white', className)}
       xmlns="http://www.w3.org/2000/svg"
       fill={fill}
       viewBox="0 0 24 24"
