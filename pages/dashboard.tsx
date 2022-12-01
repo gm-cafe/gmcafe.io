@@ -30,7 +30,7 @@ const Dashboard = () => {
       if (moos.length === mooBigNs.length) {
         return;
       }
-      setMoos(mooBigNs.map((n) => n.toNumber()).concat(332));
+      setMoos(mooBigNs.map((n) => n.toNumber()));
     },
   });
 

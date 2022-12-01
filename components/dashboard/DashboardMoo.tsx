@@ -1,4 +1,5 @@
 import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -29,7 +30,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
 
   return (
     <div className="flex items-center gap-4 rounded-xl bg-white p-4">
-      <div className="w-12">
+      <div className="w-12 shrink-0">
         <Image
           className="rounded-full"
           src={image}
@@ -39,7 +40,17 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
           alt={name}
         />
       </div>
-      <h2 className="font-gmcafe text-2xl text-purple">{name}</h2>
+      <div className="flex gap-4">
+        <h2 className="font-gmcafe text-2xl text-purple md:text-2xl">{name}</h2>
+        <span
+          className={classNames(
+            'hidden items-center justify-center rounded-full bg-purple px-3 pt-0.5 font-gmcafe text-xs text-white md:flex',
+            { 'md:hidden': !isLocked }
+          )}
+        >
+          LOCKED
+        </span>
+      </div>
       <div className="ml-auto flex gap-4 rounded-lg bg-gray-100 p-1">
         {isLocked && (
           <button onClick={() => setUnlockModalOpen(true)}>
