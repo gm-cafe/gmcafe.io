@@ -35,7 +35,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-      unlockSuccess && toastSuccess('Unlocked Moo!')
+      unlockSuccess && toastSuccess('Unlocked Moo!');
     }
   }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
 
@@ -55,6 +55,15 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
         {loading && <LoadingIcon className="static" />}
         <span className="font-gmcafe text-3xl text-white">Unlock</span>
       </button>
+      <div className="text-purple">
+        <h3 className="font-semibold">
+          Are you sure you want to set your Moo free into the pastures?
+        </h3>
+        <p className="text-sm">
+          This will allow you to sell on marketplaces and enable transfers. Your Moo will not be
+          protected against standard wallet drainers anymore.
+        </p>
+      </div>
     </div>
   );
 };

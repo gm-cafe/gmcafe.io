@@ -28,7 +28,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
   const isLocked = !!data?.isLocked;
 
   return (
-    <div className="flex items-center gap-2 rounded-xl bg-white p-4">
+    <div className="flex items-center gap-4 rounded-xl bg-white p-4">
       <div className="w-12">
         <Image
           className="rounded-full"
@@ -65,7 +65,12 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
 };
 
 const DashboardMooLoading = () => {
-  return <div>Loading...</div>;
+  return (
+    <div className="flex items-center gap-4 rounded-xl bg-white p-4">
+      <div className="h-12 w-12 animate-pulse rounded-full bg-gray-200"></div>
+      <h2 className="font-gmcafe text-2xl text-purple">Loading...</h2>
+    </div>
+  );
 };
 
 const DashboardMoo = ({ moo }: { moo: MooState }) => {
