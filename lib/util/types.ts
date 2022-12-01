@@ -4,7 +4,7 @@ export type Asset = {
   token: string;
 };
 
-type Attribute = {
+export type Attribute = {
   trait_type: string;
   value: string;
 };

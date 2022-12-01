@@ -10,6 +10,7 @@ type Arguments = {
   args?: any;
   enabled?: boolean;
   onError?: (_err: Error) => void;
+  watch?: boolean;
 };
 
 const useContractRead = ({
@@ -19,6 +20,7 @@ const useContractRead = ({
   args,
   enabled,
   onError,
+  watch,
 }: Arguments) =>
   useWagmiContractRead({
     addressOrName,
@@ -30,6 +32,7 @@ const useContractRead = ({
       toastError(err);
       onError && onError(err);
     },
+    watch,
   });
 
 export default useContractRead;
