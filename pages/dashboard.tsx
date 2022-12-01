@@ -30,7 +30,7 @@ const Dashboard = () => {
       if (moos.length === mooBigNs.length) {
         return;
       }
-      setMoos(mooBigNs.map((n) => n.toNumber()));
+      setMoos(mooBigNs.map((n) => n.toNumber()).concat(332));
     },
   });
 
@@ -45,22 +45,9 @@ const Dashboard = () => {
       })),
     onSuccess: (tokenUriData) => {
       const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
-      mooTokenUris.forEach((tokenUri, idx) => {
-        // Don't fetch again if moo id is fetching or already fetched
-        if (!Number.isInteger(moos[idx])) {
-          return;
-        }
-
-        const front = moos.slice(0, idx);
-        const back = moos.slice(idx + 1, moos.length);
-        setMoos([...moos.slice(0, idx), true, ...moos.slice(idx + 1, moos.length + 1)]);
-
-        fetch(tokenUri)
-          .then((res) => res.json())
-          .then((moo: Moo) => {
-            setMoos([...front, moo, ...back]);
-          });
-      });
+      Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
+        (moos) => setMoos(moos)
+      );
     },
   });
 
@@ -80,7 +67,7 @@ const Dashboard = () => {
         >
           <ConnectButton />
         </nav>
-        <div className="my-4 flex w-full flex-col">
+        <div className="my-4 flex w-full flex-col gap-4">
           {moos.map((moo, idx) => (
             <DashboardMoo moo={moo} key={idx} />
           ))}
