@@ -19,6 +19,7 @@ import MemberCard, { members } from '../components/MemberCard';
 import Disclosures from '../components/Disclosures';
 import AnchorLink from '../components/AnchorLink';
 import useGetHerd from '../lib/hooks/useGetHerd';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   const herd = useGetHerd();
@@ -168,8 +169,11 @@ const Home: NextPage = () => {
                 allow you to set a backup rescue wallet in case your main wallet is compromised.
               </p>
               <p className="mt-6 font-medium text-white xl:text-lg">
-                Head over to the Dashboard to lock up your Moo and enjoy the peace of mind that your
-                bovine is safe and sound.
+                Head over to the
+                <a className="mx-1 font-semibold underline">
+                  <Link href="/dashboard">Dashboard</Link>
+                </a>
+                to lock up your Moo and enjoy the peace of mind that your bovine is safe and sound.
               </p>
             </div>
           </div>
