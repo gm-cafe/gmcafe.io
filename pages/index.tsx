@@ -151,12 +151,14 @@ const Home: NextPage = () => {
             <div className="col-span-1 flex h-full flex-col justify-center bg-purple py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <div className="flex flex-wrap items-center gap-4">
                 <h2 className="font-gmcafe text-5xl uppercase text-white">Moo Lock</h2>
-                <span className="rounded-full bg-pink px-3 py-0.5 font-gmcafe text-base uppercase text-white md:px-4 md:py-1 md:text-xl">
-                  {lockedCount} Locked Moos
-                </span>
-                <span className="rounded-full bg-green-light px-3 py-0.5 font-gmcafe text-base uppercase text-white md:px-4 md:py-1 md:text-xl">
-                  {unlockedCount} Free Range Moos
-                </span>
+                <div className="flex flex-wrap gap-4">
+                  <span className="rounded-full bg-pink px-3 py-0.5 font-gmcafe text-base uppercase text-white md:px-4 md:py-1 md:text-xl">
+                    {lockedCount} Locked Moos
+                  </span>
+                  <span className="rounded-full bg-green-light px-3 py-0.5 font-gmcafe text-base uppercase text-white md:px-4 md:py-1 md:text-xl">
+                    {unlockedCount} Free Range Moos
+                  </span>
+                </div>
               </div>
               <p className="mt-6 font-medium text-white xl:text-lg">
                 Locking your Moo in the barn will add a layer of protection against the scares in
