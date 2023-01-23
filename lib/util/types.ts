@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type Asset = {
   name: string;
   imageUrl: string;
@@ -40,4 +42,16 @@ export type HerdInfo = {
 export type HerdInfoByOwner = {
   owner: string;
   herd: HerdInfo[];
+};
+
+export type FilterContextProps = {
+  filters: Record<string, Set<string>>;
+  addFilter: (_type: string, _value: string) => void;
+  removeFilter: (_type: string, _value: string) => void;
+  count: number;
+  loadMore: () => void;
+};
+
+export type FilterProviderProps = {
+  children: ReactNode | ReactNode[];
 };

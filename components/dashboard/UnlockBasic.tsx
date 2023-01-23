@@ -23,7 +23,6 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'unlockMoo',
-    onSuccess: console.log,
     onError: toastError,
   });
 
