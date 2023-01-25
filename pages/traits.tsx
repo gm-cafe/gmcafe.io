@@ -26,11 +26,15 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
   const parsedId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
-  const tokenId = !parsedId || parsedId < 1 || parsedId > 10000 ? 1 : parsedId;
+  const tokenId = !parsedId || parsedId < 1 || parsedId > 10000 ? undefined : parsedId;
 
   return {
     props: {
-      metaImage: `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/original/${tokenId}.png`,
+      title: 'Good Morning Café',
+      metaImage: tokenId
+        ? `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/original/${tokenId}.png`
+        : '/meta_banner.png',
+      metaDescription: 'Browse and explore GMCafé Moos',
     },
   };
 };
