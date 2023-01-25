@@ -22,7 +22,7 @@ const Card = ({ moo, setOpen }: Props) => {
           alt={name}
         />
       </div>
-      <span className="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-white font-gmcafe text-sm font-semibold text-purple 2xl:h-8 2xl:w-8 2xl:text-base">
+      <span className="absolute top-0 right-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white font-gmcafe text-lg font-semibold text-purple 2xl:h-10 2xl:w-10 2xl:text-2xl">
         {id}
       </span>
     </div>
