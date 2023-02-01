@@ -7,6 +7,8 @@ const defaultFilterContext: FilterContextProps = {
   removeFilter: (_type: string, _value: string) => null,
   count: 0,
   loadMore: () => null,
+  search: '',
+  setSearch: () => null,
 };
 
 export const FilterContext = createContext(defaultFilterContext);

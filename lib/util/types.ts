@@ -50,6 +50,8 @@ export type FilterContextProps = {
   removeFilter: (_type: string, _value: string) => void;
   count: number;
   loadMore: () => void;
+  search: string;
+  setSearch: (_search: string) => void;
 };
 
 export type FilterProviderProps = {

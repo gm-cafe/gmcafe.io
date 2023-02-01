@@ -1,5 +1,6 @@
 import { traitTypes } from '../../lib/static/metadata';
 import Filter from './Filter';
+import Search from './Search';
 
 const Filters = () => {
   return (
@@ -8,6 +9,7 @@ const Filters = () => {
         <h2 className="border-primary border-b pb-5 font-gmcafe text-4xl uppercase text-purple">
           Filter
         </h2>
+        <Search />
         {traitTypes
           .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
           .filter((traitType) => !['Birth'].includes(traitType))

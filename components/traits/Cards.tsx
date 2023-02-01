@@ -17,23 +17,36 @@ const Cards = () => {
   const queryId = useQueryId();
   const [id, setId] = useState(queryId);
 
-  const { filters, count } = useFilterContext();
+  const { filters, count, search } = useFilterContext();
   const entries = Object.entries(filters);
 
   const emptyEntries = entries.every(([, values]) => values.size === 0);
 
-  const filtered = metadata.filter(({ attributes }) =>
-    entries.every(([type, values]) => {
-      // removing filters can result in an empty set
-      if (emptyEntries || values.size === 0) {
-        return true;
-      }
+  const filtered = metadata
+    .filter(({ attributes }) =>
+      entries.every(([type, values]) => {
+        // removing filters can result in an empty set
+        if (emptyEntries || values.size === 0) {
+          return true;
+        }
 
-      const trait = attributes.find((attribute) => attribute.trait_type === type);
+        const trait = attributes.find((attribute) => attribute.trait_type === type);
 
-      return trait ? values.has(trait.value) : false;
-    })
-  );
+        return trait ? values.has(trait.value) : false;
+      })
+    )
+    .filter(
+      ({ attributes }) =>
+        // Search is empty
+        search === '' ||
+        // Attribute value is string and contains search
+        attributes.some(
+          (attribute) =>
+            typeof attribute.value === 'string' && attribute.value.toLowerCase().includes(search)
+        ) ||
+        // Trait type contains search
+        attributes.some((attribute) => attribute.trait_type.toLowerCase().includes(search))
+    );
 
   return (
     <div className="w-full">

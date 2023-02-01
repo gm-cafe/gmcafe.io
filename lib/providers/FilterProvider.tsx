@@ -7,6 +7,7 @@ const PAGE_SIZE = 60;
 export const FilterProvider = ({ children }: FilterProviderProps) => {
   const [filters, setFilters] = useState<Record<string, Set<string>>>({});
   const [count, setCount] = useState(PAGE_SIZE);
+  const [search, setSearch] = useState('');
 
   const addFilter = (type: string, value: string) => {
     const values = filters[type];
@@ -46,7 +47,9 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   const loadMore = () => setCount(count + PAGE_SIZE);
 
   return (
-    <FilterContext.Provider value={{ filters, addFilter, removeFilter, count, loadMore }}>
+    <FilterContext.Provider
+      value={{ filters, addFilter, removeFilter, count, loadMore, search, setSearch }}
+    >
       {children}
     </FilterContext.Provider>
   );
