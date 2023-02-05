@@ -4,7 +4,7 @@ import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
-import { openSeaContract, gmooContract, openSeaABI, gmooABI } from '../../lib/util/addresses';
+import { openSeaContract, gmooContract, openSeaABI, gmooABI, redeemContract, redeemABI } from '../../lib/util/addresses';
 import { LoadingIcon } from '../Icons';
 import useContractRead from '../../lib/hooks/useContractRead';
 
@@ -100,9 +100,9 @@ type MigrateProps = StateProps & {
 
 export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => {
   const { data, isLoading, write, isSuccess, isError } = useContractWrite({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
-    functionName: 'migrateMoos',
+    addressOrName: redeemContract,
+    contractInterface: redeemABI,
+    functionName: 'redeemMoos',
   });
 
   const { isFetched } = useWaitForTransaction({

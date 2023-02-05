@@ -1,5 +1,6 @@
 export const openSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
 export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
+export const redeemContract = '0xa25066d7232069489b57db8755d0055ecd69daec';
 
 export const openSeaABI = [
   'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
@@ -18,3 +19,5 @@ export const gmooABI = [
   'function lockMoo(uint256 moo, uint256 price, bytes32 hash) public',
   'function unlockMoo(uint256 moo, string memory password, address transfer) payable public',
 ];
+
+export const redeemABI = ['function redeemMoos(uint256[] calldata tokens) public'];
