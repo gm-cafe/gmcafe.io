@@ -54,6 +54,10 @@ export type FilterContextProps = {
   setSearch: (_search: string) => void;
 };
 
-export type FilterProviderProps = {
+export type ProviderProps = {
   children: ReactNode | ReactNode[];
+};
+
+export type EntryContextProps = {
+  entries: Moo[];
 };

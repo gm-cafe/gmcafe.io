@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { FilterProviderProps } from '../util/types';
+import { ProviderProps } from '../util/types';
 import { FilterContext } from './FilterContext';
 
 const PAGE_SIZE = 60;
 
-export const FilterProvider = ({ children }: FilterProviderProps) => {
+export const FilterProvider = ({ children }: ProviderProps) => {
   const [filters, setFilters] = useState<Record<string, Set<string>>>({});
   const [count, setCount] = useState(PAGE_SIZE);
   const [search, setSearch] = useState('');
