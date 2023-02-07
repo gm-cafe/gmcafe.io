@@ -1,8 +1,8 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { useEntryContext } from '../../lib/providers/EntryContext';
 
-import metadata from '../../lib/static/metadata';
 import FilterCheckbox from './FilterCheckbox';
 
 type Props = {
@@ -10,6 +10,8 @@ type Props = {
 };
 
 const Filter = ({ type }: Props) => {
+  const { metadata } = useEntryContext();
+
   const rawValues = metadata.flatMap((element) =>
     element.attributes
       .filter((attribute) => attribute.trait_type === type)
