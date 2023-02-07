@@ -2,7 +2,8 @@ import { createContext, useContext } from 'react';
 import { EntryContextProps } from '../util/types';
 
 const defaultEntryContext: EntryContextProps = {
-  entries: [],
+  paginated: [],
+  metadata: [],
 };
 
 export const EntryContext = createContext(defaultEntryContext);
