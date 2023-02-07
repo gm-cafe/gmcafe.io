@@ -39,8 +39,11 @@ export const EntryProvider = ({ children }: ProviderProps) => {
               attribute.trait_type.toLowerCase().includes(s) && attribute.value !== 'None'
           )
         )
-    )
-    .slice(0, count);
+    );
 
-  return <EntryContext.Provider value={{ entries: entries }}>{children}</EntryContext.Provider>;
+  return (
+    <EntryContext.Provider value={{ metadata: entries, paginated: entries.slice(0, count) }}>
+      {children}
+    </EntryContext.Provider>
+  );
 };

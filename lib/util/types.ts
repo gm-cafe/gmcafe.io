@@ -59,5 +59,6 @@ export type ProviderProps = {
 };
 
 export type EntryContextProps = {
-  entries: Moo[];
+  metadata: Moo[];
+  paginated: Moo[];
 };
