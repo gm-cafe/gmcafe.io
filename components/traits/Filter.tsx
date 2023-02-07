@@ -2,8 +2,10 @@ import { Disclosure } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { useEntryContext } from '../../lib/providers/EntryContext';
+import { moo } from '../../lib/static/filterToggles';
 
 import FilterCheckbox from './FilterCheckbox';
+import FilterToggle from './FilterToggle';
 
 type Props = {
   type: string;
@@ -28,7 +30,11 @@ const Filter = ({ type }: Props) => {
     countA === countB ? valA.localeCompare(valB) : countB - countA
   );
 
-  return (
+  const isFilterToggle = moo.includes(type);
+
+  return isFilterToggle ? (
+    <FilterToggle type={type} />
+  ) : (
     <Disclosure>
       <div className="border-primary flex flex-col border-b">
         <Disclosure.Button className="flex py-5">
