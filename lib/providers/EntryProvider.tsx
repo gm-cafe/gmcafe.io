@@ -1,13 +1,14 @@
+import { isAddress } from 'ethers/lib/utils';
 import metadata from '../static/metadata';
 import { ProviderProps } from '../util/types';
-import useEnsToMoos from '../util/useEnsToMoos';
+import useAddressToMoos from '../util/useAddressToMoos';
 import { EntryContext } from './EntryContext';
 import { useFilterContext } from './FilterContext';
 
 export const EntryProvider = ({ children }: ProviderProps) => {
   const { filters, count, search } = useFilterContext();
 
-  const moos = useEnsToMoos(search);
+  const moos = useAddressToMoos(search);
 
   const searches = search.split(' ');
 
@@ -28,7 +29,9 @@ export const EntryProvider = ({ children }: ProviderProps) => {
     .filter(
       ({ attributes }) =>
         // Search is an ENS query
-        search.includes('.eth') ||
+        (search.includes('.eth') && moos.length > 0) ||
+        // Search is an address
+        (isAddress(search) && moos.length > 0) ||
         // Search is empty
         searches.length === 0 ||
         // Attribute value is string and contains search

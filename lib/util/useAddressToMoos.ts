@@ -1,17 +1,20 @@
 import { BigNumber } from 'ethers';
+import { isAddress } from 'ethers/lib/utils';
 import { useEnsAddress } from 'wagmi';
 import useContractRead from '../hooks/useContractRead';
 
-const useEnsToMoos = (name: string) => {
+// Returns a list of moos based on the argument
+// The argument can be either an ENS name or an address
+const useAddressToMoos = (name: string) => {
   const { data: ensResult } = useEnsAddress({
     name,
-    enabled: name.length > 0,
+    enabled: name.includes('.eth'),
   });
 
   const { data } = useContractRead({
     functionName: 'getWallet',
-    args: ensResult,
-    enabled: !!ensResult,
+    args: ensResult || name,
+    enabled: !!ensResult || isAddress(name),
   });
 
   const moos: number[] = data?.moos.map((moo: BigNumber) => moo.toNumber()) || [];
@@ -19,4 +22,4 @@ const useEnsToMoos = (name: string) => {
   return moos;
 };
 
-export default useEnsToMoos;
+export default useAddressToMoos;
