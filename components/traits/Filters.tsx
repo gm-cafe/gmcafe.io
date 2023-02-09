@@ -11,7 +11,6 @@ const Filters = () => {
         </h2>
         <Search />
         {traitTypes
-          .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
           .filter((traitType) => !['Birth'].includes(traitType))
           .map((traitType) => (
             <Filter key={traitType} type={traitType} />
