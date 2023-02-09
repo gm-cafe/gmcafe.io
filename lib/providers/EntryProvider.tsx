@@ -31,7 +31,7 @@ export const EntryProvider = ({ children }: ProviderProps) => {
         // Search is an ENS query
         (search.includes('.eth') && moos.length > 0) ||
         // Search is an address
-        (isAddress(search) && moos.length > 0) ||
+        (isAddress(search.toLowerCase()) && moos.length > 0) ||
         // Search is empty
         searches.length === 0 ||
         // Attribute value is string and contains search

@@ -13,8 +13,8 @@ const useAddressToMoos = (name: string) => {
 
   const { data } = useContractRead({
     functionName: 'getWallet',
-    args: ensResult || name,
-    enabled: !!ensResult || isAddress(name),
+    args: ensResult || name.toLowerCase(),
+    enabled: !!ensResult || isAddress(name.toLowerCase()),
   });
 
   const moos: number[] = data?.moos.map((moo: BigNumber) => moo.toNumber()) || [];
