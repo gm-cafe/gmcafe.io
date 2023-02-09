@@ -52,6 +52,7 @@ export type FilterContextProps = {
   loadMore: () => void;
   search: string;
   setSearch: (_search: string) => void;
+  clear: () => void;
 };
 
 export type ProviderProps = {

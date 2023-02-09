@@ -46,9 +46,14 @@ export const FilterProvider = ({ children }: ProviderProps) => {
 
   const loadMore = () => setCount(count + PAGE_SIZE);
 
+  const clear = () => {
+    setFilters({});
+    setSearch('');
+  };
+
   return (
     <FilterContext.Provider
-      value={{ filters, addFilter, removeFilter, count, loadMore, search, setSearch }}
+      value={{ filters, addFilter, removeFilter, count, loadMore, search, setSearch, clear }}
     >
       {children}
     </FilterContext.Provider>

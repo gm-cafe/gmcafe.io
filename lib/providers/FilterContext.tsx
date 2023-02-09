@@ -9,6 +9,7 @@ const defaultFilterContext: FilterContextProps = {
   loadMore: () => null,
   search: '',
   setSearch: () => null,
+  clear: () => null,
 };
 
 export const FilterContext = createContext(defaultFilterContext);
