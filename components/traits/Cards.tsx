@@ -21,8 +21,8 @@ const Cards = () => {
   return (
     <div className="w-full">
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
-        {paginated.map((element) => (
-          <Card key={element.id} moo={element} setOpen={() => setId(element.id)} />
+        {paginated.map((element, idx) => (
+          <Card key={`${element.id}-${idx}`} moo={element} setOpen={() => setId(element.id)} />
         ))}
       </div>
       <InfiniteScroll />

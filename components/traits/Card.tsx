@@ -11,7 +11,7 @@ const Card = ({ moo, setOpen }: Props) => {
   const { id, name, image } = moo;
 
   return (
-    <div className="relative flex flex-col gap-3">
+    <div className="relative flex animate-section flex-col gap-3">
       <div className="cursor-pointer transition-transform hover:scale-105" onClick={setOpen}>
         <Image
           className="z-10 rounded-full"

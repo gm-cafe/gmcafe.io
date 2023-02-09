@@ -44,13 +44,13 @@ module.exports = {
         'd-screen': '100dvh',
       },
       keyframes: {
-        section: {
+        fadeIn: {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
       },
       animation: {
-        section: 'section 1s',
+        section: 'fadeIn 1s',
       },
       fontSize: {
         '10xl': '11.25rem',
