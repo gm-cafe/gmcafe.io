@@ -5,7 +5,7 @@ const Search = () => {
 
   return (
     <input
-      className="mb-4 rounded border px-2 py-1 text-purple focus:outline-none"
+      className="mb-4 rounded border-2 border-purple-light px-2 py-2.5 text-purple placeholder:text-purple focus:outline-none"
       value={search}
       type="text"
       placeholder="Search..."

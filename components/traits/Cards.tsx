@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEntryContext } from '../../lib/providers/EntryContext';
 import Card from './Card';
 import InfiniteScroll from './InfiniteScroll';
+import NoResults from './NoResults';
 import Viewer from './Viewer';
 
 const useQueryId = () => {
@@ -20,11 +21,15 @@ const Cards = () => {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
-        {paginated.map((element, idx) => (
-          <Card key={`${element.id}-${idx}`} moo={element} setOpen={() => setId(element.id)} />
-        ))}
-      </div>
+      {paginated.length === 0 ? (
+        <NoResults />
+      ) : (
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7">
+          {paginated.map((element, idx) => (
+            <Card key={`${element.id}-${idx}`} moo={element} setOpen={() => setId(element.id)} />
+          ))}
+        </div>
+      )}
       <InfiniteScroll />
       <Viewer id={id} onClose={() => setId(undefined)} />
     </div>

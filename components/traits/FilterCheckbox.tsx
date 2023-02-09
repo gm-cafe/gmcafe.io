@@ -29,7 +29,7 @@ const FilterCheckbox = ({ value, count, type }: Props) => {
         className={classNames(
           'flex h-6 w-6 items-center justify-center rounded-sm',
           { 'bg-purple': toggled },
-          { 'border-2 border-[#C0BFBF] bg-white': !toggled }
+          { 'border-2 border-purple-light bg-white': !toggled }
         )}
         onClick={onClick}
       >

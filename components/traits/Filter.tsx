@@ -36,7 +36,7 @@ const Filter = ({ type }: Props) => {
     <FilterToggle type={type} />
   ) : (
     <Disclosure>
-      <div className="border-primary flex flex-col border-b">
+      <div className="flex flex-col border-b border-purple-light">
         <Disclosure.Button className="flex py-5">
           {({ open }) => (
             <>
