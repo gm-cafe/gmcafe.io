@@ -1,14 +1,18 @@
 import metadata from '../static/metadata';
 import { ProviderProps } from '../util/types';
+import useEnsToMoos from '../util/useEnsToMoos';
 import { EntryContext } from './EntryContext';
 import { useFilterContext } from './FilterContext';
 
 export const EntryProvider = ({ children }: ProviderProps) => {
   const { filters, count, search } = useFilterContext();
 
+  const moos = useEnsToMoos(search);
+
   const searches = search.split(' ');
 
   const entries = metadata
+    .filter(({ id }) => moos.length === 0 || moos.includes(id))
     .filter(({ attributes }) =>
       Object.entries(filters).every(([type, values]) => {
         // removing filters can result in an empty set
@@ -23,6 +27,8 @@ export const EntryProvider = ({ children }: ProviderProps) => {
     )
     .filter(
       ({ attributes }) =>
+        // Search is an ENS query
+        search.includes('.eth') ||
         // Search is empty
         searches.length === 0 ||
         // Attribute value is string and contains search
@@ -42,7 +48,12 @@ export const EntryProvider = ({ children }: ProviderProps) => {
     );
 
   return (
-    <EntryContext.Provider value={{ metadata: entries, paginated: entries.slice(0, count) }}>
+    <EntryContext.Provider
+      value={{
+        metadata: entries,
+        paginated: entries.slice(0, count),
+      }}
+    >
       {children}
     </EntryContext.Provider>
   );
