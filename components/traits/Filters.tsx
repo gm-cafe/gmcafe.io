@@ -4,6 +4,7 @@ import Search from './Search';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { useFilterContext } from '../../lib/providers/FilterContext';
 import classNames from 'classnames';
+import QuickFilters from './QuickFilters';
 
 const Filters = () => {
   const { search, filters, clear } = useFilterContext();
@@ -23,6 +24,7 @@ const Filters = () => {
           />
         </div>
         <Search />
+        <QuickFilters />
         {traitTypes
           .filter((traitType) => !['Birth'].includes(traitType))
           .map((traitType) => (

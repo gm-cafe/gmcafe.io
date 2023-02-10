@@ -48,6 +48,7 @@ export type FilterContextProps = {
   filters: Record<string, Set<string>>;
   addFilter: (_type: string, _value: string) => void;
   removeFilter: (_type: string, _value: string) => void;
+  toggleFilters: (_type: string, _values: string[]) => void;
   count: number;
   loadMore: () => void;
   search: string;
