@@ -36,12 +36,12 @@ const quickFilters: QuickFilter[] = [
   {
     emoji: '🍕',
     type: 'Item',
-    values: ['Pizza'],
+    values: ['Pizza', 'Burger', 'Chips', 'Fries', 'Popcorn', 'Sausage', 'Taco'],
   },
   {
     emoji: '🎮',
     type: 'Item',
-    values: ['Controller'],
+    values: ['Controller', 'Phone', 'Tablet'],
   },
   {
     emoji: '👑',
@@ -61,7 +61,7 @@ const quickFilters: QuickFilter[] = [
   {
     emoji: '🍬',
     type: 'Item',
-    values: ['Candy', 'Cookie', 'Ice Cream', 'Cupcake', 'Donut', 'Lollypop'],
+    values: ['Candy', 'Cookie', 'Ice Cream', 'Popsicles', 'Lollypop', 'Cotton Candy'],
   },
   {
     emoji: '⚔️',
@@ -93,6 +93,36 @@ const quickFilters: QuickFilter[] = [
       'Zweihander',
     ],
   },
+  {
+    emoji: '🍵',
+    type: 'Beverage',
+    values: ['Tea'],
+  },
+  {
+    emoji: '❤️',
+    type: 'Blush',
+    values: ['Yes'],
+  },
+  {
+    emoji: '💇',
+    type: 'Hair',
+    values: ['Styled'],
+  },
+  {
+    emoji: '🍆',
+    type: 'Item',
+    values: ['Apple', 'Pineapple', 'Cabbage', 'Corn', 'Flower', 'Flowers', 'Leek'],
+  },
+  {
+    emoji: '🍞',
+    type: 'Item',
+    values: ['Donut', 'Cupcake', 'Bowl', 'Croissant', 'Pretzel', 'Toast', 'Hoagie'],
+  },
+  {
+    emoji: '🪙',
+    type: 'Crypto',
+    values: ['Yes'],
+  },
 ];
 
 const QuickFilters = () => {
@@ -108,7 +138,7 @@ const QuickFilters = () => {
             key={`${emoji}-${idx}`}
             onClick={() => toggleFilters(type, values)}
             className={classNames(
-              'flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 transition-colors',
+              'flex h-10 w-10 cursor-pointer select-none items-center justify-center rounded-full border-2 transition-colors',
               { 'border-purple bg-purple': toggled },
               { 'border-purple-light bg-white': !toggled }
             )}
