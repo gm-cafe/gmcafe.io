@@ -35,47 +35,11 @@ export const FilterProvider = ({ children }: ProviderProps) => {
       const set = new Set(values.values());
       set.delete(value);
 
-      setFilters({
-        ...filters,
-        [type]: set,
-      });
+      const newFilters = { ...filters, [type]: set };
+      set.size === 0 && delete newFilters[type];
+      setFilters(newFilters);
     } else {
       console.warn(`Failed to remove ${value} of type ${type}`);
-    }
-  };
-
-  const addFilters = (type: string, values: string[]) => {
-    const filterValues = filters[type];
-
-    if (filterValues) {
-      const set = new Set(Array.from(filterValues.values()).concat(values));
-
-      setFilters({
-        ...filters,
-        [type]: set,
-      });
-    } else {
-      setFilters({
-        ...filters,
-        [type]: new Set(values),
-      });
-    }
-  };
-
-  const removeFilters = (type: string, values: string[]) => {
-    const filterValues = filters[type];
-
-    if (filterValues) {
-      const set = new Set(values.values());
-
-      values.forEach((value) => set.delete(value));
-
-      setFilters({
-        ...filters,
-        [type]: set,
-      });
-    } else {
-      console.warn(`Failed to remove ${values} of type ${type}`);
     }
   };
 
@@ -88,10 +52,9 @@ export const FilterProvider = ({ children }: ProviderProps) => {
 
       values.forEach((value) => (allSelected ? set.delete(value) : set.add(value)));
 
-      setFilters({
-        ...filters,
-        [type]: set,
-      });
+      const newFilters = { ...filters, [type]: set };
+      set.size === 0 && delete newFilters[type];
+      setFilters(newFilters);
     } else {
       setFilters({
         ...filters,

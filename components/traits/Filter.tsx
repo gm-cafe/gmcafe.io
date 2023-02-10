@@ -37,16 +37,25 @@ const Filter = ({ type }: Props) => {
   ) : (
     <Disclosure>
       <div className="flex flex-col border-b border-purple-light">
-        <Disclosure.Button className="flex py-5">
+        <Disclosure.Button className="flex py-5" disabled={entries.length === 0}>
           {({ open }) => (
             <>
-              <span className="flex-1 text-left font-gmcafe text-xl uppercase tracking-wider text-purple">
+              <span
+                className={classNames(
+                  'flex-1 text-left font-gmcafe text-xl uppercase tracking-wider transition-colors',
+                  { 'text-purple': entries.length > 0 },
+                  { 'text-purple-light': entries.length === 0 }
+                )}
+              >
                 {type}
               </span>
               <ChevronRightIcon
-                className={classNames('w-6 text-purple transition-transform', {
-                  'rotate-90': open,
-                })}
+                className={classNames(
+                  'w-6 text-purple transition-all',
+                  { 'rotate-90': open },
+                  { 'text-purple': entries.length > 0 },
+                  { 'text-purple-light': entries.length === 0 }
+                )}
               />
             </>
           )}
