@@ -13,6 +13,13 @@ export const EntryProvider = ({ children }: ProviderProps) => {
   const searches = search.split(' ');
 
   const entries = metadata
+    .filter(
+      ({ id }) =>
+        search.length === 0 ||
+        searches.every((s) => isNaN(Number(s))) ||
+        // Check every searches is number, otherwise '29 ab' will still return 29 and confuse users
+        (searches.every((s) => !isNaN(Number(s))) && searches.some((s) => parseInt(s) === id))
+    )
     .filter(({ id }) => moos.length === 0 || moos.includes(id))
     .filter(({ attributes }) =>
       Object.entries(filters).every(([type, values]) => {
@@ -33,7 +40,9 @@ export const EntryProvider = ({ children }: ProviderProps) => {
         // Search is an address
         (isAddress(search.toLowerCase()) && moos.length > 0) ||
         // Search is empty
-        searches.length === 0 ||
+        search.length === 0 ||
+        // Search is id
+        !searches.every((s) => isNaN(Number(s))) ||
         // Attribute value is string and contains search
         searches.every((s) =>
           attributes.some(
