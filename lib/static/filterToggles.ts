@@ -9,4 +9,5 @@ export const moo = [
   'Tattoo',
   'Wrist',
   'Egg',
+  'Crumbs',
 ];
