@@ -111,7 +111,7 @@ const quickFilters: QuickFilter[] = [
   {
     emoji: '🍆',
     type: 'Item',
-    values: ['Apple', 'Pineapple', 'Cabbage', 'Corn', 'Flower', 'Flowers', 'Leek'],
+    values: ['Apple', 'Pineapple', 'Lettuce', 'Corn', 'Flower', 'Flowers', 'Leek'],
   },
   {
     emoji: '🍞',
