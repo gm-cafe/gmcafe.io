@@ -32,7 +32,6 @@ const Filters = () => {
         <QuickFilters />
         {traitTypes
           .filter((traitType) => !['Birth'].includes(traitType))
-          .filter((traitType) => !!traitType)
           .map((traitType) => (
             <Filter key={traitType} type={traitType} />
           ))}

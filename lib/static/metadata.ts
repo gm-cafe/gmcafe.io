@@ -6,7 +6,9 @@ const metadata: Moo[] = _metadata;
 
 export const traitTypes = Array.from(
   new Set(
-    metadata.flatMap((element) => element.attributes.map((attribute) => attribute.trait_type))
+    metadata
+      .flatMap((element) => element.attributes.map((attribute) => attribute.trait_type))
+      .filter((traitType) => !!traitType)
   )
 );
 

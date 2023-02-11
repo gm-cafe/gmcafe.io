@@ -54,7 +54,7 @@ export const EntryProvider = ({ children }: ProviderProps) => {
           // Trait type contains search and value is not none
           attributes.some(
             (attribute) =>
-              attribute.trait_type.toLowerCase().includes(s) && attribute.value !== 'None'
+              attribute.trait_type?.toLowerCase().includes(s) && attribute.value !== 'None'
           )
         )
     );

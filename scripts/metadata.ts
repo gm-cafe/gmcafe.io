@@ -8,7 +8,14 @@ const EXPORT_PATH = './lib/static/metadata.json';
 
 const promise: Promise<Moo[]> = fetch(URL)
   .then((res) => res.json())
-  .then((moos: Moo[]) => moos.map((moo, idx) => ({ ...moo, id: idx + 1 })));
+  .then((moos: Moo[]) =>
+    moos.map((moo, idx) => ({
+      ...moo,
+      // Filter out Moo #1's secret "Dad" trait value
+      attributes: moo.attributes.filter((attribute) => !!attribute.trait_type),
+      id: idx + 1,
+    }))
+  );
 
 setInterval(() => console.log('Fetching...'), 250);
 
