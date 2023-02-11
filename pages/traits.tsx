@@ -3,6 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Filters from '../components/traits/Filters';
 import { FilterProvider } from '../lib/providers/FilterProvider';
 import Cards from '../components/traits/Cards';
+import { EntryProvider } from '../lib/providers/EntryProvider';
 
 type Props = {
   imageUrl: string;
@@ -12,10 +13,12 @@ const Home: NextPage<Props> = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-pink-background px-6 pb-12 pt-36 md:px-12 md:pt-44">
       <FilterProvider>
-        <main className="grid w-full grid-cols-1 gap-x-8 md:grid-cols-[350px_1fr]">
-          <Filters />
-          <Cards />
-        </main>
+        <EntryProvider>
+          <main className="grid w-full grid-cols-1 gap-x-8 md:grid-cols-[350px_1fr]">
+            <Filters />
+            <Cards />
+          </main>
+        </EntryProvider>
       </FilterProvider>
     </div>
   );

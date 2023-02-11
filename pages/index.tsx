@@ -4,7 +4,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import mooPeek from '../public/moo_peek.png';
-import randy from '../public/randy.png';
+import randy from '../public/randy_sparkle.png';
 import egg from '../public/egg.png';
 import genesisHighland from '../public/genesis_highland.png';
 import phase2Brewing from '../public/phase2_brewing.png';

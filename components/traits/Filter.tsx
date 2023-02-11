@@ -1,15 +1,19 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { useEntryContext } from '../../lib/providers/EntryContext';
+import { moo } from '../../lib/static/filterToggles';
 
-import metadata from '../../lib/static/metadata';
 import FilterCheckbox from './FilterCheckbox';
+import FilterToggle from './FilterToggle';
 
 type Props = {
   type: string;
 };
 
 const Filter = ({ type }: Props) => {
+  const { metadata } = useEntryContext();
+
   const rawValues = metadata.flatMap((element) =>
     element.attributes
       .filter((attribute) => attribute.trait_type === type)
@@ -26,19 +30,32 @@ const Filter = ({ type }: Props) => {
     countA === countB ? valA.localeCompare(valB) : countB - countA
   );
 
-  return (
+  const isFilterToggle = moo.includes(type);
+
+  return isFilterToggle ? (
+    <FilterToggle type={type} />
+  ) : (
     <Disclosure>
-      <div className="border-primary flex flex-col border-b">
-        <Disclosure.Button className="flex py-5">
+      <div className="flex flex-col border-b border-purple-light">
+        <Disclosure.Button className="flex py-5" disabled={entries.length === 0}>
           {({ open }) => (
             <>
-              <span className="flex-1 text-left font-gmcafe text-xl uppercase tracking-wider text-purple">
+              <span
+                className={classNames(
+                  'flex-1 text-left font-gmcafe text-xl uppercase tracking-wider transition-colors',
+                  { 'text-purple': entries.length > 0 },
+                  { 'text-purple-light': entries.length === 0 }
+                )}
+              >
                 {type}
               </span>
               <ChevronRightIcon
-                className={classNames('w-6 text-purple transition-transform', {
-                  'rotate-90': open,
-                })}
+                className={classNames(
+                  'w-6 text-purple transition-all',
+                  { 'rotate-90': open },
+                  { 'text-purple': entries.length > 0 },
+                  { 'text-purple-light': entries.length === 0 }
+                )}
               />
             </>
           )}

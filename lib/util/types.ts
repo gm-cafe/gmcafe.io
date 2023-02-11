@@ -48,10 +48,19 @@ export type FilterContextProps = {
   filters: Record<string, Set<string>>;
   addFilter: (_type: string, _value: string) => void;
   removeFilter: (_type: string, _value: string) => void;
+  toggleFilters: (_type: string, _values: string[]) => void;
   count: number;
   loadMore: () => void;
+  search: string;
+  setSearch: (_search: string) => void;
+  clear: () => void;
 };
 
-export type FilterProviderProps = {
+export type ProviderProps = {
   children: ReactNode | ReactNode[];
+};
+
+export type EntryContextProps = {
+  metadata: Moo[];
+  paginated: Moo[];
 };
