@@ -45,6 +45,8 @@ const NavigationItem = (
       className={className}
       href={isAnchor ? undefined : href}
       onClick={isAnchor ? anchorOnClick : undefined}
+      rel="noreferrer"
+      target="_blank"
     >
       {children}
     </a>
