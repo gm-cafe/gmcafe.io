@@ -4,25 +4,24 @@ import { format, fromUnixTime } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import metadata from '../../lib/static/metadata';
 import { gmooContract } from '../../lib/util/addresses';
+import { Moo } from '../../lib/util/types';
 import { OpenSeaIcon } from '../Icons';
 
 type Props = {
-  id?: number;
+  metadata?: Moo;
   onClose: () => void;
 };
 
-const Viewer = ({ id, onClose }: Props) => {
-  if (!id) {
+const Viewer = ({ metadata, onClose }: Props) => {
+  if (!metadata) {
     return <Dialog open={false} onClose={() => null} />;
   }
 
-  const selected = metadata[id - 1];
-  const { name, image, attributes } = selected;
+  const { id, name, image, attributes } = metadata;
 
   return (
-    <Dialog open={!!id} onClose={onClose} className="relative z-50">
+    <Dialog open={!!metadata} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-[#A3A19AB2]" aria-hidden={true} />
 
       <div className="fixed inset-0 overflow-y-auto">
