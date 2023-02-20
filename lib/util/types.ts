@@ -21,7 +21,7 @@ type MooInfo = {
   transfers: number;
 };
 
-type Shared = {
+export type Token = {
   id: number;
   name: string;
   description: string;
@@ -29,11 +29,11 @@ type Shared = {
   image: string;
 };
 
-export type Moo = Shared & {
+export type Moo = Token & {
   info: MooInfo;
 };
 
-export type Keeku = Shared;
+export type Keeku = Token;
 
 export type HerdInfo = {
   locked: boolean;
@@ -66,6 +66,6 @@ export type ProviderProps = {
 };
 
 export type EntryContextProps = {
-  metadata: Moo[];
-  paginated: Moo[];
+  metadata: Token[];
+  paginated: Token[];
 };
