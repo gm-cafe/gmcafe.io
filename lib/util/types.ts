@@ -21,14 +21,19 @@ type MooInfo = {
   transfers: number;
 };
 
-export type Moo = {
+type Shared = {
   id: number;
   name: string;
   description: string;
   attributes: Attribute[];
   image: string;
+};
+
+export type Moo = Shared & {
   info: MooInfo;
 };
+
+export type Keeku = Shared;
 
 export type HerdInfo = {
   locked: boolean;

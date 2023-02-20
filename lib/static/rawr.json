@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Keekusaur #1",
+    "description": "Very succulent.",
+    "image": "https://gmcafe.s3.us-east-2.amazonaws.com/grawr/original/1.png",
+    "external_url": "https://gmcafe.io/rawr/1",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning CafÃ© - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Magical Purple"
+      },
+      {
+        "trait_type": "Special",
+        "value": "Lightning"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "Sunset"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Dragon Purple"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Freckles"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Tears"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "Top Hat"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Rawr"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Scarf"
+      },
+      {
+        "trait_type": "Object",
+        "value": "None"
+      }
+    ]
+  }
+]
