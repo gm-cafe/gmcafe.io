@@ -68,4 +68,8 @@ export type ProviderProps = {
 export type EntryContextProps = {
   metadata: Token[];
   paginated: Token[];
+  type: CollectionType;
+  setType: (_type: CollectionType) => void;
 };
+
+export type CollectionType = 'moo' | 'rawr';

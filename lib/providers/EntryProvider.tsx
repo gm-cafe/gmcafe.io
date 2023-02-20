@@ -1,18 +1,21 @@
 import { isAddress } from 'ethers/lib/utils';
-import { moos } from '../static/metadata';
-import { ProviderProps } from '../util/types';
+import { useState } from 'react';
+import { moos, keekus } from '../static/metadata';
+import { CollectionType, ProviderProps } from '../util/types';
 import useAddressToMooIds from '../util/useAddressToMoos';
 import { EntryContext } from './EntryContext';
 import { useFilterContext } from './FilterContext';
 
 export const EntryProvider = ({ children }: ProviderProps) => {
   const { filters, count, search } = useFilterContext();
+  const [type, setType] = useState<CollectionType>('moo');
 
   const mooIds = useAddressToMooIds(search);
 
   const searches = search.split(' ');
 
-  const entries = moos
+  const collection = type === 'moo' ? moos : type === 'rawr' ? keekus : [];
+  const entries = collection
     .filter(
       ({ id }) =>
         search.length === 0 ||
@@ -64,6 +67,8 @@ export const EntryProvider = ({ children }: ProviderProps) => {
       value={{
         metadata: entries,
         paginated: entries.slice(0, count),
+        type,
+        setType,
       }}
     >
       {children}
