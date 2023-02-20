@@ -1,4 +1,4 @@
-import { traitTypes } from '../../lib/static/metadata';
+import { getTraitTypes } from '../../lib/static/metadata';
 import Filter from './Filter';
 import Search from './Search';
 import { XCircleIcon } from '@heroicons/react/solid';
@@ -9,7 +9,7 @@ import { useEntryContext } from '../../lib/providers/EntryContext';
 
 const Filters = () => {
   const { search, filters, clear } = useFilterContext();
-  const { metadata } = useEntryContext();
+  const { metadata, type } = useEntryContext();
 
   const hasFilter = search.length > 0 || Object.keys(filters).length > 0;
 
@@ -30,7 +30,7 @@ const Filters = () => {
         </div>
         <Search />
         <QuickFilters />
-        {traitTypes
+        {getTraitTypes(type)
           .filter((traitType) => !['Birth'].includes(traitType))
           .map((traitType) => (
             <Filter key={traitType} type={traitType} />
