@@ -2,23 +2,23 @@
   {
     "name": "Keekusaur #1",
     "description": "Very succulent.",
-    "image": "https://gmcafe.s3.us-east-2.amazonaws.com/grawr/original/1.png",
+    "image": "https://cdn.discordapp.com/avatars/882417655385051226/73c6ad0d233986d7398f1b8243b9d1f4.webp",
     "external_url": "https://gmcafe.io/rawr/1",
     "edition": 1,
     "artist": "Ben Colefax",
-    "collection": "Good Morning CafÃ© - Keekusaurs",
+    "collection": "Good Morning Café - Keekusaurs",
     "attributes": [
       {
         "trait_type": "Background",
-        "value": "Magical Purple"
+        "value": "Yellow"
       },
       {
         "trait_type": "Special",
-        "value": "Lightning"
+        "value": "None"
       },
       {
         "trait_type": "Spike Color",
-        "value": "Sunset"
+        "value": "White"
       },
       {
         "trait_type": "Spike Type",
@@ -26,15 +26,143 @@
       },
       {
         "trait_type": "Color",
-        "value": "Dragon Purple"
+        "value": "Pink"
       },
       {
         "trait_type": "Face",
-        "value": "Freckles"
+        "value": "Normal"
       },
       {
         "trait_type": "Eyes",
-        "value": "Tears"
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "None"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Rawr"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "None"
+      },
+      {
+        "trait_type": "Object",
+        "value": "None"
+      }
+    ],
+    "id": 1
+  },
+  {
+    "name": "Keekusaur #2",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1071617950844452894/jane_copy.png",
+    "external_url": "https://gmcafe.io/rawr/2",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Forest"
+      },
+      {
+        "trait_type": "Special",
+        "value": "None"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "Rainbow"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Pink"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Glistening"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "Shiny Red Beret"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Pout"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "None"
+      },
+      {
+        "trait_type": "Object",
+        "value": "Color Palette"
+      }
+    ],
+    "id": 2
+  },
+  {
+    "name": "Keekusaur #3",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1075662267611353089/raffy_copy8.png",
+    "external_url": "https://gmcafe.io/rawr/3",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Yellow Gradient"
+      },
+      {
+        "trait_type": "Special",
+        "value": "Horn"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "White"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Dragon Blue"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Raised Eyebrow"
       },
       {
         "trait_type": "Accessory",
@@ -54,13 +182,333 @@
       },
       {
         "trait_type": "Body",
-        "value": "Scarf"
+        "value": "Chonk Overalls"
       },
       {
         "trait_type": "Object",
-        "value": "None"
+        "value": "Diamond"
       }
     ],
-    "id": 1
+    "id": 3
+  },
+  {
+    "name": "Keekusaur #4",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1071617951276486777/loop_copy_3.png",
+    "external_url": "https://gmcafe.io/rawr/4",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Blue Stripes"
+      },
+      {
+        "trait_type": "Special",
+        "value": "Rainbow"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "Rainbow"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Potato"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Tired"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Eyebags"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "Red GM Beanie"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "None"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Red Hoodie"
+      },
+      {
+        "trait_type": "Object",
+        "value": "Rainbow Cowffee"
+      }
+    ],
+    "id": 4
+  },
+  {
+    "name": "Keekusaur #5",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1071617950450208838/howard_copy.png",
+    "external_url": "https://gmcafe.io/rawr/5",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Red"
+      },
+      {
+        "trait_type": "Special",
+        "value": "Yellow Lightning"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "White"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Dragon Brown"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Smug"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "Spikey Hair"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "None"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "None"
+      },
+      {
+        "trait_type": "Object",
+        "value": "Sycee"
+      }
+    ],
+    "id": 5
+  },
+  {
+    "name": "Keekusaur #6",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1071617818652573696/haru_copy2.png",
+    "external_url": "https://gmcafe.io/rawr/6",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Green Liquid"
+      },
+      {
+        "trait_type": "Special",
+        "value": "Rabbit Onesie"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "Green Gradient"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Potato"
+      },
+      {
+        "trait_type": "Face",
+        "value": "None"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "None"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "None"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Drinking"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "None"
+      },
+      {
+        "trait_type": "Object",
+        "value": "Carrot NoMoo"
+      }
+    ],
+    "id": 6
+  },
+  {
+    "name": "Keekusaur #7",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1071617952408948786/steph_copy_3.png",
+    "external_url": "https://gmcafe.io/rawr/7",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Pink Clouds"
+      },
+      {
+        "trait_type": "Special",
+        "value": "None"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "White"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Dragon White"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Happy"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Makeup"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "Cat Headset"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "None"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Pink Bowtie"
+      },
+      {
+        "trait_type": "Object",
+        "value": "Poodle"
+      }
+    ],
+    "id": 7
+  },
+  {
+    "name": "Keekusaur #8",
+    "description": "Very succulent.",
+    "image": "https://cdn.discordapp.com/attachments/963921905180639293/1071617952903856209/ted_copy.png",
+    "external_url": "https://gmcafe.io/rawr/8",
+    "edition": 1,
+    "artist": "Ben Colefax",
+    "collection": "Good Morning Café - Keekusaurs",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "White"
+      },
+      {
+        "trait_type": "Special",
+        "value": "Floating Rocks"
+      },
+      {
+        "trait_type": "Spike Color",
+        "value": "Purple"
+      },
+      {
+        "trait_type": "Spike Type",
+        "value": "Normal"
+      },
+      {
+        "trait_type": "Color",
+        "value": "Potato"
+      },
+      {
+        "trait_type": "Face",
+        "value": "Motivated"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "None"
+      },
+      {
+        "trait_type": "Accessory",
+        "value": "None"
+      },
+      {
+        "trait_type": "Head",
+        "value": "Headband"
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "None"
+      },
+      {
+        "trait_type": "Eyewear",
+        "value": "None"
+      },
+      {
+        "trait_type": "Body",
+        "value": "Samurai Outfit"
+      },
+      {
+        "trait_type": "Object",
+        "value": "Wooden Sword"
+      }
+    ],
+    "id": 8
   }
 ]
