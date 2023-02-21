@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useEntryContext } from '../../lib/providers/EntryContext';
 import { useFilterContext } from '../../lib/providers/FilterContext';
 
 type QuickFilter = {
@@ -7,7 +8,7 @@ type QuickFilter = {
   values: string[];
 };
 
-const quickFilters: QuickFilter[] = [
+const mooQuickFilters: QuickFilter[] = [
   {
     emoji: '☕️',
     type: 'Beverage',
@@ -127,6 +128,9 @@ const quickFilters: QuickFilter[] = [
 
 const QuickFilters = () => {
   const { filters, toggleFilters } = useFilterContext();
+  const { type } = useEntryContext();
+
+  const quickFilters = type === 'moo' ? mooQuickFilters : type === 'rawr' ? [] : [];
 
   return (
     <div className="flex flex-wrap justify-between gap-2 border-b border-purple-light pb-4">
