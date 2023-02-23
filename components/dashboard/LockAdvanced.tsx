@@ -46,9 +46,10 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
   };
 
   const onNext = () => {
-    setPassword(generatePassword())
+    setPassword(generatePassword());
+    setConfirm(false);
     setNext(true);
-  }
+  };
 
   const onCopy = () => {
     navigator.clipboard.writeText(password);
@@ -57,7 +58,18 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
 
   return (
     <div className="my-4 flex flex-col gap-4">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-4">
+        <p className="text-sm text-purple">
+          Basic Lock is a great option to help protect against most phishing scams. However if your
+          private key or seed phrase is compromised, then the scammer would still be able to unlock
+          your cow from our website. With Advanced Lock, your cow would remain safe in your wallet.
+        </p>
+        {!next && (
+          <p className="text-sm text-purple">
+            To unlock your Moo in the future, you will either need to pay the Ether bounty chosen
+            below or use the randomly generated passphrase on the next screen.
+          </p>
+        )}
         {!next && (
           <div className="flex flex-col">
             <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">
@@ -81,6 +93,13 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
               <span className="text-right text-xs text-pink">Price must be greater than 0.</span>
             )}
           </div>
+        )}
+        {!next && (
+          <p className="text-sm text-purple">
+            We recommend choosing a bounty that a scammer would be unlikely to pay. If opting to pay
+            the bounty to unlock your Moo, your Ether will be sent to the GMCafé contract. Please
+            open up a ticket in our Discord to have your Ether returned to you.
+          </p>
         )}
         {next && (
           <div className="flex flex-col">

@@ -1,5 +1,5 @@
 const LENGTH = 12;
-const CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ023456789';
 
 const generatePassword = (): string => {
   const passArr = [];
