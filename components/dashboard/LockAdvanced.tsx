@@ -39,24 +39,19 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
   return (
     <Formik
       initialValues={{
-        tokenId: id,
         lockPrice: 0,
         lockPassword: '',
       }}
-      onSubmit={({ tokenId, lockPrice, lockPassword }) => {
+      onSubmit={({ lockPrice, lockPassword }) => {
         setLoading(true);
         const priceInGwei = utils.parseEther(lockPrice.toString());
-        const hashedPassword = utils.solidityKeccak256(
-          ['uint256', 'string'],
-          [tokenId, lockPassword]
-        );
+        const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, lockPassword]);
         lock({
-          args: [tokenId, priceInGwei, hashedPassword],
+          args: [id, priceInGwei, hashedPassword],
         });
       }}
       onReset={(values, actions) => {
         actions.setValues({
-          tokenId: id,
           lockPrice: 0,
           lockPassword: '',
         });
@@ -75,21 +70,6 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
       }}
     >
       <Form className="my-4 flex flex-col gap-4">
-        <div className="flex">
-          <div className="flex flex-1 flex-col">
-            <label className="px-2 font-gmcafe text-lg text-purple" htmlFor="tokenId">
-              ID
-            </label>
-            <Field
-              className="cursor-not-allowed rounded border-2 border-purple bg-gray-100 py-1 px-2 text-purple"
-              type="number"
-              id="tokenId"
-              name="tokenId"
-              disabled
-              required
-            />
-          </div>
-        </div>
         <div className="flex gap-4">
           <div className="flex flex-col">
             <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">

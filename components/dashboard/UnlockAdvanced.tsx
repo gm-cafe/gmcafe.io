@@ -113,6 +113,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
             type="password"
             id="unlockPassword"
             name="unlockPassword"
+            disabled={forgotPassword}
           />
           <ErrorMessage
             component="span"
