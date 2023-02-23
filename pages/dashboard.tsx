@@ -1,6 +1,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import classNames from 'classnames';
 import { BigNumber } from 'ethers';
+import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { useAccount, useContractRead, useContractReads } from 'wagmi';
 import DashboardMoo from '../components/dashboard/DashboardMoo';
@@ -94,3 +95,11 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      title: 'Dashboard',
+    },
+  };
+};
