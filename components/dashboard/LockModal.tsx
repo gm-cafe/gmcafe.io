@@ -33,7 +33,7 @@ const LockModal = ({ id, open, setOpen }: Props) => {
                     </button>
                   )}
                 </Tab>
-                <Tab disabled>
+                <Tab>
                   {({ selected }) => (
                     <button
                       className={classNames(
