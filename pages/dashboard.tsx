@@ -63,7 +63,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center bg-pink-background">
+    <div className="flex min-h-screen items-center bg-pink-background pt-40 pb-12">
       <div className="mx-auto flex w-full max-w-screen-sm flex-col items-center justify-center">
         <nav
           className={classNames(
