@@ -1,16 +1,11 @@
 import { utils } from 'ethers';
-import { Formik, FormikErrors, Form, Field, ErrorMessage } from 'formik';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useContractWrite } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import generatePassword from '../../lib/util/generatePassword';
 import { toastError, toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
-
-type FormValues = {
-  tokenId: string;
-  lockPrice: number;
-  lockPassword: string;
-};
+import { ClipboardIcon } from '@heroicons/react/solid';
 
 type Props = {
   id: number;
@@ -19,6 +14,11 @@ type Props = {
 
 const LockAdvanced = ({ id, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
+  const [price, setPrice] = useState(0);
+  const [confirm, setConfirm] = useState(false);
+  const [reveal, setReveal] = useState(false);
+  const [password, setPassword] = useState(generatePassword());
+  const [next, setNext] = useState(false);
 
   const { write: lock } = useContractWrite({
     addressOrName: gmooContract,
@@ -36,101 +36,107 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     },
   });
 
-  return (
-    <Formik
-      initialValues={{
-        lockPrice: 0,
-        lockPassword: '',
-      }}
-      onSubmit={({ lockPrice, lockPassword }) => {
-        setLoading(true);
-        const priceInGwei = utils.parseEther(lockPrice.toString());
-        const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, lockPassword]);
-        lock({
-          args: [id, priceInGwei, hashedPassword],
-        });
-      }}
-      onReset={(values, actions) => {
-        actions.setValues({
-          lockPrice: 0,
-          lockPassword: '',
-        });
-        setOpen(false);
-      }}
-      validate={({ lockPrice, lockPassword }) => {
-        let errors: FormikErrors<FormValues> = {};
-        if (lockPrice <= 0) {
-          errors.lockPrice = 'Price must be greater than 0.';
-        }
+  const onClick = () => {
+    setLoading(true);
+    const priceInGwei = utils.parseEther(price.toString());
+    const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
+    lock({
+      args: [id, priceInGwei, hashedPassword],
+    });
+  };
 
-        if (lockPassword === '') {
-          errors.lockPassword = 'Password cannot be empty.';
-        }
-        return errors;
-      }}
-    >
-      <Form className="my-4 flex flex-col gap-4">
-        <div className="flex gap-4">
+  const onNext = () => {
+    setPassword(generatePassword())
+    setNext(true);
+  }
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(password);
+    setConfirm(true);
+  };
+
+  return (
+    <div className="my-4 flex flex-col gap-4">
+      <div className="flex flex-col items-center">
+        {!next && (
           <div className="flex flex-col">
             <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">
-              Price
+              Price (Ether)
             </label>
             <div className="flex items-center gap-2 rounded border-2 border-purple">
-              <Field
+              <input
                 className="py-1 pl-2 text-purple focus-within:outline-0"
                 type="number"
                 id="lockPrice"
                 name="lockPrice"
-                step="any"
                 required
+                step={0.01}
                 min={0}
+                value={price}
+                onChange={(e) => setPrice(parseFloat(e.target.value))}
               />
               <span className="pr-2 font-medium text-purple">Ξ</span>
             </div>
-            <ErrorMessage
-              component="span"
-              className="text-right text-xs text-pink"
-              name="lockPrice"
-            />
+            {price <= 0 && (
+              <span className="text-right text-xs text-pink">Price must be greater than 0.</span>
+            )}
           </div>
-          <div className="flex flex-1 flex-col">
-            <label className="font-gmcafe text-lg text-purple" htmlFor="lockPassword">
-              Recovery Phrase
-            </label>
-            <Field
-              className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
-              type="password"
-              id="lockPassword"
-              name="lockPassword"
-            />
-            <ErrorMessage
-              component="span"
-              className="text-right text-xs text-pink"
-              name="lockPassword"
-            />
+        )}
+        {next && (
+          <div className="flex flex-col">
+            <span className="text-sm text-purple">Your recovery phrase is:</span>
+            <div className="mx-auto font-gmcafe text-6xl text-purple">{password}</div>
+            <p className="text-sm text-purple">
+              Please copy and save this passphrase somewhere safe, as you will need it to unlock
+              your Moo. <b>You will not be able to retrieve this passphrase again.</b>
+            </p>
           </div>
-        </div>
-        <div className="mt-2 flex justify-end gap-4">
-          <Field
+        )}
+      </div>
+      <div className="mt-2 flex justify-end gap-4">
+        {next && (
+          <button
+            onClick={onCopy}
+            className="mr-auto flex cursor-pointer items-center gap-x-2 rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+          >
+            <ClipboardIcon className="h-4 w-4 text-white" />
+            <span className="font-gmcafe text-lg text-white">{confirm ? 'Copied!' : 'Copy'}</span>
+          </button>
+        )}
+        <button
+          onClick={() => setOpen(false)}
+          className="cursor-pointer rounded-lg border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
+        >
+          Cancel
+        </button>
+        {!next && (
+          <button
+            className="rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white transition-colors disabled:cursor-not-allowed disabled:bg-purple/60"
+            disabled={price <= 0}
+            onClick={onNext}
+          >
+            Next
+          </button>
+        )}
+        {next && (
+          <button
+            onClick={() => setNext(false)}
             className="cursor-pointer rounded-lg border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
-            type="reset"
-            value="Cancel"
-          />
-          {!loading && (
-            <Field
-              className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-              type="submit"
-              value="Lock"
-            />
-          )}
-          {loading && (
-            <div className="flex items-center rounded-lg bg-purple py-2 px-6">
-              <LoadingIcon className="static" />
-            </div>
-          )}
-        </div>
-      </Form>
-    </Formik>
+          >
+            Back
+          </button>
+        )}
+        {next && (
+          <button
+            className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+            disabled={loading}
+            onClick={onClick}
+          >
+            {loading ? <LoadingIcon /> : 'Lock'}
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
 
