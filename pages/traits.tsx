@@ -17,7 +17,7 @@ const Home: NextPage<Props> = () => {
         <EntryProvider>
           <main className="grid w-full grid-cols-1 gap-x-8 md:grid-cols-[350px_1fr]">
             <Filters />
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
               <Toolbar />
               <Cards />
             </div>
