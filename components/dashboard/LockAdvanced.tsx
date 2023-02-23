@@ -1,8 +1,10 @@
 import { utils } from 'ethers';
 import { Formik, FormikErrors, Form, Field, ErrorMessage } from 'formik';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useContractWrite } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import { toastError, toastSuccess } from '../../lib/util/toast';
+import { LoadingIcon } from '../Icons';
 
 type FormValues = {
   tokenId: string;
@@ -16,10 +18,22 @@ type Props = {
 };
 
 const LockAdvanced = ({ id, setOpen }: Props) => {
+  const [loading, setLoading] = useState(false);
+
   const { write: lock } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'lockMoo',
+    onSuccess: () => {
+      setLoading(false);
+      setOpen(false);
+      toastSuccess('Locked Moo!');
+    },
+    onError: (error) => {
+      setLoading(false);
+      setOpen(false);
+      error && toastError(error);
+    },
   });
 
   return (
@@ -30,8 +44,12 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
         lockPassword: '',
       }}
       onSubmit={({ tokenId, lockPrice, lockPassword }) => {
+        setLoading(true);
         const priceInGwei = utils.parseEther(lockPrice.toString());
-        const hashedPassword = utils.keccak256(utils.toUtf8Bytes(lockPassword));
+        const hashedPassword = utils.solidityKeccak256(
+          ['uint256', 'string'],
+          [tokenId, lockPassword]
+        );
         lock({
           args: [tokenId, priceInGwei, hashedPassword],
         });
@@ -95,9 +113,9 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
               name="lockPrice"
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-1 flex-col">
             <label className="font-gmcafe text-lg text-purple" htmlFor="lockPassword">
-              Password
+              Recovery Phrase
             </label>
             <Field
               className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
@@ -114,15 +132,22 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
         </div>
         <div className="mt-2 flex justify-end gap-4">
           <Field
-            className="cursor-pointer rounded-xl border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
+            className="cursor-pointer rounded-lg border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
             type="reset"
             value="Cancel"
           />
-          <Field
-            className="cursor-pointer rounded-xl bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-            type="submit"
-            value="Lock"
-          />
+          {!loading && (
+            <Field
+              className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+              type="submit"
+              value="Lock"
+            />
+          )}
+          {loading && (
+            <div className="flex items-center rounded-lg bg-purple py-2 px-6">
+              <LoadingIcon className="static" />
+            </div>
+          )}
         </div>
       </Form>
     </Formik>

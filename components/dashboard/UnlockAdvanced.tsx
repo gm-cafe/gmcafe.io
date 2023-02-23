@@ -1,9 +1,11 @@
-import { BigNumber, utils } from 'ethers';
+import { BigNumber, constants, utils } from 'ethers';
 import { Formik, FormikErrors, Form, Field, ErrorMessage } from 'formik';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useContractWrite } from 'wagmi';
 import useContractRead from '../../lib/hooks/useContractRead';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import { toastSuccess, toastError } from '../../lib/util/toast';
+import { LoadingIcon } from '../Icons';
 
 type Props = {
   id: number;
@@ -16,12 +18,23 @@ type FormValues = {
 };
 
 const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
+  const [loading, setLoading] = useState(false);
   const [forgotPassword, setForgotPassword] = useState(false);
 
   const { write: unlock } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'unlockMoo',
+    onSuccess: () => {
+      setLoading(false);
+      setOpen(false);
+      toastSuccess('Unlocked Moo!');
+    },
+    onError: (error) => {
+      setLoading(false);
+      setOpen(false);
+      error && toastError(error);
+    },
   });
 
   const { data } = useContractRead({
@@ -43,8 +56,12 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
         payBounty: false,
       }}
       onSubmit={({ tokenId, unlockPassword }) => {
+        setLoading(true);
         unlock({
-          args: [tokenId, unlockPassword],
+          args: [tokenId, unlockPassword, constants.AddressZero],
+          overrides: {
+            value: unlockPassword ? undefined : unlockPriceWei,
+          },
         });
       }}
       onReset={(values, actions) => {
@@ -117,15 +134,22 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
         )}
         <div className="mt-2 flex justify-end gap-4">
           <Field
-            className="cursor-pointer rounded-xl border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
+            className="cursor-pointer rounded-lg border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
             type="reset"
             value="Cancel"
           />
-          <Field
-            className="cursor-pointer rounded-xl bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-            type="submit"
-            value="Unlock"
-          />
+          {!loading && (
+            <Field
+              className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+              type="submit"
+              value="Unlock"
+            />
+          )}
+          {loading && (
+            <div className="flex items-center rounded-lg bg-purple py-2 px-6">
+              <LoadingIcon className="static" />
+            </div>
+          )}
         </div>
       </Form>
     </Formik>
