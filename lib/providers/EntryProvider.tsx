@@ -1,6 +1,5 @@
 import { isAddress } from 'ethers/lib/utils';
 import { moos } from '../static/metadata';
-import shuffle from '../util/shuffle';
 import { ProviderProps } from '../util/types';
 import useAddressToMooIds from '../util/useAddressToMoos';
 import { EntryContext } from './EntryContext';
@@ -13,7 +12,13 @@ export const EntryProvider = ({ children }: ProviderProps) => {
 
   const searches = search.split(' ');
 
-  const entries = moos
+  const kaufi1 = moos.find(({ id }) => id === 43);
+  const kaufi2 = moos.find(({ id }) => id === 70);
+  const moosWithKaufi = moos.filter(({ id }) => ![43, 70].includes(id));
+  kaufi1 && moosWithKaufi.splice(Math.floor(moosWithKaufi.length / 2), 0, kaufi1);
+  kaufi2 && moosWithKaufi.push(kaufi2);
+
+  const entries = moosWithKaufi
     .filter(
       ({ id }) =>
         search.length === 0 ||
@@ -60,13 +65,11 @@ export const EntryProvider = ({ children }: ProviderProps) => {
         )
     );
 
-  const shuffledEntries = shuffle(entries);
-
   return (
     <EntryContext.Provider
       value={{
-        metadata: shuffledEntries,
-        paginated: shuffledEntries.slice(0, count),
+        metadata: entries,
+        paginated: entries.slice(0, count),
       }}
     >
       {children}
