@@ -1,5 +1,6 @@
 import { isAddress } from 'ethers/lib/utils';
 import { moos } from '../static/metadata';
+import shuffle from '../util/shuffle';
 import { ProviderProps } from '../util/types';
 import useAddressToMooIds from '../util/useAddressToMoos';
 import { EntryContext } from './EntryContext';
@@ -59,11 +60,13 @@ export const EntryProvider = ({ children }: ProviderProps) => {
         )
     );
 
+  const shuffledEntries = shuffle(entries);
+
   return (
     <EntryContext.Provider
       value={{
-        metadata: entries,
-        paginated: entries.slice(0, count),
+        metadata: shuffledEntries,
+        paginated: shuffledEntries.slice(0, count),
       }}
     >
       {children}
