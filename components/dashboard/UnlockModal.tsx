@@ -25,7 +25,7 @@ const UnlockModal = ({ id, open, setOpen }: Props) => {
     <Dialog open={open} onClose={() => setOpen(false)}>
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="mx-auto w-full max-w-screen-sm rounded-xl bg-white p-8">
+        <Dialog.Panel className="mx-auto mt-12 w-full max-w-screen-sm rounded-xl bg-white p-8">
           <Tab.Group>
             <div className="mb-2 flex justify-between gap-y-2">
               <Dialog.Title className="font-gmcafe text-4xl text-purple">Unlock Moo</Dialog.Title>

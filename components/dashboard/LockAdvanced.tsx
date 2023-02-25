@@ -16,7 +16,6 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
   const [confirm, setConfirm] = useState(false);
-  const [reveal, setReveal] = useState(false);
   const [password, setPassword] = useState(generatePassword());
   const [next, setNext] = useState(false);
 
