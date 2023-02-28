@@ -17,7 +17,7 @@ type RainbowKitProviderProps = {
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet],
-  [infuraProvider({ infuraId: process.env.INFURA_KEY }), publicProvider()]
+  [infuraProvider({ infuraId: '47434bfa14b446bab19576bdab9d5205' }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
@@ -52,7 +52,6 @@ const cafeTheme = merge(lightTheme(), {
 });
 
 export const RainbowKitProvider = ({ children }: RainbowKitProviderProps) => {
-  console.log(process.env.INFURA_KEY)
   return (
     <WagmiConfig client={wagmiClient}>
       <_RainbowKitProvider chains={chains} theme={cafeTheme}>
