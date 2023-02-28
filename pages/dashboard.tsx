@@ -51,6 +51,7 @@ const Dashboard = () => {
         args: [id],
       })),
     onSuccess: (tokenUriData) => {
+      console.log(tokenUriData, moos)
       const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
       Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
         (moos) => setMoos(moos)

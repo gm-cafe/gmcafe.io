@@ -19,15 +19,5 @@ If you want the site to be accessible by all devices on your local network, appe
 
 #### `.env.local`
 ```
-INFURA_KEY= <infura key for ethereum network requests>
-
-# Note: not required but eventually used for the royalty card page
-CLIENT_ID= <discord bot client id>
-CLIENT_SECRET= <discord bot client secret>
-REDIRECT_URL= <discord oauth2 redirect url>
-
-# Note: will be deprecated once /checkin is removed
-AIRTABLE_KEY= <airtable key>
-
 SENTRY_DSN= <sentry dsn>
 ```
