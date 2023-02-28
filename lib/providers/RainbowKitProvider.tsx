@@ -52,6 +52,7 @@ const cafeTheme = merge(lightTheme(), {
 });
 
 export const RainbowKitProvider = ({ children }: RainbowKitProviderProps) => {
+  console.log(process.env.INFURA_KEY)
   return (
     <WagmiConfig client={wagmiClient}>
       <_RainbowKitProvider chains={chains} theme={cafeTheme}>
