@@ -1,9 +1,8 @@
 import { Moo } from '../util/types';
 import _moos from './moo.json';
-import shuffle from '../util/shuffle'
 
 // @ts-ignore
-export const moos: Moo[] = shuffle(_moos);
+export const moos: Moo[] = _moos;
 
 export const traitTypes = Array.from(
   new Set(

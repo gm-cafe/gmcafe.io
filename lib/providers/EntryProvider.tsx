@@ -12,13 +12,7 @@ export const EntryProvider = ({ children }: ProviderProps) => {
 
   const searches = search.split(' ');
 
-  const kaufi1 = moos.find(({ id }) => id === 43);
-  const kaufi2 = moos.find(({ id }) => id === 70);
-  const moosWithKaufi = moos.filter(({ id }) => ![43, 70].includes(id));
-  kaufi1 && moosWithKaufi.splice(Math.floor(moosWithKaufi.length / 2), 0, kaufi1);
-  kaufi2 && moosWithKaufi.push(kaufi2);
-
-  const entries = moosWithKaufi
+  const entries = moos
     .filter(
       ({ id }) =>
         search.length === 0 ||
