@@ -1,20 +1,21 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { AES, enc } from 'crypto-js';
+import { AES } from 'crypto-js';
 
 import stamp from '../public/stamp.png';
 
 const passphrase = 'benjaneloopraffy';
 
-const Stamp = () => {
+type Props = {
+  id: number;
+};
+
+const Stamp = ({ id }: Props) => {
   const [clicked, setClicked] = useState(false);
   const [discordName, setDiscordName] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const encryptValue = AES.encrypt(`grawr/${discordName}/${Date.now()}`, passphrase);
-  const decryptValue = AES.decrypt(encryptValue, passphrase);
-
-  console.log(discordName, encryptValue.toString(), decryptValue.toString(enc.Utf8));
+  const encryptValue = AES.encrypt(`grawr/${id}/${discordName}/${Date.now()}`, passphrase);
 
   return (
     <div className="flex w-full justify-end md:col-span-2">

@@ -12,9 +12,10 @@ import Stamp from '../Stamp';
 type Props = {
   metadata?: Moo;
   onClose: () => void;
+  stampId: number;
 };
 
-const Viewer = ({ metadata, onClose }: Props) => {
+const Viewer = ({ metadata, onClose, stampId }: Props) => {
   if (!metadata) {
     return <Dialog open={false} onClose={() => null} />;
   }
@@ -67,7 +68,7 @@ const Viewer = ({ metadata, onClose }: Props) => {
                 </a>
               </div>
             </div>
-            {id === 292 && <Stamp />}
+            {id === stampId && <Stamp id={id} />}
           </Dialog.Panel>
         </div>
       </div>
