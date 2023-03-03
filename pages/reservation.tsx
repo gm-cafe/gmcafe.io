@@ -1,7 +1,11 @@
 import { CheckIcon, XIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
+import { constants, utils } from 'ethers';
 import { NextPage } from 'next';
 import { ChangeEvent, useState } from 'react';
+import { useEnsAddress } from 'wagmi';
 import { LoadingIcon } from '../components/Icons';
+import { toastError } from '../lib/util/toast';
 
 type State = 'typing' | 'confirmed' | 'unconfirmed';
 
@@ -10,23 +14,36 @@ const Reservation: NextPage = () => {
   const [state, setState] = useState<State>('typing');
   const [loading, setLoading] = useState(false);
 
+  const isValid = utils.isAddress(input) || input.endsWith('.eth');
+
+  const { data } = useEnsAddress({
+    name: input,
+    enabled: isValid,
+  });
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     setState('typing');
   };
 
   const onClick = () => {
-    if (!input) {
+    if (!data) {
       return;
     }
 
     setLoading(true);
-    if (input === 'valid') {
-      setState('confirmed');
-    } else if (input === 'invalid') {
-      setState('unconfirmed');
-    }
-    setTimeout(() => setLoading(false), 1000);
+
+    fetch(`https://alpha.antistupid.com/cafe/reservation?${data}`)
+      .then((res) => res.json())
+      .then((json) => {
+        if (Object.keys(json).length === 0) {
+          setState('unconfirmed');
+        } else {
+          setState('confirmed');
+        }
+      })
+      .catch(toastError)
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -38,7 +55,7 @@ const Reservation: NextPage = () => {
             className="w-full truncate rounded-lg border-2 border-transparent px-4 py-3 text-purple outline-none transition-colors focus:border-purple"
             value={input}
             onChange={onChange}
-            placeholder="0x0000000000000000000000000000000000000000"
+            placeholder={constants.AddressZero}
           />
           <p className="mx-2 mt-1.5 text-sm text-purple">
             {loading
@@ -51,9 +68,12 @@ const Reservation: NextPage = () => {
           </p>
         </div>
         <button
-          className="rounded-lg bg-white px-3 py-1 font-gmcafe text-xl text-purple"
+          className={classNames(
+            'rounded-lg bg-white px-3 py-1 font-gmcafe text-xl text-purple transition-opacity',
+            { 'cursor-not-allowed opacity-60': !isValid }
+          )}
           onClick={onClick}
-          disabled={state !== 'typing'}
+          disabled={state !== 'typing' || !isValid}
         >
           {loading ? (
             <LoadingIcon className="h-8 w-8 p-1 text-purple" />
