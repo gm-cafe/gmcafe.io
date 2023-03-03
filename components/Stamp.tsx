@@ -27,13 +27,13 @@ const Stamp = () => {
         </div>
       )}
       {clicked && (
-        <div>
+        <div className="w-full md:max-w-sm">
           <p className="font-gmcafe text-lg text-purple">You Found Me!</p>
           {!submitted && (
             <div className="flex flex-col">
               <p className="font-gmcafe text-lg text-purple">Paste your Discord Username Here:</p>
               <input
-                className="mb-4 rounded border-2 border-purple px-1 py-1 text-purple placeholder:text-purple-light focus:outline-none"
+                className="mb-4 rounded border-2 border-purple px-2 py-1 text-purple placeholder:text-purple-light focus:outline-none"
                 placeholder="BenColefax#0001"
                 value={discordName}
                 onChange={(e) => setDiscordName(e.target.value)}
@@ -55,8 +55,8 @@ const Stamp = () => {
                 {encryptValue.toString()}
               </p>
               <p className="text-purple">
-                Tag <span className="font-gmcafe">@Loop</span> in #social-chat with your secret
-                message!
+                First 20 people who finds this will receive 1 Stamp. Tag{' '}
+                <span className="font-gmcafe">@Loop</span> in #social-chat with your secret message!
               </p>
             </div>
           )}
