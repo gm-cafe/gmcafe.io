@@ -56,8 +56,8 @@ const Stamp = ({ id }: Props) => {
                 {encryptValue.toString()}
               </p>
               <p className="text-purple">
-                First 20 people who finds this will receive 1 Stamp. Tag{' '}
-                <span className="font-gmcafe">@Loop</span> in #social-chat with your secret message!
+                Tag <span className="font-gmcafe">@Loop</span> in #social-chat with your secret
+                message to receive a Stamp!
               </p>
             </div>
           )}
