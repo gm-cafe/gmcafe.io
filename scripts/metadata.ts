@@ -7,7 +7,7 @@ const URL = 'https://alpha.antistupid.com/metadata/gmoo/all-static.json';
 const EXPORT_PATH = './lib/static/metadata.json';
 
 const promise: Promise<Moo[]> = fetch(URL)
-  .then((res) => res.json())
+  .then((res) => res.json() as Promise<Moo[]>)
   .then((moos: Moo[]) =>
     moos.map((moo, idx) => ({
       ...moo,

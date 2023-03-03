@@ -1,6 +1,7 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import classNames from 'classnames';
 import { BigNumber } from 'ethers';
+import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { useAccount, useContractRead, useContractReads } from 'wagmi';
 import DashboardMoo from '../components/dashboard/DashboardMoo';
@@ -50,6 +51,7 @@ const Dashboard = () => {
         args: [id],
       })),
     onSuccess: (tokenUriData) => {
+      console.log(tokenUriData, moos)
       const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
       Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
         (moos) => setMoos(moos)
@@ -62,7 +64,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center bg-pink-background">
+    <div className="flex min-h-screen items-center bg-pink-background pt-40 pb-12">
       <div className="mx-auto flex w-full max-w-screen-sm flex-col items-center justify-center">
         <nav
           className={classNames(
@@ -94,3 +96,11 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      title: 'Dashboard',
+    },
+  };
+};

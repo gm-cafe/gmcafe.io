@@ -1,15 +1,13 @@
 import { Moo } from '../util/types';
-import _metadata from './metadata.json';
+import _moos from './moo.json';
 
 // @ts-ignore
-const metadata: Moo[] = _metadata;
+export const moos: Moo[] = _moos;
 
 export const traitTypes = Array.from(
   new Set(
-    metadata
+    moos
       .flatMap((element) => element.attributes.map((attribute) => attribute.trait_type))
       .filter((traitType) => !!traitType)
   )
 );
-
-export default metadata;

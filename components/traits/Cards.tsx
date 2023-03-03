@@ -18,6 +18,7 @@ const Cards = () => {
   const [id, setId] = useState(queryId);
 
   const { paginated } = useEntryContext();
+  const metadata = paginated.find((entry) => entry.id === id);
 
   return (
     <div className="w-full">
@@ -31,7 +32,7 @@ const Cards = () => {
         </div>
       )}
       <InfiniteScroll />
-      <Viewer id={id} onClose={() => setId(undefined)} />
+      <Viewer metadata={metadata} onClose={() => setId(undefined)} />
     </div>
   );
 };

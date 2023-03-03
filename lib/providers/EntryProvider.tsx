@@ -1,18 +1,18 @@
 import { isAddress } from 'ethers/lib/utils';
-import metadata from '../static/metadata';
+import { moos } from '../static/metadata';
 import { ProviderProps } from '../util/types';
-import useAddressToMoos from '../util/useAddressToMoos';
+import useAddressToMooIds from '../util/useAddressToMoos';
 import { EntryContext } from './EntryContext';
 import { useFilterContext } from './FilterContext';
 
 export const EntryProvider = ({ children }: ProviderProps) => {
   const { filters, count, search } = useFilterContext();
 
-  const moos = useAddressToMoos(search);
+  const mooIds = useAddressToMooIds(search);
 
   const searches = search.split(' ');
 
-  const entries = metadata
+  const entries = moos
     .filter(
       ({ id }) =>
         search.length === 0 ||
@@ -20,7 +20,7 @@ export const EntryProvider = ({ children }: ProviderProps) => {
         // Check every searches is number, otherwise '29 ab' will still return 29 and confuse users
         (searches.every((s) => !isNaN(Number(s))) && searches.some((s) => parseInt(s) === id))
     )
-    .filter(({ id }) => moos.length === 0 || moos.includes(id))
+    .filter(({ id }) => mooIds.length === 0 || mooIds.includes(id))
     .filter(({ attributes }) =>
       Object.entries(filters).every(([type, values]) => {
         // removing filters can result in an empty set
@@ -36,9 +36,9 @@ export const EntryProvider = ({ children }: ProviderProps) => {
     .filter(
       ({ attributes }) =>
         // Search is an ENS query
-        (search.includes('.eth') && moos.length > 0) ||
+        (search.includes('.eth') && mooIds.length > 0) ||
         // Search is an address
-        (isAddress(search.toLowerCase()) && moos.length > 0) ||
+        (isAddress(search.toLowerCase()) && mooIds.length > 0) ||
         // Search is empty
         search.length === 0 ||
         // Search is id
