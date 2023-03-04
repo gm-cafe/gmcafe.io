@@ -334,7 +334,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       title: 'Reservation',
       metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
-      metaImage: hash ? `https://alpha.antistupid.com/card-cache/${hash}` : '/keeku_banner.png',
+      metaImage: hash ? `https://alpha.antistupid.com/card-cache/${hash}.png` : '/keeku_banner.png',
       twitterCard: 'summary_large_image',
     },
   };
