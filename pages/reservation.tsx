@@ -15,9 +15,8 @@ const Reservation: NextPage = () => {
   const [state, setState] = useState<State>('typing');
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState('');
-  const [blob, setBlob] = useState('');
+  const [downloadLoading, setDownloadLoading] = useState(false);
   const [cacheCardLoading, setCacheCardLoading] = useState(false);
-  const [cacheCard, setCacheCard] = useState('');
 
   const isValid = utils.isAddress(input) || input.endsWith('.eth');
 
@@ -54,12 +53,38 @@ const Reservation: NextPage = () => {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => {
-    fetch(imgUrl)
-      .then((response) => response.blob())
-      .then((blob) => setBlob(URL.createObjectURL(blob)))
-      .catch(toastError);
-  }, [imgUrl]);
+  const onDownload = async () => {
+    setDownloadLoading(true);
+
+    const cacheCard: string | undefined = card
+      ? await fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
+          .then((response) => response.json())
+          .then((json) => json.url)
+          .catch(toastError)
+      : undefined;
+
+    if (!cacheCard) {
+      return;
+    }
+
+    const cacheImage: string | void = cacheCard
+      ? await fetch(cacheCard)
+          .then((response) => response.blob())
+          .then((blob) => URL.createObjectURL(blob))
+          .catch(toastError)
+      : undefined;
+
+    if (!cacheImage) {
+      return;
+    }
+
+    const a = document.createElement('a');
+    a.href = cacheImage;
+    a.download = 'card.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
   const onTwitterShare = async () => {
     setCacheCardLoading(true);
@@ -68,6 +93,7 @@ const Reservation: NextPage = () => {
       ? await fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
           .then((response) => response.json())
           .then((json) => json.url)
+          .catch(toastError)
       : undefined;
 
     const twitterIntent = `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation${
@@ -76,17 +102,6 @@ const Reservation: NextPage = () => {
 
     window.location.href = twitterIntent;
   };
-
-  useEffect(() => {
-    card &&
-      fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
-        .then((response) => response.json())
-        .then((json) => {
-          setCacheCard(json.url);
-        })
-        .catch(toastError)
-        .finally(() => setCacheCardLoading(false));
-  }, [card]);
 
   return (
     <div className="flex min-h-screen bg-pink-background">
@@ -119,15 +134,19 @@ const Reservation: NextPage = () => {
               Your reservation is confirmed. Come back on mint day to adopt your Keekusaur!
             </p>
             <div className="mt-3 flex justify-center gap-4">
-              <a
-                download="card.jpg"
+              <button
                 className="flex items-center gap-1 rounded-lg bg-purple py-2 pl-3 pr-4 transition-colors hover:bg-opacity-80"
-                href={blob}
+                onClick={onDownload}
               >
-                <DownloadIcon className="h-6 w-6 text-white" />
-                <span className="font-gmcafe text-lg text-white">Download</span>
-              </a>
-              <a
+                {!downloadLoading && (
+                  <>
+                    <DownloadIcon className="h-6 w-6 text-white" />
+                    <span className="font-gmcafe text-lg text-white">Download</span>
+                  </>
+                )}
+                {downloadLoading && <LoadingIcon />}
+              </button>
+              <button
                 className="flex items-center gap-2 rounded-lg bg-purple py-2 px-4 transition-colors hover:bg-opacity-80"
                 onClick={onTwitterShare}
               >
@@ -138,7 +157,7 @@ const Reservation: NextPage = () => {
                   </>
                 )}
                 {cacheCardLoading && <LoadingIcon />}
-              </a>
+              </button>
             </div>
           </div>
         )}
