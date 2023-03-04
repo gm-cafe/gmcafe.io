@@ -134,12 +134,13 @@ export default Reservation;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { img } = ctx.query;
+  const parsedImg = img ? (typeof img === 'string' ? img : img[0]) : undefined;
 
   return {
     props: {
       title: 'Reservation',
       metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
-      metaImage: img || '/keeku_banner.png',
+      metaImage: parsedImg ? encodeURI(parsedImg) : '/keeku_banner.png',
       twitterCard: 'summary_large_image',
     },
   };
