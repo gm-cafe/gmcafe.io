@@ -16,7 +16,7 @@ const Reservation: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState('');
   const [blob, setBlob] = useState('');
-  const [cacheCardLoading, setCacheCardLoading] = useState(true);
+  const [cacheCardLoading, setCacheCardLoading] = useState(false);
   const [cacheCard, setCacheCard] = useState('');
 
   const isValid = utils.isAddress(input) || input.endsWith('.eth');
@@ -60,6 +60,22 @@ const Reservation: NextPage = () => {
       .then((blob) => setBlob(URL.createObjectURL(blob)))
       .catch(toastError);
   }, [imgUrl]);
+
+  const onTwitterShare = async () => {
+    setCacheCardLoading(true);
+
+    const cacheCard: string | undefined = card
+      ? await fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
+          .then((response) => response.json())
+          .then((json) => json.url)
+      : undefined;
+
+    const twitterIntent = `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation${
+      cacheCard ? `?img=${encodeURIComponent(cacheCard)}` : undefined
+    }`;
+
+    window.location.href = twitterIntent;
+  };
 
   useEffect(() => {
     card &&
@@ -113,11 +129,7 @@ const Reservation: NextPage = () => {
               </a>
               <a
                 className="flex items-center gap-2 rounded-lg bg-purple py-2 px-4 transition-colors hover:bg-opacity-80"
-                href={encodeURI(
-                  `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation${
-                    cacheCard ? `?img=${encodeURIComponent(cacheCard)}` : undefined
-                  }`
-                )}
+                onClick={onTwitterShare}
               >
                 {!cacheCardLoading && (
                   <>
