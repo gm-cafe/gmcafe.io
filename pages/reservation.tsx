@@ -73,15 +73,18 @@ const Reservation: NextPage = () => {
         )}
         {card && (
           <div>
-            <h1 className="mx-4 mb-2 font-gmcafe text-xl text-purple">Reservation Card</h1>
-            <div className="rounded-[1.2rem] bg-white p-2 md:rounded-[2rem]">
+            <div className="rounded-[1.2rem] bg-white p-3 md:rounded-[2rem]">
               <Image
                 width={1391}
                 height={794}
-                src={`https://alpha.antistupid.com/render/card.png?${card}`}
+                src={`https://alpha.antistupid.com/render/card.jpg?${card}&size=800`}
                 alt="Card"
+                unoptimized
               />
             </div>
+            <p className="mt-1 text-center font-gmcafe text-lg text-purple">
+              Your reservation is confirmed. Come back on mint day to adopt your Keekusaur!
+            </p>
           </div>
         )}
         {state !== 'confirmed' && (
