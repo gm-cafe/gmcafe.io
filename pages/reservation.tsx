@@ -2,11 +2,14 @@ import { DownloadIcon, XIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { constants, utils } from 'ethers';
 import { GetServerSideProps, NextPage } from 'next';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useEnsAddress } from 'wagmi';
 import { LoadingIcon, TwitterIcon } from '../components/Icons';
 import { toastError } from '../lib/util/toast';
 import Image from 'next/image';
+import { loadFull } from 'tsparticles';
+import { Engine } from 'tsparticles-engine';
+import Particles from 'react-tsparticles';
 
 type State = 'typing' | 'confirmed' | 'unconfirmed';
 
@@ -103,6 +106,10 @@ const Reservation: NextPage = () => {
     window.location.href = twitterIntent;
   };
 
+  const particlesInit = async (engine: Engine) => {
+    await loadFull(engine);
+  };
+
   return (
     <div className="flex min-h-screen bg-pink-background">
       <div className="mx-auto flex max-w-screen-sm flex-1 flex-col items-center justify-center gap-6 p-2">
@@ -180,6 +187,137 @@ const Reservation: NextPage = () => {
           </button>
         )}
       </div>
+      {state === 'confirmed' && (
+        <Particles
+          init={particlesInit}
+          options={{
+            emitters: [
+              {
+                position: {
+                  x: 0,
+                  y: 30,
+                },
+                rate: {
+                  quantity: 10,
+                  delay: 0.15,
+                },
+                particles: {
+                  move: {
+                    direction: 'top-right',
+                    outModes: {
+                      top: 'none',
+                      left: 'none',
+                      default: 'destroy',
+                    },
+                  },
+                },
+              },
+              {
+                position: {
+                  x: 100,
+                  y: 30,
+                },
+                rate: {
+                  quantity: 10,
+                  delay: 0.15,
+                },
+                particles: {
+                  move: {
+                    direction: 'top-left',
+                    outModes: {
+                      top: 'none',
+                      right: 'none',
+                      default: 'destroy',
+                    },
+                  },
+                },
+              },
+            ],
+            particles: {
+              color: {
+                value: ['#8946ab', '#ffffff', '#ff7dbd', '#ffb8d9'],
+              },
+              move: {
+                decay: 0.05,
+                direction: 'top',
+                enable: true,
+                gravity: {
+                  enable: true,
+                },
+                outModes: {
+                  top: 'none',
+                  default: 'destroy',
+                },
+                speed: {
+                  min: 10,
+                  max: 50,
+                },
+              },
+              number: {
+                value: 0,
+              },
+              opacity: {
+                value: 1,
+              },
+              rotate: {
+                value: {
+                  min: 0,
+                  max: 360,
+                },
+                direction: 'random',
+                animation: {
+                  enable: true,
+                  speed: 30,
+                },
+              },
+              tilt: {
+                direction: 'random',
+                enable: true,
+                value: {
+                  min: 0,
+                  max: 360,
+                },
+                animation: {
+                  enable: true,
+                  speed: 30,
+                },
+              },
+              size: {
+                value: {
+                  min: 2,
+                  max: 4,
+                },
+                animation: {
+                  enable: true,
+                  startValue: 'min',
+                  count: 1,
+                  speed: 16,
+                  sync: true,
+                },
+              },
+              roll: {
+                enable: true,
+                speed: {
+                  min: 5,
+                  max: 15,
+                },
+              },
+              wobble: {
+                distance: 30,
+                enable: true,
+                speed: {
+                  min: -7,
+                  max: 7,
+                },
+              },
+              shape: {
+                type: ['circle', 'square'],
+                options: {},
+              },
+            },
+          }}
+        />
+      )}
     </div>
   );
 };
