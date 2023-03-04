@@ -99,7 +99,11 @@ const Reservation: NextPage = () => {
               </a>
               <a
                 className="flex items-center gap-2 rounded-lg bg-purple py-2 px-4 transition-colors hover:bg-opacity-80"
-                href={encodeURI(`https://twitter.com/intent/tweet?url=${imgUrl}`)}
+                href={encodeURI(
+                  `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation?img=${encodeURIComponent(
+                    imgUrl
+                  )}`
+                )}
               >
                 <TwitterIcon className="h-6 w-6" fill="#ffffff" />
                 <span className="font-gmcafe text-lg text-white">Share</span>
