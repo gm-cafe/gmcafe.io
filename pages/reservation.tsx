@@ -106,6 +106,8 @@ const Reservation: NextPage = () => {
     }`;
 
     window.open(twitterIntent, '_blank')?.focus();
+
+    setCacheCardLoading(false);
   };
 
   const particlesInit = async (engine: Engine) => {
