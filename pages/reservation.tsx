@@ -1,10 +1,10 @@
-import { XIcon } from '@heroicons/react/solid';
+import { DownloadIcon, XIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { constants, utils } from 'ethers';
-import { NextPage } from 'next';
-import { ChangeEvent, useState } from 'react';
+import { GetServerSideProps, NextPage } from 'next';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useEnsAddress } from 'wagmi';
-import { LoadingIcon } from '../components/Icons';
+import { LoadingIcon, TwitterIcon } from '../components/Icons';
 import { toastError } from '../lib/util/toast';
 import Image from 'next/image';
 
@@ -15,8 +15,11 @@ const Reservation: NextPage = () => {
   const [state, setState] = useState<State>('typing');
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState('');
+  const [blob, setBlob] = useState('');
 
   const isValid = utils.isAddress(input) || input.endsWith('.eth');
+
+  const imgUrl = `https://alpha.antistupid.com/render/card.jpg?${card}&size=800`;
 
   const { data } = useEnsAddress({
     name: input,
@@ -49,6 +52,12 @@ const Reservation: NextPage = () => {
       .finally(() => setLoading(false));
   };
 
+  useEffect(() => {
+    fetch(imgUrl)
+      .then((response) => response.blob())
+      .then((blob) => setBlob(URL.createObjectURL(blob)));
+  }, [imgUrl]);
+
   return (
     <div className="flex min-h-screen bg-pink-background">
       <div className="mx-auto flex max-w-screen-sm flex-1 flex-col items-center justify-center gap-6 p-2">
@@ -74,17 +83,28 @@ const Reservation: NextPage = () => {
         {card && (
           <div>
             <div className="rounded-[1.2rem] bg-white p-3 md:rounded-[2rem]">
-              <Image
-                width={1391}
-                height={794}
-                src={`https://alpha.antistupid.com/render/card.jpg?${card}&size=800`}
-                alt="Card"
-                unoptimized
-              />
+              <Image width={1391} height={794} src={imgUrl} alt="Card" unoptimized />
             </div>
             <p className="mt-1 text-center font-gmcafe text-lg text-purple">
               Your reservation is confirmed. Come back on mint day to adopt your Keekusaur!
             </p>
+            <div className="mt-3 flex justify-center gap-4">
+              <a
+                download="card.jpg"
+                className="flex items-center gap-1 rounded-lg bg-purple py-2 pl-3 pr-4 transition-colors hover:bg-opacity-80"
+                href={blob}
+              >
+                <DownloadIcon className="h-6 w-6 text-white" />
+                <span className="font-gmcafe text-lg text-white">Download</span>
+              </a>
+              <a
+                className="flex items-center gap-2 rounded-lg bg-purple py-2 px-4 transition-colors hover:bg-opacity-80"
+                href={encodeURI(`https://twitter.com/intent/tweet?url=${imgUrl}`)}
+              >
+                <TwitterIcon className="h-6 w-6" fill="#ffffff" />
+                <span className="font-gmcafe text-lg text-white">Share</span>
+              </a>
+            </div>
           </div>
         )}
         {state !== 'confirmed' && (
@@ -94,7 +114,7 @@ const Reservation: NextPage = () => {
               { 'cursor-not-allowed opacity-60': !isValid }
             )}
             onClick={onClick}
-            disabled={state !== 'typing' || !isValid}
+            disabled={state !== 'typing' || !data}
           >
             {loading ? (
               <LoadingIcon className="h-8 w-8 p-1 text-purple" />
@@ -112,9 +132,15 @@ const Reservation: NextPage = () => {
 
 export default Reservation;
 
-export const getServerSideProps = () => ({
-  props: {
-    title: 'Reservation',
-    metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
-  },
-});
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { img } = ctx.query;
+
+  return {
+    props: {
+      title: 'Reservation',
+      metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
+      metaImage: img || '/keeku_banner.png',
+      twitterCard: 'summary_large_image',
+    },
+  };
+};
