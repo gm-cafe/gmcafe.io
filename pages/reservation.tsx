@@ -87,23 +87,25 @@ const Reservation: NextPage = () => {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+
+    setDownloadLoading(false);
   };
 
   const onTwitterShare = async () => {
     setCacheCardLoading(true);
 
-    const cacheCard: string | undefined = card
+    const hash: string | undefined = card
       ? await fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
           .then((response) => response.json())
-          .then((json) => json.url)
+          .then((json) => json.hash)
           .catch(toastError)
       : undefined;
 
     const twitterIntent = `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation${
-      cacheCard ? `?img=${encodeURIComponent(cacheCard)}` : undefined
+      hash ? `?img=${hash}` : undefined
     }`;
 
-    window.location.href = twitterIntent;
+    window.open(twitterIntent, '_blank')?.focus();
   };
 
   const particlesInit = async (engine: Engine) => {
@@ -326,14 +328,13 @@ export default Reservation;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { img } = ctx.query;
-  const parsedImg = img ? (typeof img === 'string' ? img : img[0]) : undefined;
-  const sanitizedImg = parsedImg?.includes('alpha.antistupid.com') ? parsedImg : undefined;
+  const hash = img ? (typeof img === 'string' ? img : img[0]) : undefined;
 
   return {
     props: {
       title: 'Reservation',
       metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
-      metaImage: sanitizedImg ? encodeURI(sanitizedImg) : '/keeku_banner.png',
+      metaImage: hash ? `https://alpha.antistupid.com/card-cache/${hash}` : '/keeku_banner.png',
       twitterCard: 'summary_large_image',
     },
   };
