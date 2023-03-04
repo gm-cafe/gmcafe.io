@@ -112,5 +112,6 @@ export default Reservation;
 export const getServerSideProps = () => ({
   props: {
     title: 'Reservation',
+    metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
   },
 });
