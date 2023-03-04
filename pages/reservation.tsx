@@ -16,6 +16,8 @@ const Reservation: NextPage = () => {
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState('');
   const [blob, setBlob] = useState('');
+  const [cacheCardLoading, setCacheCardLoading] = useState(true);
+  const [cacheCard, setCacheCard] = useState('');
 
   const isValid = utils.isAddress(input) || input.endsWith('.eth');
 
@@ -55,8 +57,20 @@ const Reservation: NextPage = () => {
   useEffect(() => {
     fetch(imgUrl)
       .then((response) => response.blob())
-      .then((blob) => setBlob(URL.createObjectURL(blob)));
+      .then((blob) => setBlob(URL.createObjectURL(blob)))
+      .catch(toastError);
   }, [imgUrl]);
+
+  useEffect(() => {
+    card &&
+      fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
+        .then((response) => response.json())
+        .then((json) => {
+          setCacheCard(json.url);
+        })
+        .catch(toastError)
+        .finally(() => setCacheCardLoading(false));
+  }, [card]);
 
   return (
     <div className="flex min-h-screen bg-pink-background">
@@ -100,13 +114,18 @@ const Reservation: NextPage = () => {
               <a
                 className="flex items-center gap-2 rounded-lg bg-purple py-2 px-4 transition-colors hover:bg-opacity-80"
                 href={encodeURI(
-                  `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation?img=${encodeURIComponent(
-                    imgUrl
-                  )}`
+                  `https://twitter.com/intent/tweet?url=https://gmcafe.io/reservation${
+                    cacheCard ? `?img=${encodeURIComponent(cacheCard)}` : undefined
+                  }`
                 )}
               >
-                <TwitterIcon className="h-6 w-6" fill="#ffffff" />
-                <span className="font-gmcafe text-lg text-white">Share</span>
+                {!cacheCardLoading && (
+                  <>
+                    <TwitterIcon className="h-6 w-6" fill="#ffffff" />
+                    <span className="font-gmcafe text-lg text-white">Share</span>
+                  </>
+                )}
+                {cacheCardLoading && <LoadingIcon />}
               </a>
             </div>
           </div>
@@ -139,12 +158,13 @@ export default Reservation;
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { img } = ctx.query;
   const parsedImg = img ? (typeof img === 'string' ? img : img[0]) : undefined;
+  const sanitizedImg = parsedImg?.includes('alpha.antistupid.com') ? parsedImg : undefined;
 
   return {
     props: {
       title: 'Reservation',
       metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
-      metaImage: parsedImg ? encodeURI(parsedImg) : '/keeku_banner.png',
+      metaImage: sanitizedImg ? encodeURI(sanitizedImg) : '/keeku_banner.png',
       twitterCard: 'summary_large_image',
     },
   };
