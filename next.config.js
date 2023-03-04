@@ -13,7 +13,11 @@ const moduleExports = {
     return config;
   },
   images: {
-    domains: ['lh3.googleusercontent.com', 'gmcafe.s3.us-east-2.amazonaws.com'],
+    domains: [
+      'lh3.googleusercontent.com',
+      'gmcafe.s3.us-east-2.amazonaws.com',
+      'alpha.antistupid.com',
+    ],
   },
   async rewrites() {
     return [
