@@ -15,7 +15,6 @@ export default function Document() {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Good Morning Café" />
 
-        <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@gmcafeNFT" />
         <meta name="twitter:title" content="Good Morning Café" />
 

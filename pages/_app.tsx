@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {metaDescription && <meta name="description" content={metaDescription} />}
         {metaDescription && <meta property="og:description" content={metaDescription} />}
         {metaDescription && <meta name="twitter:description" content={metaDescription} />}
-        {twitterCard && <meta name="twitter:card" content={twitterCard} />}
+        <meta name="twitter:card" content={twitterCard || 'summary'} />
       </Head>
       <RainbowKitProvider>
         <div>
