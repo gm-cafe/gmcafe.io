@@ -8,15 +8,13 @@ import { useAccount } from 'wagmi';
 import useContractRead from '../lib/hooks/useContractRead';
 import { Asset } from '../lib/util/types';
 import AnchorLink from '../components/AnchorLink';
-import Particles from 'react-tsparticles';
-import { Engine } from 'tsparticles-engine';
-import { loadFull } from 'tsparticles';
 import { Default, Discord } from '../components/StyledLinks';
 import { NextPageContext } from 'next';
 import Countdown from '../components/Countdown';
 import { metadata } from '../lib/constants';
 import { BigNumber } from 'ethers';
 import { gmooContract, gmooABI } from '../lib/util/addresses';
+import Confetti from '../components/Confetti';
 
 type State = 'connect' | 'approve' | 'migrate' | 'migrated';
 export type LoadingState = 'approve' | 'migrate' | undefined;
@@ -65,10 +63,6 @@ const Migrate = () => {
       <img src="migrate/portal.png" width={300} alt="Loading Portal" />
     </div>
   );
-
-  const particlesInit = async (engine: Engine) => {
-    await loadFull(engine);
-  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-pink-background pt-28">
@@ -230,137 +224,7 @@ const Migrate = () => {
           </div>
         </div>
       </div>
-      {state === 'migrated' && (
-        <Particles
-          init={particlesInit}
-          options={{
-            emitters: [
-              {
-                position: {
-                  x: 0,
-                  y: 30,
-                },
-                rate: {
-                  quantity: 5,
-                  delay: 0.15,
-                },
-                particles: {
-                  move: {
-                    direction: 'top-right',
-                    outModes: {
-                      top: 'none',
-                      left: 'none',
-                      default: 'destroy',
-                    },
-                  },
-                },
-              },
-              {
-                position: {
-                  x: 100,
-                  y: 30,
-                },
-                rate: {
-                  quantity: 5,
-                  delay: 0.15,
-                },
-                particles: {
-                  move: {
-                    direction: 'top-left',
-                    outModes: {
-                      top: 'none',
-                      right: 'none',
-                      default: 'destroy',
-                    },
-                  },
-                },
-              },
-            ],
-            particles: {
-              color: {
-                value: ['#8946ab', '#ffffff', '#ff7dbd', '#ffb8d9'],
-              },
-              move: {
-                decay: 0.05,
-                direction: 'top',
-                enable: true,
-                gravity: {
-                  enable: true,
-                },
-                outModes: {
-                  top: 'none',
-                  default: 'destroy',
-                },
-                speed: {
-                  min: 10,
-                  max: 50,
-                },
-              },
-              number: {
-                value: 0,
-              },
-              opacity: {
-                value: 1,
-              },
-              rotate: {
-                value: {
-                  min: 0,
-                  max: 360,
-                },
-                direction: 'random',
-                animation: {
-                  enable: true,
-                  speed: 30,
-                },
-              },
-              tilt: {
-                direction: 'random',
-                enable: true,
-                value: {
-                  min: 0,
-                  max: 360,
-                },
-                animation: {
-                  enable: true,
-                  speed: 30,
-                },
-              },
-              size: {
-                value: {
-                  min: 2,
-                  max: 4,
-                },
-                animation: {
-                  enable: true,
-                  startValue: 'min',
-                  count: 1,
-                  speed: 16,
-                  sync: true,
-                },
-              },
-              roll: {
-                enable: true,
-                speed: {
-                  min: 5,
-                  max: 15,
-                },
-              },
-              wobble: {
-                distance: 30,
-                enable: true,
-                speed: {
-                  min: -7,
-                  max: 7,
-                },
-              },
-              shape: {
-                type: ['circle', 'square'],
-                options: {},
-              },
-            },
-          }}
-        />
-      )}
+      {state === 'migrated' && <Confetti />}
     </div>
   );
 };
