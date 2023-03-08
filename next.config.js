@@ -2,7 +2,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const moduleExports = {
-  reactStrictMode: true,,
+  reactStrictMode: true,
   images: {
     domains: [
       'lh3.googleusercontent.com',
