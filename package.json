@@ -26,7 +26,6 @@
     "tsparticles": "^2.9.3",
     "tsparticles-engine": "^2.9.3",
     "typewriter-effect": "^2.19.0",
-    "url-loader": "^4.1.1",
     "wagmi": "^0.5.5"
   },
   "devDependencies": {

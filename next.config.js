@@ -2,16 +2,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const moduleExports = {
-  reactStrictMode: true,
-  webpack: (config, _options) => {
-    config.module.rules.push({
-      test: /\.(mp4)$/,
-      use: {
-        loader: require.resolve('url-loader'),
-      },
-    });
-    return config;
-  },
+  reactStrictMode: true,,
   images: {
     domains: [
       'lh3.googleusercontent.com',
