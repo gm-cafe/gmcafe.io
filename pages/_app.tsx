@@ -9,10 +9,11 @@ export type PageProps = {
   title?: string;
   metaImage?: string;
   metaDescription?: string;
+  twitterCard?: string;
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { title, metaImage, metaDescription, ...props } = pageProps;
+  const { title, metaImage, metaDescription, twitterCard, ...props } = pageProps;
   return (
     <>
       <Head>
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {metaDescription && <meta name="description" content={metaDescription} />}
         {metaDescription && <meta property="og:description" content={metaDescription} />}
         {metaDescription && <meta name="twitter:description" content={metaDescription} />}
+        <meta name="twitter:card" content={twitterCard || 'summary'} />
       </Head>
       <RainbowKitProvider>
         <div>

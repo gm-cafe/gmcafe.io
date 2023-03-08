@@ -1,14 +1,11 @@
 import { utils } from 'ethers';
-import { Formik, FormikErrors, Form, Field, ErrorMessage } from 'formik';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useContractWrite } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
-
-type FormValues = {
-  tokenId: string;
-  lockPrice: number;
-  lockPassword: string;
-};
+import generatePassword from '../../lib/util/generatePassword';
+import { toastError, toastSuccess } from '../../lib/util/toast';
+import { LoadingIcon } from '../Icons';
+import { ClipboardIcon } from '@heroicons/react/solid';
 
 type Props = {
   id: number;
@@ -16,116 +13,148 @@ type Props = {
 };
 
 const LockAdvanced = ({ id, setOpen }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [price, setPrice] = useState(0);
+  const [confirm, setConfirm] = useState(false);
+  const [password, setPassword] = useState(generatePassword());
+  const [next, setNext] = useState(false);
+
   const { write: lock } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'lockMoo',
+    onSuccess: () => {
+      setLoading(false);
+      setOpen(false);
+      toastSuccess('Locked Moo!');
+    },
+    onError: (error) => {
+      setLoading(false);
+      setOpen(false);
+      error && toastError(error);
+    },
   });
 
-  return (
-    <Formik
-      initialValues={{
-        tokenId: id,
-        lockPrice: 0,
-        lockPassword: '',
-      }}
-      onSubmit={({ tokenId, lockPrice, lockPassword }) => {
-        const priceInGwei = utils.parseEther(lockPrice.toString());
-        const hashedPassword = utils.keccak256(utils.toUtf8Bytes(lockPassword));
-        lock({
-          args: [tokenId, priceInGwei, hashedPassword],
-        });
-      }}
-      onReset={(values, actions) => {
-        actions.setValues({
-          tokenId: id,
-          lockPrice: 0,
-          lockPassword: '',
-        });
-        setOpen(false);
-      }}
-      validate={({ lockPrice, lockPassword }) => {
-        let errors: FormikErrors<FormValues> = {};
-        if (lockPrice <= 0) {
-          errors.lockPrice = 'Price must be greater than 0.';
-        }
+  const onClick = () => {
+    setLoading(true);
+    const priceInGwei = utils.parseEther(price.toString());
+    const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
+    lock({
+      args: [id, priceInGwei, hashedPassword],
+    });
+  };
 
-        if (lockPassword === '') {
-          errors.lockPassword = 'Password cannot be empty.';
-        }
-        return errors;
-      }}
-    >
-      <Form className="my-4 flex flex-col gap-4">
-        <div className="flex">
-          <div className="flex flex-1 flex-col">
-            <label className="px-2 font-gmcafe text-lg text-purple" htmlFor="tokenId">
-              ID
-            </label>
-            <Field
-              className="cursor-not-allowed rounded border-2 border-purple bg-gray-100 py-1 px-2 text-purple"
-              type="number"
-              id="tokenId"
-              name="tokenId"
-              disabled
-              required
-            />
-          </div>
-        </div>
-        <div className="flex gap-4">
+  const onNext = () => {
+    setPassword(generatePassword());
+    setConfirm(false);
+    setNext(true);
+  };
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(password);
+    setConfirm(true);
+  };
+
+  return (
+    <div className="my-4 flex flex-col gap-4">
+      <div className="flex flex-col items-center gap-4">
+        <p className="text-sm text-purple">
+          Basic Lock is a great option to help protect against most phishing scams. However if your
+          private key or seed phrase is compromised, then the scammer would still be able to unlock
+          your cow from our website. With Advanced Lock, your cow would remain safe in your wallet.
+        </p>
+        {!next && (
+          <p className="text-sm text-purple">
+            To unlock your Moo in the future, you will either need to pay the Ether bounty chosen
+            below or use the randomly generated passphrase on the next screen.
+          </p>
+        )}
+        {!next && (
           <div className="flex flex-col">
             <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">
-              Price
+              Price (Ether)
             </label>
             <div className="flex items-center gap-2 rounded border-2 border-purple">
-              <Field
+              <input
                 className="py-1 pl-2 text-purple focus-within:outline-0"
                 type="number"
                 id="lockPrice"
                 name="lockPrice"
-                step="any"
                 required
+                step={0.01}
                 min={0}
+                value={price}
+                onChange={(e) => setPrice(parseFloat(e.target.value))}
               />
               <span className="pr-2 font-medium text-purple">Ξ</span>
             </div>
-            <ErrorMessage
-              component="span"
-              className="text-right text-xs text-pink"
-              name="lockPrice"
-            />
+            {price <= 0 && (
+              <span className="text-right text-xs text-pink">Price must be greater than 0.</span>
+            )}
           </div>
+        )}
+        {!next && (
+          <p className="text-sm text-purple">
+            We recommend choosing a bounty that a scammer would be unlikely to pay. If opting to pay
+            the bounty to unlock your Moo, your Ether will be sent to the GMCafé contract. Please
+            open up a ticket in our Discord to have your Ether returned to you.
+          </p>
+        )}
+        {next && (
           <div className="flex flex-col">
-            <label className="font-gmcafe text-lg text-purple" htmlFor="lockPassword">
-              Password
-            </label>
-            <Field
-              className="rounded border-2 border-purple bg-white py-1 px-2 text-purple"
-              type="password"
-              id="lockPassword"
-              name="lockPassword"
-            />
-            <ErrorMessage
-              component="span"
-              className="text-right text-xs text-pink"
-              name="lockPassword"
-            />
+            <span className="text-sm text-purple">Your recovery phrase is:</span>
+            <div className="mx-auto font-gmcafe text-6xl text-purple">{password}</div>
+            <p className="text-sm text-purple">
+              Please copy and save this passphrase somewhere safe, as you will need it to unlock
+              your Moo. <b>You will not be able to retrieve this passphrase again.</b>
+            </p>
           </div>
-        </div>
-        <div className="mt-2 flex justify-end gap-4">
-          <Field
-            className="cursor-pointer rounded-xl border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
-            type="reset"
-            value="Cancel"
-          />
-          <Field
-            className="cursor-pointer rounded-xl bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-            type="submit"
-            value="Lock"
-          />
-        </div>
-      </Form>
-    </Formik>
+        )}
+      </div>
+      <div className="mt-2 flex justify-end gap-4">
+        {next && (
+          <button
+            onClick={onCopy}
+            className="mr-auto flex cursor-pointer items-center gap-x-2 rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+          >
+            <ClipboardIcon className="h-4 w-4 text-white" />
+            <span className="font-gmcafe text-lg text-white">{confirm ? 'Copied!' : 'Copy'}</span>
+          </button>
+        )}
+        <button
+          onClick={() => setOpen(false)}
+          className="cursor-pointer rounded-lg border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
+        >
+          Cancel
+        </button>
+        {!next && (
+          <button
+            className="rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white transition-colors disabled:cursor-not-allowed disabled:bg-purple/60"
+            disabled={price <= 0}
+            onClick={onNext}
+          >
+            Next
+          </button>
+        )}
+        {next && (
+          <button
+            onClick={() => setNext(false)}
+            className="cursor-pointer rounded-lg border-2 border-purple px-4 py-1 font-gmcafe text-xl text-purple"
+          >
+            Back
+          </button>
+        )}
+        {next && (
+          <button
+            className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
+            disabled={loading}
+            onClick={onClick}
+          >
+            {loading ? <LoadingIcon /> : 'Lock'}
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
 

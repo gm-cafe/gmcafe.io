@@ -4,13 +4,7 @@ import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
-import {
-  openSeaContract,
-  gmooContract,
-  openSeaABI,
-  redeemContract,
-  redeemABI,
-} from '../../lib/util/addresses';
+import { openSeaContract, openSeaABI, redeemContract, redeemABI } from '../../lib/util/addresses';
 import { LoadingIcon } from '../Icons';
 import useContractRead from '../../lib/hooks/useContractRead';
 
@@ -53,7 +47,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
     addressOrName: openSeaContract,
     contractInterface: openSeaABI,
     functionName: 'isApprovedForAll',
-    args: [address, gmooContract],
+    args: [address, redeemContract],
   });
 
   const { isFetched } = useWaitForTransaction({
@@ -91,7 +85,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
       />
       <Button
         className="mt-auto"
-        onClick={() => write({ args: [gmooContract, true] })}
+        onClick={() => write({ args: [redeemContract, true] })}
         loading={isLoading}
       >
         Approve

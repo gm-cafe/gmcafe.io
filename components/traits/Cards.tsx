@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useEntryContext } from '../../lib/providers/EntryContext';
+import shuffle from '../../lib/util/shuffle';
 import Card from './Card';
 import InfiniteScroll from './InfiniteScroll';
 import NoResults from './NoResults';
@@ -17,8 +18,21 @@ const Cards = () => {
   const queryId = useQueryId();
   const [id, setId] = useState(queryId);
 
-  const { paginated } = useEntryContext();
+  const { paginated, metadata: all } = useEntryContext();
   const metadata = paginated.find((entry) => entry.id === id);
+
+  const stampMoo = useMemo(
+    () =>
+      shuffle(
+        all.filter((moo) =>
+          moo.attributes.find(
+            (attribute) =>
+              attribute.trait_type === 'Delivery' && ['Direct', 'Custom'].includes(attribute.value)
+          )
+        )
+      )[0],
+    []
+  );
 
   return (
     <div className="w-full">
@@ -32,7 +46,7 @@ const Cards = () => {
         </div>
       )}
       <InfiniteScroll />
-      <Viewer metadata={metadata} onClose={() => setId(undefined)} />
+      <Viewer metadata={metadata} onClose={() => setId(undefined)} stampId={stampMoo.id} />
     </div>
   );
 };
