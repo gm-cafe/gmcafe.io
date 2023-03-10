@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { CSSProperties } from 'react';
 import { useEnsName, useEnsAvatar } from 'wagmi';
-import { toastError } from '../lib/util/toast';
 
 type Props = {
   address?: string;
@@ -13,13 +12,11 @@ const ENSName = ({ address, className, style }: Props) => {
   const { data: ensName } = useEnsName({
     address: address,
     enabled: !!address,
-    onError: toastError,
   });
 
   const { data: ensAvatar } = useEnsAvatar({
     addressOrName: address,
     enabled: !!address,
-    onError: toastError,
   });
 
   return (
