@@ -5,12 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { gmooContract } from '../../lib/util/addresses';
-import { Moo } from '../../lib/util/types';
+import { Token } from '../../lib/util/types';
 import { OpenSeaIcon } from '../Icons';
 import Stamp from '../Stamp';
 
 type Props = {
-  metadata?: Moo;
+  metadata?: Token;
   onClose: () => void;
   stampId: number;
 };

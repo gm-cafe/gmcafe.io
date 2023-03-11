@@ -21,14 +21,19 @@ type MooInfo = {
   transfers: number;
 };
 
-export type Moo = {
+export type Token = {
   id: number;
   name: string;
   description: string;
   attributes: Attribute[];
   image: string;
+};
+
+export type Moo = Token & {
   info: MooInfo;
 };
+
+export type Keeku = Token;
 
 export type HerdInfo = {
   locked: boolean;
@@ -61,6 +66,11 @@ export type ProviderProps = {
 };
 
 export type EntryContextProps = {
-  metadata: Moo[];
-  paginated: Moo[];
+  metadata: Token[];
+  paginated: Token[];
+  type: CollectionType;
+  setType: (_type: CollectionType) => void;
+  displayName: string;
 };
+
+export type CollectionType = 'moo' | 'rawr';

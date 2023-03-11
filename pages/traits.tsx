@@ -4,6 +4,7 @@ import Filters from '../components/traits/Filters';
 import { FilterProvider } from '../lib/providers/FilterProvider';
 import Cards from '../components/traits/Cards';
 import { EntryProvider } from '../lib/providers/EntryProvider';
+import Toolbar from '../components/traits/Toolbar';
 
 type Props = {
   imageUrl: string;
@@ -16,7 +17,10 @@ const Home: NextPage<Props> = () => {
         <EntryProvider>
           <main className="grid w-full grid-cols-1 gap-x-8 md:grid-cols-[350px_1fr]">
             <Filters />
-            <Cards />
+            <div className="flex flex-col gap-8">
+              <Toolbar />
+              <Cards />
+            </div>
           </main>
         </EntryProvider>
       </FilterProvider>

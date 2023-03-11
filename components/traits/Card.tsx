@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
-import { Moo } from '../../lib/util/types';
+import { Token } from '../../lib/util/types';
 
 type Props = {
-  moo: Moo;
+  token: Token;
   setOpen: () => void;
 };
 
-const Card = ({ moo, setOpen }: Props) => {
-  const { id, name, image } = moo;
+const Card = ({ token, setOpen }: Props) => {
+  const { id, name, image } = token;
 
   return (
     <div className="relative flex animate-section flex-col gap-3">

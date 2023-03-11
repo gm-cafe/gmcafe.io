@@ -8,6 +8,7 @@ const moduleExports = {
       'lh3.googleusercontent.com',
       'gmcafe.s3.us-east-2.amazonaws.com',
       'alpha.antistupid.com',
+      'cdn.discordapp.com',
     ],
   },
   async rewrites() {
