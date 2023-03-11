@@ -6,6 +6,7 @@ const defaultEntryContext: EntryContextProps = {
   metadata: [],
   type: 'moo',
   setType: () => null,
+  displayName: 'Moo',
 };
 
 export const EntryContext = createContext(defaultEntryContext);

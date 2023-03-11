@@ -70,6 +70,7 @@ export type EntryContextProps = {
   paginated: Token[];
   type: CollectionType;
   setType: (_type: CollectionType) => void;
+  displayName: string;
 };
 
 export type CollectionType = 'moo' | 'rawr';

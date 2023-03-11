@@ -10,6 +10,8 @@ export const EntryProvider = ({ children }: ProviderProps) => {
   const { filters, count, search } = useFilterContext();
   const [type, setType] = useState<CollectionType>('moo');
 
+  const displayName = type === 'moo' ? 'Moo' : 'Keeku';
+
   const mooIds = useAddressToMooIds(search);
 
   const searches = search.split(' ');
@@ -69,6 +71,7 @@ export const EntryProvider = ({ children }: ProviderProps) => {
         paginated: entries.slice(0, count),
         type,
         setType,
+        displayName,
       }}
     >
       {children}
