@@ -9,7 +9,7 @@ const Toolbar = () => {
   const pluralizedName = metadata.length > 1 ? `${displayName}s` : displayName;
 
   return (
-    <div className="flex justify-between">
+    <div className="flex items-center justify-between">
       <div className="divide-x">
         <button
           className={classNames(
@@ -43,7 +43,7 @@ const Toolbar = () => {
           </div>
         </button>
       </div>
-      <p className="font-gmcafe text-4xl text-purple">
+      <p className="font-gmcafe text-3xl text-purple md:text-4xl">
         {metadata.length} {pluralizedName}
       </p>
     </div>
