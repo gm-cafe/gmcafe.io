@@ -1,0 +1,37 @@
+/* Line */
+.stepper-item:not(:last-child):before {
+  content: '';
+  height: 16px;
+  background-color: white;
+  order: 1;
+  bottom: 28px;
+  position: relative;
+  left: 50%;
+}
+
+/* Dot */
+.stepper-item:after {
+  --size: 2.5rem;
+  height: var(--size);
+  width: var(--size);
+  content: '';
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 9999px;
+  margin: 1rem auto 0;
+
+  border-width: 8px;
+  border-color: white;
+}
+
+.stepper-title:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}

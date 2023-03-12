@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/mint.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import { RainbowKitProvider } from '../lib/providers/RainbowKitProvider';
