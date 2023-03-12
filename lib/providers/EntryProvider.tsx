@@ -16,7 +16,7 @@ export const EntryProvider = ({ children }: ProviderProps) => {
 
   const searches = search.split(' ');
 
-  const collection = type === 'moo' ? moos : type === 'rawr' ? keekus : [];
+  const collection = type === 'moo' ? moos : type === 'keeku' ? keekus : [];
   const entries = collection
     .filter(
       ({ id }) =>
