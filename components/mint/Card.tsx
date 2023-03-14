@@ -17,7 +17,7 @@ const Card = ({ current, index, count, next }: Props) => {
       )}
       style={{
         transform: `rotate(${
-          current >= index ? 0 : index * 5 * (Math.random() > 0.5 ? -1 : 1)
+          current >= index ? 0 : Math.random() * count * 5 * (Math.random() > 0.5 ? -1 : 1)
         }deg)`,
         zIndex: current > index ? 0 : count - index,
       }}
