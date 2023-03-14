@@ -23,7 +23,7 @@ const Card = ({ current, index, count, next }: Props) => {
       }}
       onClick={next}
     >
-      <Image src="/mint/animals.png" alt="Animals" layout="fill" />
+      <Image src="/mint/fresh_food.png" alt="Animals" layout="fill" />
     </div>
   );
 };
