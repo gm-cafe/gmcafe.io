@@ -1,5 +1,4 @@
 import { ContractInterface } from 'ethers';
-import { Result } from 'ethers/lib/utils';
 import { useContractWrite as useWagmiContractWrite } from 'wagmi';
 import { gmooABI, gmooContract } from '../util/addresses';
 import { toastError } from '../util/toast';
