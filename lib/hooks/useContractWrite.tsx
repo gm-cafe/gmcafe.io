@@ -1,5 +1,5 @@
 import { ContractInterface } from 'ethers';
-import { useContractWrite as useWagmiContractWrite } from 'wagmi';
+import { useContractWrite as useWagmiContractWrite, usePrepareContractWrite } from 'wagmi';
 import { gmooABI, gmooContract } from '../util/addresses';
 import { toastError } from '../util/toast';
 
@@ -19,8 +19,8 @@ const useContractWrite = ({
   args,
   onSuccess,
   onError,
-}: Arguments) =>
-  useWagmiContractWrite({
+}: Arguments) => {
+  const { config } = usePrepareContractWrite({
     functionName,
     addressOrName,
     contractInterface,
@@ -31,5 +31,8 @@ const useContractWrite = ({
       onError && onError(err);
     },
   });
+
+  return useWagmiContractWrite(config);
+};
 
 export default useContractWrite;

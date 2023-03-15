@@ -24,6 +24,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'unlockMoo',
+    args: [id, '', constants.AddressZero],
   });
 
   const { isSuccess: unlockSuccess } = useWaitForTransaction({
@@ -40,7 +41,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    unlock({ args: [id, '', constants.AddressZero] });
+    unlock?.();
   };
 
   return (

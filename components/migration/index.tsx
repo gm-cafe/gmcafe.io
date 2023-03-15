@@ -86,7 +86,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
       />
       <Button
         className="mt-auto"
-        onClick={() => write({ args: [redeemContract, true] })}
+        onClick={() => write?.({ recklesslySetUnpreparedArgs: [redeemContract, true] })}
         loading={isLoading}
       >
         Approve
@@ -148,7 +148,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button className="mt-auto" onClick={() => write({ args: [tokens] })} loading={isLoading}>
+      <Button className="mt-auto" onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })} loading={isLoading}>
         Migrate
       </Button>
     </>

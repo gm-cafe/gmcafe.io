@@ -24,6 +24,7 @@ const LockBasic = ({ id, setOpen }: Props) => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'lockMoo',
+    args: [id, 0, constants.HashZero],
   });
 
   const { isSuccess: lockSuccess } = useWaitForTransaction({
@@ -40,7 +41,7 @@ const LockBasic = ({ id, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    lock({ args: [id, 0, constants.HashZero] });
+    lock?.();
   };
 
   return (

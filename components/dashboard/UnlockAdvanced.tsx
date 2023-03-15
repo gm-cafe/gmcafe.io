@@ -35,6 +35,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
       setLoading(false);
       setOpen(false);
     },
+    args: [id, password, destination],
   });
 
   const { data } = useContractRead({
@@ -50,9 +51,8 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    unlock({
-      args: [id, password, destination],
-      overrides: {
+    unlock?.({
+      recklesslySetUnpreparedOverrides: {
         value: payBounty ? unlockPriceWei : undefined,
       },
     });

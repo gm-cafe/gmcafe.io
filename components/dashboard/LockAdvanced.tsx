@@ -39,8 +39,8 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     setLoading(true);
     const priceInGwei = utils.parseEther(price.toString());
     const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
-    lock({
-      args: [id, priceInGwei, hashedPassword],
+    lock?.({
+      recklesslySetUnpreparedArgs: [id, priceInGwei, hashedPassword],
     });
   };
 
