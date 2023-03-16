@@ -15,7 +15,7 @@ type MooInfo = {
   bgColor: string;
   block: number;
   fgColor: string;
-  owner: string;
+  owner: `0x${string}`;
   tag: number;
   token: string;
   transfers: number;
@@ -41,11 +41,11 @@ export type HerdInfo = {
   tag: number;
   transfers: number;
   block: number;
-  owner: string;
+  owner: `0x${string}`;
 };
 
 export type HerdInfoByOwner = {
-  owner: string;
+  owner: `0x${string}`;
   herd: HerdInfo[];
 };
 

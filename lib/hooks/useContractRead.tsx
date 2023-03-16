@@ -1,13 +1,13 @@
-import { ContractInterface } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 import { useContractRead as useWagmiContractRead } from 'wagmi';
 import { gmooABI, gmooContract } from '../util/addresses';
 import { toastError } from '../util/toast';
+import { Abi } from 'abitype';
 
 type Arguments = {
   functionName: string;
-  addressOrName?: string;
-  contractInterface?: ContractInterface;
+  addressOrName?: `0x${string}`;
+  contractInterface?: Abi;
   args?: any;
   enabled?: boolean;
   onSuccess?: (_data: Result) => void;
@@ -26,8 +26,8 @@ const useContractRead = ({
   watch,
 }: Arguments) =>
   useWagmiContractRead({
-    addressOrName,
-    contractInterface,
+    address: addressOrName,
+    abi: contractInterface,
     functionName,
     args,
     enabled,

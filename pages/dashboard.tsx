@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import { BigNumber } from 'ethers';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
-import { useAccount, useContractRead, useContractReads } from 'wagmi';
+import { useAccount, useContractReads } from 'wagmi';
 import DashboardMoo from '../components/dashboard/DashboardMoo';
+import useContractRead from '../lib/hooks/useContractRead';
 import useGetHerd from '../lib/hooks/useGetHerd';
 import { gmooABI, gmooContract } from '../lib/util/addresses';
 import { Moo } from '../lib/util/types';
@@ -50,7 +51,7 @@ const Dashboard = () => {
         functionName: 'tokenURI',
         args: [id],
       })),
-    onSuccess: (tokenUriData) => {
+    onSuccess: (tokenUriData: string[]) => {
       const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
       Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
         (moos) => setMoos(moos)
