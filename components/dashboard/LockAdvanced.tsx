@@ -1,11 +1,11 @@
 import { utils } from 'ethers';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useContractWrite } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import generatePassword from '../../lib/util/generatePassword';
 import { toastError, toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 import { ClipboardIcon } from '@heroicons/react/solid';
+import useContractWrite from '../../lib/hooks/useContractWrite';
 
 type Props = {
   id: number;
@@ -39,8 +39,8 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     setLoading(true);
     const priceInGwei = utils.parseEther(price.toString());
     const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
-    lock({
-      args: [id, priceInGwei, hashedPassword],
+    lock?.({
+      recklesslySetUnpreparedArgs: [id, priceInGwei, hashedPassword],
     });
   };
 
