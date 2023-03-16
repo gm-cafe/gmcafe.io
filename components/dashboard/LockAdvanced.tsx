@@ -23,11 +23,6 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'lockMoo',
-    args: [
-      id,
-      utils.parseEther(price.toString()),
-      utils.solidityKeccak256(['uint256', 'string'], [id, password])
-    ],
     onSuccess: () => {
       setLoading(false);
       setOpen(false);
@@ -42,7 +37,11 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    lock?.();
+    const priceInGwei = utils.parseEther(price.toString());
+    const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
+    lock?.({
+      recklesslySetUnpreparedArgs: [id, priceInGwei, hashedPassword],
+    });
   };
 
   const onNext = () => {

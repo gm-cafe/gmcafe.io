@@ -41,7 +41,6 @@ export const Approve = ({ next, setLoading }: StateProps) => {
     addressOrName: openSeaContract,
     contractInterface: openSeaABI,
     functionName: 'setApprovalForAll',
-    args: [redeemContract, true],
   });
 
   const { address } = useAccount();
@@ -85,7 +84,11 @@ export const Approve = ({ next, setLoading }: StateProps) => {
             .start();
         }}
       />
-      <Button className="mt-auto" onClick={() => write?.()} loading={isLoading}>
+      <Button
+        className="mt-auto"
+        onClick={() => write?.({ recklesslySetUnpreparedArgs: [redeemContract, true] })}
+        loading={isLoading}
+      >
         Approve
       </Button>
     </>
@@ -101,7 +104,6 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
     addressOrName: redeemContract,
     contractInterface: redeemABI,
     functionName: 'redeemMoos',
-    args: [tokens],
   });
 
   const { isFetched } = useWaitForTransaction({
@@ -146,7 +148,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button className="mt-auto" onClick={() => write?.()} loading={isLoading}>
+      <Button className="mt-auto" onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })} loading={isLoading}>
         Migrate
       </Button>
     </>

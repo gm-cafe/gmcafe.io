@@ -16,8 +16,8 @@ const Leaderboard: NextPage = () => {
     }
   });
 
-  const herdInfoByOwner: HerdInfoByOwner[] = Object.entries(owners).map(([, herd]) => ({
-    owner: herd[0].owner,
+  const herdInfoByOwner: HerdInfoByOwner[] = Object.entries(owners).map(([owner, herd]) => ({
+    owner,
     herd,
   }));
 

@@ -22,14 +22,6 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
   const [changeDestination, setChangeDestination] = useState(false);
   const [destination, setDestination] = useState(constants.AddressZero);
 
-  const { data } = useContractRead({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
-    functionName: 'getMoo',
-    args: id,
-    enabled: open,
-  });
-
   const { write: unlock } = useContractWrite({
     addressOrName: gmooContract,
     contractInterface: gmooABI,
@@ -44,9 +36,14 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
       setOpen(false);
     },
     args: [id, password, destination],
-    overrides: {
-      value: payBounty ? BigNumber.from(data?.unlockPrice) : undefined,
-    },
+  });
+
+  const { data } = useContractRead({
+    addressOrName: gmooContract,
+    contractInterface: gmooABI,
+    functionName: 'getMoo',
+    args: id,
+    enabled: open,
   });
 
   const unlockPriceWei: BigNumber = data?.unlockPrice;
@@ -54,7 +51,11 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    unlock?.();
+    unlock?.({
+      recklesslySetUnpreparedOverrides: {
+        value: payBounty ? unlockPriceWei : undefined,
+      },
+    });
   };
 
   const onChangeDestination = () => {

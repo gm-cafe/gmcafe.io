@@ -3,7 +3,7 @@ import { CSSProperties } from 'react';
 import { useEnsName, useEnsAvatar } from 'wagmi';
 
 type Props = {
-  address?: `0x${string}`;
+  address?: string;
   className?: string;
   style?: CSSProperties;
 };
@@ -15,7 +15,7 @@ const ENSName = ({ address, className, style }: Props) => {
   });
 
   const { data: ensAvatar } = useEnsAvatar({
-    address: address,
+    addressOrName: address,
     enabled: !!address,
   });
 
