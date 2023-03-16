@@ -2,10 +2,10 @@ import { CheckIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { BigNumber, constants, utils } from 'ethers';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useContractWrite } from 'wagmi';
 import useContractRead from '../../lib/hooks/useContractRead';
+import useContractWrite from '../../lib/hooks/useContractWrite';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
-import { toastSuccess, toastError } from '../../lib/util/toast';
+import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 
 type Props = {
@@ -31,11 +31,11 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
       setOpen(false);
       toastSuccess('Unlocked Moo!');
     },
-    onError: (error) => {
+    onError: () => {
       setLoading(false);
       setOpen(false);
-      error && toastError(error);
     },
+    args: [id, password, destination],
   });
 
   const { data } = useContractRead({
@@ -51,9 +51,8 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    unlock({
-      args: [id, password, destination],
-      overrides: {
+    unlock?.({
+      recklesslySetUnpreparedOverrides: {
         value: payBounty ? unlockPriceWei : undefined,
       },
     });

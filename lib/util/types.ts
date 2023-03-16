@@ -73,4 +73,4 @@ export type EntryContextProps = {
   displayName: string;
 };
 
-export type CollectionType = 'moo' | 'rawr';
+export type CollectionType = 'moo' | 'keeku';

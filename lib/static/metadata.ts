@@ -1,6 +1,6 @@
 import { CollectionType, Keeku, Moo } from '../util/types';
 import _moos from './moo.json';
-import _keekus from './rawr.json';
+import _keekus from './keeku.json';
 
 // @ts-ignore
 export const moos: Moo[] = _moos;
@@ -9,7 +9,7 @@ export const moos: Moo[] = _moos;
 export const keekus: Keeku[] = _keekus;
 
 export const getTraitTypes = (type: CollectionType) => {
-  const collection = type === 'moo' ? moos : type === 'rawr' ? keekus : [];
+  const collection = type === 'moo' ? moos : type === 'keeku' ? keekus : [];
 
   return Array.from(
     new Set(

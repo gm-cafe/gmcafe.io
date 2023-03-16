@@ -1,9 +1,10 @@
 import { LockOpenIcon } from '@heroicons/react/solid';
 import { constants } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useContractWrite, useWaitForTransaction } from 'wagmi';
+import { useWaitForTransaction } from 'wagmi';
+import useContractWrite from '../../lib/hooks/useContractWrite';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
-import { toastError, toastSuccess } from '../../lib/util/toast';
+import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 
 type Props = {
@@ -23,7 +24,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     addressOrName: gmooContract,
     contractInterface: gmooABI,
     functionName: 'unlockMoo',
-    onError: toastError,
+    args: [id, '', constants.AddressZero],
   });
 
   const { isSuccess: unlockSuccess } = useWaitForTransaction({
@@ -40,7 +41,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
 
   const onClick = () => {
     setLoading(true);
-    unlock({ args: [id, '', constants.AddressZero] });
+    unlock?.();
   };
 
   return (

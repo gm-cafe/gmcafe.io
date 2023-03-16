@@ -130,7 +130,7 @@ const QuickFilters = () => {
   const { filters, toggleFilters } = useFilterContext();
   const { type } = useEntryContext();
 
-  const quickFilters = type === 'moo' ? mooQuickFilters : type === 'rawr' ? [] : [];
+  const quickFilters = type === 'moo' ? mooQuickFilters : type === 'keeku' ? [] : [];
 
   return (
     <div className="flex flex-wrap justify-between gap-2 border-b border-purple-light pb-4">

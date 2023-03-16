@@ -24,14 +24,14 @@ const Toolbar = () => {
         <button
           className={classNames(
             'relative h-10 w-16 cursor-none rounded-r-xl font-gmcafe text-xl transition-colors',
-            { 'bg-purple text-white': type === 'rawr' },
-            { 'bg-white text-purple': type !== 'rawr' }
+            { 'bg-purple text-white': type === 'keeku' },
+            { 'bg-white text-purple': type !== 'keeku' }
           )}
-          // onClick={() => setType('rawr')}
+          // onClick={() => setType('keeku')}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
-          Rawr
+          Keeku
           <div
             className={classNames(
               'absolute left-[110%] top-0.5 whitespace-nowrap rounded-lg bg-white px-3 py-1 transition-opacity',

@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
-import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
+import { useAccount, useWaitForTransaction } from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
 import { openSeaContract, openSeaABI, redeemContract, redeemABI } from '../../lib/util/addresses';
 import { LoadingIcon } from '../Icons';
 import useContractRead from '../../lib/hooks/useContractRead';
+import useContractWrite from '../../lib/hooks/useContractWrite';
 
 type StateProps = {
   next: () => void;
@@ -85,7 +86,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
       />
       <Button
         className="mt-auto"
-        onClick={() => write({ args: [redeemContract, true] })}
+        onClick={() => write?.({ recklesslySetUnpreparedArgs: [redeemContract, true] })}
         loading={isLoading}
       >
         Approve
@@ -147,7 +148,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button className="mt-auto" onClick={() => write({ args: [tokens] })} loading={isLoading}>
+      <Button className="mt-auto" onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })} loading={isLoading}>
         Migrate
       </Button>
     </>
