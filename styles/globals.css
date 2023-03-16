@@ -105,44 +105,6 @@ button.ju367v8i {
   cursor: url('/pointer.png') 4 5, pointer !important;
 }
 
-/* "Connect a Wallet" and "What is a Wallet?" */
-[data-rk] .ju367v16 {
-  font-family: 'GMCafe' !important;
-  font-size: 24px !important;
-  text-transform: uppercase !important;
-}
-
-/* Wallet names and description titles */
-[data-rk] .ju367v1c {
-  font-family: 'GMCafe' !important;
-  font-size: 18px !important;
-}
-
-/* "Get a Wallet" button wrapper */
-[data-rk] .ju367v93 {
-  height: auto !important;
-  padding: 8px 12px !important;
-}
-
-/* "Get a Wallet" button text */
-[data-rk] .ju367vec {
-  font-size: 20px !important;
-  text-transform: uppercase !important;
-}
-
-/* wallet divider */
-[data-rk] .ju367v8k {
-  width: 5px !important;
-}
-
-[data-rk] ._1ckjpok1 {
-  box-shadow: 0 10px 15px -3px rgb(137 70 171 / 0.1), 0 4px 6px -4px rgb(137 70 171 / 0.1) !important;
-}
-
-[data-rk] .iekbcc0 {
-  color: #8946ab;
-}
-
 .squiggle {
   background-size: auto 101%;
   background-repeat: no-repeat;
