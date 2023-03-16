@@ -22,7 +22,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
 
   const { data } = useContractRead({
     functionName: 'getMoo',
-    args: [id],
+    args: id,
     watch: true,
   });
 
