@@ -34,8 +34,8 @@ const Dashboard = () => {
     enabled: isConnected,
     args: [address],
     onSuccess: (getWalletData) => {
-      const mooBigNs: BigNumber[] = getWalletData?.moos || [];
-      if (moos.length === mooBigNs.length) {
+      const mooBigNs = getWalletData as BigNumber[];
+      if (moos.length > 0) {
         return;
       }
       setMoos(mooBigNs.map((n) => n.toNumber()));
@@ -43,14 +43,13 @@ const Dashboard = () => {
   });
 
   useContractReads({
-    contracts: moos
-      .filter((moo) => typeof moo === 'number')
-      .map((id) => ({
-        addressOrName: gmooContract,
-        contractInterface: gmooABI,
-        functionName: 'tokenURI',
-        args: [id],
-      })),
+    contracts: moos.map((id) => ({
+      address: gmooContract,
+      abi: gmooABI,
+      functionName: 'tokenURI',
+      args: [id],
+    })),
+    enabled: moos.every((moo) => typeof moo === 'number'),
     onSuccess: (tokenUriData: string[]) => {
       const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
       Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
