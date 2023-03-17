@@ -6,7 +6,7 @@ type Props = {
 
 const Stepper = ({ index }: Props) => {
   return (
-    <ol className="flex flex-wrap">
+    <ol className="flex w-full flex-wrap">
       <StepperItem current={index} index={0} title="Connect" />
       <StepperItem current={index} index={1} title="#1" />
       <StepperItem current={index} index={2} title="#2" />
