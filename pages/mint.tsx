@@ -25,7 +25,7 @@ const Mint: NextPage = () => {
     <div className="flex min-h-screen flex-col items-center bg-pink-background pt-32 md:pt-40 pb-12 px-4">
       <div className="mx-auto flex w-full max-w-screen-sm flex-col items-center justify-center gap-8">
         <Stepper index={mintStep} />
-        <Preferences />
+        <Preferences preferences={preferences} choose={choose} />
         <Harold />
       </div>
     </div>

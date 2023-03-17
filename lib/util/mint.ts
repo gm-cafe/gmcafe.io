@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 
+type Random = 'random';
+
 export type Choice =
+  | Random
   | 'animals'
   | 'autumn'
   | 'baby'

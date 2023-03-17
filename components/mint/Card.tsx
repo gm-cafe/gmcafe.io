@@ -5,10 +5,10 @@ type Props = {
   current: number;
   index: number;
   count: number;
-  next: () => void;
+  choose: () => void;
 };
 
-const Card = ({ current, index, count, next }: Props) => {
+const Card = ({ current, index, count, choose }: Props) => {
   return (
     <div
       className={classNames(
@@ -21,7 +21,7 @@ const Card = ({ current, index, count, next }: Props) => {
         }deg)`,
         zIndex: current > index ? 0 : count - index,
       }}
-      onClick={next}
+      onClick={choose}
     >
       <Image src="/mint/fresh_food.png" alt="Animals" layout="fill" />
     </div>
