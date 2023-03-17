@@ -1,14 +1,16 @@
 import classNames from 'classnames';
 import Image from 'next/image';
+import { Choice } from '../../lib/util/mint';
 
 type Props = {
   current: number;
   index: number;
   count: number;
   choose: () => void;
+  option: Choice;
 };
 
-const Card = ({ current, index, count, choose }: Props) => {
+const Card = ({ current, index, count, choose, option }: Props) => {
   return (
     <div
       className={classNames(
@@ -23,7 +25,7 @@ const Card = ({ current, index, count, choose }: Props) => {
       }}
       onClick={choose}
     >
-      <Image src="/mint/fresh_food.png" alt="Animals" layout="fill" />
+      <Image src={`/mint/${option}.png`} alt={`Option ${option}`} layout="fill" />
     </div>
   );
 };

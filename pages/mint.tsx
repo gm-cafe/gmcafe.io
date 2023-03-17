@@ -9,7 +9,24 @@ const Mint: NextPage = () => {
   const [mintStep, setMintStep] = useState(0);
   const [preferences, setPreferences] = useState<Preference>([undefined, undefined, undefined]);
 
-  const [reservation, setReservation] = useState<Reservation>();
+  const [reservation, setReservation] = useState<Reservation | undefined>({
+    mints: [
+      {
+        proof: '',
+        mintable: {
+          seed: 0,
+          prefs: [
+            ['animals', 'autumn'],
+            ['baby', 'bakery'],
+            ['battle', 'casual'],
+          ],
+        },
+      },
+    ],
+    airdrop: 0,
+    username: '',
+    avatar: '',
+  });
 
   const advance = () => setMintStep(mintStep + 1);
   const choose = (idx: 0 | 1 | 2, choice: Choice) =>
@@ -22,10 +39,16 @@ const Mint: NextPage = () => {
   const reserve = () => requestReservation('', '', setReservation);
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-pink-background pt-32 md:pt-40 pb-12 px-4">
+    <div className="flex min-h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
       <div className="mx-auto flex w-full max-w-screen-sm flex-col items-center justify-center gap-8">
         <Stepper index={mintStep} />
-        <Preferences preferences={preferences} choose={choose} />
+        {reservation && (
+          <Preferences
+            preferences={preferences}
+            choose={choose}
+            options={reservation.mints[0].mintable.prefs}
+          />
+        )}
         <Harold />
       </div>
     </div>

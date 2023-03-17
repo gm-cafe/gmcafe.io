@@ -40,7 +40,7 @@ export const toName = (choice: Choice) =>
 
 type Mintable = {
   seed: number;
-  prefs: [[Choice, Choice], [Choice, Choice], [Choice, Choice]];
+  prefs: Options;
 };
 
 export type ReservationResponse = {
