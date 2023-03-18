@@ -3,16 +3,16 @@ import classNames from 'classnames';
 
 type CustomConnectButtonProps = {
   className?: string;
-  variation: 'checkin' | 'migration';
+  variation: 'migration' | 'mint';
 };
 
 export const CustomConnectButton = ({ className, variation }: CustomConnectButtonProps) => {
-  const checkInClasses =
-    'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl';
   const migrationClasses =
     'rounded-full bg-pink-light font-gmcafe text-white text-base px-3 py-0.5 text-shadow uppercase';
+  const mintClasses =
+    'rounded-full bg-white px-8 py-4 text-purple text-4xl font-gmcafe transition-transform hover:scale-110';
 
-  const buttonClasses = variation === 'checkin' ? checkInClasses : migrationClasses;
+  const buttonClasses = variation === 'migration' ? migrationClasses : mintClasses;
 
   return (
     <ConnectButton.Custom>
