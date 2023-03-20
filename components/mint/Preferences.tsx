@@ -15,11 +15,6 @@ const Preferences = ({ preferences, choose, options, advance }: Props) => {
     return idx === 0 ? 0 : idx === 1 ? 1 : 2;
   }, [preferences]);
 
-  const onRandom = () => {
-    choose(current, 'random');
-    current === 2 && advance();
-  };
-
   return (
     <div className="w-full flex-grow">
       <div className="flex items-center gap-2 py-4 md:gap-8">
@@ -38,14 +33,6 @@ const Preferences = ({ preferences, choose, options, advance }: Props) => {
           options={options.map((option) => option[1]) as [Choice, Choice, Choice]}
           advance={advance}
         />
-      </div>
-      <div className="mt-6 flex justify-center">
-        <button
-          className="rounded-full bg-purple px-4 py-1 font-gmcafe text-white shadow-lg-purple transition-transform hover:scale-105 md:text-xl"
-          onClick={onRandom}
-        >
-          🎲 Feeling adventurous?
-        </button>
       </div>
     </div>
   );

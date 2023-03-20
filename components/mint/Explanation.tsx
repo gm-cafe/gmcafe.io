@@ -1,27 +1,52 @@
 import Image from 'next/image';
 
 type Props = {
-  advance: () => void;
+  advance: (_steps?: number) => void;
+  mints: number;
+  setMints: (_mints: number) => void;
+  maxMints: number;
 };
 
-const Explanation = ({ advance }: Props) => {
+const Explanation = ({ advance, mints, setMints, maxMints }: Props) => {
   return (
     <div className="mb-36 mt-4 flex w-full flex-grow flex-col items-center gap-6">
       <p className="rounded-lg bg-white p-4 text-purple">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Est lorem ipsum dolor sit amet. Elementum curabitur vitae
-        nunc sed velit dignissim. Amet justo donec enim diam vulputate ut pharetra.
+        You&apos;re able to mint{' '}
+        <span className="rounded-lg bg-purple px-2 py-1 font-gmcafe text-xl text-white">3</span>{' '}
+        Keekusaurs! @Ben/@Jane to add more info about influence/random here
       </p>
+      <div className="flex items-center">
+        <div className="flex gap-2 rounded-full bg-white font-gmcafe text-2xl">
+          <button
+            className="h-8 w-8 rounded-full bg-purple text-white disabled:bg-purple-light"
+            onClick={() => setMints(mints - 1)}
+            disabled={mints <= 1}
+          >
+            -
+          </button>
+          <span className="w-4 bg-white text-center text-purple">{mints}</span>
+          <button
+            className="h-8 w-8 rounded-full bg-purple text-white disabled:bg-purple-light"
+            onClick={() => setMints(mints + 1)}
+            disabled={mints >= maxMints}
+          >
+            +
+          </button>
+        </div>
+      </div>
       <div className="flex gap-6">
         <button
-          className="rounded-full bg-white px-4 py-1.5 font-gmcafe text-3xl uppercase text-purple transition-transform hover:scale-105"
-          onClick={advance}
+          className="flex items-center gap-2 rounded-full bg-white px-4 py-1.5 font-gmcafe text-3xl uppercase text-purple transition-transform hover:scale-105"
+          onClick={() => advance()}
         >
+          <div className="h-10 w-10">
+            <Image src="/mint/sparkle.png" width={100} height={100} alt="" />
+          </div>
           Influence
         </button>
         <button
           className="flex items-center gap-2 rounded-full bg-white px-4 py-1.5 font-gmcafe text-3xl uppercase text-purple transition-transform hover:scale-105"
-          onClick={advance}
+          onClick={() => advance(2)}
         >
           <div className="h-10 w-10">
             <Image src="/mint/dice.png" width={100} height={100} alt="" />

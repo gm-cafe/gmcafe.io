@@ -33,7 +33,9 @@ const MintPage: NextPage = () => {
     avatar: '',
   });
 
-  const advance = () => setMintStep(mintStep + 1);
+  const [mints, setMints] = useState(1);
+
+  const advance = (steps = 1) => setMintStep(mintStep + steps);
   const choose = (idx: 0 | 1 | 2, choice: Choice) =>
     setPreferences([
       idx === 0 ? choice : preferences[0],
@@ -52,7 +54,9 @@ const MintPage: NextPage = () => {
         <Stepper index={mintStep} />
         {mintStep === 0 && <Connect advance={advance} />}
         {mintStep === 1 && <Story advance={advance} />}
-        {mintStep === 2 && <Explanation advance={advance} />}
+        {mintStep === 2 && (
+          <Explanation advance={advance} mints={mints} setMints={setMints} maxMints={3} />
+        )}
         {mintStep === 3 && reservation && (
           <Preferences
             preferences={preferences}

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 type Props = {
-  advance: () => void;
+  advance: (_steps?: number) => void;
 };
 
 const Connect = ({ advance }: Props) => {
@@ -17,7 +17,7 @@ const Connect = ({ advance }: Props) => {
       {/* <CustomConnectButton variation="mint" /> */}
       <button
         className="rounded-full bg-white px-8 py-4 font-gmcafe text-4xl text-purple transition-transform hover:scale-110"
-        onClick={advance}
+        onClick={() => advance()}
       >
         Connect Wallet
       </button>

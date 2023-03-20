@@ -1,5 +1,5 @@
 type Props = {
-  advance: () => void;
+  advance: (_steps?: number) => void;
 };
 
 const Story = ({ advance }: Props) => {
@@ -14,7 +14,7 @@ const Story = ({ advance }: Props) => {
       </p>
       <button
         className="rounded-full bg-purple px-4 py-1.5 font-gmcafe text-xl text-white transition-transform hover:scale-105"
-        onClick={advance}
+        onClick={() => advance()}
       >
         Continue
       </button>
