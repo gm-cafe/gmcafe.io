@@ -13,7 +13,7 @@ const Connect = ({ advance }: Props) => {
   }, [isConnected, advance]);
 
   return (
-    <div className="mb-28 flex w-full flex-grow items-center justify-center">
+    <div className="mb-32 mt-10 flex w-full flex-grow items-start justify-center">
       {/* <CustomConnectButton variation="mint" /> */}
       <button
         className="rounded-full bg-white px-8 py-4 font-gmcafe text-4xl text-purple transition-transform hover:scale-110"

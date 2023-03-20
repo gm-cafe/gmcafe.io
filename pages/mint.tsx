@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Image from 'next/image';
 import { useState } from 'react';
 import Connect from '../components/mint/Connect';
 import Explanation from '../components/mint/Explanation';
@@ -44,7 +45,10 @@ const MintPage: NextPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
-      <div className="mx-auto flex w-full max-w-screen-sm flex-grow flex-col items-center justify-center gap-8">
+      <div className="mx-auto flex w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
+        <div className="w-96">
+          <Image src="/mint/banner.png" width={600} height={150} alt="Banner" />
+        </div>
         <Stepper index={mintStep} />
         {mintStep === 0 && <Connect advance={advance} />}
         {mintStep === 1 && <Story advance={advance} />}

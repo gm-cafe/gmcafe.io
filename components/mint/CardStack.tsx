@@ -10,7 +10,7 @@ type Props = {
 
 const CardStack = ({ current, choose, options, advance }: Props) => {
   return (
-    <div className="relative h-36 w-36 md:h-64 md:w-64">
+    <div className="relative h-36 w-36 md:h-60 md:w-60">
       <Card
         current={current}
         index={0}
