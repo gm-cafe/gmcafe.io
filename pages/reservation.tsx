@@ -20,15 +20,14 @@ const Reservation: NextPage = () => {
   const [downloadLoading, setDownloadLoading] = useState(false);
   const [cacheCardLoading, setCacheCardLoading] = useState(false);
   const [moos, setMoos] = useState(0);
-  const [chonks, setChonks] = useState(0);
+  const [mints, setMints] = useState(0);
   const [fnds, setFnds] = useState(0);
 
-  const mintCount = chonks === 1 ? 1 : chonks === 5 ? 2 : chonks === 10 ? 3 : 1;
   const airdropCount = moos + fnds;
 
   const isValid = utils.isAddress(input) || input.endsWith('.eth');
 
-  const imgUrl = `https://alpha.antistupid.com/render/card.jpg?${card}&size=800`;
+  const imgUrl = `https://api.gmcafe.io/render/card.jpg?${card}&size=800`;
 
   const { data } = useEnsAddress({
     name: input,
@@ -47,7 +46,7 @@ const Reservation: NextPage = () => {
 
     setLoading(true);
 
-    fetch(`https://alpha.antistupid.com/cafe/reservation?${data}`)
+    fetch(`https://api.gmcafe.io/cafe/reservation?${data}`)
       .then((res) => res.json())
       .then((json) => {
         if (Object.keys(json).length === 0) {
@@ -56,7 +55,7 @@ const Reservation: NextPage = () => {
           setState(json.not_in_discord ? 'not in discord' : 'confirmed');
           json.card && setCard(json.card);
           json.moos && setMoos(json.moos.length);
-          json.chonker && setChonks(json.chonker);
+          json.mints && setMints(json.mints);
           json.fnds && setFnds(json.fnds.length);
         }
       })
@@ -68,7 +67,7 @@ const Reservation: NextPage = () => {
     setDownloadLoading(true);
 
     const cacheCard: string | undefined = card
-      ? await fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
+      ? await fetch(`https://api.gmcafe.io/render/save-card?${card}`)
           .then((response) => response.json())
           .then((json) => json.url)
           .catch(toastError)
@@ -103,7 +102,7 @@ const Reservation: NextPage = () => {
     setCacheCardLoading(true);
 
     const hash: string | undefined = card
-      ? await fetch(`https://alpha.antistupid.com/render/save-card?${card}`)
+      ? await fetch(`https://api.gmcafe.io/render/save-card?${card}`)
           .then((response) => response.json())
           .then((json) => json.hash)
           .catch(toastError)
@@ -148,11 +147,11 @@ const Reservation: NextPage = () => {
         {state === 'confirmed' && card && (
           <p className="mt-1 text-center font-gmcafe text-lg text-purple">
             Your reservation is confirmed. Come back on mint day to adopt your Keekusaur!
-            {mintCount > 1 && (
+            {mints > 1 && (
               <span>
                 {' '}
                 You will be able to mint{' '}
-                <span className="rounded-lg bg-white px-1.5 text-2xl">{mintCount}</span> Keekusaurs
+                <span className="rounded-lg bg-white px-1.5 text-2xl">{mints}</span> Keekusaurs
                 on mint day!
               </span>
             )}
@@ -241,7 +240,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       title: 'Reservation',
       metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
-      metaImage: hash ? `https://alpha.antistupid.com/card-cache/${hash}.png` : '/keeku_banner.png',
+      metaImage: hash ? `https://api.gmcafe.io/card-cache/${hash}.png` : '/keeku_banner.png',
       twitterCard: 'summary_large_image',
     },
   };
