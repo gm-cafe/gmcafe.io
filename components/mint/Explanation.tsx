@@ -19,7 +19,7 @@ const Explanation = ({ advance, mints, setMints, maxMints }: Props) => {
         </span>{' '}
         Keekusaurs! @Ben/@Jane to add more info about influence/random here
       </p>
-      {mints > 1 && (
+      {maxMints > 1 && (
         <div className="flex items-center">
           <Quantity mints={mints} setMints={setMints} maxMints={maxMints} />
         </div>

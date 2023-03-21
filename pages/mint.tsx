@@ -16,23 +16,33 @@ const MintPage: NextPage = () => {
   const [signature, setSignature] = useState<string>();
 
   const [mintStep, setMintStep] = useState(0);
-  const [preferences, setPreferences] = useState<Preference>([undefined, undefined, undefined]);
+  const [preferences, setPreferences] = useState<Preference[]>([[undefined, undefined, undefined]]);
 
   const [reservation, setReservation] = useState<Reservation | undefined>();
 
   const [mints, setMints] = useState(1);
 
   const advance = (steps = 1) => setMintStep(mintStep + steps);
-  const choose = (idx: 0 | 1 | 2, choice: Choice) =>
+  const choose = (mint: number, idx: 0 | 1 | 2, choice: Choice) => {
     setPreferences([
-      idx === 0 ? choice : preferences[0],
-      idx === 1 ? choice : preferences[1],
-      idx === 2 ? choice : preferences[2],
+      ...preferences.slice(0, mint),
+      [
+        idx === 0 ? choice : preferences[mint][0],
+        idx === 1 ? choice : preferences[mint][1],
+        idx === 2 ? choice : preferences[mint][2],
+      ],
+      ...preferences.slice(mint + 1, preferences.length),
     ]);
+  };
 
   useEffect(() => {
     address && signature && !reservation && requestReservation(address, signature, setReservation);
   }, [address, signature, reservation, setReservation]);
+
+  useEffect(() => {
+    mints !== preferences.length &&
+      setPreferences(Array.from(Array(mints)).map(() => [undefined, undefined, undefined]));
+  }, [mints, preferences]);
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
@@ -63,7 +73,7 @@ const MintPage: NextPage = () => {
           <Preferences
             preferences={preferences}
             choose={choose}
-            options={reservation.prefs[0]}
+            options={reservation.prefs}
             advance={advance}
           />
         )}

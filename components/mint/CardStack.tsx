@@ -3,26 +3,27 @@ import Card from './Card';
 
 type Props = {
   current: number;
-  choose: (_idx: 0 | 1 | 2, _choice: Choice) => void;
+  choose: (_mint: number, _idx: 0 | 1 | 2, _choice: Choice) => void;
   options: [Choice, Choice, Choice];
   advance: () => void;
+  mint: number;
 };
 
-const CardStack = ({ current, choose, options, advance }: Props) => {
+const CardStack = ({ current, choose, options, advance, mint }: Props) => {
   return (
     <div className="relative h-36 w-36 md:h-60 md:w-60">
       <Card
         current={current}
         index={0}
         count={3}
-        choose={() => choose(0, options[0])}
+        choose={() => choose(mint, 0, options[0])}
         option={options[0]}
       />
       <Card
         current={current}
         index={1}
         count={3}
-        choose={() => choose(1, options[1])}
+        choose={() => choose(mint, 1, options[1])}
         option={options[1]}
       />
       <Card
@@ -30,7 +31,7 @@ const CardStack = ({ current, choose, options, advance }: Props) => {
         index={2}
         count={3}
         choose={() => {
-          choose(2, options[2]);
+          choose(mint, 2, options[2]);
           advance();
         }}
         option={options[2]}
