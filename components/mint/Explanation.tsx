@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Quantity from './Quantity';
 
 type Props = {
   advance: (_steps?: number) => void;
@@ -18,25 +19,11 @@ const Explanation = ({ advance, mints, setMints, maxMints }: Props) => {
         </span>{' '}
         Keekusaurs! @Ben/@Jane to add more info about influence/random here
       </p>
-      <div className="flex items-center">
-        <div className="flex gap-2 rounded-full bg-white font-gmcafe text-2xl">
-          <button
-            className="h-8 w-8 rounded-full bg-purple text-white disabled:bg-purple-light"
-            onClick={() => setMints(mints - 1)}
-            disabled={mints <= 1}
-          >
-            -
-          </button>
-          <span className="w-4 bg-white text-center text-purple">{mints}</span>
-          <button
-            className="h-8 w-8 rounded-full bg-purple text-white disabled:bg-purple-light"
-            onClick={() => setMints(mints + 1)}
-            disabled={mints >= maxMints}
-          >
-            +
-          </button>
+      {mints > 1 && (
+        <div className="flex items-center">
+          <Quantity mints={mints} setMints={setMints} maxMints={maxMints} />
         </div>
-      </div>
+      )}
       <div className="flex gap-6">
         <button
           className="flex items-center gap-2 rounded-full bg-white px-4 py-1.5 font-gmcafe text-3xl uppercase text-purple transition-transform hover:scale-105"
