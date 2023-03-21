@@ -5,6 +5,7 @@ type Props = {
   mints: number;
   setMints: (_mints: number) => void;
   maxMints: number;
+  signature: string;
 };
 
 const Explanation = ({ advance, mints, setMints, maxMints }: Props) => {
@@ -12,7 +13,9 @@ const Explanation = ({ advance, mints, setMints, maxMints }: Props) => {
     <div className="mb-36 mt-4 flex w-full flex-grow flex-col items-center gap-6">
       <p className="rounded-lg bg-white p-4 text-purple">
         You&apos;re able to mint{' '}
-        <span className="rounded-lg bg-purple px-2 py-1 font-gmcafe text-xl text-white">3</span>{' '}
+        <span className="rounded-lg bg-purple px-2 py-1 font-gmcafe text-xl text-white">
+          {maxMints}
+        </span>{' '}
         Keekusaurs! @Ben/@Jane to add more info about influence/random here
       </p>
       <div className="flex items-center">

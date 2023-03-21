@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 import Connect from '../components/mint/Connect';
 import Explanation from '../components/mint/Explanation';
 import Harold from '../components/mint/Harold';
@@ -11,27 +12,13 @@ import Story from '../components/mint/Story';
 import { Choice, Preference, requestReservation, Reservation } from '../lib/util/mint';
 
 const MintPage: NextPage = () => {
+  const { address, isConnected } = useAccount();
+  const [signature, setSignature] = useState<string>();
+
   const [mintStep, setMintStep] = useState(0);
   const [preferences, setPreferences] = useState<Preference>([undefined, undefined, undefined]);
 
-  const [reservation, setReservation] = useState<Reservation | undefined>({
-    mints: [
-      {
-        proof: '',
-        mintable: {
-          seed: 0,
-          prefs: [
-            ['animals', 'autumn'],
-            ['baby', 'bakery'],
-            ['battle', 'casual'],
-          ],
-        },
-      },
-    ],
-    airdrop: 0,
-    username: '',
-    avatar: '',
-  });
+  const [reservation, setReservation] = useState<Reservation | undefined>();
 
   const [mints, setMints] = useState(1);
 
@@ -43,7 +30,9 @@ const MintPage: NextPage = () => {
       idx === 2 ? choice : preferences[2],
     ]);
 
-  const reserve = () => requestReservation('', '', setReservation);
+  useEffect(() => {
+    address && signature && !reservation && requestReservation(address, signature, setReservation);
+  }, [address, signature, reservation, setReservation]);
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
@@ -52,16 +41,29 @@ const MintPage: NextPage = () => {
           <Image src="/mint/banner.png" width={600} height={150} alt="Banner" />
         </div>
         <Stepper index={mintStep} />
-        {mintStep === 0 && <Connect advance={advance} />}
+        {mintStep === 0 && (
+          <Connect
+            advance={advance}
+            signature={signature}
+            setSignature={setSignature}
+            isConnected={isConnected}
+          />
+        )}
         {mintStep === 1 && <Story advance={advance} />}
-        {mintStep === 2 && (
-          <Explanation advance={advance} mints={mints} setMints={setMints} maxMints={3} />
+        {mintStep === 2 && signature && (
+          <Explanation
+            advance={advance}
+            mints={mints}
+            setMints={setMints}
+            maxMints={reservation?.prefs.length || 1}
+            signature={signature}
+          />
         )}
         {mintStep === 3 && reservation && (
           <Preferences
             preferences={preferences}
             choose={choose}
-            options={reservation.mints[0].mintable.prefs}
+            options={reservation.prefs[0]}
             advance={advance}
           />
         )}

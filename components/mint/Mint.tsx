@@ -9,7 +9,7 @@ const Mint = ({ preferences }: Props) => {
   const isRandom = preferences.every((p) => p === undefined);
 
   return (
-    <div className="flex flex-grow flex-col">
+    <div className="mt-4 flex flex-grow flex-col">
       <div className="flex gap-6">
         {isRandom ? (
           <div className="mb-8 mt-2 h-36 w-36 rounded-xl bg-white transition-transform hover:scale-105">

@@ -38,26 +38,9 @@ export const toName = (choice: Choice) =>
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
     .join(' ');
 
-type Mintable = {
-  seed: number;
-  prefs: Options;
-};
-
-export type ReservationResponse = {
-  proof: string[];
-  mintable: Mintable[];
-  airdrop: number;
-  username: string;
-  avatar: string;
-};
-
-export type Mint = {
-  proof: string;
-  mintable: Mintable;
-};
-
 export type Reservation = {
-  mints: Mint[];
+  proof: string[];
+  prefs: Options[];
   airdrop: number;
   username: string;
   avatar: string;
@@ -68,21 +51,12 @@ export const requestReservation = (
   signature: string,
   setState: Dispatch<SetStateAction<Reservation | undefined>>
 ) =>
-  fetch('/mintkeek/reservation', {
+  fetch('https://api.gmcafe.io/mint/reservation', {
     method: 'POST',
     body: JSON.stringify({
       address,
-      signature,
+      sig: signature,
     }),
   })
     .then((res) => res.json())
-    .then(({ proof, mintable, airdrop, username, avatar }: ReservationResponse) => {
-      const mints: Mint[] = [];
-      proof.forEach((p, i) => mints.push({ proof: p, mintable: mintable[i] }));
-      setState({
-        mints,
-        airdrop,
-        username,
-        avatar,
-      });
-    });
+    .then((res: Reservation) => setState(res));
