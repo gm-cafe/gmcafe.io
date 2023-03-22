@@ -10,7 +10,7 @@ export const CustomConnectButton = ({ className, variation }: CustomConnectButto
   const migrationClasses =
     'rounded-full bg-pink-light font-gmcafe text-white text-base px-3 py-0.5 text-shadow uppercase';
   const mintClasses =
-    'rounded-full bg-white px-8 py-4 text-purple text-4xl font-gmcafe transition-transform hover:scale-110';
+    'rounded-full bg-white px-6 md:px-8 py-3 md:py-4 text-purple text-2xl md:text-4xl font-gmcafe transition-transform hover:scale-110';
 
   const buttonClasses = variation === 'migration' ? migrationClasses : mintClasses;
 

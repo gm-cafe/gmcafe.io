@@ -47,7 +47,7 @@ const MintPage: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
       <div className="mx-auto flex w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
-        <div className="w-96">
+        <div className="w-72 md:w-96">
           <Image src="/mint/banner.png" width={600} height={150} alt="Banner" />
         </div>
         <Stepper index={mintStep} />

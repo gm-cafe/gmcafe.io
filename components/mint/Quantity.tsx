@@ -7,15 +7,17 @@ type Props = {
 const Quantity = ({ mints, setMints, maxMints }: Props) => (
   <div className="flex gap-2 rounded-full bg-white font-gmcafe text-2xl">
     <button
-      className="h-8 w-8 rounded-full bg-purple text-white disabled:bg-purple-light"
+      className="h-8 w-8 rounded-full bg-purple text-white transition-colors disabled:bg-purple-light md:h-11 md:w-11"
       onClick={() => setMints(mints - 1)}
       disabled={mints <= 1}
     >
       -
     </button>
-    <span className="w-4 bg-white text-center text-purple">{mints}</span>
+    <span className="flex w-4 items-center justify-center bg-white text-2xl text-purple md:w-7">
+      {mints}
+    </span>
     <button
-      className="h-8 w-8 rounded-full bg-purple text-white disabled:bg-purple-light"
+      className="h-8 w-8 rounded-full bg-purple text-white transition-colors disabled:bg-purple-light md:h-11 md:w-11"
       onClick={() => setMints(mints + 1)}
       disabled={mints >= maxMints}
     >

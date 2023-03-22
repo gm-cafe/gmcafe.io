@@ -6,18 +6,32 @@ type Props = {
 };
 
 const Mint = ({ preferences }: Props) => {
-  const isRandom = preferences.every((p) => p === undefined);
+  const isRandom = preferences.every((p) => p.every((q) => q === undefined));
 
   return (
-    <div className="mt-4 flex flex-grow flex-col">
-      <div className="flex gap-10">
+    <div className="mt-4 flex flex-grow flex-col gap-4 md:gap-8">
+      <div className="flex gap-6 md:gap-10">
         {isRandom ? (
-          <div className="mb-8 mt-2 h-36 w-36 rounded-xl bg-white shadow-lg-purple transition-transform hover:scale-105">
-            <Image src={`/mint/random.gif`} alt="Random Card" width={400} height={400} />
+          <div className="relative mt-2 h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
+            {preferences.map((_, idx) => (
+              <div
+                key={idx}
+                className="absolute top-0 h-full w-full rounded-xl bg-white shadow-lg-purple"
+                style={{
+                  transform: `rotate(${
+                    idx === 0
+                      ? 0
+                      : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
+                  }deg)`,
+                }}
+              >
+                <Image src={`/mint/random.gif`} alt="Random Card" width={400} height={400} />
+              </div>
+            ))}
           </div>
         ) : (
           <>
-            <div className="relative mt-8 h-36 w-36 -rotate-12 transition-transform hover:scale-105">
+            <div className="relative mt-6 h-22 w-22 -rotate-12 transition-transform hover:scale-105 md:mt-8 md:h-32 md:w-32">
               {preferences
                 .map((p) => p[0])
                 .map((p, idx) => (
@@ -28,7 +42,7 @@ const Mint = ({ preferences }: Props) => {
                       transform: `rotate(${
                         idx === 0
                           ? 0
-                          : Math.random() * preferences.length * 5 * (Math.random() > 0.5 ? -1 : 1)
+                          : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
                       }deg)`,
                     }}
                   >
@@ -36,7 +50,7 @@ const Mint = ({ preferences }: Props) => {
                   </div>
                 ))}
             </div>
-            <div className="relative h-36 w-36 transition-transform hover:scale-105">
+            <div className="relative h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
               {preferences
                 .map((p) => p[1])
                 .map((p, idx) => (
@@ -47,7 +61,7 @@ const Mint = ({ preferences }: Props) => {
                       transform: `rotate(${
                         idx === 0
                           ? 0
-                          : Math.random() * preferences.length * 5 * (Math.random() > 0.5 ? -1 : 1)
+                          : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
                       }deg)`,
                     }}
                   >
@@ -55,7 +69,7 @@ const Mint = ({ preferences }: Props) => {
                   </div>
                 ))}
             </div>
-            <div className="relative mt-8 h-36 w-36 rotate-12 transition-transform hover:scale-105">
+            <div className="relative mt-6 h-22 w-22 rotate-12 transition-transform hover:scale-105 md:mt-8 md:h-32 md:w-32">
               {preferences
                 .map((p) => p[2])
                 .map((p, idx) => (
@@ -66,8 +80,8 @@ const Mint = ({ preferences }: Props) => {
                       transform: `rotate(${
                         idx === 0
                           ? 0
-                          : Math.random() * preferences.length * 5 * (Math.random() > 0.5 ? -1 : 1)
-                      }deg)`,
+                          : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
+                      }deg) translateY(${idx * 6}px)`,
                     }}
                   >
                     <Image src={`/mint/${p}.png`} alt="Card 3" width={400} height={400} />
@@ -77,10 +91,13 @@ const Mint = ({ preferences }: Props) => {
           </>
         )}
       </div>
-      <div className="flex justify-center">
-        <button className="rounded-full bg-white shadow-lg-purple px-8 py-4 font-gmcafe text-4xl text-purple shadow-lg-purple transition-transform hover:scale-110">
+      <div className="flex flex-col justify-center gap-2">
+        <button className="mx-auto rounded-full bg-white px-4 py-2 font-gmcafe text-2xl text-purple shadow-lg-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl">
           Mint
         </button>
+        <p className="mx-auto rounded-xl bg-white px-2 font-gmcafe text-xl text-pink">
+          0.06e x 3 = 0.18e
+        </p>
       </div>
     </div>
   );
