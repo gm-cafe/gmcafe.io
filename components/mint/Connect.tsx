@@ -23,6 +23,14 @@ const Connect = ({ advance, signature, setSignature, isConnected }: Props) => {
   return (
     <div className="mb-32 mt-10 flex w-full flex-grow items-start justify-center">
       <CustomConnectButton variation="mint" />
+      {isConnected && (
+        <button
+          className="rounded-full bg-white px-6 py-3 font-gmcafe text-2xl text-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl"
+          onClick={() => signMessage()}
+        >
+          Continue
+        </button>
+      )}
     </div>
   );
 };

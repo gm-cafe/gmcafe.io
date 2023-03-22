@@ -1,16 +1,54 @@
+import { utils } from 'ethers';
 import Image from 'next/image';
-import { Preference } from '../../lib/util/mint';
+import useContractWrite from '../../lib/hooks/useContractWrite';
+import { keekABI, keekContract } from '../../lib/util/addresses';
+import { Preference, Options, Reservation } from '../../lib/util/mint';
 
 type Props = {
   preferences: Preference[];
+  reservation: Reservation;
 };
 
-const Mint = ({ preferences }: Props) => {
+const preparePrefs = (preferences: Preference[], options: Options[]) =>
+  preferences.map((preference, idx) => {
+    if (preference.every((p) => p === undefined)) {
+      return 0;
+    }
+
+    const option = options[idx];
+
+    const [p1, p2, p3] = preference;
+    const [o1, o2, o3] = option;
+
+    const t1 = p1 === o1[0] ? 0 : 1;
+    const t2 = p2 === o2[0] ? 0 : 2;
+    const t3 = p3 === o3[0] ? 0 : 4;
+
+    return 8 + t1 + t2 + t3;
+  });
+
+const Mint = ({ preferences, reservation }: Props) => {
+  const { proof, index, prefs } = reservation;
+
   const isRandom = preferences.every((p) => p.every((q) => q === undefined));
+
+  const prefVals = preparePrefs(preferences, prefs);
+
+  const price = 0.06 * preferences.length;
+
+  const { write } = useContractWrite({
+    addressOrName: keekContract,
+    contractInterface: keekABI,
+    functionName: 'reservationMint',
+    args: [proof, index, preferences.length, prefVals],
+    overrides: {
+      value: utils.parseEther(price.toString()),
+    },
+  });
 
   return (
     <div className="mt-4 flex flex-grow flex-col gap-4 md:gap-8">
-      <div className="flex gap-6 md:gap-10">
+      <div className="flex justify-center gap-6 md:gap-10">
         {isRandom ? (
           <div className="relative mt-2 h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
             {preferences.map((_, idx) => (
@@ -81,7 +119,7 @@ const Mint = ({ preferences }: Props) => {
                         idx === 0
                           ? 0
                           : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
-                      }deg) translateY(${idx * 6}px)`,
+                      }deg)`,
                     }}
                   >
                     <Image src={`/mint/${p}.png`} alt="Card 3" width={400} height={400} />
@@ -92,11 +130,14 @@ const Mint = ({ preferences }: Props) => {
         )}
       </div>
       <div className="flex flex-col justify-center gap-2">
-        <button className="mx-auto rounded-full bg-white px-4 py-2 font-gmcafe text-2xl text-purple shadow-lg-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl">
+        <button
+          className="mx-auto rounded-full bg-white px-4 py-2 font-gmcafe text-2xl text-purple shadow-lg-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl"
+          onClick={() => write?.()}
+        >
           Mint
         </button>
         <p className="mx-auto rounded-xl bg-white px-2 font-gmcafe text-xl text-pink">
-          0.06e x 3 = 0.18e
+          0.06e x {preferences.length} = {price}e
         </p>
       </div>
     </div>

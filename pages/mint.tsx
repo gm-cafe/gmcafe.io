@@ -9,13 +9,14 @@ import Mint from '../components/mint/Mint';
 import Preferences from '../components/mint/Preferences';
 import Stepper from '../components/mint/Stepper';
 import Story from '../components/mint/Story';
+import Success from '../components/mint/Success';
 import { Choice, Preference, requestReservation, Reservation } from '../lib/util/mint';
 
 const MintPage: NextPage = () => {
   const { address, isConnected } = useAccount();
   const [signature, setSignature] = useState<string>();
 
-  const [mintStep, setMintStep] = useState(0);
+  const [mintStep, setMintStep] = useState(5);
   const [preferences, setPreferences] = useState<Preference[]>([[undefined, undefined, undefined]]);
 
   const [reservation, setReservation] = useState<Reservation | undefined>();
@@ -36,6 +37,14 @@ const MintPage: NextPage = () => {
   };
 
   useEffect(() => {
+    setSignature(undefined);
+    setReservation(undefined);
+    setPreferences([[undefined, undefined, undefined]]);
+    setMints(1);
+    // setMintStep(0);
+  }, [address]);
+
+  useEffect(() => {
     address && signature && !reservation && requestReservation(address, signature, setReservation);
   }, [address, signature, reservation, setReservation]);
 
@@ -50,7 +59,7 @@ const MintPage: NextPage = () => {
         <div className="w-72 md:w-96">
           <Image src="/mint/banner.png" width={600} height={150} alt="Banner" />
         </div>
-        <Stepper index={mintStep} />
+        {mintStep < 5 && <Stepper index={mintStep} />}
         {mintStep === 0 && (
           <Connect
             advance={advance}
@@ -77,8 +86,11 @@ const MintPage: NextPage = () => {
             advance={advance}
           />
         )}
-        {mintStep === 4 && <Mint preferences={preferences} />}
-        <Harold />
+        {mintStep === 4 && reservation && (
+          <Mint preferences={preferences} reservation={reservation} />
+        )}
+        {mintStep === 5 && <Success />}
+        <Harold mintStep={mintStep} />
       </div>
     </div>
   );

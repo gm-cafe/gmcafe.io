@@ -1,9 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-type Random = 'random';
-
 export type Choice =
-  | Random
   | 'animals'
   | 'autumn'
   | 'baby'
@@ -44,6 +41,7 @@ export type Reservation = {
   airdrop: number;
   username: string;
   avatar: string;
+  index: number;
 };
 
 export const requestReservation = (
