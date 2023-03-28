@@ -8,7 +8,6 @@ import {
 } from '@rainbow-me/rainbowkit';
 import merge from 'lodash.merge';
 import { chain, createClient, configureChains, WagmiConfig } from 'wagmi';
-import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
 
 type RainbowKitProviderProps = {
