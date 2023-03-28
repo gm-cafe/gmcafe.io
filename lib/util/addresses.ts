@@ -1,7 +1,7 @@
 export const openSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
 export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
 export const redeemContract = '0xa25066d7232069489b57db8755d0055ecd69daec';
-export const keekContract = '0x5eb885e22b512015a3aa91ab4b2a835cea568bab';
+export const keekContract = '0x5eB885e22B512015A3aa91Ab4B2A835cEA568BAB';
 
 export const openSeaABI = [
   'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
@@ -26,4 +26,5 @@ export const redeemABI = ['function redeemMoos(uint256[] calldata tokens) public
 export const keekABI = [
   'function hasMinted(uint256 index) public view returns (bool)',
   'function reservationMint(bytes32[] calldata proof, uint256 index, uint256 mints, uint256[] calldata prefs) external payable',
+  'function tokenURI(uint256 moo) public view returns (string memory uri)',
 ];

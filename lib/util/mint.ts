@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { toastError } from './toast';
 
 export type Choice =
   | 'animals'
@@ -57,4 +58,18 @@ export const requestReservation = (
     }),
   })
     .then((res) => res.json())
-    .then((res: Reservation) => setState(res));
+    .then((res: Reservation) => setState(res))
+    .catch(toastError);
+
+export type Status = {
+  minted: number;
+  airdrop: number;
+  supply: number;
+  priceWei: string;
+};
+
+export const requestStatus = (setState: Dispatch<SetStateAction<Status | undefined>>) =>
+  fetch('https://api.gmcafe.io/mint/status')
+    .then((res) => res.json())
+    .then((res: Status) => setState(res))
+    .catch(toastError);

@@ -8,6 +8,8 @@ const Success = () => {
       <a
         className="flex items-center gap-2 rounded-xl bg-white px-3 py-1 font-gmcafe text-3xl text-purple transition-transform hover:scale-105"
         href={'https://opensea.io/BenColefax/collected/goodmorningcafe-old'}
+        rel="noreferrer"
+        target="_blank"
       >
         <OpenSeaIcon className="h-8 w-8" fill="#8946ab" /> View your Keekusaur
       </a>

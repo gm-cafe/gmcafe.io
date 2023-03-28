@@ -16,8 +16,8 @@ type RainbowKitProviderProps = {
 };
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet, chain.sepolia],
-  [infuraProvider({ apiKey: '47434bfa14b446bab19576bdab9d5205' }), publicProvider()]
+  [chain.sepolia],
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

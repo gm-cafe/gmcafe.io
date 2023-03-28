@@ -35,6 +35,11 @@ const moduleExports = {
         destination: '/migrate',
         permanent: false,
       },
+      {
+        source: '/mint',
+        destination: '/adopt',
+        permanent: false,
+      },
     ];
   },
 };

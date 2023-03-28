@@ -10,15 +10,23 @@ import Preferences from '../components/mint/Preferences';
 import Stepper from '../components/mint/Stepper';
 import Story from '../components/mint/Story';
 import Success from '../components/mint/Success';
-import { Choice, Preference, requestReservation, Reservation } from '../lib/util/mint';
+import {
+  Choice,
+  Preference,
+  requestReservation,
+  requestStatus,
+  Reservation,
+  Status,
+} from '../lib/util/mint';
 
 const MintPage: NextPage = () => {
   const { address, isConnected } = useAccount();
   const [signature, setSignature] = useState<string>();
 
-  const [mintStep, setMintStep] = useState(5);
+  const [mintStep, setMintStep] = useState(0);
   const [preferences, setPreferences] = useState<Preference[]>([[undefined, undefined, undefined]]);
 
+  const [status, setStatus] = useState<Status | undefined>();
   const [reservation, setReservation] = useState<Reservation | undefined>();
 
   const [mints, setMints] = useState(1);
@@ -41,8 +49,12 @@ const MintPage: NextPage = () => {
     setReservation(undefined);
     setPreferences([[undefined, undefined, undefined]]);
     setMints(1);
-    // setMintStep(0);
+    setMintStep(0);
   }, [address]);
+
+  useEffect(() => {
+    !status && requestStatus(setStatus);
+  }, [status]);
 
   useEffect(() => {
     address && signature && !reservation && requestReservation(address, signature, setReservation);
@@ -69,13 +81,14 @@ const MintPage: NextPage = () => {
           />
         )}
         {mintStep === 1 && <Story advance={advance} />}
-        {mintStep === 2 && signature && (
+        {mintStep === 2 && signature && reservation && (
           <Explanation
             advance={advance}
             mints={mints}
             setMints={setMints}
-            maxMints={reservation?.prefs.length || 1}
+            maxMints={reservation.prefs.length || 1}
             signature={signature}
+            index={reservation.index}
           />
         )}
         {mintStep === 3 && reservation && (

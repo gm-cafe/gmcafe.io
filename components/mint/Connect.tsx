@@ -10,15 +10,15 @@ type Props = {
 };
 
 const Connect = ({ advance, signature, setSignature, isConnected }: Props) => {
-  const { signMessage } = useSignMessage({
+  const { signMessage, isLoading } = useSignMessage({
     message: 'RAWR!',
     onSuccess: setSignature,
   });
 
   useEffect(() => {
-    isConnected && !signature && signMessage();
+    isConnected && !isLoading && !signature && signMessage();
     isConnected && signature && advance();
-  }, [isConnected, advance, signMessage, signature]);
+  }, [isConnected, advance, signMessage, signature, isLoading]);
 
   return (
     <div className="mb-32 mt-10 flex w-full flex-grow items-start justify-center">
