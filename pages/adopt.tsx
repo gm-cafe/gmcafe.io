@@ -47,6 +47,14 @@ const MintPage: NextPage = () => {
     ]);
   };
 
+  const maxMints =
+    reservation && status
+      ? reservation.packed === 0
+        ? status.publicMax
+        : (reservation.packed >> 1) & 0xf
+      : 1;
+
+  // Resets states when user changes wallet
   useEffect(() => {
     setSignature(undefined);
     setReservation(undefined);
@@ -56,10 +64,12 @@ const MintPage: NextPage = () => {
     setError(undefined);
   }, [address]);
 
+  // Fetch /status on page load
   useEffect(() => {
     !status && requestStatus(setStatus);
   }, [status]);
 
+  // Fetch /reservation when user signs 'RAWR!' message
   useEffect(() => {
     address &&
       signature &&
@@ -67,6 +77,7 @@ const MintPage: NextPage = () => {
       requestReservation(address, signature, setReservation, setError);
   }, [signature, reservation, setReservation]);
 
+  // Preemptively fill preferences when mint count changes
   useEffect(() => {
     mints !== preferences.length &&
       setPreferences(Array.from(Array(mints)).map(() => [undefined, undefined, undefined]));
@@ -92,17 +103,19 @@ const MintPage: NextPage = () => {
           />
         )}
         {!error && mintStep === 1 && <Story advance={advance} />}
-        {!error && mintStep === 2 && signature && reservation && (
+        {!error && mintStep === 2 && signature && reservation && address && (
           <Explanation
             advance={advance}
             mints={mints}
             setMints={setMints}
-            maxMints={reservation.prefs.length || 1}
+            maxMints={maxMints}
             signature={signature}
-            index={reservation.index}
+            address={address}
+            packed={reservation.packed}
+            disableInfluence={!reservation.prefs}
           />
         )}
-        {!error && mintStep === 3 && reservation && (
+        {!error && mintStep === 3 && reservation && reservation.prefs && (
           <Preferences
             preferences={preferences}
             choose={choose}
@@ -111,7 +124,12 @@ const MintPage: NextPage = () => {
           />
         )}
         {!error && mintStep === 4 && status && reservation && (
-          <Mint preferences={preferences} reservation={reservation} priceWei={status.priceWei} />
+          <Mint
+            preferences={preferences}
+            reservation={reservation}
+            priceWei={status.priceWei}
+            advance={advance}
+          />
         )}
         {!error && mintStep === 5 && <Success />}
         {!error && <Harold mintStep={mintStep} />}

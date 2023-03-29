@@ -63,11 +63,11 @@ export const toName = (choice: Choice) =>
 
 export type Reservation = {
   proof: string[];
-  prefs: Options[];
+  prefs?: Options[];
   airdrop: number;
   username: string;
   avatar: string;
-  index: number;
+  packed: number;
 };
 
 export const requestReservation = (
@@ -94,6 +94,7 @@ export type Status = {
   dropped: number;
   supply: number;
   priceWei: string;
+  publicMax: number;
 };
 
 export const requestStatus = (setState: Dispatch<SetStateAction<Status | undefined>>) =>

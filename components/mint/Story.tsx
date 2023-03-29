@@ -4,7 +4,7 @@ type Props = {
 
 const Story = ({ advance }: Props) => {
   return (
-    <div className="mb-24 md:mb-32 mt-4 flex min-h-0 w-full flex-grow flex-col items-center gap-4">
+    <div className="mb-24 mt-4 flex min-h-0 w-full flex-grow flex-col items-center gap-4 md:mb-32">
       <div className="flex flex-col gap-2 overflow-y-auto rounded-lg bg-white p-4 text-purple">
         <h1 className="font-gmcafe text-xl uppercase">As the Story Goes...</h1>
         <p>

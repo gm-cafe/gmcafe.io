@@ -13,8 +13,8 @@ const Quantity = ({ mints, setMints, maxMints }: Props) => (
     >
       -
     </button>
-    <span className="flex w-4 items-center justify-center bg-white text-2xl text-purple md:w-7">
-      {mints}
+    <span className="flex items-center justify-center bg-white text-2xl text-purple">
+      Mint {mints} Keekusaur{mints > 1 ? 's' : ''} ({maxMints} max)
     </span>
     <button
       className="h-8 w-8 rounded-full bg-purple text-white transition-colors disabled:bg-purple-light md:h-11 md:w-11"

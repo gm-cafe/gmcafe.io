@@ -26,7 +26,9 @@ const Card = ({ current, index, count, choose, option }: Props) => {
       onClick={choose}
     >
       <Image src={`/mint/${option}.png`} alt={`Option ${option}`} layout="fill" />
-      <span className="absolute bottom-3 right-3">{emoji[option]}</span>
+      <span className="absolute bottom-1 right-1 text-xs md:bottom-3 md:right-3 md:text-base">
+        {emoji[option]}
+      </span>
     </div>
   );
 };

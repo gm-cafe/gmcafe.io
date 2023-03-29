@@ -1,18 +1,22 @@
 import { utils } from 'ethers';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { useWaitForTransaction } from 'wagmi';
 import useContractWrite from '../../lib/hooks/useContractWrite';
 import { keekABI, keekContract } from '../../lib/util/addresses';
 import { Preference, Options, Reservation } from '../../lib/util/mint';
+import { LoadingIcon } from '../Icons';
 
 type Props = {
   preferences: Preference[];
   reservation: Reservation;
   priceWei: string;
+  advance: () => void;
 };
 
-const preparePrefs = (preferences: Preference[], options: Options[]) =>
+const preparePrefs = (preferences: Preference[], options?: Options[]) =>
   preferences.map((preference, idx) => {
-    if (preference.every((p) => p === undefined)) {
+    if (!options || preference.every((p) => p === undefined)) {
       return 0;
     }
 
@@ -28,8 +32,8 @@ const preparePrefs = (preferences: Preference[], options: Options[]) =>
     return 8 + t1 + t2 + t3;
   });
 
-const Mint = ({ preferences, reservation, priceWei }: Props) => {
-  const { proof, index, prefs } = reservation;
+const Mint = ({ preferences, reservation, priceWei, advance }: Props) => {
+  const { proof, packed, prefs } = reservation;
 
   const isRandom = preferences.every((p) => p.every((q) => q === undefined));
 
@@ -38,15 +42,24 @@ const Mint = ({ preferences, reservation, priceWei }: Props) => {
   const pricePerUnit = utils.parseUnits(priceWei, 'wei');
   const price = pricePerUnit.mul(preferences.length);
 
-  const { write } = useContractWrite({
+  const { write, data, isLoading } = useContractWrite({
     addressOrName: keekContract,
     contractInterface: keekABI,
-    functionName: 'reservationMint',
-    args: [proof, index, prefs.length, prefVals],
+    functionName: 'mint',
+    args: [proof, packed, prefVals],
     overrides: {
       value: price,
     },
   });
+
+  const { isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+    enabled: !!data,
+  });
+
+  useEffect(() => {
+    isSuccess && advance();
+  }, [isSuccess, advance]);
 
   return (
     <div className="mt-4 flex flex-grow flex-col gap-4 md:gap-8">
@@ -133,13 +146,17 @@ const Mint = ({ preferences, reservation, priceWei }: Props) => {
       </div>
       <div className="flex flex-col justify-center gap-2">
         <button
-          className="mx-auto rounded-full bg-white px-4 py-2 font-gmcafe text-2xl text-purple shadow-lg-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl"
+          className="mx-auto flex items-center gap-2 rounded-full bg-white px-4 py-2 font-gmcafe text-2xl text-purple shadow-lg-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl"
           onClick={() => write?.()}
+          disabled={isLoading}
         >
+          {isLoading && <LoadingIcon className="h-8 w-8" />}
           Mint
         </button>
-        <p className="mx-auto rounded-xl bg-white px-2 font-gmcafe text-xl text-pink">
-          {utils.formatEther(pricePerUnit)}e x {preferences.length} = {utils.formatEther(price)}e
+        <p className="mx-auto flex items-center gap-1 rounded-xl bg-white px-2 font-gmcafe text-xl text-pink">
+          {utils.formatEther(pricePerUnit)}
+          <span className="text-base">Ξ</span> x {preferences.length} = {utils.formatEther(price)}
+          <span className="text-base">Ξ</span>
         </p>
       </div>
     </div>
