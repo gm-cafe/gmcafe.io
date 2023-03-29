@@ -8,6 +8,7 @@ import {
 } from '@rainbow-me/rainbowkit';
 import merge from 'lodash.merge';
 import { chain, createClient, configureChains, WagmiConfig } from 'wagmi';
+import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
 
 type RainbowKitProviderProps = {
@@ -15,8 +16,8 @@ type RainbowKitProviderProps = {
 };
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.sepolia],
-  [publicProvider()]
+  [chain.mainnet, chain.goerli],
+  [infuraProvider({ apiKey: '47434bfa14b446bab19576bdab9d5205' }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

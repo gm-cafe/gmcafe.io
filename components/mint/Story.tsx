@@ -4,14 +4,38 @@ type Props = {
 
 const Story = ({ advance }: Props) => {
   return (
-    <div className="mb-36 mt-4 flex w-full flex-grow flex-col items-center gap-4">
-      <p className="rounded-lg bg-white p-4 text-purple">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Est lorem ipsum dolor sit amet. Elementum curabitur vitae
-        nunc sed velit dignissim. Amet justo donec enim diam vulputate ut pharetra. Sem et tortor
-        consequat id porta. Lacus viverra vitae congue eu consequat ac felis. Pulvinar sapien et
-        ligula ullamcorper malesuada proin libero nunc. Quis hendrerit dolor magna eget.
-      </p>
+    <div className="mb-24 md:mb-32 mt-4 flex min-h-0 w-full flex-grow flex-col items-center gap-4">
+      <div className="flex flex-col gap-2 overflow-y-auto rounded-lg bg-white p-4 text-purple">
+        <h1 className="font-gmcafe text-xl uppercase">As the Story Goes...</h1>
+        <p>
+          One glorious morning as a misty haze glistened over the lush green fields of Kawa Valley,
+          one inquisitive Moo strayed from the Herd in the café, almost as if something was calling
+          him to explore.
+        </p>
+        <p>
+          Trotting out to the far ends of the pastures, he found an opening to a mysterious cave.
+          Despite the warning sign, he ventured deep inside. Meanwhile, other Moos were grazing
+          nearby when there was an unerring rumbling - they stampeded towards the sound to
+          investigate!
+        </p>
+        <p>
+          Crashing through the earth beneath their hooves, the Moos fell into a glittering chamber.
+          As the dust settled, there stood a mysterious creature - encapsulated in an ice-like
+          substance. Eager to catch a glimpse of the beast, more Moos rushed from the café down into
+          the shimmering cave - but as they moved closer, the scattered gems in the walls started to
+          react to their presence.
+        </p>
+        <p>
+          Then, in a majestic flash of blinding ethereal light, one of the creatures was free!
+          Standing before them, this succulent prehistoric brute let out a tiny sound..
+          <b>&quot;Keeku, RAWR!&quot;</b>
+        </p>
+        <p>
+          The Moos clamoured to help the critter with clothing, food and drinks - and from that
+          moment on, these strange creatures became known as &apos;Keekusaurs&apos;.
+        </p>
+        <p>But who can we depend on to care for these magnificent beasts?</p>
+      </div>
       <button
         className="rounded-full bg-purple px-4 py-1.5 font-gmcafe text-xl text-white transition-transform hover:scale-105"
         onClick={() => advance()}

@@ -2,28 +2,53 @@ import { Dispatch, SetStateAction } from 'react';
 import { toastError } from './toast';
 
 export type Choice =
-  | 'animals'
+  | 'animal'
   | 'autumn'
-  | 'baby'
   | 'bakery'
   | 'battle'
-  | 'casual'
+  | 'casualClothing'
   | 'creative'
   | 'drinks'
   | 'fantasy'
   | 'feminine'
-  | 'formal'
-  | 'fresh_food'
+  | 'formalClothing'
+  | 'freshFood'
   | 'fun'
   | 'gaming'
+  | 'kids'
   | 'masculine'
   | 'music'
-  | 'other_food'
-  | 'sports'
+  | 'otherFood'
+  | 'sport'
   | 'spring'
   | 'summer'
   | 'sweets'
   | 'winter';
+
+export const emoji: Record<Choice, string> = {
+  animal: '🐾',
+  autumn: '🍂',
+  bakery: '🥐',
+  battle: '⚔️',
+  casualClothing: '👕',
+  creative: '🎨',
+  drinks: '☕',
+  fantasy: '✨',
+  feminine: '🎀',
+  formalClothing: '👔',
+  freshFood: '🍉',
+  fun: '🤡',
+  gaming: '🎮',
+  kids: '🧸',
+  masculine: '🎩',
+  music: '🎵',
+  otherFood: '🍕',
+  sport: '⚽',
+  spring: '🍃',
+  summer: '☀️',
+  sweets: '🍬',
+  winter: '❄️',
+};
 
 export type Preference = [Choice | undefined, Choice | undefined, Choice | undefined];
 
@@ -48,7 +73,8 @@ export type Reservation = {
 export const requestReservation = (
   address: string,
   signature: string,
-  setState: Dispatch<SetStateAction<Reservation | undefined>>
+  setState: Dispatch<SetStateAction<Reservation | undefined>>,
+  setError: Dispatch<SetStateAction<APIError | undefined>>
 ) =>
   fetch('https://api.gmcafe.io/mint/reservation', {
     method: 'POST',
@@ -58,12 +84,14 @@ export const requestReservation = (
     }),
   })
     .then((res) => res.json())
-    .then((res: Reservation) => setState(res))
+    .then((res: Reservation & { error: string }) =>
+      res.error ? setError('noReservation') : setState(res)
+    )
     .catch(toastError);
 
 export type Status = {
   minted: number;
-  airdrop: number;
+  dropped: number;
   supply: number;
   priceWei: string;
 };
@@ -73,3 +101,5 @@ export const requestStatus = (setState: Dispatch<SetStateAction<Status | undefin
     .then((res) => res.json())
     .then((res: Status) => setState(res))
     .catch(toastError);
+
+export type APIError = 'noReservation';

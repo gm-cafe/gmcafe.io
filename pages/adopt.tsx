@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import Connect from '../components/mint/Connect';
+import Error from '../components/mint/Error';
 import Explanation from '../components/mint/Explanation';
 import Harold from '../components/mint/Harold';
 import Mint from '../components/mint/Mint';
@@ -11,6 +12,7 @@ import Stepper from '../components/mint/Stepper';
 import Story from '../components/mint/Story';
 import Success from '../components/mint/Success';
 import {
+  APIError,
   Choice,
   Preference,
   requestReservation,
@@ -28,6 +30,7 @@ const MintPage: NextPage = () => {
 
   const [status, setStatus] = useState<Status | undefined>();
   const [reservation, setReservation] = useState<Reservation | undefined>();
+  const [error, setError] = useState<APIError | undefined>();
 
   const [mints, setMints] = useState(1);
 
@@ -50,6 +53,7 @@ const MintPage: NextPage = () => {
     setPreferences([[undefined, undefined, undefined]]);
     setMints(1);
     setMintStep(0);
+    setError(undefined);
   }, [address]);
 
   useEffect(() => {
@@ -57,8 +61,11 @@ const MintPage: NextPage = () => {
   }, [status]);
 
   useEffect(() => {
-    address && signature && !reservation && requestReservation(address, signature, setReservation);
-  }, [address, signature, reservation, setReservation]);
+    address &&
+      signature &&
+      !reservation &&
+      requestReservation(address, signature, setReservation, setError);
+  }, [signature, reservation, setReservation]);
 
   useEffect(() => {
     mints !== preferences.length &&
@@ -66,22 +73,26 @@ const MintPage: NextPage = () => {
   }, [mints, preferences]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
-      <div className="mx-auto flex w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
-        <div className="w-72 md:w-96">
-          <Image src="/mint/banner.png" width={600} height={150} alt="Banner" />
-        </div>
-        {mintStep < 5 && <Stepper index={mintStep} />}
-        {mintStep === 0 && (
+    <div className="flex h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
+      <div className="mx-auto flex h-full w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
+        {[0, 5].includes(mintStep) && (
+          <div className="w-72 md:w-96">
+            <Image src="/mint/banner.png" width={600} height={150} alt="Banner" />
+          </div>
+        )}
+        {!error && mintStep < 5 && <Stepper index={mintStep} />}
+        {error && <Error error={error} />}
+        {!error && mintStep === 0 && (
           <Connect
             advance={advance}
             signature={signature}
             setSignature={setSignature}
             isConnected={isConnected}
+            status={status}
           />
         )}
-        {mintStep === 1 && <Story advance={advance} />}
-        {mintStep === 2 && signature && reservation && (
+        {!error && mintStep === 1 && <Story advance={advance} />}
+        {!error && mintStep === 2 && signature && reservation && (
           <Explanation
             advance={advance}
             mints={mints}
@@ -91,7 +102,7 @@ const MintPage: NextPage = () => {
             index={reservation.index}
           />
         )}
-        {mintStep === 3 && reservation && (
+        {!error && mintStep === 3 && reservation && (
           <Preferences
             preferences={preferences}
             choose={choose}
@@ -99,11 +110,11 @@ const MintPage: NextPage = () => {
             advance={advance}
           />
         )}
-        {mintStep === 4 && reservation && (
-          <Mint preferences={preferences} reservation={reservation} />
+        {!error && mintStep === 4 && status && reservation && (
+          <Mint preferences={preferences} reservation={reservation} priceWei={status.priceWei} />
         )}
-        {mintStep === 5 && <Success />}
-        <Harold mintStep={mintStep} />
+        {!error && mintStep === 5 && <Success />}
+        {!error && <Harold mintStep={mintStep} />}
       </div>
     </div>
   );

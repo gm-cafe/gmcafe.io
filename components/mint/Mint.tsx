@@ -7,6 +7,7 @@ import { Preference, Options, Reservation } from '../../lib/util/mint';
 type Props = {
   preferences: Preference[];
   reservation: Reservation;
+  priceWei: string;
 };
 
 const preparePrefs = (preferences: Preference[], options: Options[]) =>
@@ -27,22 +28,23 @@ const preparePrefs = (preferences: Preference[], options: Options[]) =>
     return 8 + t1 + t2 + t3;
   });
 
-const Mint = ({ preferences, reservation }: Props) => {
+const Mint = ({ preferences, reservation, priceWei }: Props) => {
   const { proof, index, prefs } = reservation;
 
   const isRandom = preferences.every((p) => p.every((q) => q === undefined));
 
   const prefVals = preparePrefs(preferences, prefs);
 
-  const price = 0.06 * preferences.length;
+  const pricePerUnit = utils.parseUnits(priceWei, 'wei');
+  const price = pricePerUnit.mul(preferences.length);
 
   const { write } = useContractWrite({
     addressOrName: keekContract,
     contractInterface: keekABI,
     functionName: 'reservationMint',
-    args: [proof, index, preferences.length, prefVals],
+    args: [proof, index, prefs.length, prefVals],
     overrides: {
-      value: utils.parseEther(price.toString()),
+      value: price,
     },
   });
 
@@ -137,7 +139,7 @@ const Mint = ({ preferences, reservation }: Props) => {
           Mint
         </button>
         <p className="mx-auto rounded-xl bg-white px-2 font-gmcafe text-xl text-pink">
-          0.06e x {preferences.length} = {price}e
+          {utils.formatEther(pricePerUnit)}e x {preferences.length} = {utils.formatEther(price)}e
         </p>
       </div>
     </div>

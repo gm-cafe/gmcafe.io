@@ -21,15 +21,20 @@ const Explanation = ({ advance, mints, setMints, maxMints, index }: Props) => {
   });
 
   return (
-    <div className="mb-36 mt-4 flex w-full flex-grow flex-col items-center gap-4 md:gap-6">
+    <div className="mb-32 flex w-full flex-grow flex-col items-center gap-2 md:mt-4 md:gap-6">
       {!hasMinted && (
-        <p className="rounded-lg bg-white p-4 text-sm text-purple md:text-base">
-          You&apos;re able to mint{' '}
-          <span className="rounded-lg bg-purple px-2 py-1 font-gmcafe text-white md:text-xl">
-            {maxMints}
-          </span>{' '}
-          Keekusaurs! @Ben/@Jane to add more info about influence/random here
-        </p>
+        <div className="rounded-lg bg-white p-4 text-sm text-purple md:text-base">
+          <p>
+            While the Keekusaurs are frozen awaiting to be thawed, you can choose to <b>SUGGEST</b>{' '}
+            traits that you appreciate most. Your careful selections will <b>INFLUENCE</b> your
+            adopted Keekusaur, increasing the odds of adopting your forever Keek!
+          </p>
+          <p>
+            You will now be shown a series of &apos;<b>A</b>&apos; or &apos;<b>B</b>&apos; trait
+            groups. Select your favourite from the batches shown and move through the cards until
+            you reach the end.
+          </p>
+        </div>
       )}
       {hasMinted && (
         <p className="rounded-lg bg-white p-4 text-sm text-purple md:text-base">

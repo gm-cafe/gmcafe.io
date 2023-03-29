@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import { Choice } from '../../lib/util/mint';
+import { Choice, emoji } from '../../lib/util/mint';
 
 type Props = {
   current: number;
@@ -26,6 +26,7 @@ const Card = ({ current, index, count, choose, option }: Props) => {
       onClick={choose}
     >
       <Image src={`/mint/${option}.png`} alt={`Option ${option}`} layout="fill" />
+      <span className="absolute bottom-3 right-3">{emoji[option]}</span>
     </div>
   );
 };

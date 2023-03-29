@@ -6,8 +6,8 @@ type Props = {
 };
 
 const messages = [
-  "You're connected!<div></div>Next, you can try and influence your Keeku to wear items you enjoy!",
-  "You're connected!<div></div>Next, you can try and influence your Keeku to wear items you enjoy!",
+  'To get started with adopting your tender little Keekusaur, hit the ‘Connect Wallet’ button!',
+  "Your wallet is connected!<div></div>Let's get started, precious Patron.",
   "You're connected!<div></div>Next, you can try and influence your Keeku to wear items you enjoy!",
   "You're connected!<div></div>Next, you can try and influence your Keeku to wear items you enjoy!",
   "You're connected!<div></div>Next, you can try and influence your Keeku to wear items you enjoy!",

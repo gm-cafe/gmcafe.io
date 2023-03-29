@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             toastOptions={{
               style: {
                 color: '#8946ab',
+                overflowX: 'auto',
               },
             }}
           />
