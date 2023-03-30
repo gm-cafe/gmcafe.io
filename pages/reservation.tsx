@@ -118,7 +118,7 @@ const Reservation: NextPage = () => {
   };
 
   return (
-    <div className="mt-22 flex min-h-screen bg-pink-background">
+    <div className="flex min-h-screen bg-pink-background pt-40">
       <div className="mx-auto flex max-w-screen-sm flex-1 flex-col items-center justify-center gap-6 p-2">
         {!['confirmed', 'not in discord'].includes(state) && (
           <div className="w-full">
@@ -134,7 +134,7 @@ const Reservation: NextPage = () => {
               {loading
                 ? null
                 : state === 'unconfirmed'
-                ? "You're not on the reservation list... check back later?"
+                ? 'Sorry, you do not have a Reservation and are not on the Patron Waitlist! Come back during our Public phase to mint your Keek.'
                 : null}
             </p>
           </div>
@@ -146,13 +146,16 @@ const Reservation: NextPage = () => {
         )}
         {state === 'confirmed' && card && (
           <p className="mt-1 text-center font-gmcafe text-lg text-purple">
-            Your reservation is confirmed. Come back on mint day to adopt your Keekusaur!
+            {mints > 0
+              ? 'Your reservation is confirmed.'
+              : "You're registered on the Patron Waitlist."}{' '}
+            Come back on mint day to adopt your Keekusaur!
             {mints > 1 && (
               <span>
                 {' '}
                 You will be able to mint{' '}
-                <span className="rounded-lg bg-white px-1.5 text-2xl">{mints}</span> Keekusaurs
-                on mint day!
+                <span className="rounded-lg bg-white px-1.5 text-2xl">{mints}</span> Keekusaurs on
+                mint day!
               </span>
             )}
           </p>
@@ -179,7 +182,7 @@ const Reservation: NextPage = () => {
           </p>
         )}
         {card && (
-          <div className="mt-3 flex justify-center gap-4">
+          <div className="flex justify-center gap-4">
             <button
               className="flex items-center gap-1 rounded-lg bg-purple py-2 pl-3 pr-4 transition-colors hover:bg-opacity-80"
               onClick={onDownload}
@@ -224,6 +227,9 @@ const Reservation: NextPage = () => {
             )}
           </button>
         )}
+        <div className="rounded-lg bg-white p-3">
+          <Image src="/mint/mint_time.png" width={500} height={500} alt="Mint Time" />
+        </div>
       </div>
       {state === 'confirmed' && <Confetti />}
     </div>
