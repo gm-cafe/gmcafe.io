@@ -245,7 +245,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       title: 'Reservation',
-      metaDescription: 'Check if your wallet is allowlisted for Phase 2 Keekus!',
+      metaDescription: 'Check if your wallet is confirmed for the Keekusaurs mint!',
       metaImage: hash ? `https://api.gmcafe.io/card-cache/${hash}.png` : '/keeku_banner.png',
       twitterCard: 'summary_large_image',
     },
