@@ -10,7 +10,7 @@ const Success = ({ back }: Props) => {
   return (
     <div className="flex w-full flex-col items-center">
       <a
-        className="flex items-center gap-2 rounded-xl bg-white px-3 py-1 font-gmcafe text-3xl text-purple transition-transform hover:scale-105 mb-2"
+        className="mb-2 flex items-center gap-2 rounded-xl bg-white px-3 py-1 font-gmcafe text-3xl text-purple transition-transform hover:scale-105"
         href={'https://opensea.io/BenColefax/collected/goodmorningcafe-old'}
         rel="noreferrer"
         target="_blank"

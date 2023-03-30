@@ -5,8 +5,8 @@ type Props = {
 const Story = ({ advance }: Props) => {
   return (
     <div className="mb-24 mt-4 flex min-h-0 w-full flex-grow flex-col items-center gap-4 md:mb-32">
-      <div className="flex flex-col gap-1 md:gap-2 overflow-y-auto rounded-lg bg-white p-4 text-purple text-sm">
-        <h1 className="font-gmcafe md:text-xl uppercase">As the Story Goes...</h1>
+      <div className="flex flex-col gap-1 overflow-y-auto rounded-lg bg-white p-4 text-sm text-purple md:gap-2">
+        <h1 className="font-gmcafe uppercase md:text-xl">As the Story Goes...</h1>
         <p>
           One glorious morning as a misty haze glistened over the lush green fields of Kawa Valley,
           one inquisitive Moo strayed from the Herd in the café, almost as if something was calling

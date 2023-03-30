@@ -151,8 +151,8 @@ const Reservation: NextPage = () => {
               <span>
                 {' '}
                 You will be able to mint{' '}
-                <span className="rounded-lg bg-white px-1.5 text-2xl">{mints}</span> Keekusaurs
-                on mint day!
+                <span className="rounded-lg bg-white px-1.5 text-2xl">{mints}</span> Keekusaurs on
+                mint day!
               </span>
             )}
           </p>
