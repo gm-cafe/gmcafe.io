@@ -95,6 +95,8 @@ export type Status = {
   supply: number;
   priceWei: string;
   publicMax: number;
+  reserved: number;
+  phase: string;
 };
 
 export const requestStatus = (setState: Dispatch<SetStateAction<Status | undefined>>) =>
@@ -104,3 +106,13 @@ export const requestStatus = (setState: Dispatch<SetStateAction<Status | undefin
     .catch(toastError);
 
 export type APIError = 'noReservation';
+
+export type KeekuInfo = {
+  owner: `0x${string}`;
+  block: number;
+  transfers: number;
+  tag: number;
+  locked: boolean;
+  pref: number;
+  token: number;
+};

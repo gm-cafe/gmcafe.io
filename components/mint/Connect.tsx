@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useSignMessage } from 'wagmi';
 import { Status } from '../../lib/util/mint';
@@ -37,35 +38,44 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
         </button>
       )}
       {status && (
+        <h2 className="mt-4 font-gmcafe text-2xl text-purple">
+          We&apos;re in the <span className="text-pink underline">{status.phase}</span>!
+        </h2>
+      )}
+      {status && (
         <div className="relative mx-auto w-full md:w-4/5">
-          <div className="mt-12 flex h-4 overflow-x-hidden overflow-y-visible rounded-full bg-white">
+          <div className="mt-12 flex h-4 overflow-hidden rounded-full bg-white">
             <span
-              className="relative flex h-full items-center justify-center bg-purple text-center font-gmcafe text-white"
-              // style={{ width: `${(100 * status.minted) / status.supply}%` }}
-              style={{ width: `${(100 * 1000) / status.supply}%` }}
+              className={classNames(
+                'relative flex h-full items-center justify-center bg-purple text-center font-gmcafe',
+                { 'text-purple': status.minted < 175 },
+                { 'text-white': status.minted >= 175 }
+              )}
+              style={{ width: `${(100 * status.minted) / status.supply}%` }}
             >
-              1000
+              {status.minted}
             </span>
-            <span
-              className="relative flex h-full items-center justify-center bg-white text-center font-gmcafe text-white"
-              // style={{ width: `${(100 * status.dropped) / status.supply}%` }}
-              style={{ width: `${(100 * (status.supply - 1000 - 333)) / status.supply}%` }}
-            />
+            <span className="relative flex h-full flex-grow items-center justify-center bg-white text-center font-gmcafe text-white" />
             <span
               className="relative flex h-full items-center justify-center bg-pink text-center font-gmcafe text-white"
-              // style={{ width: `${(100 * status.dropped) / status.supply}%` }}
-              style={{ width: `${(100 * 333) / status.supply}%` }}
+              style={{ width: `${(100 * status.reserved) / status.supply}%` }}
             >
-              333
+              {status.reserved}
             </span>
           </div>
           <div className="absolute top-20 flex w-full">
-            <div style={{ flexBasis: `${(100 * 1000) / status.supply}%` }} className="text-center">
+            <div
+              style={{ flexBasis: `${(100 * status.minted) / status.supply}%` }}
+              className="text-center"
+            >
               <span className="rounded-lg bg-white px-2 py-0.5 font-gmcafe text-purple">Mint</span>
             </div>
-            <div style={{ flexBasis: `${(100 * (status.supply - 1000 - 333)) / status.supply}%` }}/>
-            <div style={{ flexBasis: `${(100 * 333) / status.supply}%` }} className="text-center">
-              <span className="rounded-lg bg-white px-2 py-0.5 font-gmcafe text-pink">Drop</span>
+            <div className="flex-grow" />
+            <div
+              style={{ flexBasis: `${(100 * status.reserved) / status.supply}%` }}
+              className="text-center"
+            >
+              <span className="rounded-lg bg-white px-2 py-0.5 font-gmcafe text-pink">Airdrop</span>
             </div>
           </div>
         </div>

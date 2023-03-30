@@ -56,7 +56,7 @@ const Explanation = ({
           <Quantity mints={mints} setMints={setMints} maxMints={maxMints} />
         </div>
       )}
-      <div className="flex gap-6">
+      <div className="flex items-center gap-2 md:gap-4">
         {!disableInfluence && (
           <button
             className="flex items-center gap-2 rounded-full bg-white px-3 py-1 font-gmcafe text-2xl uppercase text-purple transition-transform hover:scale-105 disabled:opacity-70 disabled:hover:scale-100 md:px-4 md:py-1.5 md:text-3xl"
@@ -69,6 +69,7 @@ const Explanation = ({
             Influence
           </button>
         )}
+        <span className="font-gmcafe text-xl text-purple">OR</span>
         <button
           className="flex items-center gap-2 rounded-full bg-white px-3 py-1 font-gmcafe text-2xl uppercase text-purple transition-transform hover:scale-105 disabled:opacity-70 disabled:hover:scale-100 md:px-4 md:py-1.5 md:text-3xl"
           onClick={() => advance(2)}

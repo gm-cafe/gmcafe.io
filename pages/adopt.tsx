@@ -46,6 +46,11 @@ const MintPage: NextPage = () => {
       ...preferences.slice(mint + 1, preferences.length),
     ]);
   };
+  const undoMint = () => {
+    advance(-2);
+    setMints(1);
+    setPreferences([[undefined, undefined, undefined]]);
+  };
 
   const maxMints =
     reservation && status
@@ -84,7 +89,7 @@ const MintPage: NextPage = () => {
   }, [mints, preferences]);
 
   return (
-    <div className="flex h-screen flex-col items-center bg-pink-background px-4 pt-32 pb-12 md:pt-40">
+    <div className="flex h-screen flex-col items-center bg-pink-background px-3 pt-32 pb-12 md:px-4 md:pt-40">
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
         {[0, 5].includes(mintStep) && (
           <div className="w-72 md:w-96">
@@ -129,6 +134,9 @@ const MintPage: NextPage = () => {
             reservation={reservation}
             priceWei={status.priceWei}
             advance={advance}
+            mints={mints}
+            maxMints={maxMints}
+            undo={undoMint}
           />
         )}
         {!error && mintStep === 5 && <Success />}
@@ -143,8 +151,9 @@ export default MintPage;
 export const getServerSideProps = () => {
   return {
     props: {
-      title: 'Mint',
-      metaDescription: 'Mint your Phase 2 Keekus now!',
+      title: 'Keekusaur Adoption Cave',
+      metaImage: 'https://gmcafe.io/meta_image_keeku.png',
+      metaDescription: 'Adopt your tender Keekusaur ✨',
     },
   };
 };

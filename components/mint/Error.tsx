@@ -6,7 +6,9 @@ type Props = {
 };
 
 const Error = ({ error }: Props) => {
-  const patronWL = new Date(1680397200000);
+  const patronWL = new Date(1680354000000);
+  const publicWL = new Date(1680386400000);
+  const publicMint = new Date(1680397200000);
 
   return (
     <div className="mt-4 flex-grow">
@@ -19,16 +21,12 @@ const Error = ({ error }: Props) => {
             <b>{format(patronWL, 'haa MMMM do')}</b> to adopt your Keekusaur.
           </p>
           <p>
-            If you missed the Patron Waitlist registration period, you can register for the Public
-            Mint phase on{' '}
-            <a
-              className="font-bold text-[#6C5DD3] underline"
-              rel="noreferrer"
-              target="_blank"
-              href="https://heymint.xyz/good-morning-cafe-public"
-            >
-              HeyMint
-            </a>
+            If you have signed up for the &apos;<b>Public Waitlist</b>&apos; you will need to return
+            at <b>{format(publicWL, 'haa MMMM do')}</b> to adopt your Keekusaur.
+          </p>
+          <p>
+            If you missed both waitlist registration periods, come back at{' '}
+            <b>{format(publicMint, 'haa MMMM do')}</b> for the <b>Public Mint</b>.
           </p>
         </div>
       )}
