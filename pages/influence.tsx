@@ -50,7 +50,7 @@ const useKeeks = (address?: string) => {
 const InfluencePage: NextPage = () => {
   const { address, isConnected } = useAccount();
 
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(0);
   const advance = (steps = 1) => setStep(step + steps);
 
   const [token, setToken] = useState<number | undefined>();
@@ -63,7 +63,7 @@ const InfluencePage: NextPage = () => {
     setToken(undefined);
     setPreference([undefined, undefined, undefined]);
     setOptions(undefined);
-  }
+  };
 
   const choose = (idx: 0 | 1 | 2, choice: Choice) =>
     setPreference([
@@ -96,3 +96,13 @@ const InfluencePage: NextPage = () => {
 };
 
 export default InfluencePage;
+
+export const getServerSideProps = () => {
+  return {
+    props: {
+      title: 'Keekusaur Cave',
+      metaImage: '/meta_image_keeku.png',
+      metaDescription: 'Influence your tender Keekusaur ✨',
+    },
+  };
+};

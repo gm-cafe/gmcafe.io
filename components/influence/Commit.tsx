@@ -66,6 +66,13 @@ const Commit = ({ advance, preference, options, token }: Props) => {
           Influence
         </button>
       </div>
+      <div className="mt-8 rounded-xl bg-white px-2 py-2 font-gmcafe text-sm text-purple md:px-4 md:text-lg">
+        <p>
+          You have selected your favourite traits and showered them on your Keek. When they have
+          thawed from their icy captivity, they will see your suggestions and choose what they want
+          to wear. Best of luck!
+        </p>
+      </div>
     </div>
   );
 };
