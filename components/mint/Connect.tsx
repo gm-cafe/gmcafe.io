@@ -28,7 +28,10 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
 
   return (
     <div className="mb-32 mt-10 flex w-full flex-grow flex-col items-center">
-      <CustomConnectButton variation="mint" />
+      <CustomConnectButton
+        variation="mint"
+        disabled={!status || status.phase.toLowerCase() === 'closed'}
+      />
       {isConnected && (
         <button
           className="rounded-full bg-white px-6 py-3 font-gmcafe text-2xl text-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl"
