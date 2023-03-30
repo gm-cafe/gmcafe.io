@@ -152,7 +152,7 @@ export const getServerSideProps = () => {
   return {
     props: {
       title: 'Keekusaur Adoption Cave',
-      metaImage: 'https://gmcafe.io/meta_image_keeku.png',
+      metaImage: '/meta_image_keeku.png',
       metaDescription: 'Adopt your tender Keekusaur ✨',
     },
   };

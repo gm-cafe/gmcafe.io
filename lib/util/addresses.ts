@@ -25,7 +25,7 @@ export const redeemABI = ['function redeemMoos(uint256[] calldata tokens) public
 
 export const keekABI = [
   'function hasMinted(uint256 packed, address minter) public view returns (bool)',
-  'function mint(bytes32[] calldata proof, uint256 packed, uint256[] calldata prefs) external payable',
+  'function mintKeeks(bytes32[] calldata proof, uint256 packed, uint256[] calldata prefs) external payable',
   'function keeksFromSlice(uint256 offset, uint256 size) external view returns (bytes32[] memory keeks)',
   'function setPref(uint256 token, uint256 pref) external',
 ];

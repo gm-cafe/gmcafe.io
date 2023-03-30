@@ -34,7 +34,7 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
   } = useContractWrite({
     addressOrName: keekContract,
     contractInterface: keekABI,
-    functionName: 'mint',
+    functionName: 'mintKeeks',
     args: [proof, packed, prefVals],
     overrides: {
       value: price,
@@ -53,7 +53,7 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
   }, [isSuccess, advance]);
 
   return (
-    <div className="mt-4 flex flex-grow flex-col gap-4 md:gap-8">
+    <div className="mt-4 flex flex-grow flex-col gap-4 md:gap-6">
       <div className="flex justify-center gap-6 md:gap-10">
         {isRandom ? (
           <div className="relative mt-2 h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">

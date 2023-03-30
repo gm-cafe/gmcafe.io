@@ -48,7 +48,8 @@ const Explanation = ({
       )}
       {hasMinted && (
         <p className="rounded-lg bg-white p-4 text-sm text-purple md:text-base">
-          Looks like you&apos;ve already adopted your Keekusaur(s)!
+          Looks like you&apos;ve already adopted your Keekusaur(s)! Come back during{' '}
+          <b>Public phase</b> if you&apos;d like to adopt another Keekusaur!
         </p>
       )}
       {!hasMinted && maxMints > 1 && (
@@ -69,7 +70,7 @@ const Explanation = ({
             Influence
           </button>
         )}
-        <span className="font-gmcafe text-xl text-purple">OR</span>
+        {!disableInfluence && <span className="font-gmcafe text-xl text-purple">OR</span>}
         <button
           className="flex items-center gap-2 rounded-full bg-white px-3 py-1 font-gmcafe text-2xl uppercase text-purple transition-transform hover:scale-105 disabled:opacity-70 disabled:hover:scale-100 md:px-4 md:py-1.5 md:text-3xl"
           onClick={() => advance(2)}

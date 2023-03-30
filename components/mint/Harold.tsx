@@ -20,8 +20,8 @@ const Harold = ({ mintStep }: Props) => {
   const [talking, setTalking] = useState(false);
 
   return (
-    <div className="fixed bottom-0 flex max-w-full items-center gap-2 py-3 px-2 md:max-w-none md:gap-8 md:py-4">
-      <div className="relative h-22 w-22 shrink-0 overflow-hidden rounded-full border-6 border-white bg-pink md:h-32 md:w-32 md:border-8">
+    <div className="fixed bottom-0 flex max-w-full items-center gap-2 py-2 px-2 md:max-w-none md:gap-8">
+      <div className="relative h-22 w-22 shrink-0 overflow-hidden rounded-full border-6 border-white bg-pink md:h-28 md:w-28 md:border-8">
         <div className={classNames('absolute', { hidden: talking })}>
           <Image src="/mint/harold.png" alt="Harold" width={400} height={400} />
         </div>
@@ -29,7 +29,7 @@ const Harold = ({ mintStep }: Props) => {
           <Image src="/mint/harold.gif" alt="Harold" width={400} height={400} />
         </div>
       </div>
-      <div className="harold-speech relative flex h-24 w-[420px] flex-col items-center justify-center rounded-3xl bg-white px-2 text-center font-gmcafe tracking-wider text-purple md:h-28 md:px-4 md:text-xl md:before:-ml-[9px]">
+      <div className="harold-speech relative flex h-24 w-[420px] flex-col items-center justify-center rounded-3xl bg-white px-2 text-center font-gmcafe tracking-wide text-purple md:h-24 md:px-4 md:text-lg md:before:-ml-[9px]">
         {mintStep === 0 && (
           <Typewriter
             onStart={() => setTalking(true)}
