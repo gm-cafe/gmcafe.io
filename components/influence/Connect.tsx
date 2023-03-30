@@ -15,7 +15,7 @@ const Connect = ({ advance, isConnected }: Props) => {
   return (
     <div className="flex flex-col items-center gap-4">
       <CustomConnectButton variation="mint" />
-      <div className="flex flex-col gap-2 rounded-lg bg-white px-4 py-2 font-gmcafe text-xl text-purple">
+      <div className="flex flex-col gap-2 rounded-lg bg-white px-4 py-2 font-gmcafe md:text-xl text-purple">
         <p>
           Have an airdropped Keekusaur and want to <span className="text-pink">INFLUENCE</span>?
         </p>
@@ -23,7 +23,7 @@ const Connect = ({ advance, isConnected }: Props) => {
         <p>
           If you want to adopt a Keekusaur, click{' '}
           <Link href="/adopt">
-            <a className="rounded-lg bg-purple px-2 text-white">here</a>
+            <a className="rounded-lg bg-purple px-1 md:px-2 text-white">here</a>
           </Link>
         </p>
       </div>

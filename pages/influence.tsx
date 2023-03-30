@@ -1,11 +1,14 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
+import Choose from '../components/influence/Choose';
+import Commit from '../components/influence/Commit';
 import Connect from '../components/influence/Connect';
 import List from '../components/influence/List';
+import Success from '../components/influence/Success';
 import useContractRead from '../lib/hooks/useContractRead';
 import { keekABI, keekContract } from '../lib/util/addresses';
-import { KeekuInfo } from '../lib/util/mint';
+import { Choice, KeekuInfo, Options, Preference, requestDrop } from '../lib/util/mint';
 
 const parseKeekData = (s: string): KeekuInfo => {
   /*
@@ -28,7 +31,7 @@ const parseKeekData = (s: string): KeekuInfo => {
   const token = parseInt(s.slice(2, 5), 16);
 
   return { token, pref, tag, transfers, block, owner, locked };
-}
+};
 
 const useKeeks = (address?: string) => {
   const { data } = useContractRead({
@@ -47,18 +50,46 @@ const useKeeks = (address?: string) => {
 const InfluencePage: NextPage = () => {
   const { address, isConnected } = useAccount();
 
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(4);
   const advance = (steps = 1) => setStep(step + steps);
+
+  const [token, setToken] = useState<number | undefined>();
+
+  const [options, setOptions] = useState<Options | undefined>();
+  const [preference, setPreference] = useState<Preference>([undefined, undefined, undefined]);
+
+  const back = () => {
+    setStep(1);
+    setToken(undefined);
+    setPreference([undefined, undefined, undefined]);
+    setOptions(undefined);
+  }
+
+  const choose = (idx: 0 | 1 | 2, choice: Choice) =>
+    setPreference([
+      idx === 0 ? choice : preference[0],
+      idx === 1 ? choice : preference[1],
+      idx === 2 ? choice : preference[2],
+    ]);
 
   const keeks = useKeeks(address);
 
-  console.log(keeks);
+  useEffect(() => {
+    token && !options && requestDrop(token, setOptions);
+  }, [options, token]);
 
   return (
     <div className="flex h-screen flex-col items-center bg-pink-background px-3 pt-32 pb-12 md:px-4 md:pt-40">
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
         {step === 0 && <Connect advance={advance} isConnected={isConnected} />}
-        {step === 1 && <List />}
+        {step === 1 && <List advance={advance} keeks={keeks} setToken={setToken} />}
+        {step === 2 && (
+          <Choose advance={advance} options={options} choose={choose} preference={preference} />
+        )}
+        {step === 3 && token && (
+          <Commit advance={advance} preference={preference} options={options} token={token} />
+        )}
+        {step === 4 && <Success back={back} />}
       </div>
     </div>
   );

@@ -116,3 +116,33 @@ export type KeekuInfo = {
   pref: number;
   token: number;
 };
+
+export const requestDrop = (
+  token: number,
+  setState: Dispatch<SetStateAction<Options | undefined>>
+) =>
+  fetch('https://api.gmcafe.io/mint/drop', {
+    method: 'POST',
+    body: JSON.stringify({ token: token }),
+  })
+    .then((res) => res.json())
+    .then((json) => setState(json))
+    .catch(toastError);
+
+export const preparePrefs = (preferences: Preference[], options?: Options[]) =>
+  preferences.map((preference, idx) => {
+    if (!options || preference.every((p) => p === undefined)) {
+      return 0;
+    }
+
+    const option = options[idx];
+
+    const [p1, p2, p3] = preference;
+    const [o1, o2, o3] = option;
+
+    const t1 = p1 === o1[0] ? 0 : 1;
+    const t2 = p2 === o2[0] ? 0 : 2;
+    const t3 = p3 === o3[0] ? 0 : 4;
+
+    return 8 + t1 + t2 + t3;
+  });

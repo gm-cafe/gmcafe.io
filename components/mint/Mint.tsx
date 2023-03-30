@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useWaitForTransaction } from 'wagmi';
 import useContractWrite from '../../lib/hooks/useContractWrite';
 import { keekABI, keekContract } from '../../lib/util/addresses';
-import { Preference, Options, Reservation } from '../../lib/util/mint';
+import { Preference, Reservation, preparePrefs } from '../../lib/util/mint';
 import { LoadingIcon } from '../Icons';
 
 type Props = {
@@ -17,24 +17,6 @@ type Props = {
   undo: () => void;
 };
 
-const preparePrefs = (preferences: Preference[], options?: Options[]) =>
-  preferences.map((preference, idx) => {
-    if (!options || preference.every((p) => p === undefined)) {
-      return 0;
-    }
-
-    const option = options[idx];
-
-    const [p1, p2, p3] = preference;
-    const [o1, o2, o3] = option;
-
-    const t1 = p1 === o1[0] ? 0 : 1;
-    const t2 = p2 === o2[0] ? 0 : 2;
-    const t3 = p3 === o3[0] ? 0 : 4;
-
-    return 8 + t1 + t2 + t3;
-  });
-
 const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, undo }: Props) => {
   const { proof, packed, prefs } = reservation;
 
@@ -45,7 +27,11 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
   const pricePerUnit = utils.parseUnits(priceWei, 'wei');
   const price = pricePerUnit.mul(preferences.length);
 
-  const { write, data, isLoading } = useContractWrite({
+  const {
+    write,
+    data,
+    isLoading: writeLoading,
+  } = useContractWrite({
     addressOrName: keekContract,
     contractInterface: keekABI,
     functionName: 'mint',
@@ -55,10 +41,12 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
     },
   });
 
-  const { isSuccess } = useWaitForTransaction({
+  const { isSuccess, isLoading: txLoading } = useWaitForTransaction({
     hash: data?.hash,
     enabled: !!data,
   });
+
+  const isLoading = writeLoading || txLoading;
 
   useEffect(() => {
     isSuccess && advance();
