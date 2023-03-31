@@ -3,16 +3,21 @@ import classNames from 'classnames';
 
 type CustomConnectButtonProps = {
   className?: string;
-  variation: 'checkin' | 'migration';
+  variation: 'migration' | 'mint';
+  disabled?: boolean;
 };
 
-export const CustomConnectButton = ({ className, variation }: CustomConnectButtonProps) => {
-  const checkInClasses =
-    'rounded-lg bg-pink px-4 pb-2 pt-3 font-gmcafe text-xl font-semibold uppercase text-white shadow transition-transform hover:scale-105 sm:px-6 sm:pb-3 sm:pt-4 sm:text-2xl';
+export const CustomConnectButton = ({
+  className,
+  variation,
+  disabled = false,
+}: CustomConnectButtonProps) => {
   const migrationClasses =
     'rounded-full bg-pink-light font-gmcafe text-white text-base px-3 py-0.5 text-shadow uppercase';
+  const mintClasses =
+    'rounded-full bg-white px-6 md:px-8 py-3 md:py-4 text-purple text-2xl md:text-4xl font-gmcafe transition-transform hover:scale-110 disabled:opacity-70 disabled:hover:scale-100';
 
-  const buttonClasses = variation === 'checkin' ? checkInClasses : migrationClasses;
+  const buttonClasses = variation === 'migration' ? migrationClasses : mintClasses;
 
   return (
     <ConnectButton.Custom>
@@ -28,6 +33,7 @@ export const CustomConnectButton = ({ className, variation }: CustomConnectButto
                 )}
                 onClick={openConnectModal}
                 type="button"
+                disabled={disabled}
               >
                 Connect Wallet
               </button>

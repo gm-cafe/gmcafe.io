@@ -1,6 +1,7 @@
 export const openSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
 export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
 export const redeemContract = '0xa25066d7232069489b57db8755d0055ecd69daec';
+export const keekContract = '0x01298589d7c2bd82f54ca84060d58967772123f2';
 
 export const openSeaABI = [
   'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
@@ -21,3 +22,10 @@ export const gmooABI = [
 ];
 
 export const redeemABI = ['function redeemMoos(uint256[] calldata tokens) public'];
+
+export const keekABI = [
+  'function hasMinted(uint256 packed, address minter) public view returns (bool)',
+  'function mintKeeks(bytes32[] calldata proof, uint256 packed, uint256[] calldata prefs) external payable',
+  'function keeksFromSlice(uint256 offset, uint256 size) external view returns (bytes32[] memory keeks)',
+  'function setPref(uint256 token, uint256 pref) external',
+];

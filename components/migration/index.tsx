@@ -148,7 +148,11 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button className="mt-auto" onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })} loading={isLoading}>
+      <Button
+        className="mt-auto"
+        onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })}
+        loading={isLoading}
+      >
         Migrate
       </Button>
     </>

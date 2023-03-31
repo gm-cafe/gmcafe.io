@@ -1,0 +1,52 @@
+/* Line */
+.stepper-item:not(:last-child):before {
+  content: '';
+  height: 12px;
+  background-color: white;
+  order: 1;
+  bottom: 22px;
+  position: relative;
+  left: 50%;
+}
+
+/* Dot */
+.stepper-item:after {
+  --size: 2rem;
+  height: var(--size);
+  width: var(--size);
+  content: '';
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 9999px;
+  margin: 0.5rem auto 0;
+
+  border-width: 6px;
+  border-color: white;
+}
+
+.stepper-title:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+.harold-speech:before {
+  --size: 36px;
+  content: '';
+  position: absolute;
+  top: calc(50% - var(--size) * 0.5);
+  left: 0%;
+  height: var(--size);
+  width: var(--size);
+  background-color: white;
+  clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+  transform: rotate(45deg);
+  border-radius: 5px;
+  z-index: -1;
+}
