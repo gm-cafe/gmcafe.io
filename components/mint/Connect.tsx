@@ -26,12 +26,11 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
     isConnected && !isLoading && !signature && signMessage();
   }, [isConnected]);
 
+  const isClosed = !status || status.phase.toLowerCase() === 'closed';
+
   return (
     <div className="mb-32 mt-10 flex w-full flex-grow flex-col items-center">
-      <CustomConnectButton
-        variation="mint"
-        disabled={!status || status.phase.toLowerCase() === 'closed'}
-      />
+      <CustomConnectButton variation="mint" disabled={isClosed} />
       {isConnected && (
         <button
           className="rounded-full bg-white px-6 py-3 font-gmcafe text-2xl text-purple transition-transform hover:scale-110 md:px-8 md:py-4 md:text-4xl"
@@ -41,8 +40,17 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
         </button>
       )}
       {status && (
-        <h2 className="mt-4 font-gmcafe text-2xl text-purple">
-          We&apos;re in the <span className="text-pink underline">{status.phase}</span>!
+        <h2 className="mt-4 text-center font-gmcafe text-xl text-purple md:text-2xl">
+          {!isClosed ? (
+            <>
+              We&apos;re in the <span className="text-pink underline">{status.phase}</span>!
+            </>
+          ) : (
+            <>
+              Adoption Cave is currently <span className="text-pink underline">{status.phase}</span>
+              , check back later!
+            </>
+          )}
         </h2>
       )}
       {status && (
