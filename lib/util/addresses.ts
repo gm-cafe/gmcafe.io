@@ -1,7 +1,7 @@
 export const openSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
 export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
 export const redeemContract = '0xa25066d7232069489b57db8755d0055ecd69daec';
-export const keekContract = '0x744fE81B6ceE6da4B8644823aA5b5077336072D1';
+export const keekContract = '0x1830FEc8337cf34F05fF78FbBB593A6F0A214242';
 
 export const openSeaABI = [
   'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
