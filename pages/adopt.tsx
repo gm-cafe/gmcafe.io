@@ -139,7 +139,7 @@ const MintPage: NextPage = () => {
             undo={undoMint}
           />
         )}
-        {!error && mintStep === 5 && <Success />}
+        {!error && mintStep === 5 && address && <Success address={address} />}
         {!error && <Harold mintStep={mintStep} />}
       </div>
     </div>

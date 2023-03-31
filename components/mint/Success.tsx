@@ -2,12 +2,16 @@ import Image from 'next/image';
 import Confetti from '../Confetti';
 import { OpenSeaIcon, TwitterIcon } from '../Icons';
 
-const Success = () => {
+type Props = {
+  address: string;
+};
+
+const Success = ({ address }: Props) => {
   return (
     <div className="mb-28 mt-4 flex w-full flex-grow flex-col items-center">
       <a
         className="flex items-center gap-2 rounded-xl bg-white px-3 py-1 font-gmcafe text-3xl text-purple transition-transform hover:scale-105"
-        href={'https://opensea.io/BenColefax/collected/goodmorningcafe-old'}
+        href={`https://opensea.io/${address}/collected/keeks`}
         rel="noreferrer"
         target="_blank"
       >

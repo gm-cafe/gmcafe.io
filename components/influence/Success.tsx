@@ -4,14 +4,15 @@ import { OpenSeaIcon } from '../Icons';
 
 type Props = {
   back: () => void;
+  address: string;
 };
 
-const Success = ({ back }: Props) => {
+const Success = ({ back, address }: Props) => {
   return (
     <div className="flex w-full flex-col items-center">
       <a
         className="mb-2 flex items-center gap-2 rounded-xl bg-white px-3 py-1 font-gmcafe text-3xl text-purple transition-transform hover:scale-105"
-        href={'https://opensea.io/BenColefax/collected/goodmorningcafe-old'}
+        href={`https://opensea.io/${address}/collected/keeks`}
         rel="noreferrer"
         target="_blank"
       >

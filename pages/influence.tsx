@@ -89,7 +89,7 @@ const InfluencePage: NextPage = () => {
         {step === 3 && token && (
           <Commit advance={advance} preference={preference} options={options} token={token} />
         )}
-        {step === 4 && <Success back={back} />}
+        {step === 4 && address && <Success back={back} address={address} />}
       </div>
     </div>
   );
