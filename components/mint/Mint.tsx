@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useWaitForTransaction } from 'wagmi';
 import useContractWrite from '../../lib/hooks/useContractWrite';
 import { keekABI, keekContract } from '../../lib/util/addresses';
-import { Preference, Reservation, preparePrefs } from '../../lib/util/mint';
+import { Preference, preparePrefs, Reservation } from '../../lib/util/mint';
 import { LoadingIcon } from '../Icons';
 
 type Props = {
@@ -53,8 +53,8 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
   }, [isSuccess, advance]);
 
   return (
-    <div className="mt-4 flex flex-grow flex-col gap-4 md:gap-6">
-      <div className="flex justify-center gap-6 md:gap-10">
+    <div className="mt-4 flex w-full flex-grow flex-col gap-4 md:gap-6">
+      <div className="flex snap-x overflow-x-auto py-4">
         {isRandom ? (
           <div className="relative mt-2 h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
             {preferences.map((_, idx) => (
@@ -75,63 +75,30 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
           </div>
         ) : (
           <>
-            <div className="relative mt-6 h-22 w-22 -rotate-12 transition-transform hover:scale-105 md:mt-8 md:h-32 md:w-32">
-              {preferences
-                .map((p) => p[0])
-                .map((p, idx) => (
-                  <div
-                    key={`${p}-${idx}`}
-                    className="absolute h-full w-full rounded-xl bg-white shadow-lg-purple"
-                    style={{
-                      transform: `rotate(${
-                        idx === 0
-                          ? 0
-                          : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
-                      }deg)`,
-                    }}
-                  >
-                    <Image src={`/mint/${p}.png`} alt="Card 1" width={400} height={400} />
-                  </div>
-                ))}
-            </div>
-            <div className="relative h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
-              {preferences
-                .map((p) => p[1])
-                .map((p, idx) => (
-                  <div
-                    key={`${p}-${idx}`}
-                    className="absolute h-full w-full rounded-xl bg-white shadow-lg-purple"
-                    style={{
-                      transform: `rotate(${
-                        idx === 0
-                          ? 0
-                          : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
-                      }deg)`,
-                    }}
-                  >
-                    <Image src={`/mint/${p}.png`} alt="Card 2" width={400} height={400} />
-                  </div>
-                ))}
-            </div>
-            <div className="relative mt-6 h-22 w-22 rotate-12 transition-transform hover:scale-105 md:mt-8 md:h-32 md:w-32">
-              {preferences
-                .map((p) => p[2])
-                .map((p, idx) => (
-                  <div
-                    key={`${p}-${idx}`}
-                    className="absolute h-full w-full rounded-xl bg-white shadow-lg-purple"
-                    style={{
-                      transform: `rotate(${
-                        idx === 0
-                          ? 0
-                          : Math.random() * preferences.length * 6 * (Math.random() > 0.5 ? -1 : 1)
-                      }deg)`,
-                    }}
-                  >
-                    <Image src={`/mint/${p}.png`} alt="Card 3" width={400} height={400} />
-                  </div>
-                ))}
-            </div>
+            {preferences.map((preference, idx) => (
+              <div className="mx-auto flex snap-center" key={idx}>
+                <div
+                  key={idx}
+                  className="h-22 w-22 rounded-xl bg-white shadow-lg-purple md:h-32 md:w-32"
+                  style={{ transform: 'rotate(-12deg) translateX(2rem)' }}
+                >
+                  <Image src={`/mint/${preference[0]}.png`} alt="Card 1" width={400} height={400} />
+                </div>
+                <div
+                  key={idx}
+                  className="z-10 h-22 w-22 rounded-xl bg-white shadow-lg-purple md:h-32 md:w-32"
+                >
+                  <Image src={`/mint/${preference[1]}.png`} alt="Card 2" width={400} height={400} />
+                </div>
+                <div
+                  key={idx}
+                  className="h-22 w-22 rounded-xl bg-white shadow-lg-purple md:h-32 md:w-32"
+                  style={{ transform: 'rotate(12deg) translateX(-2rem)' }}
+                >
+                  <Image src={`/mint/${preference[2]}.png`} alt="Card 3" width={400} height={400} />
+                </div>
+              </div>
+            ))}
           </>
         )}
       </div>

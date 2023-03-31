@@ -51,9 +51,15 @@ const Home: NextPage = () => {
             </div>
             <div className="flex flex-col justify-center">
               <h2 className="font-gmcafe text-8xl uppercase text-white">Howdy!</h2>
-              <h1 className="font-gmcafe text-5xl text-white">
-                Welcome to the characters of the Good Morning Café!
-              </h1>
+              <h1 className="font-gmcafe text-5xl text-white">Adopt your Keekusaur!</h1>
+              <Link href="/adopt">
+                <a className="mt-4 mr-auto flex items-center gap-3 rounded-full bg-white px-4 py-2 font-gmcafe text-xl text-purple transition-transform hover:scale-105 md:text-4xl">
+                  <div className="h-8 w-8 md:h-10 md:w-10">
+                    <Image src="/migrate/cup.png" width={200} height={200} alt="" />
+                  </div>
+                  Enter the Adoption Cave
+                </a>
+              </Link>
             </div>
             <div className="hidden w-48 shrink-0 translate-y-[130px] xl:block">
               <Image src={randy} layout="responsive" alt="Randy" />
