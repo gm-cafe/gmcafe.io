@@ -54,8 +54,8 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
         </h2>
       )}
       {status && (
-        <div className="relative mx-auto w-full md:w-4/5">
-          <div className="mt-12 flex h-4 overflow-hidden rounded-full bg-white">
+        <div className="mx-auto mt-8 flex w-full flex-col md:mt-12 md:w-4/5">
+          <div className="flex h-4 overflow-hidden rounded-full bg-white">
             <span
               className={classNames(
                 'relative flex h-full items-center justify-center bg-purple text-center font-gmcafe',
@@ -67,6 +67,9 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
               {status.minted + status.reserved}
             </span>
             <span className="relative flex h-full flex-grow items-center justify-center bg-white text-center font-gmcafe text-white" />
+          </div>
+          <div className="mt-2 text-center font-gmcafe text-xl text-purple">
+            Supply: <span className="text-pink">3333</span>
           </div>
         </div>
       )}
