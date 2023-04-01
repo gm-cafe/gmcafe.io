@@ -34,16 +34,7 @@ const Explanation = ({
     <div className="mb-32 flex w-full flex-grow flex-col items-center gap-2 md:mt-4 md:gap-6">
       {!hasMinted && (
         <div className="flex flex-col gap-2 rounded-lg bg-white p-4 text-justify text-xs text-purple md:text-left md:text-base">
-          <p>
-            While the Keekusaurs are frozen awaiting to be thawed, you can choose to <b>SUGGEST</b>{' '}
-            traits that you appreciate most. Your careful selections will <b>INFLUENCE</b> your
-            adopted Keekusaur, increasing the odds of adopting your forever Keek!
-          </p>
-          <p>
-            You will now be shown a series of &apos;<b>A</b>&apos; or &apos;<b>B</b>&apos; trait
-            groups. Select your favourite from the batches shown and move through the cards until
-            you reach the end.
-          </p>
+          <p>Roll that dice! Your frozen Keek is waiting for you..</p>
         </div>
       )}
       {hasMinted && (

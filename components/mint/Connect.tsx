@@ -62,32 +62,11 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
                 { 'text-purple': status.minted < 175 },
                 { 'text-white': status.minted >= 175 }
               )}
-              style={{ width: `${(100 * status.minted) / status.supply}%` }}
+              style={{ width: `${(100 * (status.minted + status.reserved)) / status.supply}%` }}
             >
-              {status.minted}
+              {status.minted + status.reserved}
             </span>
             <span className="relative flex h-full flex-grow items-center justify-center bg-white text-center font-gmcafe text-white" />
-            <span
-              className="relative flex h-full items-center justify-center bg-pink text-center font-gmcafe text-white"
-              style={{ width: `${(100 * status.reserved) / status.supply}%` }}
-            >
-              {status.reserved}
-            </span>
-          </div>
-          <div className="absolute top-20 flex w-full">
-            <div
-              style={{ flexBasis: `${(100 * status.minted) / status.supply}%` }}
-              className="text-center"
-            >
-              <span className="rounded-lg bg-white px-2 py-0.5 font-gmcafe text-purple">Mint</span>
-            </div>
-            <div className="flex-grow" />
-            <div
-              style={{ flexBasis: `${(100 * status.reserved) / status.supply}%` }}
-              className="text-center"
-            >
-              <span className="rounded-lg bg-white px-2 py-0.5 font-gmcafe text-pink">Airdrop</span>
-            </div>
           </div>
         </div>
       )}
