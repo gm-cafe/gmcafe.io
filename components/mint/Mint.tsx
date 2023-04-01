@@ -56,7 +56,7 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
     <div className="mt-4 flex w-full flex-grow flex-col gap-4 md:gap-6">
       <div className="flex snap-x overflow-x-auto py-4">
         {isRandom ? (
-          <div className="relative mt-2 h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
+          <div className="relative mx-auto mt-2 h-22 w-22 transition-transform hover:scale-105 md:h-32 md:w-32">
             {preferences.map((_, idx) => (
               <div
                 key={idx}
