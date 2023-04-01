@@ -14,7 +14,10 @@ const List = ({ advance, keeks, setToken }: Props) => {
       <div className="flex flex-col gap-6 overflow-y-auto px-8 md:py-4">
         {keeks.length > 0 ? (
           keeks.map(({ token, pref }) => {
-            const disabled = pref !== 0 || token === 1 || token > 301;
+            const isCustom = token >= 301 && token <= 333;
+            const isFnd = token >= 334 && token <= 337;
+            const isBen = token === 1;
+            const disabled = pref !== 0 || isCustom || isFnd || isBen;
             return (
               <button
                 className="flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-gmcafe text-2xl text-purple transition-all hover:scale-105 hover:bg-purple hover:text-white disabled:opacity-50"

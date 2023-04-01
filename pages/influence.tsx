@@ -40,6 +40,7 @@ const useKeeks = (address?: string) => {
     functionName: 'keeksFromSlice',
     args: [0, 387],
     enabled: !!address,
+    watch: true,
   });
 
   const all = data ? data.map((d) => parseKeekData(d)) : [];
