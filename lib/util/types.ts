@@ -63,6 +63,9 @@ export type FilterContextProps = {
 
 export type ProviderProps = {
   children: ReactNode | ReactNode[];
+  metadata: {
+    moos: Moo[];
+  };
 };
 
 export type EntryContextProps = {

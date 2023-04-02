@@ -1,12 +1,14 @@
 import { isAddress } from 'ethers/lib/utils';
 import { useState } from 'react';
-import { moos, keekus } from '../static/metadata';
+import { keekus } from '../static/metadata';
 import { CollectionType, ProviderProps } from '../util/types';
 import useAddressToMooIds from '../util/useAddressToMoos';
 import { EntryContext } from './EntryContext';
 import { useFilterContext } from './FilterContext';
 
-export const EntryProvider = ({ children }: ProviderProps) => {
+export const EntryProvider = ({ children, metadata }: ProviderProps) => {
+  const { moos } = metadata;
+
   const { filters, count, search } = useFilterContext();
   const [type, setType] = useState<CollectionType>('moo');
 
