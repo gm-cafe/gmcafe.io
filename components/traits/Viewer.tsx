@@ -36,7 +36,7 @@ const Viewer = ({ metadata, onClose }: Props) => {
             <div className="flex flex-1 flex-col justify-center gap-4">
               <div className="flex">
                 <h1 className="rounded-md bg-purple px-3 py-1 font-gmcafe text-3xl text-white md:text-4xl">
-                  Moo #{id}
+                  {name}
                 </h1>
               </div>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
