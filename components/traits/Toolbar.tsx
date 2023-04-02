@@ -15,7 +15,7 @@ const Toolbar = () => {
           className={classNames(
             'h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
             { 'bg-purple text-white': type === 'moo' },
-            { 'bg-white text-purple': type !== 'moo' }
+            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'moo' }
           )}
           onClick={() => setType('moo')}
         >
@@ -23,7 +23,7 @@ const Toolbar = () => {
         </button>
         <button
           className={classNames(
-            'h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
+            'relative h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
             { 'bg-purple text-white': type === 'keeku' },
             { 'bg-white text-purple hover:bg-purple-light/40': type !== 'keeku' }
           )}
@@ -34,7 +34,7 @@ const Toolbar = () => {
           Keeku
           <div
             className={classNames(
-              'absolute left-[110%] top-0.5 whitespace-nowrap rounded-lg bg-white px-3 py-1 transition-opacity',
+              'absolute left-[120%] top-0.5 whitespace-nowrap rounded-lg bg-white px-3 py-1 transition-opacity',
               { 'opacity-100': hover },
               { 'opacity-0': !hover }
             )}
