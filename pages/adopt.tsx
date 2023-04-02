@@ -14,6 +14,7 @@ import Success from '../components/mint/Success';
 import {
   APIError,
   Choice,
+  finalStatus,
   Preference,
   requestReservation,
   requestStatus,
@@ -28,7 +29,7 @@ const MintPage: NextPage = () => {
   const [mintStep, setMintStep] = useState(0);
   const [preferences, setPreferences] = useState<Preference[]>([[undefined, undefined, undefined]]);
 
-  const [status, setStatus] = useState<Status | undefined>();
+  const [status, setStatus] = useState<Status>(finalStatus);
   const [reservation, setReservation] = useState<Reservation | undefined>();
   const [error, setError] = useState<APIError | undefined>();
 
@@ -68,11 +69,6 @@ const MintPage: NextPage = () => {
     setMintStep(0);
     setError(undefined);
   }, [address]);
-
-  // Fetch /status on page load
-  useEffect(() => {
-    !status && requestStatus(setStatus);
-  }, [status]);
 
   // Fetch /reservation when user signs 'RAWR!' message
   useEffect(() => {

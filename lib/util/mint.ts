@@ -99,6 +99,16 @@ export type Status = {
   phase: string;
 };
 
+export const finalStatus: Status = {
+  priceWei: '36900000000000000',
+  dropped: 387,
+  minted: 2946,
+  reserved: 387,
+  supply: 3333,
+  publicMax: 5,
+  phase: 'Closed',
+};
+
 export const requestStatus = (setState: Dispatch<SetStateAction<Status | undefined>>) =>
   fetch('https://api.gmcafe.io/mint/status')
     .then((res) => res.json())
