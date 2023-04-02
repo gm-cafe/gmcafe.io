@@ -47,8 +47,8 @@ const Connect = ({ advance, signature, setSignature, isConnected, status }: Prop
             </>
           ) : (
             <>
-              Adoption Cave is currently <span className="text-pink underline">{status.phase}</span>
-              , check back later!
+              Adoption Cave is <span className="text-pink underline">{status.phase}</span>. All
+              Keeks have been adopted!
             </>
           )}
         </h2>
