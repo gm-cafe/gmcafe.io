@@ -28,7 +28,7 @@ const MintPage: NextPage = () => {
   const [mintStep, setMintStep] = useState(0);
   const [preferences, setPreferences] = useState<Preference[]>([[undefined, undefined, undefined]]);
 
-  const [status, setStatus] = useState<Status>(finalStatus);
+  const status: Status = finalStatus;
   const [reservation, setReservation] = useState<Reservation | undefined>();
   const [error, setError] = useState<APIError | undefined>();
 

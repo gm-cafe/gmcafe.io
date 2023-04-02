@@ -22,7 +22,7 @@ const Card = ({ token, setOpen }: Props) => {
           alt={name}
         />
       </div>
-      <span className="absolute top-0 right-0 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white font-gmcafe text-lg text-purple 2xl:h-10 2xl:w-10 2xl:text-2xl">
+      <span className="absolute top-0 right-0 z-10 flex min-w-[28px] items-center justify-center rounded-full bg-white px-2 font-gmcafe text-lg text-purple">
         {id}
       </span>
     </div>

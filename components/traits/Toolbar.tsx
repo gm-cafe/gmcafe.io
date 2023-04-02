@@ -10,12 +10,12 @@ const Toolbar = () => {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="divide-x">
+      <div className="flex gap-2 rounded-2xl bg-white p-2">
         <button
           className={classNames(
-            'h-10 w-16 rounded-l-xl font-gmcafe text-xl transition-colors',
+            'h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
             { 'bg-purple text-white': type === 'moo' },
-            { 'bg-white text-purple': type !== 'moo' }
+            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'moo' }
           )}
           onClick={() => setType('moo')}
         >
@@ -23,9 +23,9 @@ const Toolbar = () => {
         </button>
         <button
           className={classNames(
-            'relative h-10 w-16 cursor-none rounded-r-xl font-gmcafe text-xl transition-colors',
+            'relative h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
             { 'bg-purple text-white': type === 'keeku' },
-            { 'bg-white text-purple': type !== 'keeku' }
+            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'keeku' }
           )}
           // onClick={() => setType('keeku')}
           onMouseEnter={() => setHover(true)}
@@ -34,7 +34,7 @@ const Toolbar = () => {
           Keeku
           <div
             className={classNames(
-              'absolute left-[110%] top-0.5 whitespace-nowrap rounded-lg bg-white px-3 py-1 transition-opacity',
+              'absolute left-[120%] top-0.5 whitespace-nowrap rounded-lg bg-white px-3 py-1 transition-opacity',
               { 'opacity-100': hover },
               { 'opacity-0': !hover }
             )}
@@ -43,7 +43,7 @@ const Toolbar = () => {
           </div>
         </button>
       </div>
-      <p className="font-gmcafe text-3xl text-purple md:text-4xl">
+      <p className="rounded-2xl bg-white p-2 font-gmcafe text-2xl text-purple md:text-4xl">
         {metadata.length} {pluralizedName}
       </p>
     </div>

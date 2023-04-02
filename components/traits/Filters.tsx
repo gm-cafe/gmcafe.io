@@ -1,4 +1,4 @@
-import { getTraitTypes } from '../../lib/static/metadata';
+import { keekus } from '../../lib/static/metadata';
 import Filter from './Filter';
 import Search from './Search';
 import { XCircleIcon } from '@heroicons/react/solid';
@@ -6,12 +6,30 @@ import { useFilterContext } from '../../lib/providers/FilterContext';
 import classNames from 'classnames';
 import QuickFilters from './QuickFilters';
 import { useEntryContext } from '../../lib/providers/EntryContext';
+import { Moo } from '../../lib/util/types';
 
-const Filters = () => {
+type Props = {
+  metadata: {
+    moos: Moo[];
+  };
+};
+
+const Filters = ({ metadata }: Props) => {
+  const { moos } = metadata;
+
   const { search, filters, clear } = useFilterContext();
   const { type } = useEntryContext();
 
   const hasFilter = search.length > 0 || Object.keys(filters).length > 0;
+
+  const collection = type === 'moo' ? moos : keekus;
+  const traitTypes = Array.from(
+    new Set(
+      collection
+        .flatMap((element) => element.attributes.map((attribute) => attribute.trait_type))
+        .filter((traitType) => !!traitType)
+    )
+  );
 
   return (
     <div className="hidden w-full md:block">
@@ -27,7 +45,7 @@ const Filters = () => {
         </div>
         <Search />
         <QuickFilters />
-        {getTraitTypes(type)
+        {traitTypes
           .filter((traitType) => !['Birth'].includes(traitType))
           .map((traitType) => (
             <Filter key={traitType} type={traitType} />
