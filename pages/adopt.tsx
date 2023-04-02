@@ -17,7 +17,6 @@ import {
   finalStatus,
   Preference,
   requestReservation,
-  requestStatus,
   Reservation,
   Status,
 } from '../lib/util/mint';
