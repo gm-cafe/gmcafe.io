@@ -19,7 +19,7 @@ const Home: NextPage<Props> = ({ metadata }) => {
       <FilterProvider metadata={metadata}>
         <EntryProvider metadata={metadata}>
           <main className="grid w-full grid-cols-1 gap-x-8 md:grid-cols-[350px_1fr]">
-            <Filters />
+            <Filters metadata={metadata} />
             <div className="flex flex-col gap-8">
               <Toolbar />
               <Cards />
@@ -46,6 +46,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
   const { id } = query;
   const parsedId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
   const tokenId = !parsedId || parsedId < 1 || parsedId > moos.length ? undefined : parsedId;
+
+  // Response is stale after 10s, but refetched between 10-59s
+  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
 
   return {
     props: {
