@@ -41,6 +41,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
     addressOrName: openSeaContract,
     contractInterface: openSeaABI,
     functionName: 'setApprovalForAll',
+    args: [redeemContract, true],
   });
 
   const { address } = useAccount();
@@ -84,11 +85,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
             .start();
         }}
       />
-      <Button
-        className="mt-auto"
-        onClick={() => write?.({ recklesslySetUnpreparedArgs: [redeemContract, true] })}
-        loading={isLoading}
-      >
+      <Button className="mt-auto" onClick={() => write?.()} loading={isLoading}>
         Approve
       </Button>
     </>
@@ -104,6 +101,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
     addressOrName: redeemContract,
     contractInterface: redeemABI,
     functionName: 'redeemMoos',
+    args: [tokens],
   });
 
   const { isFetched } = useWaitForTransaction({
@@ -148,11 +146,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button
-        className="mt-auto"
-        onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })}
-        loading={isLoading}
-      >
+      <Button className="mt-auto" onClick={() => write?.()} loading={isLoading}>
         Migrate
       </Button>
     </>
@@ -217,7 +211,7 @@ const Button = ({ className, onClick, children, loading }: ButtonProps) => {
     >
       <span className={classNames({ 'opacity-0': loading })}>{children}</span>
       <span className="absolute top-0 right-0 flex h-full w-full items-center justify-center">
-        {loading && <LoadingIcon className="absolute" />}
+        {loading && <LoadingIcon className="absolute h-6 w-6" />}
       </span>
     </button>
   );
