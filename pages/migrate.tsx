@@ -32,18 +32,12 @@ const Migrate = () => {
     enabled: !!address,
   });
 
-  const moos: BigNumber[] = [BigNumber.from(292)];
-  const tokens: BigNumber[] = [BigNumber.from(0)];
+  const moos: BigNumber[] = data?.moos || [];
+  const tokens: BigNumber[] = data?.tokens || [];
 
   const assets = tokens
     ? tokens
-        .map((token: BigNumber) =>
-          metadata.find(
-            (asset) =>
-              asset.token ===
-              '81086769033880357206596084476994515861067324006954129146728570574752278642689'
-          )
-        )
+        .map((token: BigNumber) => metadata.find((asset) => asset.token === token.toString()))
         .filter((asset): asset is Asset => !!asset)
     : [];
   const shareMooTokenId = moos[0] ? moos[0].toString() : undefined;
