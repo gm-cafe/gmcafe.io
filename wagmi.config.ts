@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from '@wagmi/cli';
 import { etherscan } from '@wagmi/cli/plugins';
-import { mainnet } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 export default defineConfig(() => {
   loadEnv({

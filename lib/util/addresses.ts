@@ -1,31 +1,9 @@
-export const openSeaContract = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
-export const gmooContract = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
-export const redeemContract = '0xa25066d7232069489b57db8755d0055ecd69daec';
-export const keekContract = '0x01298589d7c2bd82f54ca84060d58967772123f2';
+import { openseaABI } from '../wagmi/opensea';
+import { gmooABI, keekABI, redeemABI } from '../wagmi/generated';
 
-export const openSeaABI = [
-  'function isApprovedForAll(address account, address operator) public view virtual override returns (bool)',
-  'function setApprovalForAll(address _operator, bool _approved) external',
-];
+export const openSeaContract: `0x${string}` = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
+export const gmooContract: `0x${string}` = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
+export const redeemContract: `0x${string}` = '0xa25066d7232069489b57db8755d0055ecd69daec';
+export const keekContract: `0x${string}` = '0x01298589d7c2bd82f54ca84060d58967772123f2';
 
-export const gmooABI = [
-  'function _claimableTime() public view returns (uint256)',
-  'function getMigratableTokens(address sender) public view returns (uint256[] memory tokens, uint256[] memory moos)',
-  'function isMigrationApproved(address sender) public view returns (bool)',
-  'function migrateMoos(uint256[] calldata tokens) public',
-  'function getWallet(address owner) public view returns (uint256[] memory moos, uint256 touched)',
-  'function getHerd() public view returns (bytes32[] memory ret)',
-  'function getMoo(uint256 moo) public view returns (address owner, uint32 transfers, uint32 block0, uint32 blocksHeld, uint16 tag, bool isLocked, uint256 unlockPrice)',
-  'function tokenURI(uint256 moo) public view returns (string memory uri)',
-  'function lockMoo(uint256 moo, uint256 price, bytes32 hash) public',
-  'function unlockMoo(uint256 moo, string memory password, address transfer) payable public',
-];
-
-export const redeemABI = ['function redeemMoos(uint256[] calldata tokens) public'];
-
-export const keekABI = [
-  'function hasMinted(uint256 packed, address minter) public view returns (bool)',
-  'function mintKeeks(bytes32[] calldata proof, uint256 packed, uint256[] calldata prefs) external payable',
-  'function keeksFromSlice(uint256 offset, uint256 size) external view returns (bytes32[] memory keeks)',
-  'function setPref(uint256 token, uint256 pref) external',
-];
+export { gmooABI, keekABI, redeemABI, openseaABI };

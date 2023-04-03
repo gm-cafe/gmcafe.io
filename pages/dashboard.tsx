@@ -1,6 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import classNames from 'classnames';
-import { BigNumber } from 'ethers';
+import { constants } from 'ethers';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
 import { useAccount, useContractRead, useContractReads } from 'wagmi';
@@ -27,13 +27,12 @@ const Dashboard = () => {
   }, []);
 
   useContractRead({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'getWallet',
     enabled: isConnected,
-    args: [address],
-    onSuccess: (getWalletData) => {
-      const mooBigNs: BigNumber[] = getWalletData?.moos || [];
+    args: [address ? address : constants.AddressZero],
+    onSuccess: (mooBigNs) => {
       if (moos.length === mooBigNs.length) {
         return;
       }
@@ -51,10 +50,11 @@ const Dashboard = () => {
         args: [id],
       })),
     onSuccess: (tokenUriData) => {
-      const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
-      Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
-        (moos) => setMoos(moos)
-      );
+      console.log(tokenUriData);
+      // const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
+      // Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
+      //   (moos) => setMoos(moos)
+      // );
     },
   });
 

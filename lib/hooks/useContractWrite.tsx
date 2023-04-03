@@ -1,12 +1,13 @@
-import { BigNumber, ContractInterface } from 'ethers';
+import { Abi } from 'abitype';
+import { BigNumber } from 'ethers';
 import { useContractWrite as useWagmiContractWrite, usePrepareContractWrite } from 'wagmi';
-import { gmooABI, gmooContract } from '../util/addresses';
+import { gmooContract, gmooABI } from '../util/addresses';
 import { toastError } from '../util/toast';
 
 type Arguments = {
   functionName: string;
-  addressOrName?: string;
-  contractInterface?: ContractInterface;
+  addressOrName?: `0x${string}`;
+  contractInterface?: Abi;
   args?: any;
   overrides?: {
     value: BigNumber;
@@ -26,8 +27,8 @@ const useContractWrite = ({
 }: Arguments) => {
   const { config } = usePrepareContractWrite({
     functionName,
-    addressOrName,
-    contractInterface,
+    address: addressOrName,
+    abi: contractInterface,
     args,
     overrides,
     onSuccess,

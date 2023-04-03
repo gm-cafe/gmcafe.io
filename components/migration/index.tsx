@@ -4,7 +4,7 @@ import { useAccount, useWaitForTransaction } from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
-import { openSeaContract, openSeaABI, redeemContract, redeemABI } from '../../lib/util/addresses';
+import { openSeaContract, openseaABI, redeemContract, redeemABI } from '../../lib/util/addresses';
 import { LoadingIcon } from '../Icons';
 import useContractRead from '../../lib/hooks/useContractRead';
 import useContractWrite from '../../lib/hooks/useContractWrite';
@@ -39,14 +39,15 @@ export const Connect = () => {
 export const Approve = ({ next, setLoading }: StateProps) => {
   const { data, isLoading, write, isSuccess, isError } = useContractWrite({
     addressOrName: openSeaContract,
-    contractInterface: openSeaABI,
+    contractInterface: openseaABI,
     functionName: 'setApprovalForAll',
+    args: [redeemContract, true],
   });
 
   const { address } = useAccount();
   const { data: alreadyApproved } = useContractRead({
     addressOrName: openSeaContract,
-    contractInterface: openSeaABI,
+    contractInterface: openseaABI,
     functionName: 'isApprovedForAll',
     args: [address, redeemContract],
   });
@@ -84,11 +85,7 @@ export const Approve = ({ next, setLoading }: StateProps) => {
             .start();
         }}
       />
-      <Button
-        className="mt-auto"
-        onClick={() => write?.({ recklesslySetUnpreparedArgs: [redeemContract, true] })}
-        loading={isLoading}
-      >
+      <Button className="mt-auto" onClick={() => write?.()} loading={isLoading}>
         Approve
       </Button>
     </>
@@ -104,6 +101,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
     addressOrName: redeemContract,
     contractInterface: redeemABI,
     functionName: 'redeemMoos',
+    args: [tokens],
   });
 
   const { isFetched } = useWaitForTransaction({
@@ -148,11 +146,7 @@ export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => 
             .start();
         }}
       />
-      <Button
-        className="mt-auto"
-        onClick={() => write?.({ recklesslySetUnpreparedArgs: [tokens] })}
-        loading={isLoading}
-      >
+      <Button className="mt-auto" onClick={() => write?.()} loading={isLoading}>
         Migrate
       </Button>
     </>
