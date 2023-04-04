@@ -48,7 +48,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
         disabled={loading}
       >
         {!loading && <LockOpenIcon className="h-8 w-8 text-white" />}
-        {loading && <LoadingIcon className="static" />}
+        {loading && <LoadingIcon className="h-8 w-8 text-white" />}
         <span className="font-gmcafe text-3xl text-white">Unlock</span>
       </button>
       <div className="text-purple">

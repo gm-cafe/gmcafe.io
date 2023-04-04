@@ -1,11 +1,11 @@
 import { BigNumber, utils } from 'ethers';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import generatePassword from '../../lib/util/generatePassword';
 import { toastError, toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 import { ClipboardIcon } from '@heroicons/react/solid';
-import { useContractWrite, usePrepareContractWrite } from 'wagmi';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 import { Address } from '../../lib/util/address';
 
 type Props = {
@@ -30,19 +30,32 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     args: [BigNumber.from(id), priceInGwei, hashedPassword as Address],
   });
 
-  const { write: lock } = useContractWrite({
+  const {
+    write: lock,
+    data,
+    isSuccess: writeSuccess,
+  } = useContractWrite({
     ...config,
-    onSuccess: () => {
-      setLoading(false);
-      setOpen(false);
-      toastSuccess('Locked Moo!');
-    },
     onError: (error) => {
       setLoading(false);
       setOpen(false);
       error && toastError(error);
     },
   });
+
+  const { isSuccess: lockSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  useEffect(() => {
+    if (!writeSuccess || !lockSuccess) {
+      return;
+    }
+
+    setLoading(false);
+    setOpen(false);
+    toastSuccess('Locked Moo!');
+  }, [writeSuccess, lockSuccess, setOpen]);
 
   const onClick = () => {
     setLoading(true);
@@ -89,7 +102,9 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
                 step={0.01}
                 min={0}
                 value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value))}
+                onChange={({ target: { value } }) =>
+                  value ? setPrice(parseFloat(value)) : setPrice(0)
+                }
               />
               <span className="pr-2 font-medium text-purple">Ξ</span>
             </div>

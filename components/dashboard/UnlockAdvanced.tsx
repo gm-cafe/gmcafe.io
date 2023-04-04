@@ -1,8 +1,13 @@
 import { CheckIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { BigNumber, constants, utils } from 'ethers';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { useContractRead, useContractWrite, usePrepareContractWrite } from 'wagmi';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from 'wagmi';
 import { isAddress } from '../../lib/util/address';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
@@ -46,18 +51,31 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
       : undefined,
   });
 
-  const { write: unlock } = useContractWrite({
+  const {
+    write: unlock,
+    data: writeData,
+    isSuccess: writeSuccess,
+  } = useContractWrite({
     ...config,
-    onSuccess: () => {
-      setLoading(false);
-      setOpen(false);
-      toastSuccess('Unlocked Moo!');
-    },
     onError: () => {
       setLoading(false);
       setOpen(false);
     },
   });
+
+  const { isSuccess: unlockSuccess } = useWaitForTransaction({
+    hash: writeData?.hash,
+  });
+
+  useEffect(() => {
+    if (!writeSuccess || !unlockSuccess) {
+      return;
+    }
+
+    setLoading(false);
+    setOpen(false);
+    toastSuccess('Unlocked Moo!');
+  }, [writeSuccess, unlockSuccess, setOpen]);
 
   const onClick = () => {
     setLoading(true);
