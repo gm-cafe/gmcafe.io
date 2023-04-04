@@ -28,6 +28,10 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     abi: gmooABI,
     functionName: 'lockMoo',
     args: [BigNumber.from(id), priceInGwei, hashedPassword as Address],
+  });
+
+  const { write: lock } = useContractWrite({
+    ...config,
     onSuccess: () => {
       setLoading(false);
       setOpen(false);
@@ -39,8 +43,6 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
       error && toastError(error);
     },
   });
-
-  const { write: lock } = useContractWrite(config);
 
   const onClick = () => {
     setLoading(true);

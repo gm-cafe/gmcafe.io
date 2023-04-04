@@ -38,6 +38,16 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
     address: gmooContract,
     abi: gmooABI,
     functionName: 'unlockMoo',
+    args: [BigNumber.from(id), password, destination],
+    overrides: value
+      ? {
+          value: value,
+        }
+      : undefined,
+  });
+
+  const { write: unlock } = useContractWrite({
+    ...config,
     onSuccess: () => {
       setLoading(false);
       setOpen(false);
@@ -47,15 +57,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
       setLoading(false);
       setOpen(false);
     },
-    args: [BigNumber.from(id), password, destination],
-    overrides: value
-      ? {
-          value: value,
-        }
-      : undefined,
   });
-
-  const { write: unlock } = useContractWrite(config);
 
   const onClick = () => {
     setLoading(true);
