@@ -3,18 +3,14 @@ import classNames from 'classnames';
 import { constants } from 'ethers';
 import { GetServerSideProps } from 'next';
 import { useEffect, useState } from 'react';
-import { useAccount, useContractRead, useContractReads } from 'wagmi';
+import { useAccount, useContractRead } from 'wagmi';
 import DashboardMoo from '../components/dashboard/DashboardMoo';
 import useGetHerd from '../lib/hooks/useGetHerd';
 import { gmooABI, gmooContract } from '../lib/util/addresses';
-import { Moo } from '../lib/util/types';
-
-// tokenId (initialized) | fetching (api.gmcafe.io) | fetched
-export type MooState = number | true | Moo;
 
 const Dashboard = () => {
   const [hasMounted, setHasMounted] = useState(false);
-  const [moos, setMoos] = useState<MooState[]>([]);
+  const [moos, setMoos] = useState<number[]>([]);
   const { address, isConnected } = useAccount();
 
   const herd = useGetHerd();
@@ -40,24 +36,6 @@ const Dashboard = () => {
     },
   });
 
-  useContractReads({
-    contracts: moos
-      .filter((moo) => typeof moo === 'number')
-      .map((id) => ({
-        addressOrName: gmooContract,
-        contractInterface: gmooABI,
-        functionName: 'tokenURI',
-        args: [id],
-      })),
-    onSuccess: (tokenUriData) => {
-      console.log(tokenUriData);
-      // const mooTokenUris: string[] = tokenUriData?.map((result) => result.toString()) || [];
-      // Promise.all(mooTokenUris.map((tokenUri) => fetch(tokenUri).then((res) => res.json()))).then(
-      //   (moos) => setMoos(moos)
-      // );
-    },
-  });
-
   if (!hasMounted) {
     return null;
   }
@@ -76,7 +54,7 @@ const Dashboard = () => {
         </nav>
         <div className="my-4 flex w-full flex-col gap-4">
           {moos.map((moo, idx) => (
-            <DashboardMoo moo={moo} key={idx} />
+            <DashboardMoo id={moo} key={idx} />
           ))}
         </div>
         {moos.length > 0 && (

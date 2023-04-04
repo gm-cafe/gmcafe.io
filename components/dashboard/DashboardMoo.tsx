@@ -1,28 +1,27 @@
 import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { BigNumber } from 'ethers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import useContractRead from '../../lib/hooks/useContractRead';
+import { useEffect, useState } from 'react';
+import { useContractRead } from 'wagmi';
+import { gmooABI, gmooContract } from '../../lib/util/addresses';
+import { toastError } from '../../lib/util/toast';
 import { Moo } from '../../lib/util/types';
-import { MooState } from '../../pages/dashboard';
 import LockModal from './LockModal';
 import UnlockModal from './UnlockModal';
-
-const idRegex = /#(\d{1,3})/;
 
 const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
 
-  const { name, image } = moo;
-
-  const idRegexCapture = idRegex.exec(name)?.at(1);
-  const id = idRegexCapture ? parseInt(idRegexCapture) : 0;
+  const { name, image, id } = moo;
 
   const { data } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'getMoo',
-    args: id,
+    args: [BigNumber.from(id)],
     watch: true,
   });
 
@@ -84,8 +83,25 @@ const DashboardMooLoading = () => {
   );
 };
 
-const DashboardMoo = ({ moo }: { moo: MooState }) => {
-  if (typeof moo === 'number' || moo === true) {
+const DashboardMoo = ({ id }: { id: number }) => {
+  const [moo, setMoo] = useState<Moo>();
+
+  const { data: tokenUri } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
+    functionName: 'tokenURI',
+    args: [BigNumber.from(id)],
+  });
+
+  useEffect(() => {
+    tokenUri &&
+      fetch(tokenUri)
+        .then((res) => res.json())
+        .then((moo: Moo) => setMoo(moo))
+        .catch(toastError);
+  }, [tokenUri]);
+
+  if (!moo) {
     return <DashboardMooLoading />;
   } else {
     return <DashboardMooLoaded moo={moo} />;
