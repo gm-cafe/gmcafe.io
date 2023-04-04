@@ -1,11 +1,12 @@
-import { utils } from 'ethers';
+import { BigNumber, utils } from 'ethers';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import generatePassword from '../../lib/util/generatePassword';
 import { toastError, toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 import { ClipboardIcon } from '@heroicons/react/solid';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { useContractWrite, usePrepareContractWrite } from 'wagmi';
+import { Address } from '../../lib/util/address';
 
 type Props = {
   id: number;
@@ -22,11 +23,11 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
   const priceInGwei = utils.parseEther(price.toString());
   const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
 
-  const { write: lock } = useContractWrite({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+  const { config } = usePrepareContractWrite({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'lockMoo',
-    args: [id, priceInGwei, hashedPassword],
+    args: [BigNumber.from(id), priceInGwei, hashedPassword as Address],
     onSuccess: () => {
       setLoading(false);
       setOpen(false);
@@ -38,6 +39,8 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
       error && toastError(error);
     },
   });
+
+  const { write: lock } = useContractWrite(config);
 
   const onClick = () => {
     setLoading(true);

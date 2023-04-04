@@ -1,26 +1,26 @@
+import { BigNumber } from 'ethers';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useContractRead } from 'wagmi';
 import Choose from '../components/influence/Choose';
 import Commit from '../components/influence/Commit';
 import Connect from '../components/influence/Connect';
 import List from '../components/influence/List';
 import Success from '../components/influence/Success';
-import useContractRead from '../lib/hooks/useContractRead';
 import { keekABI, keekContract } from '../lib/util/addresses';
 import { Choice, KeekuInfo, Options, Preference, requestDrop } from '../lib/util/mint';
 
 const parseKeekData = (s: string): KeekuInfo => {
   /*
-	//               TD_OWNER_SHIFT    =   0; // 0x000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 160
-	uint256 constant TD_BLOCK_SHIFT    = 160; // 0x0000000000000000FFFFFFFF0000000000000000000000000000000000000000  32
-	uint256 constant TD_TRANSFER_SHIFT = 192; // 0x00000000FFFFFFFF000000000000000000000000000000000000000000000000  32
-	uint256 constant TD_TAG_SHIFT      = 224; // 0x00007FFF00000000000000000000000000000000000000000000000000000000  15
-	uint256 constant TD_LOCK_BIT       =         0x0000800000000000000000000000000000000000000000000000000000000000;//1
-	uint256 constant TD_PREF_SHIFT     = 240; // 0x000F000000000000000000000000000000000000000000000000000000000000   4
-	uint256 constant TD_TOKEN_SHIFT    = 244; // 0xFFF0000000000000000000000000000000000000000000000000000000000000  12
-	uint256 constant TD_COPY_MASK      =         0xFFFF000000000000000000000000000000000000000000000000000000000000;
-	*/
+  //               TD_OWNER_SHIFT    =   0; // 0x000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 160
+  uint256 constant TD_BLOCK_SHIFT    = 160; // 0x0000000000000000FFFFFFFF0000000000000000000000000000000000000000  32
+  uint256 constant TD_TRANSFER_SHIFT = 192; // 0x00000000FFFFFFFF000000000000000000000000000000000000000000000000  32
+  uint256 constant TD_TAG_SHIFT      = 224; // 0x00007FFF00000000000000000000000000000000000000000000000000000000  15
+  uint256 constant TD_LOCK_BIT       =         0x0000800000000000000000000000000000000000000000000000000000000000;//1
+  uint256 constant TD_PREF_SHIFT     = 240; // 0x000F000000000000000000000000000000000000000000000000000000000000   4
+  uint256 constant TD_TOKEN_SHIFT    = 244; // 0xFFF0000000000000000000000000000000000000000000000000000000000000  12
+  uint256 constant TD_COPY_MASK      =         0xFFFF000000000000000000000000000000000000000000000000000000000000;
+  */
   const owner: `0x${string}` = `0x${s.slice(26, 66)}`;
   const block = parseInt(s.slice(18, 26), 16);
   const transfers = parseInt(s.slice(10, 18), 16);
@@ -35,10 +35,10 @@ const parseKeekData = (s: string): KeekuInfo => {
 
 const useKeeks = (address?: string) => {
   const { data } = useContractRead({
-    addressOrName: keekContract,
-    contractInterface: keekABI,
+    address: keekContract,
+    abi: keekABI,
     functionName: 'keeksFromSlice',
-    args: [0, 387],
+    args: [BigNumber.from(0), BigNumber.from(387)],
     enabled: !!address,
     watch: true,
   });

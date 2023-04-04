@@ -1,13 +1,16 @@
 import { formatDuration, intervalToDuration } from 'date-fns';
 import { useEffect, useState } from 'react';
-import useContractRead from '../lib/hooks/useContractRead';
+import { useContractRead } from 'wagmi';
+import { gmooABI, gmooContract } from '../lib/util/addresses';
 import { Discord } from './StyledLinks';
 
 const Countdown = () => {
   const { data } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: '_claimableTime',
   });
-  const endTime = data ? parseInt(data.toString()) * 1000 : 0;
+  const endTime = data ? data.toNumber() * 1000 : 0;
   const [time, setTime] = useState(Date.now());
 
   useEffect(() => {

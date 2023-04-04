@@ -1,8 +1,7 @@
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { constants } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useWaitForTransaction } from 'wagmi';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
@@ -15,17 +14,14 @@ type Props = {
 const LockBasic = ({ id, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
 
-  const {
-    write: lock,
-    data,
-    isSuccess,
-    isError,
-  } = useContractWrite({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+  const { config } = usePrepareContractWrite({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'lockMoo',
-    args: [id, 0, constants.HashZero],
+    args: [BigNumber.from(id), BigNumber.from(0), constants.HashZero],
   });
+
+  const { write: lock, data, isSuccess, isError } = useContractWrite(config);
 
   const { isSuccess: lockSuccess } = useWaitForTransaction({
     hash: data?.hash,

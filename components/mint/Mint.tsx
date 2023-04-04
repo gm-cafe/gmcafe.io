@@ -1,8 +1,8 @@
-import { utils } from 'ethers';
+import { BigNumber, utils } from 'ethers';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { useWaitForTransaction } from 'wagmi';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
+import { Address } from '../../lib/util/address';
 import { keekABI, keekContract } from '../../lib/util/addresses';
 import { Preference, preparePrefs, Reservation } from '../../lib/util/mint';
 import { LoadingIcon } from '../Icons';
@@ -27,19 +27,17 @@ const Mint = ({ preferences, reservation, priceWei, advance, mints, maxMints, un
   const pricePerUnit = utils.parseUnits(priceWei, 'wei');
   const price = pricePerUnit.mul(preferences.length);
 
-  const {
-    write,
-    data,
-    isLoading: writeLoading,
-  } = useContractWrite({
-    addressOrName: keekContract,
-    contractInterface: keekABI,
+  const { config } = usePrepareContractWrite({
+    address: keekContract,
+    abi: keekABI,
     functionName: 'mintKeeks',
-    args: [proof, packed, prefVals],
+    args: [proof as Address[], BigNumber.from(packed), prefVals.map((pv) => BigNumber.from(pv))],
     overrides: {
       value: price,
     },
   });
+
+  const { write, data, isLoading: writeLoading } = useContractWrite(config);
 
   const { isSuccess, isLoading: txLoading } = useWaitForTransaction({
     hash: data?.hash,

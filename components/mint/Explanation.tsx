@@ -1,5 +1,7 @@
+import { BigNumber } from 'ethers';
 import Image from 'next/image';
-import useContractRead from '../../lib/hooks/useContractRead';
+import { useContractRead } from 'wagmi';
+import { Address } from '../../lib/util/address';
 import { keekContract, keekABI } from '../../lib/util/addresses';
 import Quantity from './Quantity';
 
@@ -9,7 +11,7 @@ type Props = {
   setMints: (_mints: number) => void;
   maxMints: number;
   signature: string;
-  address: string;
+  address: Address;
   packed: number;
   disableInfluence: boolean;
 };
@@ -24,10 +26,10 @@ const Explanation = ({
   disableInfluence,
 }: Props) => {
   const { data: hasMinted } = useContractRead({
-    addressOrName: keekContract,
-    contractInterface: keekABI,
+    address: keekContract,
+    abi: keekABI,
     functionName: 'hasMinted',
-    args: [packed, address],
+    args: [BigNumber.from(packed), address],
   });
 
   return (

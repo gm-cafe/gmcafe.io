@@ -4,15 +4,14 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Approve, Connect, Migrated, Migrate as MigrateMoos, NoMoo } from '../components/migration';
-import { useAccount } from 'wagmi';
-import useContractRead from '../lib/hooks/useContractRead';
+import { useAccount, useContractRead } from 'wagmi';
 import { Asset } from '../lib/util/types';
 import AnchorLink from '../components/AnchorLink';
 import { Default, Discord } from '../components/StyledLinks';
 import { NextPageContext } from 'next';
 import Countdown from '../components/Countdown';
 import { metadata } from '../lib/constants';
-import { BigNumber } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { gmooContract, gmooABI } from '../lib/util/addresses';
 import Confetti from '../components/Confetti';
 
@@ -25,15 +24,15 @@ const Migrate = () => {
 
   const { isConnected, address } = useAccount();
   const { data } = useContractRead({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'getMigratableTokens',
-    args: address,
+    args: [address || constants.AddressZero],
     enabled: !!address,
   });
 
-  const moos: BigNumber[] = data?.moos || [];
-  const tokens: BigNumber[] = data?.tokens || [];
+  const moos = data?.moos || [];
+  const tokens = data?.tokens || [];
 
   const assets = tokens
     ? tokens
