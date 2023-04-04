@@ -1,12 +1,12 @@
 import { ethers } from 'ethers';
-import useContractRead from './useContractRead';
+import { useContractRead } from 'wagmi';
 import { gmooContract, gmooABI } from '../util/addresses';
 import { HerdInfo } from '../util/types';
 
 const useGetHerd = (): HerdInfo[] => {
   const { data } = useContractRead({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'getHerd',
   });
 

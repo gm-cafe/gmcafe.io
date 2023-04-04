@@ -1,8 +1,7 @@
 import { LockOpenIcon } from '@heroicons/react/solid';
-import { constants } from 'ethers';
+import { BigNumber, constants } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useWaitForTransaction } from 'wagmi';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
@@ -15,17 +14,14 @@ type Props = {
 const UnlockBasic = ({ id, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
 
-  const {
-    write: unlock,
-    data,
-    isSuccess,
-    isError,
-  } = useContractWrite({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+  const { config } = usePrepareContractWrite({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'unlockMoo',
-    args: [id, '', constants.AddressZero],
+    args: [BigNumber.from(id), '', constants.AddressZero],
   });
+
+  const { write: unlock, data, isSuccess, isError } = useContractWrite(config);
 
   const { isSuccess: unlockSuccess } = useWaitForTransaction({
     hash: data?.hash,
@@ -52,7 +48,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
         disabled={loading}
       >
         {!loading && <LockOpenIcon className="h-8 w-8 text-white" />}
-        {loading && <LoadingIcon className="static" />}
+        {loading && <LoadingIcon className="h-8 w-8 text-white" />}
         <span className="font-gmcafe text-3xl text-white">Unlock</span>
       </button>
       <div className="text-purple">

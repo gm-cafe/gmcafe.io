@@ -1,11 +1,12 @@
-import { utils } from 'ethers';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { BigNumber, utils } from 'ethers';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import generatePassword from '../../lib/util/generatePassword';
 import { toastError, toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
 import { ClipboardIcon } from '@heroicons/react/solid';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
+import { Address } from '../../lib/util/address';
 
 type Props = {
   id: number;
@@ -19,15 +20,22 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
   const [password, setPassword] = useState(generatePassword());
   const [next, setNext] = useState(false);
 
-  const { write: lock } = useContractWrite({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+  const priceInGwei = utils.parseEther(price.toString());
+  const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
+
+  const { config } = usePrepareContractWrite({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'lockMoo',
-    onSuccess: () => {
-      setLoading(false);
-      setOpen(false);
-      toastSuccess('Locked Moo!');
-    },
+    args: [BigNumber.from(id), priceInGwei, hashedPassword as Address],
+  });
+
+  const {
+    write: lock,
+    data,
+    isSuccess: writeSuccess,
+  } = useContractWrite({
+    ...config,
     onError: (error) => {
       setLoading(false);
       setOpen(false);
@@ -35,13 +43,23 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
     },
   });
 
+  const { isSuccess: lockSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  useEffect(() => {
+    if (!writeSuccess || !lockSuccess) {
+      return;
+    }
+
+    setLoading(false);
+    setOpen(false);
+    toastSuccess('Locked Moo!');
+  }, [writeSuccess, lockSuccess, setOpen]);
+
   const onClick = () => {
     setLoading(true);
-    const priceInGwei = utils.parseEther(price.toString());
-    const hashedPassword = utils.solidityKeccak256(['uint256', 'string'], [id, password]);
-    lock?.({
-      recklesslySetUnpreparedArgs: [id, priceInGwei, hashedPassword],
-    });
+    lock?.();
   };
 
   const onNext = () => {
@@ -84,7 +102,9 @@ const LockAdvanced = ({ id, setOpen }: Props) => {
                 step={0.01}
                 min={0}
                 value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value))}
+                onChange={({ target: { value } }) =>
+                  value ? setPrice(parseFloat(value)) : setPrice(0)
+                }
               />
               <span className="pr-2 font-medium text-purple">Ξ</span>
             </div>

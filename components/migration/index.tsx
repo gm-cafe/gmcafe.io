@@ -1,13 +1,18 @@
 import classNames from 'classnames';
 import { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
-import { useAccount, useWaitForTransaction } from 'wagmi';
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from 'wagmi';
 import { LoadingState } from '../../pages/migrate';
 import CustomConnectButton from '../CustomConnectButton';
 import Typewriter from 'typewriter-effect';
-import { openSeaContract, openSeaABI, redeemContract, redeemABI } from '../../lib/util/addresses';
+import { openSeaContract, openseaABI, redeemContract, redeemABI } from '../../lib/util/addresses';
 import { LoadingIcon } from '../Icons';
-import useContractRead from '../../lib/hooks/useContractRead';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { BigNumber, constants } from 'ethers';
 
 type StateProps = {
   next: () => void;
@@ -37,19 +42,21 @@ export const Connect = () => {
 };
 
 export const Approve = ({ next, setLoading }: StateProps) => {
-  const { data, isLoading, write, isSuccess, isError } = useContractWrite({
-    addressOrName: openSeaContract,
-    contractInterface: openSeaABI,
+  const { config } = usePrepareContractWrite({
+    address: openSeaContract,
+    abi: openseaABI,
     functionName: 'setApprovalForAll',
     args: [redeemContract, true],
   });
 
+  const { data, isLoading, write, isSuccess, isError } = useContractWrite(config);
+
   const { address } = useAccount();
   const { data: alreadyApproved } = useContractRead({
-    addressOrName: openSeaContract,
-    contractInterface: openSeaABI,
+    address: openSeaContract,
+    abi: openseaABI,
     functionName: 'isApprovedForAll',
-    args: [address, redeemContract],
+    args: [address || constants.AddressZero, redeemContract],
   });
 
   const { isFetched } = useWaitForTransaction({
@@ -97,12 +104,14 @@ type MigrateProps = StateProps & {
 };
 
 export const Migrate = ({ next, tokens, loading, setLoading }: MigrateProps) => {
-  const { data, isLoading, write, isSuccess, isError } = useContractWrite({
-    addressOrName: redeemContract,
-    contractInterface: redeemABI,
+  const { config } = usePrepareContractWrite({
+    address: redeemContract,
+    abi: redeemABI,
     functionName: 'redeemMoos',
-    args: [tokens],
+    args: [tokens.map((token) => BigNumber.from(token))],
   });
+
+  const { data, isLoading, write, isSuccess, isError } = useContractWrite(config);
 
   const { isFetched } = useWaitForTransaction({
     hash: data?.hash,

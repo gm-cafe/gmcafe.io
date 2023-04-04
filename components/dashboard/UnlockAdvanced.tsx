@@ -1,9 +1,14 @@
 import { CheckIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { BigNumber, constants, utils } from 'ethers';
-import { Dispatch, SetStateAction, useState } from 'react';
-import useContractRead from '../../lib/hooks/useContractRead';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from 'wagmi';
+import { isAddress } from '../../lib/util/address';
 import { gmooContract, gmooABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
@@ -20,42 +25,61 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [payBounty, setPayBounty] = useState(false);
   const [changeDestination, setChangeDestination] = useState(false);
-  const [destination, setDestination] = useState(constants.AddressZero);
+  const [destination, setDestination] = useState<`0x${string}`>(constants.AddressZero);
 
-  const { write: unlock } = useContractWrite({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+  const { data } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
+    functionName: 'getMoo',
+    args: [BigNumber.from(id)],
+    enabled: open,
+  });
+
+  const unlockPriceWei: BigNumber = data?.unlockPrice || constants.Zero;
+  const unlockPrice = utils.formatEther(unlockPriceWei);
+  const value = payBounty ? unlockPriceWei : undefined;
+
+  const { config } = usePrepareContractWrite({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'unlockMoo',
-    onSuccess: () => {
-      setLoading(false);
-      setOpen(false);
-      toastSuccess('Unlocked Moo!');
-    },
+    args: [BigNumber.from(id), password, destination],
+    overrides: value
+      ? {
+          value: value,
+        }
+      : undefined,
+  });
+
+  const {
+    write: unlock,
+    data: writeData,
+    isSuccess: writeSuccess,
+  } = useContractWrite({
+    ...config,
     onError: () => {
       setLoading(false);
       setOpen(false);
     },
-    args: [id, password, destination],
   });
 
-  const { data } = useContractRead({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
-    functionName: 'getMoo',
-    args: id,
-    enabled: open,
+  const { isSuccess: unlockSuccess } = useWaitForTransaction({
+    hash: writeData?.hash,
   });
 
-  const unlockPriceWei: BigNumber = data?.unlockPrice;
-  const unlockPrice = utils.formatEther(unlockPriceWei);
+  useEffect(() => {
+    if (!writeSuccess || !unlockSuccess) {
+      return;
+    }
+
+    setLoading(false);
+    setOpen(false);
+    toastSuccess('Unlocked Moo!');
+  }, [writeSuccess, unlockSuccess, setOpen]);
 
   const onClick = () => {
     setLoading(true);
-    unlock?.({
-      recklesslySetUnpreparedOverrides: {
-        value: payBounty ? unlockPriceWei : undefined,
-      },
-    });
+    unlock?.();
   };
 
   const onChangeDestination = () => {
@@ -63,7 +87,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
       setDestination(constants.AddressZero);
       setChangeDestination(false);
     } else {
-      setDestination('');
+      setDestination(constants.AddressZero);
       setChangeDestination(true);
     }
   };
@@ -169,7 +193,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
             id="destination"
             name="destination"
             value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+            onChange={({ target: { value } }) => isAddress(value) && setDestination(value)}
           />
           {!isValidDestination && (
             <span className="text-right text-xs text-pink">

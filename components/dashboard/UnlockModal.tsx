@@ -1,7 +1,8 @@
 import { Dialog, Tab } from '@headlessui/react';
 import { BigNumber } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
-import useContractRead from '../../lib/hooks/useContractRead';
+import { useContractRead } from 'wagmi';
+import { gmooABI, gmooContract } from '../../lib/util/addresses';
 import UnlockAdvanced from './UnlockAdvanced';
 import UnlockBasic from './UnlockBasic';
 
@@ -13,8 +14,10 @@ type Props = {
 
 const UnlockModal = ({ id, open, setOpen }: Props) => {
   const { data } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'getMoo',
-    args: id,
+    args: [BigNumber.from(id)],
     enabled: open,
   });
 

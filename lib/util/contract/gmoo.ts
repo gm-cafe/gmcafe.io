@@ -1,5 +1,6 @@
+import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
-import useContractRead from '../../hooks/useContractRead';
+import { useContractRead } from 'wagmi';
 import { gmooABI, gmooContract } from '../addresses';
 import { Moo } from '../types';
 
@@ -7,10 +8,10 @@ export const useTokenURI = (id?: number) => {
   const [metadata, setMetadata] = useState<Moo>();
 
   const { data } = useContractRead({
-    addressOrName: gmooContract,
-    contractInterface: gmooABI,
+    address: gmooContract,
+    abi: gmooABI,
     functionName: 'tokenURI',
-    args: id,
+    args: [BigNumber.from(id)],
     enabled: !!id,
   });
 

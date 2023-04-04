@@ -6,7 +6,7 @@ import { HerdInfo, HerdInfoByOwner } from '../lib/util/types';
 const Leaderboard: NextPage = () => {
   const herd = useGetHerd();
 
-  const owners: Record<string, HerdInfo[]> = {};
+  const owners: Record<`0x${string}`, HerdInfo[]> = {};
   herd.forEach((moo) => {
     const { owner } = moo;
     if (owners[owner]) {
@@ -17,7 +17,7 @@ const Leaderboard: NextPage = () => {
   });
 
   const herdInfoByOwner: HerdInfoByOwner[] = Object.entries(owners).map(([owner, herd]) => ({
-    owner,
+    owner: owner as `0x${string}`,
     herd,
   }));
 

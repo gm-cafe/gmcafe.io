@@ -1,7 +1,7 @@
+import { BigNumber } from 'ethers';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { useWaitForTransaction } from 'wagmi';
-import useContractWrite from '../../lib/hooks/useContractWrite';
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 import { keekContract, keekABI } from '../../lib/util/addresses';
 import { Options, Preference, preparePrefs } from '../../lib/util/mint';
 import { LoadingIcon } from '../Icons';
@@ -16,16 +16,14 @@ type Props = {
 const Commit = ({ advance, preference, options, token }: Props) => {
   const [pref] = preparePrefs([preference], options ? [options] : undefined);
 
-  const {
-    write,
-    data,
-    isLoading: writeLoading,
-  } = useContractWrite({
-    addressOrName: keekContract,
-    contractInterface: keekABI,
+  const { config } = usePrepareContractWrite({
+    address: keekContract,
+    abi: keekABI,
     functionName: 'setPref',
-    args: [token, pref],
+    args: [BigNumber.from(token), BigNumber.from(pref)],
   });
+
+  const { write, data, isLoading: writeLoading } = useContractWrite(config);
 
   const { isSuccess, isLoading: txLoading } = useWaitForTransaction({
     hash: data?.hash,
