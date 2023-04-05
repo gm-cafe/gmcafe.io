@@ -14,18 +14,18 @@ const Toolbar = () => {
         <button
           className={classNames(
             'h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
-            { 'bg-purple text-white': type === 'moo' },
-            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'moo' }
+            { 'bg-purple text-white': type === 'gmoo' },
+            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'gmoo' }
           )}
-          onClick={() => setType('moo')}
+          onClick={() => setType('gmoo')}
         >
           Moo
         </button>
         <button
           className={classNames(
             'relative h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
-            { 'bg-purple text-white': type === 'keeku' },
-            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'keeku' }
+            { 'bg-purple text-white': type === 'keek' },
+            { 'bg-white text-purple hover:bg-purple-light/40': type !== 'keek' }
           )}
           // onClick={() => setType('keeku')}
           onMouseEnter={() => setHover(true)}

@@ -5,7 +5,7 @@ import _keekus from './keeku.json';
 export const keekus: Keeku[] = _keekus;
 
 export const getTraitTypes = (type: CollectionType) => {
-  const collection = type === 'keeku' ? keekus : [];
+  const collection = type === 'keek' ? keekus : [];
 
   return Array.from(
     new Set(

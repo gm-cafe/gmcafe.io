@@ -10,15 +10,15 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
   const { moos } = metadata;
 
   const { filters, count, search } = useFilterContext();
-  const [type, setType] = useState<CollectionType>('moo');
+  const [type, setType] = useState<CollectionType>('gmoo');
 
-  const displayName = type === 'moo' ? 'Moo' : 'Keeku';
+  const displayName = type === 'gmoo' ? 'Moo' : 'Keeku';
 
   const mooIds = useAddressToMooIds(search);
 
   const searches = search.split(' ');
 
-  const collection = type === 'moo' ? moos : type === 'keeku' ? keekus : [];
+  const collection = type === 'gmoo' ? moos : type === 'keek' ? keekus : [];
   const entries = collection
     .filter(
       ({ id }) =>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { HerdInfoByOwner } from '../../lib/util/types';
-import Herd from './Herd';
+import { CollectionType, ParsedInfoByOwner } from '../../lib/util/types';
+import Owner from './Owner';
 
 import goldMedal from '../../public/leaderboard/gold_medal.png';
 import silverMedal from '../../public/leaderboard/silver_medal.png';
@@ -8,11 +8,12 @@ import bronzeMedal from '../../public/leaderboard/bronze_medal.png';
 
 type Props = {
   count: number;
-  herdByOwner: HerdInfoByOwner[];
+  infoByOwner: ParsedInfoByOwner[];
   rank: number;
+  type: CollectionType;
 };
 
-const HerdGroup = ({ count, herdByOwner, rank }: Props) => {
+const Group = ({ count, infoByOwner, rank, type }: Props) => {
   const medal = rank <= 3 && (
     <Image
       src={rank === 1 ? goldMedal : rank === 2 ? silverMedal : bronzeMedal}
@@ -28,12 +29,12 @@ const HerdGroup = ({ count, herdByOwner, rank }: Props) => {
         <h3 className="ml-auto font-gmcafe text-2xl text-purple">{count} Moos</h3>
       </div>
       <div className="flex flex-col gap-2">
-        {herdByOwner.map(({ owner, herd }) => (
-          <Herd key={owner} owner={owner} herd={herd} />
+        {infoByOwner.map(({ owner, infos }) => (
+          <Owner key={owner} owner={owner} infos={infos} type={type} />
         ))}
       </div>
     </div>
   );
 };
 
-export default HerdGroup;
+export default Group;

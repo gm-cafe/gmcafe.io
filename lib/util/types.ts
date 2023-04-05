@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Address } from './address';
 
 export type Asset = {
   name: string;
@@ -35,18 +36,24 @@ export type Moo = Token & {
 
 export type Keeku = Token;
 
-export type HerdInfo = {
-  locked: boolean;
-  moo: number;
-  tag: number;
-  transfers: number;
+export type ParsedInfo = {
+  owner: Address;
   block: number;
-  owner: `0x${string}`;
+  transfers: number;
+  tag: number;
+  locked: boolean;
+  token: number;
 };
 
-export type HerdInfoByOwner = {
-  owner: `0x${string}`;
-  herd: HerdInfo[];
+export type ParsedMoo = ParsedInfo;
+
+export type ParsedKeeku = ParsedInfo & {
+  pref: number;
+};
+
+export type ParsedInfoByOwner = {
+  owner: Address;
+  infos: ParsedInfo[];
 };
 
 export type FilterContextProps = {
@@ -76,4 +83,4 @@ export type EntryContextProps = {
   displayName: string;
 };
 
-export type CollectionType = 'moo' | 'keeku';
+export type CollectionType = 'gmoo' | 'keek';

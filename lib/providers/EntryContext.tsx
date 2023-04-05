@@ -4,7 +4,7 @@ import { EntryContextProps } from '../util/types';
 const defaultEntryContext: EntryContextProps = {
   paginated: [],
   metadata: [],
-  type: 'moo',
+  type: 'gmoo',
   setType: () => null,
   displayName: 'Moo',
 };

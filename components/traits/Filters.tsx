@@ -22,7 +22,7 @@ const Filters = ({ metadata }: Props) => {
 
   const hasFilter = search.length > 0 || Object.keys(filters).length > 0;
 
-  const collection = type === 'moo' ? moos : keekus;
+  const collection = type === 'gmoo' ? moos : keekus;
   const traitTypes = Array.from(
     new Set(
       collection
