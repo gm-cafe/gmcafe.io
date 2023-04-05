@@ -25,7 +25,7 @@ const Group = ({ count, infoByOwner, rank, type }: Props) => {
   return (
     <div className="flex w-full flex-col gap-2 rounded-xl bg-white p-4">
       <div className="relative flex gap-2">
-        <div className="absolute -top-8 -left-9 h-14 w-14">{medal}</div>
+        <div className="absolute -left-9 -top-8 h-14 w-14">{medal}</div>
         <h3 className="ml-auto font-gmcafe text-2xl text-purple">{count} Moos</h3>
       </div>
       <div className="flex flex-col gap-2">

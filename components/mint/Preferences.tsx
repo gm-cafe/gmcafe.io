@@ -50,7 +50,7 @@ const Preferences = ({ preferences, choose, options, advance: _advance }: Props)
         />
       </div>
       <div className="flex justify-center">
-        <div className="rounded-full bg-white py-1 px-4 text-center font-gmcafe text-purple md:text-xl">
+        <div className="rounded-full bg-white px-4 py-1 text-center font-gmcafe text-purple md:text-xl">
           Choosing Influence for Keekusaur{' '}
           <span className="text-lg text-pink md:text-2xl">{idx + 1}</span> of{' '}
           <span className="text-lg text-pink md:text-2xl">{preferences.length}</span>

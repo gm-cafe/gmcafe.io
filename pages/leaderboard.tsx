@@ -58,7 +58,7 @@ const Leaderboard: NextPage = () => {
 
   return (
     <div className="min-h-screen bg-pink-background">
-      <div className="flex w-full max-w-screen-md flex-col items-center gap-8 px-6 pt-44 pb-6 md:mx-auto">
+      <div className="flex w-full max-w-screen-md flex-col items-center gap-8 px-6 pb-6 pt-44 md:mx-auto">
         <h1 className="text-border-white font-gmcafe text-5xl text-purple">Leaderboard</h1>
         <div className="flex gap-2 rounded-xl bg-white p-2">
           <button

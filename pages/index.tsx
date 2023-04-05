@@ -44,7 +44,7 @@ const Home: NextPage = () => {
             <img className="max-w-[800px]" src="clouds_right.png" alt="Clouds Right" />
           </div>
         </section>
-        <section className="bg-pink px-10 pt-10 pb-4 sm:px-16 2xl:px-0 2xl:pt-0">
+        <section className="bg-pink px-10 pb-4 pt-10 sm:px-16 2xl:px-0 2xl:pt-0">
           <div className="mx-auto flex max-w-screen-2xl flex-col-reverse xl:flex-row xl:gap-16">
             <div className="z-20 mx-auto w-72 shrink-0 translate-y-[49px] sm:w-[28rem] sm:translate-y-[67.5px]">
               <Image src={mooPeek} layout="responsive" alt="Moo Peek" />
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
               <h2 className="font-gmcafe text-8xl uppercase text-white">Howdy!</h2>
               <h1 className="font-gmcafe text-5xl text-white">Adopt your Keekusaur!</h1>
               <Link href="/adopt">
-                <a className="mt-4 mr-auto flex items-center gap-3 rounded-full bg-white px-4 py-2 font-gmcafe text-xl text-purple transition-transform hover:scale-105 md:text-4xl">
+                <a className="mr-auto mt-4 flex items-center gap-3 rounded-full bg-white px-4 py-2 font-gmcafe text-xl text-purple transition-transform hover:scale-105 md:text-4xl">
                   <div className="h-8 w-8 md:h-10 md:w-10">
                     <Image src="/migrate/cup.png" width={200} height={200} alt="" />
                   </div>
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
               </div>
               <div className="squiggle hidden min-w-[60px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
-            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
+            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 py-12 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">The Moos</h2>
               <p className="mt-6 font-medium text-purple xl:text-lg">
                 It is said that each Highland Cow chooses its owner using a sophisticated series of
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
               </div>
               <div className="squiggle hidden min-w-[51px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
-            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
+            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 py-12 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
               <p className="mt-6 font-medium text-purple xl:text-lg">
                 The Moos are creatures of comfort, luxurious beasts who would prefer to graze
@@ -139,7 +139,7 @@ const Home: NextPage = () => {
         </AnimatedPageSection>
         <AnimatedPageSection>
           <div className="relative mx-auto max-w-screen-2xl">
-            <div className="absolute right-4 -bottom-10 w-16 sm:right-8 sm:bottom-4 sm:w-24 2xl:right-0">
+            <div className="absolute -bottom-10 right-4 w-16 sm:bottom-4 sm:right-8 sm:w-24 2xl:right-0">
               <Image src={coffeeSpill} layout="responsive" alt="Coffee Spill" />
             </div>
           </div>
@@ -154,7 +154,7 @@ const Home: NextPage = () => {
               </div>
               <div className="squiggle hidden min-w-[51px] border-r border-purple bg-purple md:block" />
             </div>
-            <div className="col-span-1 flex h-full flex-col justify-center bg-purple py-12 px-10 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
+            <div className="col-span-1 flex h-full flex-col justify-center bg-purple px-10 py-12 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
               <div className="flex flex-wrap items-center gap-4">
                 <h2 className="font-gmcafe text-5xl uppercase text-white">Moo Lock</h2>
                 <div className="flex flex-wrap gap-4">
@@ -190,7 +190,7 @@ const Home: NextPage = () => {
           <div className="relative z-10 mx-auto max-w-screen-2xl">
             <div
               id="faq"
-              className="absolute right-4 -top-12 z-10 w-16 sm:right-8 sm:-top-24 sm:w-28 2xl:right-0"
+              className="absolute -top-12 right-4 z-10 w-16 sm:-top-24 sm:right-8 sm:w-28 2xl:right-0"
             >
               <Image src={cowla} layout="responsive" alt="Coffee Spill" />
             </div>
@@ -206,14 +206,14 @@ const Home: NextPage = () => {
               </div>
               <div className="squiggle hidden min-w-[54px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
-            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 pt-12 pb-16 sm:py-12 md:col-span-2 md:py-20 md:pl-20 lg:pl-14 lg:pr-10 2xl:px-24">
+            <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 pb-16 pt-12 sm:py-12 md:col-span-2 md:py-20 md:pl-20 lg:pl-14 lg:pr-10 2xl:px-24">
               <Disclosures />
             </div>
           </div>
         </AnimatedPageSection>
-        <AnimatedPageSection id="team" className="bg-pink py-16 px-10 2xl:px-0">
+        <AnimatedPageSection id="team" className="bg-pink px-10 py-16 2xl:px-0">
           <div className="relative mx-auto flex max-w-screen-2xl flex-col">
-            <div className="absolute top-0 right-0 z-0 w-36 -translate-y-[100px]">
+            <div className="absolute right-0 top-0 z-0 w-36 -translate-y-[100px]">
               <Image src={egg} layout="responsive" alt="Egg" />
             </div>
             <h2 className="font-gmcafe text-5xl uppercase text-white">Team</h2>

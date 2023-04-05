@@ -57,7 +57,7 @@ const Associate: NextPage = () => {
       disabled={apiLoading}
     >
       <span className={classNames('uppercase', { 'opacity-0': apiLoading })}>Associate</span>
-      <span className="absolute top-0 right-0 flex h-full w-full items-center justify-center">
+      <span className="absolute right-0 top-0 flex h-full w-full items-center justify-center">
         {apiLoading && <LoadingIcon className="absolute" />}
       </span>
     </button>

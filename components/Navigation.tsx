@@ -43,7 +43,7 @@ const Navigation = () => {
           )}
         </button>
         {open && (
-          <div className="mobile-nav-height absolute top-0 left-0 z-20 mt-16 flex w-screen origin-top-right flex-col gap-4 overflow-y-hidden bg-[url('/mobile_nav.jpg')] bg-cover bg-bottom bg-no-repeat focus:outline-none">
+          <div className="mobile-nav-height absolute left-0 top-0 z-20 mt-16 flex w-screen origin-top-right flex-col gap-4 overflow-y-hidden bg-[url('/mobile_nav.jpg')] bg-cover bg-bottom bg-no-repeat focus:outline-none">
             <div className="h-24 shrink-0">
               <div className="h-full flex-grow bg-[url('/svgs/awning.svg')] bg-repeat-x">
                 <div className="h-[5px] w-full bg-purple opacity-30" />

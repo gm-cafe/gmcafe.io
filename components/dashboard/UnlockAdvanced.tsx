@@ -112,7 +112,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
           )}
         </div>
         <input
-          className="rounded border-2 border-purple bg-white py-1 px-2 text-purple disabled:bg-gray-100"
+          className="rounded border-2 border-purple bg-white px-2 py-1 text-purple disabled:bg-gray-100"
           type="password"
           id="unlockPassword"
           disabled={payBounty}
@@ -189,7 +189,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
             Address
           </label>
           <input
-            className="rounded border-2 border-purple bg-white py-1 px-2 text-purple disabled:bg-gray-200"
+            className="rounded border-2 border-purple bg-white px-2 py-1 text-purple disabled:bg-gray-200"
             id="destination"
             name="destination"
             value={destination}

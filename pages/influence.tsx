@@ -80,7 +80,7 @@ const InfluencePage: NextPage = () => {
   }, [options, token]);
 
   return (
-    <div className="flex h-screen flex-col items-center bg-pink-background px-3 pt-32 pb-12 md:px-4 md:pt-40">
+    <div className="flex h-screen flex-col items-center bg-pink-background px-3 pb-12 pt-32 md:px-4 md:pt-40">
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
         {step === 0 && <Connect advance={advance} isConnected={isConnected} />}
         {step === 1 && <List advance={advance} keeks={keeks} setToken={setToken} />}

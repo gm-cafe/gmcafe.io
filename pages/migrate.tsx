@@ -161,7 +161,7 @@ const Migrate = () => {
         {state !== 'migrated' && (
           <div
             id="moos"
-            className="my-4 mx-2 grid max-w-screen-sm grid-cols-2 gap-4 overflow-y-auto px-2"
+            className="mx-2 my-4 grid max-w-screen-sm grid-cols-2 gap-4 overflow-y-auto px-2"
           >
             {assets.map(({ name, imageUrl, token }, idx) => (
               <div
@@ -174,7 +174,7 @@ const Migrate = () => {
                 <div className="overflow-hidden rounded-lg">
                   <Image src={imageUrl} layout="responsive" alt={name} width={600} height={600} />
                 </div>
-                <span className="absolute top-0 right-0 rounded-bl-lg bg-white pl-2 pr-1 font-gmcafe text-lg text-purple 2xl:text-2xl">
+                <span className="absolute right-0 top-0 rounded-bl-lg bg-white pl-2 pr-1 font-gmcafe text-lg text-purple 2xl:text-2xl">
                   {moos[idx].toString()}
                 </span>
               </div>
@@ -184,7 +184,7 @@ const Migrate = () => {
         <div id="npc" className="relative z-20 mt-auto max-w-screen-sm">
           <div
             id="moo"
-            className="absolute left-0 bottom-0 w-56 -translate-x-16 sm:w-56 sm:-translate-x-0"
+            className="absolute bottom-0 left-0 w-56 -translate-x-16 sm:w-56 sm:-translate-x-0"
           >
             <img
               src={
@@ -197,13 +197,13 @@ const Migrate = () => {
               alt="Moo Waving"
             />
           </div>
-          <div className="ml-14 h-min sm:mr-2 sm:mb-2 sm:ml-36">
+          <div className="ml-14 h-min sm:mb-2 sm:ml-36 sm:mr-2">
             <span className="rounded-full bg-pink py-1.5 pl-22 pr-10 font-gmcafe text-xl tracking-wider text-white sm:pl-20">
               Harold
             </span>
             <div
               id="speech"
-              className="-mt-2 box-border flex h-40 w-full flex-col rounded bg-white pt-6 pb-2 pl-[6.5rem] pr-4 text-sm text-purple shadow-lg-purple sm:h-28 sm:pb-4 sm:pr-4 sm:pl-20"
+              className="-mt-2 box-border flex h-40 w-full flex-col rounded bg-white pb-2 pl-[6.5rem] pr-4 pt-6 text-sm text-purple shadow-lg-purple sm:h-28 sm:pb-4 sm:pl-20 sm:pr-4"
             >
               {state === 'connect' && <Connect />}
               {state === 'approve' && assets.length > 0 && (

@@ -196,7 +196,7 @@ const Reservation: NextPage = () => {
               {downloadLoading && <LoadingIcon />}
             </button>
             <button
-              className="flex items-center gap-2 rounded-lg bg-purple py-2 px-4 transition-colors hover:bg-opacity-80"
+              className="flex items-center gap-2 rounded-lg bg-purple px-4 py-2 transition-colors hover:bg-opacity-80"
               onClick={onTwitterShare}
             >
               {!cacheCardLoading && (

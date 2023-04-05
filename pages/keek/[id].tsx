@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Keek = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-2 bg-pink-background pt-32 pb-4 md:pt-36">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-2 bg-pink-background pb-4 pt-32 md:pt-36">
       <div className="flex items-center gap-4">
         <div className="w-16 md:w-32">
           <Image src="/coffee_spill.png" alt="" width={700} height={800} />

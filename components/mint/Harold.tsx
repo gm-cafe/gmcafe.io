@@ -20,7 +20,7 @@ const Harold = ({ mintStep }: Props) => {
   const [talking, setTalking] = useState(false);
 
   return (
-    <div className="fixed bottom-0 flex max-w-full items-center gap-2 py-2 px-2 md:max-w-none md:gap-8">
+    <div className="fixed bottom-0 flex max-w-full items-center gap-2 px-2 py-2 md:max-w-none md:gap-8">
       <div className="relative h-22 w-22 shrink-0 overflow-hidden rounded-full border-6 border-white bg-pink md:h-28 md:w-28 md:border-8">
         <div className={classNames('absolute', { hidden: talking })}>
           <Image src="/mint/harold.png" alt="Harold" width={400} height={400} />

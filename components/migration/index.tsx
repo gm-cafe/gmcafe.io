@@ -219,7 +219,7 @@ const Button = ({ className, onClick, children, loading }: ButtonProps) => {
       disabled={loading}
     >
       <span className={classNames({ 'opacity-0': loading })}>{children}</span>
-      <span className="absolute top-0 right-0 flex h-full w-full items-center justify-center">
+      <span className="absolute right-0 top-0 flex h-full w-full items-center justify-center">
         {loading && <LoadingIcon className="absolute h-6 w-6" />}
       </span>
     </button>

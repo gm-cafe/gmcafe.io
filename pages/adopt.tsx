@@ -84,7 +84,7 @@ const MintPage: NextPage = () => {
   }, [mints, preferences]);
 
   return (
-    <div className="flex h-screen flex-col items-center bg-pink-background px-3 pt-32 pb-12 md:px-4 md:pt-40">
+    <div className="flex h-screen flex-col items-center bg-pink-background px-3 pb-12 pt-32 md:px-4 md:pt-40">
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-grow flex-col items-center justify-center">
         {[0, 5].includes(mintStep) && (
           <div className="w-72 md:w-96">
