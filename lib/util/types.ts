@@ -72,6 +72,7 @@ export type ProviderProps = {
   children: ReactNode | ReactNode[];
   metadata: {
     moos: Moo[];
+    keekus: Keeku[];
   };
 };
 

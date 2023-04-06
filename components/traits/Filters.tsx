@@ -1,4 +1,3 @@
-import { keekus } from '../../lib/static/metadata';
 import Filter from './Filter';
 import Search from './Search';
 import { XCircleIcon } from '@heroicons/react/solid';
@@ -6,16 +5,17 @@ import { useFilterContext } from '../../lib/providers/FilterContext';
 import classNames from 'classnames';
 import QuickFilters from './QuickFilters';
 import { useEntryContext } from '../../lib/providers/EntryContext';
-import { Moo } from '../../lib/util/types';
+import { Keeku, Moo } from '../../lib/util/types';
 
 type Props = {
   metadata: {
     moos: Moo[];
+    keekus: Keeku[];
   };
 };
 
 const Filters = ({ metadata }: Props) => {
-  const { moos } = metadata;
+  const { moos, keekus } = metadata;
 
   const { search, filters, clear } = useFilterContext();
   const { type } = useEntryContext();

@@ -5,11 +5,12 @@ import { FilterProvider } from '../lib/providers/FilterProvider';
 import Cards from '../components/traits/Cards';
 import { EntryProvider } from '../lib/providers/EntryProvider';
 import Toolbar from '../components/traits/Toolbar';
-import { Moo } from '../lib/util/types';
+import { Keeku, Moo } from '../lib/util/types';
 
 type Props = {
   metadata: {
     moos: Moo[];
+    keekus: Keeku[];
   };
 };
 
@@ -34,7 +35,7 @@ const Home: NextPage<Props> = ({ metadata }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
-  const moos = await fetch('https://alpha.antistupid.com/metadata/gmoo/all-static.json')
+  const moos = await fetch('https://api.gmcafe.io/metadata/gmoo/all-static.json')
     .then((res) => res.json() as Promise<Moo[]>)
     .then((moos: Moo[]) =>
       moos.map((moo) => ({
@@ -43,12 +44,21 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       }))
     );
 
+  const keekus = await fetch('https://api.gmcafe.io/metadata/keek/all-static.json')
+    .then((res) => res.json() as Promise<Keeku[]>)
+    .then((keeks: Keeku[]) =>
+      keeks.map((keek) => ({
+        ...keek,
+        attributes: keek.attributes.filter((attribute) => !!attribute.trait_type),
+      }))
+    );
+
   const { id } = query;
   const parsedId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
   const tokenId = !parsedId || parsedId < 1 || parsedId > moos.length ? undefined : parsedId;
 
-  // Response is stale after 10s, but refetched between 10-59s
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+  // Response is stale after 10s, but refetched between 10-15m
+  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=900');
 
   return {
     props: {
@@ -59,6 +69,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       metaDescription: 'Browse and explore GMCafé Moos',
       metadata: {
         moos: moos,
+        keekus: keekus,
       },
     },
   };
