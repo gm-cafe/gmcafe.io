@@ -1,7 +1,7 @@
 import { isAddress } from 'ethers/lib/utils';
 import { useState } from 'react';
 import { CollectionType, ProviderProps } from '../util/types';
-import useAddressToMooIds from '../util/useAddressToMoos';
+import useAddressToIds from '../util/useAddressToIds';
 import { EntryContext } from './EntryContext';
 import { useFilterContext } from './FilterContext';
 
@@ -13,7 +13,7 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
 
   const displayName = type === 'gmoo' ? 'Moo' : 'Keek';
 
-  const mooIds = useAddressToMooIds(search);
+  const ids = useAddressToIds(search, type);
 
   const searches = search.split(' ');
 
@@ -24,9 +24,11 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
         search.length === 0 ||
         searches.every((s) => isNaN(Number(s))) ||
         // Check every searches is number, otherwise '29 ab' will still return 29 and confuse users
-        (searches.every((s) => !isNaN(Number(s))) && searches.some((s) => parseInt(s) === id))
+        (searches.every((s) => !isNaN(Number(s))) && searches.some((s) => parseInt(s) === id)) ||
+        // Address for some reason is a number, so exclude it from id search
+        isAddress(search)
     )
-    .filter(({ id }) => mooIds.length === 0 || mooIds.includes(id))
+    .filter(({ id }) => ids.length === 0 || ids.includes(id))
     .filter(({ attributes }) =>
       Object.entries(filters).every(([type, values]) => {
         // removing filters can result in an empty set
@@ -42,9 +44,9 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
     .filter(
       ({ attributes }) =>
         // Search is an ENS query
-        (search.includes('.eth') && mooIds.length > 0) ||
+        (search.includes('.eth') && ids.length > 0) ||
         // Search is an address
-        (isAddress(search.toLowerCase()) && mooIds.length > 0) ||
+        (isAddress(search.toLowerCase()) && ids.length > 0) ||
         // Search is empty
         search.length === 0 ||
         // Search is id
