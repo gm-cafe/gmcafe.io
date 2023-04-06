@@ -4,9 +4,10 @@ import { format, fromUnixTime } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { gmooContract } from '../../lib/util/addresses';
+import { gmooContract, keekContract } from '../../lib/util/addresses';
 import { Token } from '../../lib/util/types';
 import { OpenSeaIcon } from '../Icons';
+import { useEntryContext } from '../../lib/providers/EntryContext';
 
 type Props = {
   metadata?: Token;
@@ -14,11 +15,18 @@ type Props = {
 };
 
 const Viewer = ({ metadata, onClose }: Props) => {
+  const { type } = useEntryContext();
+
   if (!metadata) {
     return <Dialog open={false} onClose={() => null} />;
   }
 
   const { id, name, image, attributes } = metadata;
+
+  const profileUrl = `/${type === 'gmoo' ? 'moo' : 'keek'}/${id}`;
+  const osUrl = `https://opensea.io/assets/ethereum/${
+    type === 'gmoo' ? gmooContract : keekContract
+  }/${id}`;
 
   return (
     <Dialog open={!!metadata} onClose={onClose} className="relative z-50">
@@ -54,14 +62,10 @@ const Viewer = ({ metadata, onClose }: Props) => {
                 ))}
               </div>
               <div className="mt-1 flex items-center gap-4">
-                <Link href={`/moo/${id}`}>
+                <Link href={profileUrl}>
                   <UserIcon className="h-8 w-8 cursor-pointer rounded-full bg-purple p-1 text-white" />
                 </Link>
-                <a
-                  href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={osUrl} target="_blank" rel="noreferrer">
                   <OpenSeaIcon className="h-8 w-8" fill="#2081E2" />
                 </a>
               </div>

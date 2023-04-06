@@ -11,7 +11,7 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
   const { filters, count, search } = useFilterContext();
   const [type, setType] = useState<CollectionType>('gmoo');
 
-  const displayName = type === 'gmoo' ? 'Moo' : 'Keeku';
+  const displayName = type === 'gmoo' ? 'Moo' : 'Keek';
 
   const mooIds = useAddressToMooIds(search);
 
