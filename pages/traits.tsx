@@ -66,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
       metaImage: tokenId
         ? `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/original/${tokenId}.png`
         : '/meta_banner.png',
-      metaDescription: 'Browse and explore GMCafé Moos',
+      metaDescription: 'Browse and explore GMCafé Moos and Keeks!',
       metadata: {
         moos: moos,
         keekus: keekus,
