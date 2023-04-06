@@ -71,6 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
         moos: moos,
         keekus: keekus,
       },
+      twitterCard: 'summary_large_image',
     },
   };
 };
