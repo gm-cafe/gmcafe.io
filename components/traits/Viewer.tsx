@@ -21,7 +21,7 @@ const Viewer = ({ metadata, onClose }: Props) => {
     return <Dialog open={false} onClose={() => null} />;
   }
 
-  const { id, name, image, attributes } = metadata;
+  const { id, name, attributes } = metadata;
 
   const profileUrl = `/${type === 'gmoo' ? 'moo' : 'keek'}/${id}`;
   const osUrl = `https://opensea.io/assets/ethereum/${
@@ -39,7 +39,14 @@ const Viewer = ({ metadata, onClose }: Props) => {
               <XIcon className="h-5 w-5 text-[#A3A19A]" />
             </button>
             <div className="my-auto aspect-square md:col-span-2">
-              <Image className="rounded-2xl" src={image} width={600} height={600} alt={name} />
+              <Image
+                className="rounded-2xl"
+                src={`https://gmcafe.s3.us-east-2.amazonaws.com/${type}/jpg/${id}.jpg`}
+                width={600}
+                height={600}
+                alt={name}
+                unoptimized
+              />
             </div>
             <div className="flex flex-1 flex-col justify-center gap-4 md:col-span-3">
               <div className="flex">

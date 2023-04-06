@@ -11,7 +11,7 @@ const Toolbar = () => {
       <div className="flex gap-2 rounded-2xl bg-white p-2">
         <button
           className={classNames(
-            'h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
+            'rounded-xl px-4 py-2 font-gmcafe text-xl transition-colors',
             { 'bg-purple text-white': type === 'gmoo' },
             { 'bg-white text-purple hover:bg-purple-light/40': type !== 'gmoo' }
           )}
@@ -21,16 +21,16 @@ const Toolbar = () => {
         </button>
         <button
           className={classNames(
-            'relative h-10 w-16 rounded-xl font-gmcafe text-xl transition-colors',
+            'relative rounded-xl px-4 py-2 font-gmcafe text-xl transition-colors',
             { 'bg-purple text-white': type === 'keek' },
             { 'bg-white text-purple hover:bg-purple-light/40': type !== 'keek' }
           )}
           onClick={() => setType('keek')}
         >
-          Keeku
+          Keek
         </button>
       </div>
-      <p className="rounded-2xl bg-white p-2 font-gmcafe text-2xl text-purple md:text-4xl">
+      <p className="rounded-2xl bg-white p-3 font-gmcafe text-2xl text-purple md:text-3xl">
         {metadata.length} {pluralizedName}
       </p>
     </div>
