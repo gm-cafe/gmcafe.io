@@ -26,14 +26,14 @@ const Viewer = ({ metadata, onClose }: Props) => {
 
       <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">
-          <Dialog.Panel className="relative mx-auto grid grid-cols-1 gap-8 rounded-3xl bg-white p-8 md:grid-cols-2 md:gap-16 md:p-16">
+          <Dialog.Panel className="relative mx-auto grid grid-cols-1 gap-8 rounded-3xl bg-white p-8 md:grid-cols-5 md:gap-16 md:p-16">
             <button className="absolute right-3 top-3 focus:outline-none" onClick={onClose}>
               <XIcon className="h-5 w-5 text-[#A3A19A]" />
             </button>
-            <div className="my-auto aspect-square">
+            <div className="my-auto aspect-square md:col-span-2">
               <Image className="rounded-2xl" src={image} width={600} height={600} alt={name} />
             </div>
-            <div className="flex flex-1 flex-col justify-center gap-4">
+            <div className="flex flex-1 flex-col justify-center gap-4 md:col-span-3">
               <div className="flex">
                 <h1 className="rounded-md bg-purple px-3 py-1 font-gmcafe text-3xl text-white md:text-4xl">
                   {name}
