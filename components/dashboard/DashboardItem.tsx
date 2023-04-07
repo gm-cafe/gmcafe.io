@@ -5,34 +5,30 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useContractRead } from 'wagmi';
-import { gmooABI, gmooContract } from '../../lib/util/addresses';
+import { gmooABI, gmooContract, keekABI, keekContract } from '../../lib/util/addresses';
 import { toastError } from '../../lib/util/toast';
-import { Moo } from '../../lib/util/types';
+import { CollectionType, Keeku, Moo, Token } from '../../lib/util/types';
 import LockModal from './LockModal';
 import UnlockModal from './UnlockModal';
 
-const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
+type Props = {
+  token: Token;
+  isLocked: boolean;
+  type: CollectionType;
+};
+
+const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
 
-  const { name, image, id } = moo;
-
-  const { data } = useContractRead({
-    address: gmooContract,
-    abi: gmooABI,
-    functionName: 'getMoo',
-    args: [BigNumber.from(id)],
-    watch: true,
-  });
-
-  const isLocked = !!data?.isLocked;
+  const { name, id } = token;
 
   return (
     <div className="flex items-center gap-4 rounded-xl bg-white p-4">
       <div className="w-12 shrink-0">
         <Image
           className="rounded-full"
-          src={image}
+          src={`https://gmcafe.s3.us-east-2.amazonaws.com/${type}/jpg-256/${id}.jpg`}
           layout="responsive"
           width={300}
           height={300}
@@ -74,7 +70,7 @@ const DashboardMooLoaded = ({ moo }: { moo: Moo }) => {
   );
 };
 
-const DashboardMooLoading = () => {
+const DashboardItemLoading = () => {
   return (
     <div className="flex items-center gap-4 rounded-xl bg-white p-4">
       <div className="h-12 w-12 animate-pulse rounded-full bg-gray-200"></div>
@@ -83,7 +79,7 @@ const DashboardMooLoading = () => {
   );
 };
 
-const DashboardMoo = ({ id }: { id: number }) => {
+export const DashboardMoo = ({ id }: { id: number }) => {
   const [moo, setMoo] = useState<Moo>();
 
   const { data: tokenUri } = useContractRead({
@@ -91,6 +87,14 @@ const DashboardMoo = ({ id }: { id: number }) => {
     abi: gmooABI,
     functionName: 'tokenURI',
     args: [BigNumber.from(id)],
+  });
+
+  const { data } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
+    functionName: 'getMoo',
+    args: [BigNumber.from(id)],
+    watch: true,
   });
 
   useEffect(() => {
@@ -102,10 +106,41 @@ const DashboardMoo = ({ id }: { id: number }) => {
   }, [tokenUri]);
 
   if (!moo) {
-    return <DashboardMooLoading />;
+    return <DashboardItemLoading />;
   } else {
-    return <DashboardMooLoaded moo={moo} />;
+    return <DashboardItemLoaded token={moo} isLocked={!!data?.isLocked} type="gmoo" />;
   }
 };
 
-export default DashboardMoo;
+export const DashboardKeek = ({ id }: { id: number }) => {
+  const [keek, setKeek] = useState<Keeku>();
+
+  const { data: tokenUri } = useContractRead({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'tokenURI',
+    args: [BigNumber.from(id)],
+  });
+
+  const { data } = useContractRead({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'getKeekInfo',
+    args: [BigNumber.from(id)],
+    watch: true,
+  });
+
+  useEffect(() => {
+    tokenUri &&
+      fetch(tokenUri)
+        .then((res) => res.json())
+        .then((keek: Keeku) => setKeek(keek))
+        .catch(toastError);
+  }, [tokenUri]);
+
+  if (!keek) {
+    return <DashboardItemLoading />;
+  } else {
+    return <DashboardItemLoaded token={keek} isLocked={!!data?.isLocked} type="keek" />;
+  }
+};
