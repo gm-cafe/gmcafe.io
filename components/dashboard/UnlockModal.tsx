@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers';
 import { Dispatch, SetStateAction } from 'react';
 import { useContractRead } from 'wagmi';
 import { gmooABI, gmooContract } from '../../lib/util/addresses';
-import UnlockAdvanced from './UnlockAdvanced';
+import { UnlockAdvancedMoo } from './UnlockAdvanced';
 import { UnlockBasicMoo } from './UnlockBasic';
 
 type Props = {
@@ -39,7 +39,7 @@ const UnlockModal = ({ id, open, setOpen }: Props) => {
               </div>
             </div>
             {!isAdvanced && <UnlockBasicMoo id={id} setOpen={setOpen} />}
-            {isAdvanced && <UnlockAdvanced id={id} open={open} setOpen={setOpen} />}
+            {isAdvanced && <UnlockAdvancedMoo id={id} open={open} setOpen={setOpen} />}
           </Tab.Group>
         </Dialog.Panel>
       </div>

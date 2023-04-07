@@ -8,10 +8,11 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi';
-import { isAddress } from '../../lib/util/address';
-import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import { Address, isAddress } from '../../lib/util/address';
+import { gmooContract, gmooABI, keekContract, keekABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
+import { CollectionType } from '../../lib/util/types';
 
 type Props = {
   id: number;
@@ -19,10 +20,9 @@ type Props = {
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
+export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
-  const [forgotPassword, setForgotPassword] = useState(false);
   const [payBounty, setPayBounty] = useState(false);
   const [changeDestination, setChangeDestination] = useState(false);
   const [destination, setDestination] = useState<`0x${string}`>(constants.AddressZero);
@@ -74,7 +74,7 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
 
     setLoading(false);
     setOpen(false);
-    toastSuccess('Unlocked Moo!');
+    toastSuccess('Unlocked!');
   }, [writeSuccess, unlockSuccess, setOpen]);
 
   const onClick = () => {
@@ -93,6 +93,157 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
   };
 
   const isValidDestination = destination.endsWith('.eth') || utils.isAddress(destination);
+
+  return (
+    <Shared
+      payBounty={payBounty}
+      setPayBounty={setPayBounty}
+      password={password}
+      setPassword={setPassword}
+      changeDestination={changeDestination}
+      onChangeDestination={onChangeDestination}
+      destination={destination}
+      setDestination={setDestination}
+      isValidDestination={isValidDestination}
+      unlockPrice={unlockPrice}
+      setOpen={setOpen}
+      loading={loading}
+      onClick={onClick}
+      type="gmoo"
+    />
+  );
+};
+
+export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState('');
+  const [payBounty, setPayBounty] = useState(false);
+  const [changeDestination, setChangeDestination] = useState(false);
+  const [destination, setDestination] = useState<`0x${string}`>(constants.AddressZero);
+
+  const { data } = useContractRead({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'getKeekInfo',
+    args: [BigNumber.from(id)],
+    enabled: open,
+  });
+
+  const unlockPriceWei: BigNumber = data?.unlockPrice || constants.Zero;
+  const unlockPrice = utils.formatEther(unlockPriceWei);
+  const value = payBounty ? unlockPriceWei : undefined;
+
+  const { config } = usePrepareContractWrite({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'unlockKeek',
+    args: [BigNumber.from(id), password, destination],
+    overrides: value
+      ? {
+          value: value,
+        }
+      : undefined,
+  });
+
+  const {
+    write: unlock,
+    data: writeData,
+    isSuccess: writeSuccess,
+  } = useContractWrite({
+    ...config,
+    onError: () => {
+      setLoading(false);
+      setOpen(false);
+    },
+  });
+
+  const { isSuccess: unlockSuccess } = useWaitForTransaction({
+    hash: writeData?.hash,
+  });
+
+  useEffect(() => {
+    if (!writeSuccess || !unlockSuccess) {
+      return;
+    }
+
+    setLoading(false);
+    setOpen(false);
+    toastSuccess('Unlocked!');
+  }, [writeSuccess, unlockSuccess, setOpen]);
+
+  const onClick = () => {
+    setLoading(true);
+    unlock?.();
+  };
+
+  const onChangeDestination = () => {
+    if (changeDestination) {
+      setDestination(constants.AddressZero);
+      setChangeDestination(false);
+    } else {
+      setDestination(constants.AddressZero);
+      setChangeDestination(true);
+    }
+  };
+
+  const isValidDestination = destination.endsWith('.eth') || utils.isAddress(destination);
+
+  return (
+    <Shared
+      payBounty={payBounty}
+      setPayBounty={setPayBounty}
+      password={password}
+      setPassword={setPassword}
+      changeDestination={changeDestination}
+      onChangeDestination={onChangeDestination}
+      destination={destination}
+      setDestination={setDestination}
+      isValidDestination={isValidDestination}
+      unlockPrice={unlockPrice}
+      setOpen={setOpen}
+      loading={loading}
+      onClick={onClick}
+      type="gmoo"
+    />
+  );
+};
+
+type SharedProps = {
+  payBounty: boolean;
+  setPayBounty: Dispatch<SetStateAction<boolean>>;
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
+  changeDestination: boolean;
+  onChangeDestination: () => void;
+  destination: Address;
+  setDestination: Dispatch<SetStateAction<Address>>;
+  isValidDestination: boolean;
+  unlockPrice: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  loading: boolean;
+  onClick: () => void;
+  type: CollectionType;
+};
+
+const Shared = ({
+  payBounty,
+  setPayBounty,
+  password,
+  setPassword,
+  changeDestination,
+  onChangeDestination,
+  destination,
+  setDestination,
+  isValidDestination,
+  unlockPrice,
+  setOpen,
+  loading,
+  onClick,
+  type,
+}: SharedProps) => {
+  const name = type === 'gmoo' ? '{name}' : 'Keek';
+
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   return (
     <div className="my-4 flex flex-col gap-4">
@@ -176,11 +327,11 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
               )}
             />
           </div>
-          Send Moo to different address
+          Send {name} to different address
         </label>
         <p className="text-sm text-purple">
-          By selecting this checkbox you agree to have your Moo sent to a different address (e.g. if
-          your current wallet is compromised)
+          By selecting this checkbox you agree to have your {name} sent to a different address (e.g.
+          if your current wallet is compromised)
         </p>
       </div>
       {changeDestination && (
@@ -220,5 +371,3 @@ const UnlockAdvanced = ({ id, open, setOpen }: Props) => {
     </div>
   );
 };
-
-export default UnlockAdvanced;
