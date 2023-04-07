@@ -53,7 +53,7 @@ const LockModal = ({ id, open, setOpen, type }: Props) => {
             </div>
             <Dialog.Description className="text-sm text-purple">
               Locking your {name} in the barn will add a layer of protection against the scares in
-              the Web3 world. If you accidentally give permission for someone else to access your
+              the Web3 world. If you accidentally give permission for someone else to access your{' '}
               {name} (i.e. signing a setApprovalForAll transaction), this feature will help ensure
               your
               {name} stays safe in your wallet.

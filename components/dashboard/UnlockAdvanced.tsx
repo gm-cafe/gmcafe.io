@@ -8,7 +8,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from 'wagmi';
-import { Address, isAddress } from '../../lib/util/address';
+import { Address } from '../../lib/util/address';
 import { gmooContract, gmooABI, keekContract, keekABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
@@ -25,7 +25,7 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
   const [password, setPassword] = useState('');
   const [payBounty, setPayBounty] = useState(false);
   const [changeDestination, setChangeDestination] = useState(false);
-  const [destination, setDestination] = useState<`0x${string}`>(constants.AddressZero);
+  const [destination, setDestination] = useState<string>(constants.AddressZero);
 
   const { data } = useContractRead({
     address: gmooContract,
@@ -43,11 +43,11 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
     address: gmooContract,
     abi: gmooABI,
     functionName: 'unlockMoo',
-    args: [BigNumber.from(id), password, destination],
+    args: [BigNumber.from(id), password, destination as Address],
     overrides: value
       ? {
-        value: value,
-      }
+          value: value,
+        }
       : undefined,
   });
 
@@ -119,7 +119,7 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
   const [password, setPassword] = useState('');
   const [payBounty, setPayBounty] = useState(false);
   const [changeDestination, setChangeDestination] = useState(false);
-  const [destination, setDestination] = useState<`0x${string}`>(constants.AddressZero);
+  const [destination, setDestination] = useState<string>('');
 
   const { data } = useContractRead({
     address: keekContract,
@@ -137,11 +137,11 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
     address: keekContract,
     abi: keekABI,
     functionName: 'unlockKeek',
-    args: [BigNumber.from(id), password, destination],
+    args: [BigNumber.from(id), password, (destination as Address) || constants.AddressZero],
     overrides: value
       ? {
-        value: value,
-      }
+          value: value,
+        }
       : undefined,
   });
 
@@ -186,7 +186,7 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
     }
   };
 
-  const isValidDestination = destination.endsWith('.eth') || utils.isAddress(destination);
+  const isValidDestination = utils.isAddress(destination);
 
   return (
     <Shared
@@ -215,8 +215,8 @@ type SharedProps = {
   setPassword: Dispatch<SetStateAction<string>>;
   changeDestination: boolean;
   onChangeDestination: () => void;
-  destination: Address;
-  setDestination: Dispatch<SetStateAction<Address>>;
+  destination: string;
+  setDestination: Dispatch<SetStateAction<string>>;
   isValidDestination: boolean;
   unlockPrice: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -241,7 +241,7 @@ const Shared = ({
   onClick,
   type,
 }: SharedProps) => {
-  const name = type === 'gmoo' ? Moo : 'Keek';
+  const name = type === 'gmoo' ? 'Moo' : 'Keek';
 
   const [forgotPassword, setForgotPassword] = useState(false);
 
@@ -344,7 +344,7 @@ const Shared = ({
             id="destination"
             name="destination"
             value={destination}
-            onChange={({ target: { value } }) => isAddress(value) && setDestination(value)}
+            onChange={({ target: { value } }) => setDestination(value)}
           />
           {!isValidDestination && (
             <span className="text-right text-xs text-pink">
@@ -362,7 +362,7 @@ const Shared = ({
         </button>
         <button
           className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-          disabled={loading}
+          disabled={loading || !isValidDestination || !!password}
           onClick={onClick}
         >
           {loading ? <LoadingIcon /> : 'Unlock'}
