@@ -46,8 +46,8 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
     args: [BigNumber.from(id), password, destination],
     overrides: value
       ? {
-          value: value,
-        }
+        value: value,
+      }
       : undefined,
   });
 
@@ -140,8 +140,8 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
     args: [BigNumber.from(id), password, destination],
     overrides: value
       ? {
-          value: value,
-        }
+        value: value,
+      }
       : undefined,
   });
 
@@ -241,7 +241,7 @@ const Shared = ({
   onClick,
   type,
 }: SharedProps) => {
-  const name = type === 'gmoo' ? '{name}' : 'Keek';
+  const name = type === 'gmoo' ? Moo : 'Keek';
 
   const [forgotPassword, setForgotPassword] = useState(false);
 

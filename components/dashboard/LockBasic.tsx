@@ -83,7 +83,7 @@ type SharedProps = {
 };
 
 const Shared = ({ onClick, loading, type }: SharedProps) => {
-  const name = type === 'gmoo' ? '{name}' : 'Keek';
+  const name = type === 'gmoo' ? Moo : 'Keek';
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6">
