@@ -9,7 +9,7 @@ import { gmooABI, gmooContract, keekABI, keekContract } from '../../lib/util/add
 import { toastError } from '../../lib/util/toast';
 import { CollectionType, Keeku, Moo, Token } from '../../lib/util/types';
 import LockModal from './LockModal';
-import UnlockModal from './UnlockModal';
+import { UnlockModalMoo, UnlockModalKeek } from './UnlockModal';
 
 type Props = {
   token: Token;
@@ -64,8 +64,13 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
           <ArrowsExpandIcon className="w-8 cursor-pointer text-purple transition-transform hover:scale-105" />
         </Link>
       </div>
-      <LockModal id={id} open={lockModalOpen} setOpen={setLockModalOpen} />
-      <UnlockModal id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} />
+      <LockModal id={id} open={lockModalOpen} setOpen={setLockModalOpen} type={type} />
+      {type === 'gmoo' && (
+        <UnlockModalMoo id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} />
+      )}
+      {type === 'keek' && (
+        <UnlockModalKeek id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} />
+      )}
     </div>
   );
 };
