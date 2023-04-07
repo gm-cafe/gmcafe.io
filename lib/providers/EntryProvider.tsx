@@ -8,14 +8,16 @@ import { useFilterContext } from './FilterContext';
 export const EntryProvider = ({ children, metadata }: ProviderProps) => {
   const { moos, keekus } = metadata;
 
-  const { filters, count, search } = useFilterContext();
+  const { filters, count, search: search_ } = useFilterContext();
   const [type, setType] = useState<CollectionType>('gmoo');
 
   const displayName = type === 'gmoo' ? 'Moo' : 'Keek';
 
+  const search = search_.toLowerCase();
+
   const ids = useAddressToIds(search, type);
 
-  const searches = search.split(' ');
+  const searches = search.split(' ').map(s => s.toLowerCase());
 
   const collection = type === 'gmoo' ? moos : type === 'keek' ? keekus : [];
   const entries = collection
