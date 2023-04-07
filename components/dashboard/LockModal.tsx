@@ -1,7 +1,7 @@
 import { Dialog, Tab } from '@headlessui/react';
 import classNames from 'classnames';
 import { Dispatch, SetStateAction } from 'react';
-import LockAdvanced from './LockAdvanced';
+import { LockAdvancedMoo } from './LockAdvanced';
 import { LockBasicMoo } from './LockBasic';
 
 type Props = {
@@ -59,7 +59,7 @@ const LockModal = ({ id, open, setOpen }: Props) => {
                 <LockBasicMoo id={id} setOpen={setOpen} />
               </Tab.Panel>
               <Tab.Panel>
-                <LockAdvanced id={id} setOpen={setOpen} />
+                <LockAdvancedMoo id={id} setOpen={setOpen} />
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
