@@ -1,16 +1,19 @@
 import { Dialog, Tab } from '@headlessui/react';
 import classNames from 'classnames';
 import { Dispatch, SetStateAction } from 'react';
-import { LockAdvancedMoo } from './LockAdvanced';
-import { LockBasicMoo } from './LockBasic';
+import { LockAdvancedKeek, LockAdvancedMoo } from './LockAdvanced';
+import { LockBasicKeek, LockBasicMoo } from './LockBasic';
+import { CollectionType } from '../../lib/util/types';
 
 type Props = {
   id: number;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  type: CollectionType;
 };
 
-const LockModal = ({ id, open, setOpen }: Props) => {
+const LockModal = ({ id, open, setOpen, type }: Props) => {
+  const name = type === 'gmoo' ? 'Moo' : 'Keek';
   return (
     <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -18,7 +21,7 @@ const LockModal = ({ id, open, setOpen }: Props) => {
         <Dialog.Panel className="mx-auto mt-12 max-h-[80%] max-w-screen-md overflow-y-auto rounded-xl bg-white p-8">
           <Tab.Group>
             <div className="mb-2 flex flex-wrap gap-y-2">
-              <Dialog.Title className="font-gmcafe text-4xl text-purple">Lock Moo</Dialog.Title>
+              <Dialog.Title className="font-gmcafe text-4xl text-purple">Lock {name}</Dialog.Title>
               <Tab.List className="flex justify-center gap-2 md:ml-auto">
                 <Tab>
                   {({ selected }) => (
@@ -49,17 +52,20 @@ const LockModal = ({ id, open, setOpen }: Props) => {
               </Tab.List>
             </div>
             <Dialog.Description className="text-sm text-purple">
-              Locking your Moo in the barn will add a layer of protection against the scares in the
-              Web3 world. If you accidentally give permission for someone else to access your Moo
-              (i.e. signing a setApprovalForAll transaction), this feature will help ensure your Moo
-              stays safe in your wallet.
+              Locking your {name} in the barn will add a layer of protection against the scares in
+              the Web3 world. If you accidentally give permission for someone else to access your
+              {name} (i.e. signing a setApprovalForAll transaction), this feature will help ensure
+              your
+              {name} stays safe in your wallet.
             </Dialog.Description>
             <Tab.Panels>
               <Tab.Panel>
-                <LockBasicMoo id={id} setOpen={setOpen} />
+                {type === 'gmoo' && <LockBasicMoo id={id} setOpen={setOpen} />}
+                {type === 'keek' && <LockBasicKeek id={id} setOpen={setOpen} />}
               </Tab.Panel>
               <Tab.Panel>
-                <LockAdvancedMoo id={id} setOpen={setOpen} />
+                {type === 'gmoo' && <LockAdvancedMoo id={id} setOpen={setOpen} />}
+                {type === 'keek' && <LockAdvancedKeek id={id} setOpen={setOpen} />}
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
