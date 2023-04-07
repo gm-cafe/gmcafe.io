@@ -92,7 +92,7 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
     }
   };
 
-  const isValidDestination = destination.endsWith('.eth') || utils.isAddress(destination);
+  const isValidDestination = destination === '' || utils.isAddress(destination);
 
   return (
     <Shared
@@ -186,7 +186,7 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
     }
   };
 
-  const isValidDestination = utils.isAddress(destination);
+  const isValidDestination = destination === '' || utils.isAddress(destination);
 
   return (
     <Shared
@@ -203,7 +203,7 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
       setOpen={setOpen}
       loading={loading}
       onClick={onClick}
-      type="gmoo"
+      type="keek"
     />
   );
 };
@@ -298,7 +298,7 @@ const Shared = ({
           </label>
           <p className="text-sm text-purple">
             You previously set a lock price of {unlockPrice} Ξ. By selecting this checkbox you agree
-            to pay the lock price instead of unlocking your moo with a password. Open a ticket in
+            to pay the lock price instead of unlocking your {name} with a password. Open a ticket in
             GMCafé Discord to have your Ether sent back to you.
           </p>
         </div>
@@ -362,7 +362,7 @@ const Shared = ({
         </button>
         <button
           className="cursor-pointer rounded-lg bg-purple px-4 py-1 font-gmcafe text-xl text-white"
-          disabled={loading || !isValidDestination || !!password}
+          disabled={loading || !isValidDestination || !password}
           onClick={onClick}
         >
           {loading ? <LoadingIcon /> : 'Unlock'}
