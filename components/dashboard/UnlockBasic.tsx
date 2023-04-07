@@ -2,16 +2,17 @@ import { LockOpenIcon } from '@heroicons/react/solid';
 import { BigNumber, constants } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
-import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import { gmooContract, gmooABI, keekContract, keekABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
+import { CollectionType } from '../../lib/util/types';
 
 type Props = {
   id: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const UnlockBasic = ({ id, setOpen }: Props) => {
+export const UnlockBasicMoo = ({ id, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { config } = usePrepareContractWrite({
@@ -31,7 +32,7 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-      unlockSuccess && toastSuccess('Unlocked Moo!');
+      unlockSuccess && toastSuccess('Unlocked!');
     }
   }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
 
@@ -39,6 +40,50 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
     setLoading(true);
     unlock?.();
   };
+
+  return <Shared onClick={onClick} loading={loading} type="gmoo" />;
+};
+
+export const UnlockBasicKeek = ({ id, setOpen }: Props) => {
+  const [loading, setLoading] = useState(false);
+
+  const { config } = usePrepareContractWrite({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'unlockKeek',
+    args: [BigNumber.from(id), '', constants.AddressZero],
+  });
+
+  const { write: unlock, data, isSuccess, isError } = useContractWrite(config);
+
+  const { isSuccess: unlockSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  useEffect(() => {
+    if ((isSuccess && unlockSuccess) || isError) {
+      setLoading(false);
+      setOpen(false);
+      unlockSuccess && toastSuccess('Unlocked!');
+    }
+  }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
+
+  const onClick = () => {
+    setLoading(true);
+    unlock?.();
+  };
+
+  return <Shared onClick={onClick} loading={loading} type="keek" />;
+};
+
+type SharedProps = {
+  onClick: () => void;
+  loading: boolean;
+  type: CollectionType;
+};
+
+const Shared = ({ onClick, loading, type }: SharedProps) => {
+  const name = type === 'gmoo' ? '{name}' : 'Keek';
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6">
@@ -53,15 +98,13 @@ const UnlockBasic = ({ id, setOpen }: Props) => {
       </button>
       <div className="text-purple">
         <h3 className="font-semibold">
-          Are you sure you want to set your Moo free into the pastures?
+          Are you sure you want to set your {name} free into the pastures?
         </h3>
         <p className="text-sm">
-          This will allow you to sell on marketplaces and enable transfers. Your Moo will not be
+          This will allow you to sell on marketplaces and enable transfers. Your {name} will not be
           protected against standard wallet drainers anymore.
         </p>
       </div>
     </div>
   );
 };
-
-export default UnlockBasic;

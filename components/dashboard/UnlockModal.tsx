@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { useContractRead } from 'wagmi';
 import { gmooABI, gmooContract } from '../../lib/util/addresses';
 import UnlockAdvanced from './UnlockAdvanced';
-import UnlockBasic from './UnlockBasic';
+import { UnlockBasicMoo } from './UnlockBasic';
 
 type Props = {
   id: number;
@@ -38,7 +38,7 @@ const UnlockModal = ({ id, open, setOpen }: Props) => {
                 </div>
               </div>
             </div>
-            {!isAdvanced && <UnlockBasic id={id} setOpen={setOpen} />}
+            {!isAdvanced && <UnlockBasicMoo id={id} setOpen={setOpen} />}
             {isAdvanced && <UnlockAdvanced id={id} open={open} setOpen={setOpen} />}
           </Tab.Group>
         </Dialog.Panel>
