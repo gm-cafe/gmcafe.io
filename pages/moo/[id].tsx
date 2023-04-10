@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Image from 'next/image';
 import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
@@ -14,6 +15,7 @@ import ENSName from '../../components/ENSName';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
+const defaultCopyTooltip = 'Click to copy';
 
 type Props = {
   id: number;
@@ -21,6 +23,7 @@ type Props = {
 
 const Moo = ({ id }: Props) => {
   const metadata = useTokenURI(id);
+  const [copyText, setCopyText] = useState(defaultCopyTooltip);
 
   if (!metadata) {
     return <div />;
@@ -41,6 +44,11 @@ const Moo = ({ id }: Props) => {
   const isStart = id === 1;
   const isEnd = id === 333;
 
+  const onCopyHex = (color: string) => {
+    setCopyText('Copied!');
+    navigator.clipboard.writeText(color);
+  };
+
   const separateAttributes = (
     <>
       <div className="md:col-span-2">
@@ -58,15 +66,17 @@ const Moo = ({ id }: Props) => {
             style={{ backgroundColor: fgColor }}
             className={classNames(
               { 'border border-purple-light': fgColor === '#ffffff' },
-              'h-4 w-4 rounded-full'
+              'h-4 w-4 cursor-pointer rounded-full'
             )}
+            onClick={() => onCopyHex(fgColor)}
           />
           <div
             style={{ backgroundColor: bgColor }}
             className={classNames(
               { 'border border-purple-light': bgColor === '#ffffff' },
-              'h-4 w-4 rounded-full'
+              'h-4 w-4 cursor-pointer rounded-full'
             )}
+            onClick={() => onCopyHex(bgColor)}
           />
         </div>
       </div>
