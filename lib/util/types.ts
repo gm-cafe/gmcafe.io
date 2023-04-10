@@ -82,6 +82,7 @@ export type EntryContextProps = {
   type: CollectionType;
   setType: (_type: CollectionType) => void;
   displayName: string;
+  totalCount: number;
 };
 
 export type CollectionType = 'gmoo' | 'keek';
