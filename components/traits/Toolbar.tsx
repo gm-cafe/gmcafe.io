@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useEntryContext } from '../../lib/providers/EntryContext';
 
 const Toolbar = () => {
-  const { type, setType, metadata, displayName } = useEntryContext();
+  const { type, setType, metadata, displayName, totalCount } = useEntryContext();
 
   const pluralizedName = metadata.length > 1 ? `${displayName}s` : displayName;
 
@@ -30,9 +30,16 @@ const Toolbar = () => {
           Keek
         </button>
       </div>
-      <p className="rounded-2xl bg-white p-3 font-gmcafe text-2xl text-purple md:text-3xl">
-        {metadata.length} {pluralizedName}
-      </p>
+      <div className="flex gap-3">
+        {metadata.length !== totalCount && (
+          <p className="hidden lg:block rounded-2xl bg-white p-3 font-gmcafe text-2xl text-pink md:text-3xl">
+            {parseFloat(((metadata.length / totalCount) * 100).toFixed(2))}%
+          </p>
+        )}
+        <p className="rounded-2xl bg-white p-3 font-gmcafe text-2xl text-purple md:text-3xl">
+          {metadata.length} {pluralizedName}
+        </p>
+      </div>
     </div>
   );
 };

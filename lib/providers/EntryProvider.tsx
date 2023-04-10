@@ -13,11 +13,13 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
 
   const displayName = type === 'gmoo' ? 'Moo' : 'Keek';
 
+  const totalCount = type === 'gmoo' ? 333 : 3333;
+
   const search = search_.toLowerCase();
 
   const ids = useAddressToIds(search, type);
 
-  const searches = search.split(' ').map(s => s.toLowerCase());
+  const searches = search.split(' ').map((s) => s.toLowerCase());
 
   const collection = type === 'gmoo' ? moos : type === 'keek' ? keekus : [];
   const entries = collection
@@ -77,6 +79,7 @@ export const EntryProvider = ({ children, metadata }: ProviderProps) => {
         type,
         setType,
         displayName,
+        totalCount,
       }}
     >
       {children}
