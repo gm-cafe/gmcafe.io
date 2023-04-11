@@ -122,10 +122,10 @@ const Home: NextPage = () => {
                 individuals all RAWRing nobly into the ether together.
               </p>
               <p className="mt-6 font-medium text-purple xl:text-lg">
-                Launched in March 2023, 'The Keekusaurs' is a follow up collection to the Moo's -
-                bringing a new character into the fold. Adopt a precious and tender Keekusaur to
-                join the world and future of the Good Morning Café as we share moist succulence far
-                and wide.
+                Launched in March 2023, &apos;The Keekusaurs&apos; is a follow up collection to the
+                Moo&apos;s - bringing a new character into the fold. Adopt a precious and tender
+                Keekusaur to join the world and future of the Good Morning Café as we share moist
+                succulence far and wide.
               </p>
               <div className="mt-6 flex flex-wrap gap-4 lg:gap-8">
                 <AnchorLink href="https://etherscan.io/address/0x01298589d7c2bD82f54Ca84060d58967772123F2">

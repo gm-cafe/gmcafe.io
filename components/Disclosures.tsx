@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Disclosure from './Disclosure';
-import { Discord, Internal, OpenSea, Twitter } from './StyledLinks';
+import { Discord, Internal, OpenSea } from './StyledLinks';
 
 const Disclosures = () => {
   const [open, setOpen] = useState<number | null>(null);
