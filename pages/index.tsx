@@ -7,7 +7,7 @@ import mooPeek from '../public/moo_peek.png';
 import randy from '../public/randy_sparkle.png';
 import egg from '../public/egg.png';
 import genesisHighland from '../public/genesis_highland.png';
-import phase2Brewing from '../public/phase2_brewing.png';
+import keekusaurs from '../public/keekusaurs.png';
 import faq from '../public/faq.png';
 import lockEm from '../public/lock_em.png';
 import highFive from '../public/high_five.png';
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-60 xl:w-80 2xl:w-88">
-                  <Image src={genesisHighland} layout="responsive" alt="Genesis Highland" />
+                  <Image src={genesisHighland} layout="responsive" alt="Genesis Highlands" />
                 </div>
               </div>
               <div className="squiggle hidden min-w-[60px] border-r border-gray-100 bg-gray-100 md:block" />
@@ -97,37 +97,42 @@ const Home: NextPage = () => {
           </div>
         </section>
         <AnimatedPageSection className="bg-white py-4 2xl:px-0">
-          <Marquee direction="left" />
-          <Marquee direction="right" />
+          <Marquee direction="left" type="gmoo" />
+          <Marquee direction="right" type="keek" />
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="relative mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-60 xl:w-80 2xl:w-88">
-                  <Image src={phase2Brewing} layout="responsive" alt="Phase 2 Brewing" />
+                  <Image src={keekusaurs} layout="responsive" alt="Keekusaurs" />
                 </div>
               </div>
               <div className="squiggle hidden min-w-[51px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 py-12 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
-              <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
+              <h2 className="font-gmcafe text-5xl uppercase text-purple">The Keeks</h2>
               <p className="mt-6 font-medium text-purple xl:text-lg">
-                The Moos are creatures of comfort, luxurious beasts who would prefer to graze
-                endlessly on the cool green grassland of the café estate. However, some cows like to
-                explore. They like to roll down hills, pet chickens, paint masterpieces,
-                accidentally discover whole new species hidden in the earth for 1000’s of years..
+                These tender Keekusaurs were frozen in mysteriously supercharged ice for a
+                millennia, deep in a cave on the GMCafé Estate. After being discovered, the Moos of
+                Kawa Valley graciously gave them the clothes (and traits) off their floofy backs and
+                taught them to way of the Herd. If you look closely you will find a Keek that
+                resonates with your soul and your inner personality. Your Keekusaur is your
+                membership to “The Keek Herd” - a succulent group of 3333 similarly minded
+                individuals all RAWRing nobly into the ether together.
               </p>
               <p className="mt-6 font-medium text-purple xl:text-lg">
-                Phase 2 is on the brew! A fresh new creature awaits their awakening.
+                Launched in March 2023, 'The Keekusaurs' is a follow up collection to the Moo's -
+                bringing a new character into the fold. Adopt a precious and tender Keekusaur to
+                join the world and future of the Good Morning Café as we share moist succulence far
+                and wide.
               </p>
-              <p className="mt-6 font-medium text-purple xl:text-lg">
-                Check the
-                <a className="mx-1 font-semibold underline" href="https://discord.gg/gmcafe">
-                  Discord
-                </a>
-                for more details.
-              </p>
+              <div className="mt-6 flex flex-wrap gap-4 lg:gap-8">
+                <AnchorLink href="https://etherscan.io/address/0x01298589d7c2bD82f54Ca84060d58967772123F2">
+                  Keek Contract
+                </AnchorLink>
+                <AnchorLink href="https://opensea.io/collection/keeks">Buy on OpenSea</AnchorLink>
+              </div>
             </div>
           </div>
         </AnimatedPageSection>
