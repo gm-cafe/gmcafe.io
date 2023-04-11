@@ -32,7 +32,7 @@ const Toolbar = () => {
       </div>
       <div className="flex gap-3">
         {metadata.length !== totalCount && (
-          <p className="hidden lg:block rounded-2xl bg-white p-3 font-gmcafe text-2xl text-pink md:text-3xl">
+          <p className="hidden rounded-2xl bg-white p-3 font-gmcafe text-2xl text-pink md:text-3xl lg:block">
             {parseFloat(((metadata.length / totalCount) * 100).toFixed(2))}%
           </p>
         )}
