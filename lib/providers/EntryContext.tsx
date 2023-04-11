@@ -7,6 +7,7 @@ const defaultEntryContext: EntryContextProps = {
   type: 'gmoo',
   setType: () => null,
   displayName: 'Moo',
+  totalCount: 333,
 };
 
 export const EntryContext = createContext(defaultEntryContext);

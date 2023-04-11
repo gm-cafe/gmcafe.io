@@ -50,7 +50,7 @@ const Disclosures = () => {
         <p className="mt-2">
           However, we have quite a few things in the pipeline:
           <ul className="list-inside list-disc">
-            <li>Access to Ben's soon-to-be refreshed online drawing course</li>
+            <li>Access to Ben&apos;s soon-to-be refreshed online drawing course</li>
             <li>Merch - we already have samples for plushies and hoodies!</li>
             <li>Trait-based art drops</li>
             <li>Dynamic NFTs with trait customisation</li>
