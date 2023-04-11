@@ -10,9 +10,7 @@ const Disclosures = () => {
       <Disclosure index={0} open={open} setOpen={setOpen} question="How can I get a Genesis Moo?">
         <p>
           There are currently two ways now to obtain a moo and only one way to get an artist-issued
-          moo. The first way is on the secondary market via <OpenSea />. Once we migrate the
-          Highland Cows to their own contract, you&apos;ll be able to purchase them across other
-          reputable marketplaces.
+          moo. The first way is on the secondary market via <OpenSea />.
         </p>
         <p className="mt-2">
           The second, and only way to still get an original artist-issued Genesis moo, is via
@@ -20,22 +18,17 @@ const Disclosures = () => {
           requested in the #support channel in the <Discord />.
         </p>
       </Disclosure>
-      <Disclosure
-        index={1}
-        open={open}
-        setOpen={setOpen}
-        question="Will Moos be migrated to their own contract?"
-      >
+      <Disclosure index={1} open={open} setOpen={setOpen} question="How do I migrate my Moo?">
         <p>
-          Yes! We are moograting as we speak! Visit the{' '}
-          <Internal href="/migrate">migration page</Internal> if you haven&apos;t yet moograted!
+          Visit the <Internal href="/migrate">migration page</Internal> if you haven&apos;t yet
+          moograted!
         </p>
       </Disclosure>
       <Disclosure
         index={2}
         open={open}
         setOpen={setOpen}
-        question="What rights do I have to my Moo?"
+        question="What rights do I have to my Moo and Keek?"
       >
         <p>You are free to use your moo for personal use!</p>
         <p className="mt-2">
@@ -54,22 +47,15 @@ const Disclosures = () => {
           Our only realistic promise is original and passionate artistic expression and being part
           of this new phase of popular art culture.
         </p>
-      </Disclosure>
-      <Disclosure index={4} open={open} setOpen={setOpen} question="When will Phase 2 launch?">
-        <p>
-          Phase 2 will soon be added to the menu and we hope it’s delicious. Stay close to{' '}
-          <Twitter /> and <Discord /> for announcements and updates.
-        </p>
-      </Disclosure>
-      <Disclosure
-        index={5}
-        open={open}
-        setOpen={setOpen}
-        question="Will holding a Moo give perks for Phase 2?"
-      >
-        <p>
-          Emphatically, yes. We have been slowly but surely piecing together more Herd Perks for our
-          floofy community using our new contract. MOOoore details soon.
+        <p className="mt-2">
+          However, we have quite a few things in the pipeline:
+          <ul className="list-inside list-disc">
+            <li>Access to Ben's soon-to-be refreshed online drawing course</li>
+            <li>Merch - we already have samples for plushies and hoodies!</li>
+            <li>Trait-based art drops</li>
+            <li>Dynamic NFTs with trait customisation</li>
+            <li>Live streams, from art classes to simple hangouts</li>
+          </ul>
         </p>
       </Disclosure>
     </>
