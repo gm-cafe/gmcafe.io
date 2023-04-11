@@ -14,7 +14,7 @@ const Banners = () => {
     setBackground(image);
   };
 
-  const addAsset = (url: string) => setAssets([...assets, { src: url, width: 100 }]);
+  const addAsset = (url: string) => setAssets([...assets, { src: url, width: 0, x: 0, y: 0 }]);
 
   useEffect(() => {
     changeBackground('/banners/gm_purple.png');
@@ -27,7 +27,7 @@ const Banners = () => {
           <Assets addAsset={addAsset} />
         </div>
         <div className="col-span-4">
-          <Canvas background={background} assets={assets} />
+          <Canvas background={background} assets={assets} setAssets={setAssets} />
         </div>
         <div className="col-span-2 h-full min-h-0">
           <Backgrounds changeBackground={changeBackground} />
