@@ -52,13 +52,17 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
   }, [canvasRef]);
 
   useEffect(() => {
-    assets.some((asset) => asset.width === 0) &&
-      setAssets(
-        assets.map((asset) => ({
-          ...asset,
-          width: asset.width === 0 ? canvasWidth / 4 : asset.width,
-        }))
-      );
+    const newAsset = assets.findIndex((asset) => asset.width === 0);
+
+    if (newAsset < 0) return;
+
+    setAssets(
+      assets.map((asset) => ({
+        ...asset,
+        width: asset.width === 0 ? canvasWidth / 4 : asset.width,
+      }))
+    );
+    setFrontAsset(newAsset);
   }, [assets, canvasWidth, setAssets]);
 
   const canvasHeight = canvasWidth / 3;

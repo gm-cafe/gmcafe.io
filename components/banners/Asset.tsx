@@ -65,6 +65,7 @@ const Asset = ({ asset, select, selected, front, move, resize }: Props) => {
           ref={tfRef}
           enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
           keepRatio
+          anchorSize={15}
         />
       )}
     </>

@@ -17,7 +17,7 @@ type Props = {
 const Backgrounds = ({ changeBackground }: Props) => {
   return (
     <div className="flex h-full flex-col gap-4 rounded-xl bg-white p-4">
-      <h2 className="border-b border-purple-light font-gmcafe text-xl uppercase text-purple">
+      <h2 className="border-b border-purple-light font-gmcafe text-2xl uppercase text-purple">
         Backgrounds
       </h2>
       <div className="flex flex-col gap-4 overflow-y-auto">
