@@ -18,7 +18,7 @@ const Navigation = () => {
     <div className="hidden h-16 bg-pink md:block">
       <div className="mx-auto flex h-full max-w-screen-2xl">
         <div className="flex flex-grow basis-0 items-center justify-evenly">
-          <NavigationItem href="/adopt">Adopt</NavigationItem>
+          <NavigationItem href="/">Home</NavigationItem>
           <NavigationItem href={isHome ? '#faq' : '/#faq'}>FAQ</NavigationItem>
           <NavigationItem href={isHome ? '#team' : '/#team'}>Team</NavigationItem>
         </div>
@@ -49,8 +49,8 @@ const Navigation = () => {
                 <div className="h-[5px] w-full bg-purple opacity-30" />
               </div>
             </div>
-            <NavigationItem href="/adopt" type="mobile" close={close}>
-              Adopt
+            <NavigationItem href="/" type="mobile" close={close}>
+              Home
             </NavigationItem>
             <NavigationItem href={isHome ? '#faq' : '/#faq'} type="mobile" close={close}>
               FAQ
