@@ -7,7 +7,7 @@ import mooPeek from '../public/moo_peek.png';
 import randy from '../public/randy_sparkle.png';
 import egg from '../public/egg.png';
 import genesisHighland from '../public/genesis_highland.png';
-import phase2Brewing from '../public/phase2_brewing.png';
+import keekusaurs from '../public/keekusaurs.png';
 import faq from '../public/faq.png';
 import lockEm from '../public/lock_em.png';
 import highFive from '../public/high_five.png';
@@ -51,15 +51,9 @@ const Home: NextPage = () => {
             </div>
             <div className="flex flex-col justify-center">
               <h2 className="font-gmcafe text-8xl uppercase text-white">Howdy!</h2>
-              <h1 className="font-gmcafe text-5xl text-white">Adopt your Keekusaur!</h1>
-              <Link href="/adopt">
-                <a className="mr-auto mt-4 flex items-center gap-3 rounded-full bg-white px-4 py-2 font-gmcafe text-xl text-purple transition-transform hover:scale-105 md:text-4xl">
-                  <div className="h-8 w-8 md:h-10 md:w-10">
-                    <Image src="/migrate/cup.png" width={200} height={200} alt="" />
-                  </div>
-                  Enter the Adoption Cave
-                </a>
-              </Link>
+              <h1 className="font-gmcafe text-5xl text-white">
+                Welcome to the characters of the Good Morning Café!
+              </h1>
             </div>
             <div className="hidden w-48 shrink-0 translate-y-[130px] xl:block">
               <Image src={randy} layout="responsive" alt="Randy" />
@@ -71,7 +65,7 @@ const Home: NextPage = () => {
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-60 xl:w-80 2xl:w-88">
-                  <Image src={genesisHighland} layout="responsive" alt="Genesis Highland" />
+                  <Image src={genesisHighland} layout="responsive" alt="Genesis Highlands" />
                 </div>
               </div>
               <div className="squiggle hidden min-w-[60px] border-r border-gray-100 bg-gray-100 md:block" />
@@ -103,37 +97,42 @@ const Home: NextPage = () => {
           </div>
         </section>
         <AnimatedPageSection className="bg-white py-4 2xl:px-0">
-          <Marquee direction="left" />
-          <Marquee direction="right" />
+          <Marquee direction="left" type="gmoo" />
+          <Marquee direction="right" type="keek" />
         </AnimatedPageSection>
         <AnimatedPageSection className="bg-two-tone-gray overflow-x-hidden">
           <div className="relative mx-auto grid min-h-[480px] max-w-screen-2xl grid-cols-1 items-center justify-center md:grid-cols-3 md:px-10 2xl:px-0">
             <div className="hidden h-full bg-white md:flex">
               <div className="z-10 flex h-full flex-1 items-center bg-white">
                 <div className="w-60 xl:w-80 2xl:w-88">
-                  <Image src={phase2Brewing} layout="responsive" alt="Phase 2 Brewing" />
+                  <Image src={keekusaurs} layout="responsive" alt="Keekusaurs" />
                 </div>
               </div>
               <div className="squiggle hidden min-w-[51px] border-r border-gray-100 bg-gray-100 md:block" />
             </div>
             <div className="col-span-1 flex h-full flex-col justify-center bg-gray-100 px-10 py-12 md:col-span-2 md:py-20 md:pl-24 lg:pl-20 lg:pr-10 2xl:px-24">
-              <h2 className="font-gmcafe text-5xl uppercase text-purple">Oink, Ney, or Rawr?</h2>
+              <h2 className="font-gmcafe text-5xl uppercase text-purple">The Keeks</h2>
               <p className="mt-6 font-medium text-purple xl:text-lg">
-                The Moos are creatures of comfort, luxurious beasts who would prefer to graze
-                endlessly on the cool green grassland of the café estate. However, some cows like to
-                explore. They like to roll down hills, pet chickens, paint masterpieces,
-                accidentally discover whole new species hidden in the earth for 1000’s of years..
+                These tender Keekusaurs were frozen in mysteriously supercharged ice for a
+                millennia, deep in a cave on the GMCafé Estate. After being discovered, the Moos of
+                Kawa Valley graciously gave them the clothes (and traits) off their floofy backs and
+                taught them to way of the Herd. If you look closely you will find a Keek that
+                resonates with your soul and your inner personality. Your Keekusaur is your
+                membership to “The Keek Herd” - a succulent group of 3333 similarly minded
+                individuals all RAWRing nobly into the ether together.
               </p>
               <p className="mt-6 font-medium text-purple xl:text-lg">
-                Phase 2 is on the brew! A fresh new creature awaits their awakening.
+                Launched in March 2023, &apos;The Keekusaurs&apos; is a follow up collection to the
+                Moo&apos;s - bringing a new character into the fold. Adopt a precious and tender
+                Keekusaur to join the world and future of the Good Morning Café as we share moist
+                succulence far and wide.
               </p>
-              <p className="mt-6 font-medium text-purple xl:text-lg">
-                Check the
-                <a className="mx-1 font-semibold underline" href="https://discord.gg/gmcafe">
-                  Discord
-                </a>
-                for more details.
-              </p>
+              <div className="mt-6 flex flex-wrap gap-4 lg:gap-8">
+                <AnchorLink href="https://etherscan.io/address/0x01298589d7c2bD82f54Ca84060d58967772123F2">
+                  Keek Contract
+                </AnchorLink>
+                <AnchorLink href="https://opensea.io/collection/keeks">Buy on OpenSea</AnchorLink>
+              </div>
             </div>
           </div>
         </AnimatedPageSection>
@@ -231,7 +230,8 @@ const Home: NextPage = () => {
             <div className="flex gap-4">
               <AnchorLink href="https://discord.gg/gmcafe">Discord</AnchorLink>
               <AnchorLink href="https://twitter.com/gmcafeNFT">Twitter</AnchorLink>
-              <AnchorLink href="https://opensea.io/collection/goodmorningcafe">OpenSea</AnchorLink>
+              <AnchorLink href="https://opensea.io/collection/goodmorningcafe">Moos</AnchorLink>
+              <AnchorLink href="https://opensea.io/collection/keeks">Keeks</AnchorLink>
             </div>
             <h2 className="text-border-white mt-2 text-center font-gmcafe text-6xl uppercase leading-none text-purple sm:mb-6 sm:mt-0 sm:text-left sm:text-7xl xl:mb-0 xl:text-9xl 2xl:text-10xl">
               Join the Herd
@@ -244,7 +244,7 @@ const Home: NextPage = () => {
         <div className="absolute bottom-0 flex w-full flex-col justify-end">
           <div className="h-24 w-full translate-y-[1px] bg-[url('/fence.png')] bg-[length:300px_auto] bg-bottom bg-repeat-x xl:bg-[length:460px_auto]" />
           <div className="flex h-10 items-end justify-center bg-grass pb-2">
-            <p className="text-xs text-purple opacity-30">© 2022 Colefax Corp.</p>
+            <p className="text-xs text-purple opacity-30">© 2023 Colefax Corp.</p>
           </div>
         </div>
       </footer>
