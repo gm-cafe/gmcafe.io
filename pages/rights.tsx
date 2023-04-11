@@ -10,13 +10,14 @@ const Rights = () => {
           <h1 className="text-center font-gmcafe text-7xl sm:text-8xl">Commercial Rights</h1>
           <p className="mt-8">
             The GMCafé is essentially over 30 years of artistic learnings and tribulations bundled
-            into cute cows. These moos are an important part of Ben&apos;s art journey - thank you
-            for being here and making it possible now and into the future together.
+            into cute cows and dinosaurs. These Moos and Keeks are an important part of Ben&apos;s
+            art journey - thank you for being here and making it possible now and into the future
+            together.
           </p>
           <p>
-            If you can&apos;t be bothered reading on - basically if you wanna use the Moos for
-            personal, go right ahead! If it&apos;s for commercial use, please send Ben a message
-            using the #support channel in the <Discord />.
+            If you can&apos;t be bothered reading on - basically if you wanna utilize the Moos or
+            Keeks for personal use, go right ahead! If it&apos;s for commercial use, please send Ben
+            a message using the #support channel in the <Discord />.
           </p>
           <p className="font-semibold">
             What am I allowed to do with the art associated with my NFT?
@@ -60,8 +61,8 @@ const Rights = () => {
             internet. One of the main challenges brands face everyday is IP dilution, through theft
             or unapproved use. Generally speaking, low quality art reproduction negatively impacts
             brands as new followers are fooled to thinking it is the genuine article. This is why we
-            place so much value on working with our artist to make solid choices for all Moo NFT
-            holders.
+            place so much value on working with our artist to make solid choices for all Moo and
+            Keek NFT holders.
           </p>
           <ul className="list-inside list-disc">
             <li>
