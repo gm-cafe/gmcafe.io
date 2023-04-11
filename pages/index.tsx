@@ -225,7 +225,8 @@ const Home: NextPage = () => {
             <div className="flex gap-4">
               <AnchorLink href="https://discord.gg/gmcafe">Discord</AnchorLink>
               <AnchorLink href="https://twitter.com/gmcafeNFT">Twitter</AnchorLink>
-              <AnchorLink href="https://opensea.io/collection/goodmorningcafe">OpenSea</AnchorLink>
+              <AnchorLink href="https://opensea.io/collection/goodmorningcafe">Moos</AnchorLink>
+              <AnchorLink href="https://opensea.io/collection/keeks">Keeks</AnchorLink>
             </div>
             <h2 className="text-border-white mt-2 text-center font-gmcafe text-6xl uppercase leading-none text-purple sm:mb-6 sm:mt-0 sm:text-left sm:text-7xl xl:mb-0 xl:text-9xl 2xl:text-10xl">
               Join the Herd
