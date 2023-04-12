@@ -38,6 +38,7 @@ const Owner = ({ owner, infos, type }: Props) => {
                 layout="responsive"
                 width={128}
                 height={128}
+                unoptimized
               />
               <div className="absolute inset-0 flex h-full w-full items-center justify-center rounded-lg bg-white bg-opacity-40 font-gmcafe text-lg text-purple opacity-0 transition-opacity hover:opacity-100 md:text-2xl">
                 #{token}

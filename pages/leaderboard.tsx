@@ -78,7 +78,6 @@ const Leaderboard: NextPage = () => {
               { 'bg-white text-purple hover:bg-purple-light/40': selected !== 'keek' }
             )}
             onClick={() => setSelected('keek')}
-            disabled={true}
           >
             KEEK
           </button>
