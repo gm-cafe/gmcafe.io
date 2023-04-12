@@ -21,7 +21,7 @@ const Banners = () => {
   }, []);
 
   return (
-    <div className="flex h-screen items-center bg-pink-background px-12 pb-12 pt-40">
+    <div className="flex h-screen flex-col items-center gap-2 bg-pink-background px-12 pb-12 pt-40">
       <div className="mx-auto grid h-full w-full grid-cols-8 flex-col items-center justify-center gap-x-4">
         <div className="col-span-2 h-full min-h-0">
           <Assets addAsset={addAsset} />
@@ -32,6 +32,11 @@ const Banners = () => {
         <div className="col-span-2 h-full min-h-0">
           <Backgrounds changeBackground={changeBackground} />
         </div>
+      </div>
+      <div className="flex w-full justify-end">
+        <p className="font-gmcafe text-purple">
+          Originally created by Tchoupi. Thank you for the inspiration!
+        </p>
       </div>
     </div>
   );
