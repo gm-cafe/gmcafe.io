@@ -16,7 +16,7 @@ const Asset = ({ asset, select, selected, move, resize }: Props) => {
   const image = useMemo(() => {
     const image = new Image();
     image.src = asset.src;
-    // image.crossOrigin = 'Anonymous';
+    image.crossOrigin = 'anonymous';
     return image;
   }, [asset]);
 
@@ -39,7 +39,7 @@ const Asset = ({ asset, select, selected, move, resize }: Props) => {
     img.addEventListener('transform', () => resize(img.width()));
   }, [image, move, resize, imageRef]);
 
-  return (
+  return !asset.deleted ? (
     <Group ref={groupRef}>
       <RKImage
         ref={imageRef}
@@ -64,7 +64,7 @@ const Asset = ({ asset, select, selected, move, resize }: Props) => {
         />
       )}
     </Group>
-  );
+  ) : null;
 };
 
 export default Asset;

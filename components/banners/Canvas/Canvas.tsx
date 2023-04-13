@@ -98,7 +98,9 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
 
   const deleteAsset = () => {
     if (selectedAsset === null) return;
-    setAssets(assets.filter((_, i) => i !== selectedAsset));
+    setAssets(
+      assets.map((asset, i) => (i === selectedAsset ? { ...asset, deleted: true } : asset))
+    );
     setSelectedAsset(null);
   };
 

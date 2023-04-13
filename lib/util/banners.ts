@@ -9,6 +9,7 @@ export type Asset = {
   x: number;
   y: number;
   flip: boolean;
+  deleted: boolean;
   ref: RefObject<Image>;
   groupRef: RefObject<Group>;
   tfRef: RefObject<Transformer>;
