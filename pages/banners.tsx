@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import Backgrounds from '../components/banners/Backgrounds';
 import Canvas from '../components/banners/Canvas';
 import Assets from '../components/banners/Assets';
@@ -11,10 +11,24 @@ const Banners = () => {
   const changeBackground = (url: string) => {
     const image = new Image();
     image.src = url;
+    image.crossOrigin = 'Anonymous';
     setBackground(image);
   };
 
-  const addAsset = (url: string) => setAssets([...assets, { src: url, width: 0, x: 0, y: 0 }]);
+  const addAsset = (url: string) =>
+    setAssets([
+      ...assets,
+      {
+        src: url,
+        width: 0,
+        x: 0,
+        y: 0,
+        ref: createRef(),
+        groupRef: createRef(),
+        tfRef: createRef(),
+        flip: false,
+      },
+    ]);
 
   useEffect(() => {
     changeBackground('/banners/gm_purple.png');
@@ -34,9 +48,7 @@ const Banners = () => {
         </div>
       </div>
       <div className="flex w-full justify-end">
-        <p className="font-gmcafe text-purple">
-          Originally created by Tchoupi. Thank you for the inspiration!
-        </p>
+        <p className="font-gmcafe text-purple">Inspired by our amoozing herd member, Tchoupi.</p>
       </div>
     </div>
   );

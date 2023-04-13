@@ -22,7 +22,11 @@ const Backgrounds = ({ changeBackground }: Props) => {
       </h2>
       <div className="flex flex-col gap-4 overflow-y-auto">
         {backgrounds.map(({ file, alt }) => (
-          <div className="flex" key={file} onClick={() => changeBackground(`/banners/${file}`)}>
+          <div
+            className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
+            key={file}
+            onClick={() => changeBackground(`/banners/${file}`)}
+          >
             <Image src={`/banners/${file}`} width={900} height={300} alt={alt} />
           </div>
         ))}
