@@ -11,7 +11,6 @@ const Banners = () => {
   const changeBackground = (url: string) => {
     const image = new Image();
     image.src = url;
-    image.crossOrigin = 'Anonymous';
     setBackground(image);
   };
 

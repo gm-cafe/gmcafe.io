@@ -27,7 +27,7 @@ const Backgrounds = ({ changeBackground }: Props) => {
             key={file}
             onClick={() => changeBackground(`/banners/${file}`)}
           >
-            <Image src={`/banners/${file}`} width={900} height={300} alt={alt} />
+            <Image src={`/banners/${file}`} width={900} height={300} alt={alt} unoptimized />
           </div>
         ))}
       </div>

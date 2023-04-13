@@ -16,7 +16,7 @@ const Asset = ({ asset, select, selected, move, resize }: Props) => {
   const image = useMemo(() => {
     const image = new Image();
     image.src = asset.src;
-    image.crossOrigin = 'Anonymous';
+    // image.crossOrigin = 'Anonymous';
     return image;
   }, [asset]);
 
