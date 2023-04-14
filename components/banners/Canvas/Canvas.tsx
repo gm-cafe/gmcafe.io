@@ -156,7 +156,7 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
               onClick={moveBack}
               disabled={selectedAsset === null}
             >
-              <CollectionIcon className="h-8 w-8" />
+              <CollectionIcon className="h-8 w-8 rotate-180" />
               Move back
             </button>
             <button
