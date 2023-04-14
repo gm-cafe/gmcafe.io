@@ -40,6 +40,11 @@ const moduleExports = {
         destination: '/adopt',
         permanent: false,
       },
+      {
+        source: '/banner',
+        destination: '/banners',
+        permanent: false,
+      },
     ];
   },
 };
