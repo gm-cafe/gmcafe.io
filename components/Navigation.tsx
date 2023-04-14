@@ -26,7 +26,7 @@ const Navigation = () => {
         <div className="flex flex-grow basis-0 items-center justify-evenly">
           <NavigationItem href="/dashboard">Dashboard</NavigationItem>
           <NavigationItem href="/traits">Traits</NavigationItem>
-          <NavigationItem href="https://banners.gmcafe.io">Banners</NavigationItem>
+          <NavigationItem href="/banners">Banners</NavigationItem>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ const Navigation = () => {
             <NavigationItem href="/traits" type="mobile" close={close}>
               Traits
             </NavigationItem>
-            <NavigationItem href="https://banners.gmcafe.io" type="mobile" close={close}>
+            <NavigationItem href="/banners" type="mobile" close={close}>
               Banners
             </NavigationItem>
             <div className="flex justify-center space-x-3">
