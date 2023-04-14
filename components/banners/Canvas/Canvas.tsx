@@ -17,6 +17,7 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
   const [download, setDownload] = useState(false);
 
   const [canvasWidth, setCanvasWidth] = useState(0);
+  const canvasHeight = canvasWidth / 3;
 
   const canvasRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<StageType>(null);
@@ -86,14 +87,16 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
 
     if (newAsset < 0) return;
 
+    const width = canvasWidth / 4;
     setAssets(
       assets.map((asset) => ({
         ...asset,
-        width: asset.width === 0 ? canvasWidth / 4 : asset.width,
+        width: asset.width === 0 ? width : asset.width,
       }))
     );
+    assets[newAsset].ref.current?.move({ x: 0, y: canvasHeight - width });
     setSelectedAsset(newAsset);
-  }, [assets, canvasWidth, setAssets]);
+  }, [assets, canvasWidth, canvasHeight, setAssets]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -111,8 +114,6 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
 
     downloadURI(stage.toDataURL({ pixelRatio: 1500 / canvasWidth }), 'banner.png');
   }, [selectedAsset, download, canvasWidth]);
-
-  const canvasHeight = canvasWidth / 3;
 
   const moveForward = useCallback(
     () => assets[selectedAsset!].groupRef.current?.moveUp(),
