@@ -88,7 +88,7 @@ const Assets = ({ addAsset }: Props) => {
       <h2 className="border-b border-purple-light pb-2 font-gmcafe text-2xl uppercase text-purple">
         Assets
       </h2>
-      <div className="flex h-full flex-col overflow-y-scroll">
+      <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex gap-4 p-1">
           <div className="flex min-w-0 flex-grow gap-2 rounded border border-purple px-1.5 py-1 text-purple">
             <SearchIcon className="h-6 w-6 shrink-0" />
@@ -126,10 +126,14 @@ const Assets = ({ addAsset }: Props) => {
             </Tab>
           </Tab.List>
         </div>
-        <Tab.Panels className="flex flex-col">
+        <Tab.Panels className="flex flex-col overflow-y-scroll">
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(moos).map(({ url }) => (
-              <div className="flex" key={url} onClick={() => addAsset(url)}>
+              <div
+                className="flex cursor-pointer rounded-xl border-4 border-transparent transition-colors hover:border-purple"
+                key={url}
+                onClick={() => addAsset(url)}
+              >
                 <Image src={url} width={300} height={300} alt="Moo" unoptimized />
               </div>
             ))}
@@ -137,7 +141,7 @@ const Assets = ({ addAsset }: Props) => {
           </Tab.Panel>
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(keeks).map(({ url }) => (
-              <div className="flex" key={url} onClick={() => addAsset(url)}>
+              <div className="flex cursor-pointer" key={url} onClick={() => addAsset(url)}>
                 <Image src={url} width={300} height={300} alt="Keek" unoptimized />
               </div>
             ))}
