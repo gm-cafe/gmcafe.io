@@ -74,6 +74,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       title: 'Banners',
       metaImage: '/banners/banner.png',
       metaDescription: 'Create amoozing banners featuring your Moos and Keeks!',
+      twitterCard: 'summary_large_image',
     },
   };
 };
