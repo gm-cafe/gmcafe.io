@@ -33,17 +33,16 @@ const Asset = ({ asset, select, selected }: Props) => {
   return !asset.deleted ? (
     <Group ref={groupRef}>
       <RKImage ref={imageRef} image={image} onClick={select} onDragStart={select} draggable />
-      {selected && (
-        <TransformerComponent
-          ref={tfRef}
-          enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
-          keepRatio
-          anchorSize={15}
-          anchorCornerRadius={9999}
-          rotationSnaps={[0, 90, 180, 270]}
-          rotateAnchorOffset={25}
-        />
-      )}
+      <TransformerComponent
+        ref={tfRef}
+        enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+        keepRatio
+        anchorSize={15}
+        anchorCornerRadius={9999}
+        rotationSnaps={[0, 90, 180, 270]}
+        rotateAnchorOffset={25}
+        visible={selected}
+      />
     </Group>
   ) : null;
 };

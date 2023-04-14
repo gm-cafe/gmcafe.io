@@ -41,7 +41,7 @@ const Banners = () => {
         <div className="col-span-2 h-full min-h-0">
           <Assets addAsset={addAsset} />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-4 flex h-full flex-col">
           <Canvas background={background} assets={assets} setAssets={setAssets} />
         </div>
         <div className="col-span-2 h-full min-h-0">

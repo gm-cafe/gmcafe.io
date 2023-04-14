@@ -37,18 +37,45 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
     setCanvasWidth(newWidth);
   }, [canvasRef, assets, canvasWidth]);
 
+  const unset = useCallback(
+    (e: MouseEvent) =>
+      e.target instanceof HTMLDivElement &&
+      e.target.className.includes('unset-current-asset') &&
+      setSelectedAsset(null),
+    []
+  );
+
+  const deleteAsset = useCallback(() => {
+    if (selectedAsset === null) return;
+    setAssets(
+      assets.map((asset, i) => (i === selectedAsset ? { ...asset, deleted: true } : asset))
+    );
+    setSelectedAsset(null);
+  }, [assets, setAssets, selectedAsset, setSelectedAsset]);
+
+  const keydown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Delete' || e.key === 'Backspace') deleteAsset();
+    },
+    [deleteAsset]
+  );
+
   useEffect(() => {
     setHydrated(true);
 
     const canvas = canvasRef.current;
     canvas?.addEventListener('resize', resize);
     window.addEventListener('resize', resize);
+    window.addEventListener('click', unset);
+    window.addEventListener('keydown', keydown);
 
     return () => {
       canvas?.removeEventListener('resize', resize);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('click', unset);
+      window.removeEventListener('keydown', keydown);
     };
-  }, [resize]);
+  }, [resize, unset, keydown]);
 
   useEffect(() => {
     setCanvasWidth(canvasRef.current?.clientWidth || 0);
@@ -65,6 +92,7 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
         width: asset.width === 0 ? canvasWidth / 4 : asset.width,
       }))
     );
+    setSelectedAsset(newAsset);
   }, [assets, canvasWidth, setAssets]);
 
   useEffect(() => {
@@ -97,14 +125,6 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
     group.getZIndex() > 1 && group.moveDown();
   }, [selectedAsset, assets]);
 
-  const deleteAsset = () => {
-    if (selectedAsset === null) return;
-    setAssets(
-      assets.map((asset, i) => (i === selectedAsset ? { ...asset, deleted: true } : asset))
-    );
-    setSelectedAsset(null);
-  };
-
   const flip = useCallback(() => {
     const image = assets[selectedAsset!].ref.current;
     if (!image) return;
@@ -118,69 +138,73 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-4" ref={canvasRef}>
-      <div className="flex gap-4">
-        <button
-          className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
-          onClick={moveForward}
-          disabled={selectedAsset === null}
-        >
-          <CollectionIcon className="h-8 w-8" />
-          Move forward
-        </button>
-        <button
-          className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
-          onClick={moveBack}
-          disabled={selectedAsset === null}
-        >
-          <CollectionIcon className="h-8 w-8" />
-          Move back
-        </button>
-        <button
-          className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
-          onClick={flip}
-          disabled={selectedAsset === null}
-        >
-          <SwitchHorizontalIcon className="h-8 w-8" />
-          Flip
-        </button>
-        <button
-          className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
-          onClick={deleteAsset}
-          disabled={selectedAsset === null}
-        >
-          <TrashIcon className="h-8 w-8" />
-          Delete
-        </button>
-      </div>
-      <Stage width={canvasWidth} height={canvasHeight} ref={stageRef}>
-        <Layer>
-          <RKImage
-            onMouseDown={() => setSelectedAsset(null)}
-            width={canvasWidth}
-            height={canvasHeight}
-            image={background}
-          />
-          {assets.map((asset, i) => (
-            <Asset
-              key={`${asset}_${i}`}
-              asset={asset}
-              selected={selectedAsset === i}
-              select={() => setSelectedAsset(i)}
+    <>
+      <div className="flex h-full flex-col gap-4" ref={canvasRef}>
+        <div className="unset-current-asset relative flex-grow">
+          <div className="absolute bottom-0 mt-auto flex gap-4">
+            <button
+              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+              onClick={moveForward}
+              disabled={selectedAsset === null}
+            >
+              <CollectionIcon className="h-8 w-8" />
+              Move forward
+            </button>
+            <button
+              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+              onClick={moveBack}
+              disabled={selectedAsset === null}
+            >
+              <CollectionIcon className="h-8 w-8" />
+              Move back
+            </button>
+            <button
+              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+              onClick={flip}
+              disabled={selectedAsset === null}
+            >
+              <SwitchHorizontalIcon className="h-8 w-8" />
+              Flip
+            </button>
+            <button
+              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+              onClick={deleteAsset}
+              disabled={selectedAsset === null}
+            >
+              <TrashIcon className="h-8 w-8" />
+              Delete
+            </button>
+          </div>
+        </div>
+        <Stage width={canvasWidth} height={canvasHeight} ref={stageRef}>
+          <Layer>
+            <RKImage
+              onMouseDown={() => setSelectedAsset(null)}
+              width={canvasWidth}
+              height={canvasHeight}
+              image={background}
             />
-          ))}
-        </Layer>
-      </Stage>
-      <div>
-        <button
-          className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
-          onClick={initiateDownload}
-        >
-          <SaveIcon className="h-8 w-8" />
-          Download
-        </button>
+            {assets.map((asset, i) => (
+              <Asset
+                key={`${asset}_${i}`}
+                asset={asset}
+                selected={selectedAsset === i}
+                select={() => setSelectedAsset(i)}
+              />
+            ))}
+          </Layer>
+        </Stage>
+        <div className="unset-current-asset flex-grow">
+          <button
+            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
+            onClick={initiateDownload}
+          >
+            <SaveIcon className="h-8 w-8" />
+            Download
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
