@@ -25,16 +25,17 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
     const oldWidth = canvasWidth;
     const newWidth = canvasRef.current?.clientWidth || 0;
 
-    setAssets(
-      assets.map((asset) => ({
-        ...asset,
-        width: (asset.width / oldWidth) * newWidth,
-        x: (asset.x / oldWidth) * newWidth,
-      }))
-    );
+    assets.forEach(({ ref: { current } }) => {
+      if (!current) return;
+      const width = (current.width() / oldWidth) * newWidth;
+      current.width(width);
+      current.height(width);
+      current.x((current.x() / oldWidth) * newWidth);
+      current.y((current.y() / oldWidth) * newWidth);
+    });
 
     setCanvasWidth(newWidth);
-  }, [canvasRef, assets, setAssets, canvasWidth]);
+  }, [canvasRef, assets, canvasWidth]);
 
   useEffect(() => {
     setHydrated(true);
@@ -111,12 +112,6 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
     image.scaleX(image.scaleX() * -1);
   }, [selectedAsset, assets]);
 
-  const move = (i: number) => (x: number, y: number) =>
-    setAssets(assets.map((asset, j) => (i === j ? { ...asset, x, y } : asset)));
-
-  const resizeAsset = (i: number) => (width: number) =>
-    setAssets(assets.map((asset, j) => (i === j ? { ...asset, width } : asset)));
-
   const initiateDownload = () => {
     setSelectedAsset(null);
     setDownload(true);
@@ -172,8 +167,6 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
               asset={asset}
               selected={selectedAsset === i}
               select={() => setSelectedAsset(i)}
-              move={move(i)}
-              resize={resizeAsset(i)}
             />
           ))}
         </Layer>

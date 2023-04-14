@@ -6,16 +6,16 @@ type Props = {
   asset: AssetType;
   select: () => void;
   selected: boolean;
-  move: (_x: number, _y: number) => void;
-  resize: (_width: number) => void;
 };
 
-const Asset = ({ asset, select, selected, move, resize }: Props) => {
+const Asset = ({ asset, select, selected }: Props) => {
   const { ref: imageRef, groupRef, tfRef } = asset;
 
   const image = useMemo(() => {
     const image = new Image();
     image.src = asset.src;
+    image.width = asset.width;
+    image.height = asset.width;
     image.crossOrigin = 'anonymous';
     return image;
   }, [asset]);
@@ -30,28 +30,9 @@ const Asset = ({ asset, select, selected, move, resize }: Props) => {
     tfRef.current?.getLayer()?.batchDraw();
   }, [selected, imageRef, tfRef]);
 
-  useEffect(() => {
-    const img = imageRef.current;
-    if (!img) {
-      return;
-    }
-    img.addEventListener('dragend', () => move(img.x() || 0, img.y() || 0));
-    img.addEventListener('transform', () => resize(img.width()));
-  }, [image, move, resize, imageRef]);
-
   return !asset.deleted ? (
     <Group ref={groupRef}>
-      <RKImage
-        ref={imageRef}
-        width={asset.width}
-        height={asset.width}
-        image={image}
-        onClick={select}
-        onDragStart={select}
-        draggable
-        x={asset.x}
-        y={asset.y}
-      />
+      <RKImage ref={imageRef} image={image} onClick={select} onDragStart={select} draggable />
       {selected && (
         <TransformerComponent
           ref={tfRef}
