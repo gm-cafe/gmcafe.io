@@ -1,4 +1,3 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import classNames from 'classnames';
 import { constants } from 'ethers';
 import { GetServerSideProps } from 'next';
@@ -8,6 +7,7 @@ import { DashboardMoo, DashboardKeek } from '../components/dashboard/DashboardIt
 import useGetHerd from '../lib/hooks/useGetHerd';
 import { gmooABI, gmooContract } from '../lib/util/addresses';
 import useGetKeeks from '../lib/hooks/useGetKeeks';
+import CustomConnectButton from '../components/CustomConnectButton';
 
 const Dashboard = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -37,8 +37,8 @@ const Dashboard = () => {
   const keeks = allKeeks
     .filter((k) => k.owner.toLowerCase() === address?.toLowerCase())
     .map((k) => k.token);
-  
-  const lockedKeeks = allKeeks.filter(keek => keek.locked).length;
+
+  const lockedKeeks = allKeeks.filter((keek) => keek.locked).length;
   const unlockedKeeks = allKeeks.length - lockedKeeks;
 
   if (!hasMounted) {
@@ -55,7 +55,7 @@ const Dashboard = () => {
             { 'justify-center': !isConnected }
           )}
         >
-          <ConnectButton />
+          <CustomConnectButton variation="mint" showAccount />
         </nav>
         <div className="my-4 flex w-full flex-col gap-4">
           {moos.map((moo, idx) => (

@@ -25,7 +25,16 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
 
   return (
     <div className="flex items-center gap-4 rounded-xl bg-white p-4">
-      <div className="w-12 shrink-0">
+      <div className="w-6 shrink-0 md:w-8">
+        <Image
+          src={`/dashboard/${type}.png`}
+          layout="responsive"
+          width={300}
+          height={300}
+          alt={name}
+        />
+      </div>
+      <div className="w-12 shrink-0 md:w-16">
         <Image
           className="rounded-full"
           src={`https://gmcafe.s3.us-east-2.amazonaws.com/${type}/jpg-256/${id}.jpg`}
@@ -36,7 +45,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         />
       </div>
       <div className="flex gap-4">
-        <h2 className="font-gmcafe text-2xl text-purple md:text-2xl">{name}</h2>
+        <h2 className="font-gmcafe text-xl text-purple md:text-2xl">{name}</h2>
         <span
           className={classNames(
             'hidden items-center justify-center rounded-full bg-purple px-3 pt-0.5 font-gmcafe text-xs text-white md:flex',
