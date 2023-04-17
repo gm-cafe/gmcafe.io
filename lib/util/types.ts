@@ -12,14 +12,20 @@ export type Attribute = {
   value: string;
 };
 
-type MooInfo = {
-  bgColor: string;
+type Info = {
+  bg?: {
+    color: string;
+  };
+  fg?: {
+    color: string;
+  };
   block: number;
-  fgColor: string;
   owner: `0x${string}`;
   tag: number;
   token: string;
   transfers: number;
+  title: string;
+  titled: boolean;
 };
 
 export type Token = {
@@ -28,11 +34,10 @@ export type Token = {
   description: string;
   attributes: Attribute[];
   image: string;
+  info: Info;
 };
 
-export type Moo = Token & {
-  info: MooInfo;
-};
+export type Moo = Token;
 
 export type Keeku = Token;
 
