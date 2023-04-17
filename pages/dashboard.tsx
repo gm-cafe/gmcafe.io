@@ -42,8 +42,7 @@ const Dashboard = () => {
   const lockedKeeks = allKeeks.filter((keek) => keek.locked).length;
   const unlockedKeeks = allKeeks.length - lockedKeeks;
 
-  // const loading = gmooLoading || keekLoading;
-  const loading = true;
+  const loading = gmooLoading || keekLoading;
 
   if (!hasMounted) {
     return null;
