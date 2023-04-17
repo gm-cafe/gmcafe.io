@@ -46,7 +46,7 @@ const Leaderboard: NextPage = () => {
   const [selected, setSelected] = useState<CollectionType>('gmoo');
 
   const herd = useGetHerd();
-  const keeks = useGetKeeks();
+  const { data: keeks } = useGetKeeks();
 
   const infos = selected === 'gmoo' ? herd : keeks;
 
