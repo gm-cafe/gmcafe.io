@@ -26,17 +26,16 @@ const Moo = ({ id }: Props) => {
     return <div />;
   }
 
-  const { image, name, attributes } = metadata;
-  const { bgColor, fgColor } = metadata.info;
+  const { image, name, attributes, info } = metadata;
+  const bgColor = info.bg?.color;
+  const fgColor = info.fg?.color;
 
   const customRenderTraits = ['Birth', 'Status'];
   const timestamp = attributes.find(({ trait_type }) => trait_type === 'Birth')?.value;
   const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM do, yyyy') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
-  const isCustom =
-    attributes.find(({ trait_type }) => trait_type === 'Delivery')?.value === 'Custom';
-  const displayName = isCustom ? name.substring(name.indexOf(' - ') + 3) : name;
+  const displayName = info.title ?? name;
 
   const isStart = id === 1;
   const isEnd = id === 333;
@@ -126,7 +125,10 @@ const Moo = ({ id }: Props) => {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-4">
-                  <h1 className="font-gmcafe text-4xl text-purple">{displayName}</h1>
+                  <h1 className="font-gmcafe text-4xl text-purple">
+                    {displayName}
+                    <span className={classNames('text-pink', { hidden: !info.titled })}>*</span>
+                  </h1>
                   <a
                     className="ml-auto"
                     href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}

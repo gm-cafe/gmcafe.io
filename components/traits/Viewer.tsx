@@ -21,7 +21,7 @@ const Viewer = ({ metadata, onClose }: Props) => {
     return <Dialog open={false} onClose={() => null} />;
   }
 
-  const { id, name, attributes } = metadata;
+  const { id, name, attributes, info } = metadata;
 
   const profileUrl = `/${type === 'gmoo' ? 'moo' : 'keek'}/${id}`;
   const osUrl = `https://opensea.io/assets/ethereum/${
@@ -51,7 +51,7 @@ const Viewer = ({ metadata, onClose }: Props) => {
             <div className="flex flex-1 flex-col justify-center gap-4 md:col-span-3">
               <div className="flex">
                 <h1 className="rounded-md bg-purple px-3 py-1 font-gmcafe text-3xl text-white md:text-4xl">
-                  {name}
+                  {info.title ?? name}
                 </h1>
               </div>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
