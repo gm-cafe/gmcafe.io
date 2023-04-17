@@ -8,6 +8,7 @@ import useGetHerd from '../lib/hooks/useGetHerd';
 import { gmooABI, gmooContract } from '../lib/util/addresses';
 import useGetKeeks from '../lib/hooks/useGetKeeks';
 import CustomConnectButton from '../components/CustomConnectButton';
+import { LoadingIcon } from '../components/Icons';
 
 const Dashboard = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -23,7 +24,7 @@ const Dashboard = () => {
     setHasMounted(true);
   }, []);
 
-  const { data } = useContractRead({
+  const { data, isLoading: gmooLoading } = useContractRead({
     address: gmooContract,
     abi: gmooABI,
     functionName: 'getWallet',
@@ -33,13 +34,16 @@ const Dashboard = () => {
 
   const moos = data?.map((d) => d.toNumber()) || [];
 
-  const allKeeks = useGetKeeks();
+  const { data: allKeeks, loading: keekLoading } = useGetKeeks();
   const keeks = allKeeks
     .filter((k) => k.owner.toLowerCase() === address?.toLowerCase())
     .map((k) => k.token);
 
   const lockedKeeks = allKeeks.filter((keek) => keek.locked).length;
   const unlockedKeeks = allKeeks.length - lockedKeeks;
+
+  // const loading = gmooLoading || keekLoading;
+  const loading = true;
 
   if (!hasMounted) {
     return null;
@@ -58,17 +62,14 @@ const Dashboard = () => {
           <CustomConnectButton variation="mint" showAccount />
         </nav>
         <div className="my-4 flex w-full flex-col gap-4">
-          {moos.map((moo, idx) => (
-            <DashboardMoo id={moo} key={idx} />
-          ))}
-          {keeks.map((keek, idx) => (
-            <DashboardKeek id={keek} key={idx} />
-          ))}
-          {isConnected && moos.length === 0 && keeks.length === 0 && (
+          {!loading && moos.map((moo, idx) => <DashboardMoo id={moo} key={idx} />)}
+          {!loading && keeks.map((keek, idx) => <DashboardKeek id={keek} key={idx} />)}
+          {!loading && isConnected && moos.length === 0 && keeks.length === 0 && (
             <h2 className="my-2 text-center font-gmcafe text-xl text-purple md:text-3xl">
               No Moos or Keeks found in your wallet...
             </h2>
           )}
+          {loading && <LoadingIcon className="mx-auto mb-6 mt-4 h-8 w-8 text-purple" />}
         </div>
         <div className="flex flex-col gap-4">
           {moos.length > 0 && (
