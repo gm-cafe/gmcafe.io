@@ -14,6 +14,7 @@ const useGetKeeks = (): Response => {
     abi: keekABI,
     functionName: 'keeksFromSlice',
     args: [BigNumber.from(0), BigNumber.from(3333)],
+    watch: true,
   });
 
   return {

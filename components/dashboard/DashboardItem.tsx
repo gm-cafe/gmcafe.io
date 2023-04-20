@@ -24,7 +24,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
   const { name, id } = token;
 
   return (
-    <div className="flex items-center gap-4 rounded-xl bg-white p-4">
+    <div className="flex items-center gap-4 rounded-xl bg-white px-4 py-2">
       <div className="w-6 shrink-0 md:w-8">
         <Image
           src={`/dashboard/${type}.png`}
@@ -86,7 +86,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
 
 const DashboardItemLoading = () => {
   return (
-    <div className="flex items-center gap-4 rounded-xl bg-white p-4">
+    <div className="flex items-center gap-4 rounded-xl bg-white px-4 py-2">
       <div className="h-12 w-12 animate-pulse rounded-full bg-gray-200"></div>
       <h2 className="font-gmcafe text-2xl text-purple">Loading...</h2>
     </div>

@@ -8,6 +8,7 @@ const useGetHerd = (): ParsedMoo[] => {
     address: gmooContract,
     abi: gmooABI,
     functionName: 'getHerd',
+    watch: true,
   });
 
   return (
