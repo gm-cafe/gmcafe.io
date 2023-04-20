@@ -24,7 +24,7 @@ const useAddressToIds = (name: string, type: CollectionType): number[] => {
 
   const moos: number[] = data?.map((moo: BigNumber) => moo.toNumber()) || [];
 
-  const parsedKeekus = useGetKeeks();
+  const { data: parsedKeekus } = useGetKeeks();
   const keeks: number[] = parsedKeekus
     .filter((p) => p.owner.toLowerCase() === (ensResult || name).toLowerCase())
     .map((p) => p.token);

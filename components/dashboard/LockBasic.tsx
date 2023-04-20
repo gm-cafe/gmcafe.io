@@ -2,16 +2,17 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import { BigNumber, constants } from 'ethers';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
-import { gmooContract, gmooABI } from '../../lib/util/addresses';
+import { gmooContract, gmooABI, keekContract, keekABI } from '../../lib/util/addresses';
 import { toastSuccess } from '../../lib/util/toast';
 import { LoadingIcon } from '../Icons';
+import { CollectionType } from '../../lib/util/types';
 
 type Props = {
   id: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const LockBasic = ({ id, setOpen }: Props) => {
+export const LockBasicMoo = ({ id, setOpen }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { config } = usePrepareContractWrite({
@@ -31,7 +32,7 @@ const LockBasic = ({ id, setOpen }: Props) => {
     if ((isSuccess && lockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-      lockSuccess && toastSuccess('Locked Moo!');
+      lockSuccess && toastSuccess('Locked!');
     }
   }, [isSuccess, setLoading, lockSuccess, isError, setOpen]);
 
@@ -39,6 +40,50 @@ const LockBasic = ({ id, setOpen }: Props) => {
     setLoading(true);
     lock?.();
   };
+
+  return <Shared onClick={onClick} loading={loading} type="gmoo" />;
+};
+
+export const LockBasicKeek = ({ id, setOpen }: Props) => {
+  const [loading, setLoading] = useState(false);
+
+  const { config } = usePrepareContractWrite({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'lockKeek',
+    args: [BigNumber.from(id), BigNumber.from(0), constants.HashZero],
+  });
+
+  const { write: lock, data, isSuccess, isError } = useContractWrite(config);
+
+  const { isSuccess: lockSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  useEffect(() => {
+    if ((isSuccess && lockSuccess) || isError) {
+      setLoading(false);
+      setOpen(false);
+      lockSuccess && toastSuccess('Locked!');
+    }
+  }, [isSuccess, setLoading, lockSuccess, isError, setOpen]);
+
+  const onClick = () => {
+    setLoading(true);
+    lock?.();
+  };
+
+  return <Shared onClick={onClick} loading={loading} type="keek" />;
+};
+
+type SharedProps = {
+  onClick: () => void;
+  loading: boolean;
+  type: CollectionType;
+};
+
+const Shared = ({ onClick, loading, type }: SharedProps) => {
+  const name = type === 'gmoo' ? 'Moo' : 'Keek';
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6">
@@ -52,26 +97,21 @@ const LockBasic = ({ id, setOpen }: Props) => {
         <span className="font-gmcafe text-3xl text-white">Lock</span>
       </button>
       <div className="text-purple">
-        <h3 className="font-semibold">What does it mean to lock my Moo?</h3>
+        <h3 className="font-semibold">What does it mean to lock my {name}?</h3>
         <ul className="list-inside list-disc text-sm">
-          <li>If you try to transfer a locked Moo, the transaction will fail.</li>
-          <li>If your Moo is listed on a marketplace, no one will be able to purchase it.</li>
+          <li>If you try to transfer a locked {name}, the transaction will fail.</li>
+          <li>If your {name} is listed on a marketplace, no one will be able to purchase it.</li>
         </ul>
       </div>
       <div className="text-purple">
-        <h3 className="font-semibold">Does this mean my Moo is 100% safe?</h3>
+        <h3 className="font-semibold">Does this mean my {name} is 100% safe?</h3>
         <p className="text-sm">
-          No. If you have already signed away access to your Moo, then you should make plans to
-          transfer your Moo to a separate wallet when the coast is clear. With the basic lock
-          function, the thief would be able to access this UI, unlock the Moo manually, then
-          transfer the Moo elsewhere.
+          No. If you have already signed away access to your {name}, then you should make plans to
+          transfer your {name} to a separate wallet when the coast is clear. With the basic lock
+          function, the thief would be able to access this UI, unlock the {name} manually, then
+          transfer the {name} elsewhere.
         </p>
       </div>
-      <p className="w-full text-sm text-purple">
-        Advanced lock is coming soon, which will add an extra layer of protection.
-      </p>
     </div>
   );
 };
-
-export default LockBasic;

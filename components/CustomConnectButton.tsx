@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from '@heroicons/react/solid';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import classNames from 'classnames';
 
@@ -5,12 +6,14 @@ type CustomConnectButtonProps = {
   className?: string;
   variation: 'migration' | 'mint';
   disabled?: boolean;
+  showAccount?: boolean;
 };
 
 export const CustomConnectButton = ({
   className,
   variation,
   disabled = false,
+  showAccount = false,
 }: CustomConnectButtonProps) => {
   const migrationClasses =
     'rounded-full bg-pink-light font-gmcafe text-white text-base px-3 py-0.5 text-shadow uppercase';
@@ -21,7 +24,7 @@ export const CustomConnectButton = ({
 
   return (
     <ConnectButton.Custom>
-      {({ account, chain, openChainModal, openConnectModal, mounted }) => {
+      {({ account, chain, openChainModal, openConnectModal, mounted, openAccountModal }) => {
         return (() => {
           if (!mounted || !account || !chain) {
             return (
@@ -52,7 +55,19 @@ export const CustomConnectButton = ({
             );
           }
 
-          return null;
+          return showAccount ? (
+            <button
+              onClick={openAccountModal}
+              type="button"
+              className="flex gap-2 rounded-lg bg-white py-1 pl-2 pr-1 font-gmcafe text-2xl text-purple transition-transform hover:scale-105"
+            >
+              <span>{account.displayBalance ? ` ${account.displayBalance}` : ''}</span>
+              <span className="flex items-center gap-0.5 rounded-md bg-purple pl-2 pr-1 text-white">
+                {account.displayName}
+                <ChevronDownIcon className="h-6 w-6" />
+              </span>
+            </button>
+          ) : null;
         })();
       }}
     </ConnectButton.Custom>
