@@ -25,6 +25,8 @@ type Props = {
 const Tag = ({ id, type }: Props) => {
   const metadata = useTokenURI(type, id);
 
+  console.log(id, type, metadata);
+
   if (!metadata) {
     return <div />;
   }
