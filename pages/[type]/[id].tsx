@@ -25,8 +25,6 @@ type Props = {
 const Tag = ({ id, type }: Props) => {
   const metadata = useTokenURI(type, id);
 
-  console.log(id, type, metadata);
-
   if (!metadata) {
     return <div />;
   }
@@ -210,7 +208,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const id = ctx.params?.id || '1';
   const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
 
-  const type_ = ctx.params?.id || 'moo';
+  const type_ = ctx.params?.type || 'moo';
   const type = type_ === 'moo' ? 'gmoo' : 'keek';
 
   const token: Token = await fetch(
