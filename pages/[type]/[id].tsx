@@ -179,12 +179,12 @@ const Tag = ({ id, type }: Props) => {
             <div className="mx-4 md:hidden">
               <div className="mt-2 flex justify-center gap-2">
                 <div className="w-max cursor-pointer rounded-xl bg-white p-2">
-                  <Link href={isStart ? `/${type}/${supply}` : `/${type}/${id - 1}`}>
+                  <Link href={isStart ? `/${urlPrefix}/${supply}` : `/${urlPrefix}/${id - 1}`}>
                     <ChevronLeftIcon className="h-6 w-6 text-pink" />
                   </Link>
                 </div>
                 <div className="w-max cursor-pointer rounded-xl bg-white p-2">
-                  <Link href={isEnd ? `/${type}/1` : `/${type}/${id + 1}`}>
+                  <Link href={isEnd ? `/${urlPrefix}/1` : `/${urlPrefix}/${id + 1}`}>
                     <ChevronRightIcon className="h-6 w-6 text-pink" />
                   </Link>
                 </div>
@@ -192,7 +192,7 @@ const Tag = ({ id, type }: Props) => {
             </div>
           </div>
           <div className="mt-20 hidden md:block">
-            <Link href={isEnd ? `/${type}/1` : `/${type}/${id + 1}`}>
+            <Link href={isEnd ? `/${urlPrefix}/1` : `/${urlPrefix}/${id + 1}`}>
               <ChevronRightIcon className="h-14 w-14 cursor-pointer text-pink" />
             </Link>
           </div>
