@@ -46,15 +46,21 @@ const Tag = ({ id, type }: Props) => {
   const isStart = id === 1;
   const isEnd = id === supply;
 
+  const prefs = info.prefs?.map((p) => p.emoji).join(' ') ?? '🎲';
+
   const separateAttributes = (
     <>
       <div className="md:col-span-2">
         <span className={traitTypeStyle}>ID</span>
         <p className={traitValueStyle}>{id}</p>
       </div>
-      <div className="md:col-span-3">
+      <div className={classNames('md:col-span-3', { hidden: type === 'keek' })}>
         <span className={traitTypeStyle}>Birthday</span>
         <p className={traitValueStyle}>{birthday}</p>
+      </div>
+      <div className={classNames('md:col-span-3', { hidden: type === 'gmoo' })}>
+        <span className={traitTypeStyle}>Influence</span>
+        <p className={traitValueStyle}>{prefs}</p>
       </div>
       <div className="md:col-span-2">
         <span className={traitTypeStyle}>Swatch</span>
@@ -167,10 +173,11 @@ const Tag = ({ id, type }: Props) => {
                       ({ trait_type, value }) =>
                         !customRenderTraits.includes(trait_type) && value !== 'None'
                     )
-                    .map(({ value, trait_type }) => (
+                    .map(({ value, trait_type, style }) => (
                       <div key={`${trait_type}-${value}`}>
                         <span className={traitTypeStyle}>{trait_type}</span>
                         <p className={traitValueStyle}>{value}</p>
+                        {style && <p className="text-xs text-purple/60">{style}</p>}
                       </div>
                     ))}
                 </div>

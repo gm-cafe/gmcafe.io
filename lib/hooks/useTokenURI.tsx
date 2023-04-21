@@ -1,11 +1,11 @@
 import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useContractRead } from 'wagmi';
-import { CollectionType, Moo } from '../util/types';
+import { CollectionType, Token } from '../util/types';
 import { gmooContract, gmooABI, keekContract, keekABI } from '../util/addresses';
 
 export const useTokenURI = (type: CollectionType, id: number) => {
-  const [metadata, setMetadata] = useState<Moo>();
+  const [metadata, setMetadata] = useState<Token>();
 
   const { data: mooData } = useContractRead({
     address: gmooContract,
