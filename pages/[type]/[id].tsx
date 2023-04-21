@@ -235,7 +235,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   const moos = Array.from(Array(333)).map((_, i) => ({
     params: {
       id: (i + 1).toString(),
-      type: 'gmoo',
+      type: 'moo',
     },
   }));
 
