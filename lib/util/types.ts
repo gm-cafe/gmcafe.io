@@ -10,6 +10,13 @@ export type Asset = {
 export type Attribute = {
   trait_type: string;
   value: string;
+  style?: string;
+};
+
+export type Pref = {
+  key: string;
+  emoji: string;
+  influenced: boolean;
 };
 
 type Info = {
@@ -26,6 +33,7 @@ type Info = {
   transfers: number;
   title: string;
   titled: boolean;
+  prefs?: Pref[];
 };
 
 export type Token = {

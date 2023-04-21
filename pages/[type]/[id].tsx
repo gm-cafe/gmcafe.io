@@ -1,26 +1,29 @@
 import Image from 'next/image';
-import { useTokenURI } from '../../lib/util/contract/gmoo';
 import { format, fromUnixTime } from 'date-fns';
 import classNames from 'classnames';
 import { OpenSeaIcon } from '../../components/Icons';
-import { gmooContract } from '../../lib/util/addresses';
-import { GetServerSideProps } from 'next';
-import { Moo } from '../../lib/util/types';
+import { gmooContract, keekContract } from '../../lib/util/addresses';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import mootag from '../../public/profile/moo_tag.png';
+import keektag from '../../public/profile/keek_tag.png';
 import { Transition } from '@headlessui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import ENSName from '../../components/ENSName';
+import { Token } from '../../lib/util/types';
+import { CollectionType } from '../../lib/util/types';
+import { useTokenURI } from '../../lib/hooks/useTokenURI';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
 
 type Props = {
   id: number;
+  type: CollectionType;
 };
 
-const Moo = ({ id }: Props) => {
-  const metadata = useTokenURI(id);
+const Tag = ({ id, type }: Props) => {
+  const metadata = useTokenURI(type, id);
 
   if (!metadata) {
     return <div />;
@@ -37,8 +40,13 @@ const Moo = ({ id }: Props) => {
 
   const displayName = info.title ?? name;
 
+  const urlPrefix = type === 'gmoo' ? 'moo' : 'keek';
+  const supply = type === 'gmoo' ? 333 : 3333;
+
   const isStart = id === 1;
-  const isEnd = id === 333;
+  const isEnd = id === supply;
+
+  const prefs = info.prefs?.map((p) => p.emoji).join(' ') ?? '🎲';
 
   const separateAttributes = (
     <>
@@ -46,9 +54,13 @@ const Moo = ({ id }: Props) => {
         <span className={traitTypeStyle}>ID</span>
         <p className={traitValueStyle}>{id}</p>
       </div>
-      <div className="md:col-span-3">
+      <div className={classNames('md:col-span-3', { hidden: type === 'keek' })}>
         <span className={traitTypeStyle}>Birthday</span>
         <p className={traitValueStyle}>{birthday}</p>
+      </div>
+      <div className={classNames('md:col-span-3', { hidden: type === 'gmoo' })}>
+        <span className={traitTypeStyle}>Influence</span>
+        <p className={traitValueStyle}>{prefs}</p>
       </div>
       <div className="md:col-span-2">
         <span className={traitTypeStyle}>Swatch</span>
@@ -87,7 +99,7 @@ const Moo = ({ id }: Props) => {
       >
         <div className="flex items-center">
           <div className="mt-20 hidden md:block">
-            <Link href={isStart ? '/moo/333' : `/moo/${id - 1}`}>
+            <Link href={isStart ? `/${urlPrefix}/${supply}` : `/${urlPrefix}/${id - 1}`}>
               <ChevronLeftIcon className="h-14 w-14 cursor-pointer text-pink" />
             </Link>
           </div>
@@ -104,10 +116,17 @@ const Moo = ({ id }: Props) => {
                 />
               </svg>
               <div className="absolute left-1/2 top-0 w-52 -translate-x-7 md:w-80 md:-translate-x-10">
-                <Image src={mootag} layout="responsive" alt="Moo Tag" />
+                {type === 'gmoo' && <Image src={mootag} layout="responsive" alt="Moo Tag" />}
+                {type === 'keek' && <Image src={keektag} layout="responsive" alt="Keek Tag" />}
               </div>
             </div>
-            <div className="moo-verified-herd mx-4 flex w-[22.125rem] flex-col gap-4 rounded-b-3xl bg-white px-6 pb-8 pt-6 md:w-[44rem] md:flex-row md:px-10 md:pt-0 lg:mx-auto">
+            <div
+              className={classNames(
+                'mx-4 flex w-[22.125rem] flex-col gap-4 rounded-b-3xl bg-white px-6 pb-8 pt-6 md:w-[44rem] md:flex-row md:px-10 md:pt-0 lg:mx-auto',
+                { 'moo-verified-herd': type === 'gmoo' },
+                { 'moo-verified-keek': type === 'keek' }
+              )}
+            >
               <div className="flex flex-col gap-4">
                 <div className="w-full md:w-64">
                   <Image
@@ -131,7 +150,9 @@ const Moo = ({ id }: Props) => {
                   </h1>
                   <a
                     className="ml-auto"
-                    href={`https://opensea.io/assets/ethereum/${gmooContract}/${id}`}
+                    href={`https://opensea.io/assets/ethereum/${
+                      type === 'gmoo' ? gmooContract : keekContract
+                    }/${id}`}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -152,10 +173,11 @@ const Moo = ({ id }: Props) => {
                       ({ trait_type, value }) =>
                         !customRenderTraits.includes(trait_type) && value !== 'None'
                     )
-                    .map(({ value, trait_type }) => (
+                    .map(({ value, trait_type, style }) => (
                       <div key={`${trait_type}-${value}`}>
                         <span className={traitTypeStyle}>{trait_type}</span>
                         <p className={traitValueStyle}>{value}</p>
+                        {style && <p className="text-xs text-purple/60">{style}</p>}
                       </div>
                     ))}
                 </div>
@@ -164,12 +186,12 @@ const Moo = ({ id }: Props) => {
             <div className="mx-4 md:hidden">
               <div className="mt-2 flex justify-center gap-2">
                 <div className="w-max cursor-pointer rounded-xl bg-white p-2">
-                  <Link href={isStart ? '/moo/333' : `/moo/${id - 1}`}>
+                  <Link href={isStart ? `/${urlPrefix}/${supply}` : `/${urlPrefix}/${id - 1}`}>
                     <ChevronLeftIcon className="h-6 w-6 text-pink" />
                   </Link>
                 </div>
                 <div className="w-max cursor-pointer rounded-xl bg-white p-2">
-                  <Link href={isEnd ? '/moo/1' : `/moo/${id + 1}`}>
+                  <Link href={isEnd ? `/${urlPrefix}/1` : `/${urlPrefix}/${id + 1}`}>
                     <ChevronRightIcon className="h-6 w-6 text-pink" />
                   </Link>
                 </div>
@@ -177,7 +199,7 @@ const Moo = ({ id }: Props) => {
             </div>
           </div>
           <div className="mt-20 hidden md:block">
-            <Link href={isEnd ? '/moo/1' : `/moo/${id + 1}`}>
+            <Link href={isEnd ? `/${urlPrefix}/1` : `/${urlPrefix}/${id + 1}`}>
               <ChevronRightIcon className="h-14 w-14 cursor-pointer text-pink" />
             </Link>
           </div>
@@ -187,30 +209,17 @@ const Moo = ({ id }: Props) => {
   );
 };
 
-export default Moo;
+export default Tag;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { id } = ctx.query;
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const id = ctx.params?.id || '1';
   const tokenId = id ? (typeof id === 'string' ? parseInt(id) : parseInt(id[0])) : undefined;
 
-  if (!tokenId || tokenId < 1) {
-    return {
-      redirect: {
-        destination: '/moo/1',
-        permanent: false,
-      },
-    };
-  } else if (tokenId > 333) {
-    return {
-      redirect: {
-        destination: '/moo/333',
-        permanent: false,
-      },
-    };
-  }
+  const type_ = ctx.params?.type || 'moo';
+  const type = type_ === 'moo' ? 'gmoo' : 'keek';
 
-  const moo: Moo = await fetch(
-    `https://api.gmcafe.io/metadata/gmoo/${String(tokenId).padStart(3, '0')}.json`
+  const token: Token = await fetch(
+    `https://api.gmcafe.io/metadata/${type}/${String(tokenId).padStart(3, '0')}.json`
   ).then((res) => {
     if (!res.ok) {
       throw new Error(res.statusText);
@@ -221,9 +230,31 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       id: tokenId,
-      title: moo.name,
-      metaImage: moo.image,
-      metaDescription: moo.description,
+      type: type,
+      title: token.name,
+      metaImage: token.image,
+      metaDescription: token.description,
     },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const moos = Array.from(Array(333)).map((_, i) => ({
+    params: {
+      id: (i + 1).toString(),
+      type: 'moo',
+    },
+  }));
+
+  const keeks = Array.from(Array(3333)).map((_, i) => ({
+    params: {
+      id: (i + 1).toString(),
+      type: 'keek',
+    },
+  }));
+
+  return {
+    paths: [...moos, ...keeks],
+    fallback: false,
   };
 };
