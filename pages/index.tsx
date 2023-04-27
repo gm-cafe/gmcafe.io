@@ -177,9 +177,9 @@ const Home: NextPage = () => {
               </p>
               <p className="mt-6 font-medium text-white xl:text-lg">
                 Head over to the
-                <a className="mx-1 font-semibold underline">
-                  <Link href="/dashboard">Dashboard</Link>
-                </a>
+                <Link href="/dashboard">
+                  <a className="mx-1 font-semibold underline">Dashboard</a>
+                </Link>
                 to lock up your Moo and enjoy the peace of mind that your bovine is safe and sound.
               </p>
             </div>

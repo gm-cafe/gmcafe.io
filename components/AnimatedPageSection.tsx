@@ -9,16 +9,19 @@ type AnimatedPageSectionProps = {
 };
 
 const AnimatedPageSection = ({ id, className, children }: AnimatedPageSectionProps) => {
+  const [hydrated, setHydrated] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
   const ref = useRef(null);
   const intersection = useIntersection(ref, {});
+
+  useEffect(() => setHydrated(true), []);
 
   useEffect(() => {
     const inViewport = intersection && intersection.intersectionRatio > 0;
     !showAnimation && inViewport && setShowAnimation(true);
   }, [showAnimation, intersection]);
 
-  return (
+  return hydrated ? (
     <section
       id={id}
       ref={ref}
@@ -29,7 +32,7 @@ const AnimatedPageSection = ({ id, className, children }: AnimatedPageSectionPro
     >
       {children}
     </section>
-  );
+  ) : null;
 };
 
 export default AnimatedPageSection;
