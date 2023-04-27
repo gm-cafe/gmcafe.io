@@ -13,6 +13,7 @@ import ENSName from '../../components/ENSName';
 import { Token } from '../../lib/util/types';
 import { CollectionType } from '../../lib/util/types';
 import { useTokenURI } from '../../lib/hooks/useTokenURI';
+import { useCallback, useState } from 'react';
 
 const traitTypeStyle = 'font-gmcafe text-sm uppercase tracking-wider text-purple';
 const traitValueStyle = 'text-sm text-purple';
@@ -23,6 +24,14 @@ type Props = {
 };
 
 const Tag = ({ id, type }: Props) => {
+  const [copyText, setCopyText] = useState<string>();
+
+  const clickCopied = useCallback((color: string) => {
+    setCopyText('Copied!');
+    navigator.clipboard.writeText(color);
+    setTimeout(() => setCopyText(undefined), 1000);
+  }, []);
+
   const metadata = useTokenURI(type, id);
 
   if (!metadata) {
@@ -64,21 +73,39 @@ const Tag = ({ id, type }: Props) => {
       </div>
       <div className="md:col-span-2">
         <span className={traitTypeStyle}>Swatch</span>
-        <div className="flex gap-1">
+        <div className="relative flex gap-1">
+          {fgColor && (
+            <div
+              style={{ backgroundColor: fgColor }}
+              className={classNames(
+                { 'border border-purple-light': fgColor === '#ffffff' },
+                'h-4 w-4 cursor-pointer rounded-full'
+              )}
+              onClick={() => clickCopied(fgColor)}
+              onMouseEnter={() => setCopyText('Click to copy')}
+              onMouseLeave={() => setCopyText(undefined)}
+            />
+          )}
+          {bgColor && (
+            <div
+              style={{ backgroundColor: bgColor }}
+              className={classNames(
+                { 'border border-purple-light': bgColor === '#ffffff' },
+                'h-4 w-4 cursor-pointer rounded-full'
+              )}
+              onClick={() => clickCopied(bgColor)}
+              onMouseEnter={() => setCopyText('Click to copy')}
+              onMouseLeave={() => setCopyText(undefined)}
+            />
+          )}
           <div
-            style={{ backgroundColor: fgColor }}
             className={classNames(
-              { 'border border-purple-light': fgColor === '#ffffff' },
-              'h-4 w-4 rounded-full'
+              'absolute -top-7 left-0 rounded-lg bg-purple px-1 font-gmcafe text-white',
+              { hidden: !copyText }
             )}
-          />
-          <div
-            style={{ backgroundColor: bgColor }}
-            className={classNames(
-              { 'border border-purple-light': bgColor === '#ffffff' },
-              'h-4 w-4 rounded-full'
-            )}
-          />
+          >
+            {copyText}
+          </div>
         </div>
       </div>
       <div className="md:col-span-3">
