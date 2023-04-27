@@ -21,7 +21,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
 
-  const { name, id } = token;
+  const { name, id, info } = token;
 
   return (
     <div className="flex items-center gap-4 rounded-xl bg-white px-4 py-2">
@@ -45,10 +45,10 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         />
       </div>
       <div className="flex gap-4">
-        <h2 className="font-gmcafe text-xl text-purple md:text-2xl">{name}</h2>
+        <h2 className="font-gmcafe text-xl text-purple md:text-2xl">{info.title ?? name}</h2>
         <span
           className={classNames(
-            'hidden items-center justify-center rounded-full bg-purple px-3 pt-0.5 font-gmcafe text-xs text-white md:flex',
+            'my-auto hidden items-center justify-center rounded-full bg-purple px-3 pb-2 pt-2.5 font-gmcafe text-xs text-white md:flex',
             { 'md:hidden': !isLocked }
           )}
         >
