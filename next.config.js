@@ -37,12 +37,22 @@ const moduleExports = {
       },
       {
         source: '/mint',
-        destination: '/adopt',
+        destination: '/',
         permanent: false,
       },
       {
         source: '/banner',
         destination: '/banners',
+        permanent: false,
+      },
+      {
+        source: '/adopt',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/influence',
+        destination: '/',
         permanent: false,
       },
     ];
