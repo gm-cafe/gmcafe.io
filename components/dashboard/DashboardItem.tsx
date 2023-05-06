@@ -1,4 +1,4 @@
-import { ArrowsExpandIcon, LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
+import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { BigNumber } from 'ethers';
 import Image from 'next/image';
@@ -45,7 +45,11 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         />
       </div>
       <div className="flex gap-4">
-        <h2 className="font-gmcafe text-xl text-purple md:text-2xl">{info.title ?? name}</h2>
+        <Link href={`/moo/${id}`}>
+          <h2 className="cursor-pointer font-gmcafe text-xl text-purple transition-colors hover:text-purple/70 md:text-2xl">
+            {info.title ?? name}
+          </h2>
+        </Link>
         <span
           className={classNames(
             'my-auto hidden items-center justify-center rounded-full bg-purple px-3 pb-2 pt-2.5 font-gmcafe text-xs text-white md:flex',
@@ -55,23 +59,20 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
           LOCKED
         </span>
       </div>
-      <div className="ml-auto flex gap-4 rounded-lg bg-gray-100 p-1">
+      <div className="ml-auto flex gap-2 rounded-lg bg-gray-100 p-1 md:gap-4">
         {isLocked && (
           <button onClick={() => setUnlockModalOpen(true)}>
             <LockOpenIcon
-              className="w-8 cursor-pointer text-purple transition-transform hover:scale-105"
+              className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 md:w-8"
               onClick={() => setUnlockModalOpen(true)}
             />
           </button>
         )}
         {!isLocked && (
           <button onClick={() => setLockModalOpen(true)}>
-            <LockClosedIcon className="w-8 cursor-pointer text-purple transition-transform hover:scale-105" />
+            <LockClosedIcon className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 md:w-8" />
           </button>
         )}
-        <Link href={`/moo/${id}`}>
-          <ArrowsExpandIcon className="w-8 cursor-pointer text-purple transition-transform hover:scale-105" />
-        </Link>
       </div>
       <LockModal id={id} open={lockModalOpen} setOpen={setLockModalOpen} type={type} />
       {type === 'gmoo' && (
