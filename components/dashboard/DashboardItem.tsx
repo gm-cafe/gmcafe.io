@@ -42,6 +42,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
           width={300}
           height={300}
           alt={name}
+          unoptimized
         />
       </div>
       <div className="flex gap-4">
