@@ -23,6 +23,12 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
 
   const { name, id, info } = token;
 
+  const displayName = info.title
+    ? info.title
+    : name.startsWith('🔒')
+    ? name.replace('🔒', '')
+    : name;
+
   return (
     <div className="flex items-center gap-4 rounded-xl bg-white px-4 py-2">
       <div className="w-6 shrink-0 md:w-8">
@@ -48,7 +54,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
       <div className="flex gap-4">
         <Link href={`/moo/${id}`}>
           <h2 className="cursor-pointer font-gmcafe text-xl text-purple transition-colors hover:text-purple/70 md:text-2xl">
-            {info.title ?? name}
+            {displayName}
           </h2>
         </Link>
         <span
