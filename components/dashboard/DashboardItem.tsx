@@ -52,7 +52,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         />
       </div>
       <div className="flex gap-4">
-        <Link href={`/moo/${id}`}>
+        <Link href={`/${type === 'gmoo' ? 'moo' : 'keek'}/${id}`}>
           <h2 className="cursor-pointer font-gmcafe text-xl text-purple transition-colors hover:text-purple/70 md:text-2xl">
             {displayName}
           </h2>
