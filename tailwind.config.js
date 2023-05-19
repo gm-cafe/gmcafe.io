@@ -59,6 +59,7 @@ module.exports = {
         'lg-purple': '0 10px 15px -3px rgb(137 70 171 / 0.1), 0 4px 6px -4px rgb(137 70 171 / 0.1)',
       },
     },
+    display: ["group-hover"],
     fontFamily: {
       default: defaultTheme.fontFamily.sans,
       sans: ['Hepta Slab', ...defaultTheme.fontFamily.sans],
