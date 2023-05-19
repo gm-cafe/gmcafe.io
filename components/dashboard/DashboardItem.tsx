@@ -61,16 +61,16 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
       <div className="ml-auto flex gap-2 p-1 md:gap-4">
         {isLocked && (
           <button
-            className="group rounded-lg border-2 border-purple bg-white p-1 hover:scale-110"
+            className="group rounded-lg border-2 border-purple bg-white p-1 hover:scale-110 hover:border-pink hover:bg-pink"
             onClick={() => setUnlockModalOpen(true)}
           >
             <LockOpenIcon className="w-6 cursor-pointer text-purple transition-transform group-hover:hidden md:w-8" />
-            <LockClosedIcon className="hidden w-6 cursor-pointer text-purple transition-transform group-hover:block md:w-8" />
+            <LockClosedIcon className="hidden w-6 cursor-pointer text-white transition-transform group-hover:block md:w-8" />
           </button>
         )}
         {!isLocked && (
           <button
-            className="group rounded-lg border-2 border-purple bg-purple p-1 hover:scale-110"
+            className="group rounded-lg border-2 border-purple bg-purple p-1 hover:scale-110 hover:border-pink hover:bg-pink"
             onClick={() => setLockModalOpen(true)}
           >
             <LockClosedIcon className="w-6 cursor-pointer text-white transition-transform group-hover:hidden md:w-8" />
