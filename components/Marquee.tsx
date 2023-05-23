@@ -44,6 +44,7 @@ const Marquee = ({ direction, type }: MarqueeProps) => {
             height={250}
             layout="fixed"
             alt={(type === 'keek' ? 'Keekusaur #' : 'Highland Cow #') + id}
+            unoptimized
           />
         </div>
       ))}

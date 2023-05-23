@@ -55,6 +55,11 @@ const moduleExports = {
         destination: '/',
         permanent: false,
       },
+      {
+        source: '/reservation',
+        destination: '/',
+        permanent: false,
+      },
     ];
   },
 };
