@@ -32,6 +32,7 @@ type Info = {
   token: string;
   transfers: number;
   title: string;
+  story?: string;
   titled: boolean;
   prefs?: Pref[];
 };

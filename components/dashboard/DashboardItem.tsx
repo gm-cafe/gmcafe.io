@@ -1,4 +1,4 @@
-import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
+import { LockClosedIcon, LockOpenIcon, PencilIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { BigNumber } from 'ethers';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { toastError } from '../../lib/util/toast';
 import { CollectionType, Keeku, Moo, Token } from '../../lib/util/types';
 import LockModal from './LockModal';
 import { UnlockModalMoo, UnlockModalKeek } from './UnlockModal';
+import EditModal from './EditModal';
 
 type Props = {
   token: Token;
@@ -20,6 +21,7 @@ type Props = {
 const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   const { name, id, info } = token;
 
@@ -48,6 +50,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         <Link href={`/moo/${id}`}>
           <h2 className="cursor-pointer font-gmcafe text-xl text-purple transition-colors hover:text-purple/70 md:text-2xl">
             {info.title ?? name}
+            <span className={classNames('text-pink', { hidden: !info.titled })}>*</span>
           </h2>
         </Link>
         <span
@@ -60,6 +63,11 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         </span>
       </div>
       <div className="ml-auto flex gap-2 rounded-lg bg-gray-100 p-1 md:gap-4">
+        {isLocked && (
+          <button onClick={() => setEditModalOpen(true)}>
+            <PencilIcon className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 md:w-8" />
+          </button>
+        )}
         {isLocked && (
           <button onClick={() => setUnlockModalOpen(true)}>
             <LockOpenIcon
@@ -81,6 +89,7 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
       {type === 'keek' && (
         <UnlockModalKeek id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} />
       )}
+      <EditModal id={id} open={editModalOpen} setOpen={setEditModalOpen} type={type} />
     </div>
   );
 };
