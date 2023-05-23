@@ -57,30 +57,28 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
             {displayName}
           </h2>
         </Link>
-        <span
-          className={classNames(
-            'my-auto hidden items-center justify-center rounded-full bg-purple px-3 pb-2 pt-2.5 font-gmcafe text-xs text-white md:flex',
-            { 'md:hidden': !isLocked }
-          )}
-        >
-          LOCKED
-        </span>
       </div>
-      <div className="ml-auto flex gap-2 rounded-lg bg-gray-100 p-1 md:gap-4">
+      <div className="ml-auto flex gap-2 p-1 md:gap-4">
         {isLocked && (
-          <button onClick={() => setUnlockModalOpen(true)}>
-            <LockOpenIcon
-              className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 md:w-8"
-              onClick={() => setUnlockModalOpen(true)}
-            />
+          <button
+            className="group rounded-lg border-2 border-gray-100 bg-gray-100 p-1 hover:scale-110 hover:border-pink hover:bg-pink"
+            onClick={() => setUnlockModalOpen(true)}
+          >
+            <LockOpenIcon className="w-6 cursor-pointer text-purple transition-transform group-hover:hidden md:w-8" />
+            <LockClosedIcon className="hidden w-6 cursor-pointer text-white transition-transform group-hover:block md:w-8" />
           </button>
         )}
         {!isLocked && (
-          <button onClick={() => setLockModalOpen(true)}>
-            <LockClosedIcon className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 md:w-8" />
+          <button
+            className="group rounded-lg border-2 border-purple bg-purple p-1 hover:scale-110 hover:border-pink hover:bg-pink"
+            onClick={() => setLockModalOpen(true)}
+          >
+            <LockClosedIcon className="w-6 cursor-pointer text-white transition-transform group-hover:hidden md:w-8" />
+            <LockOpenIcon className="hidden w-6 cursor-pointer text-white transition-transform group-hover:block md:w-8" />
           </button>
         )}
       </div>
+
       <LockModal id={id} open={lockModalOpen} setOpen={setLockModalOpen} type={type} />
       {type === 'gmoo' && (
         <UnlockModalMoo id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} />
