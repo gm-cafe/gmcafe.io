@@ -47,7 +47,8 @@ const EditModal = ({ id, open, setOpen, type }: Props) => {
     signMessage();
   };
 
-  apiLoading && data &&
+  apiLoading &&
+    data &&
     fetch('https://api.gmcafe.io/customize', {
       method: 'POST',
       body: JSON.stringify({
@@ -76,12 +77,13 @@ const EditModal = ({ id, open, setOpen, type }: Props) => {
           </div>
           <div className="flex flex-col">
             <label className="font-gmcafe text-lg text-purple" htmlFor="lockPrice">
-              Title
+              Name
             </label>
             <input
-              className="rounded border-2 border-purple py-1 pl-2 text-purple focus-within:outline-0"
+              className="rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-light focus-within:outline-0"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter a custom name for your Keek/Moo"
             />
           </div>
           <div className="flex flex-col">
@@ -89,9 +91,10 @@ const EditModal = ({ id, open, setOpen, type }: Props) => {
               Story
             </label>
             <textarea
-              className="rounded border-2 border-purple py-1 pl-2 text-purple focus-within:outline-0"
+              className="rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-light focus-within:outline-0"
               value={story}
               onChange={(e) => setStory(e.target.value)}
+              placeholder="Enter a backstory for your Keek/Moo (i.e. Where are they from? What is their personality? What do they like?)"
             />
           </div>
           <div className="mt-4 flex justify-end">
