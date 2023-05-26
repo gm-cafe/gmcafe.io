@@ -1,5 +1,4 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/solid';
-import classNames from 'classnames';
 import { BigNumber } from 'ethers';
 import Image from 'next/image';
 import Link from 'next/link';
