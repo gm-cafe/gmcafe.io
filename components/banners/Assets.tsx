@@ -134,7 +134,14 @@ const Assets = ({ addAsset }: Props) => {
                 key={url}
                 onClick={() => addAsset(url)}
               >
-                <Image src={url} width={300} height={300} alt="Moo" unoptimized />
+                <Image
+                  crossOrigin="anonymous"
+                  src={url}
+                  width={300}
+                  height={300}
+                  alt="Moo"
+                  unoptimized
+                />
               </div>
             ))}
             <div ref={ref} />
@@ -142,7 +149,14 @@ const Assets = ({ addAsset }: Props) => {
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(keeks).map(({ url }) => (
               <div className="flex cursor-pointer" key={url} onClick={() => addAsset(url)}>
-                <Image src={url} width={300} height={300} alt="Keek" unoptimized />
+                <Image
+                  crossOrigin="anonymous"
+                  src={url}
+                  width={300}
+                  height={300}
+                  alt="Keek"
+                  unoptimized
+                />
               </div>
             ))}
             <div ref={ref} />
