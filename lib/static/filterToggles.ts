@@ -4,6 +4,7 @@ export const moo = [
   'Crypto',
   'Diamond',
   'Earring',
+  'Flower',
   'Freckles',
   'GM Brand',
   'Tattoo',
