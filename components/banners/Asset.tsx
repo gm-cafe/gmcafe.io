@@ -13,7 +13,7 @@ const Asset = ({ asset, select, selected }: Props) => {
 
   const image = useMemo(() => {
     const image = new Image();
-    image.src = asset.src + '?1';
+    image.src = asset.src;
     image.width = asset.width;
     image.height = asset.width;
     image.crossOrigin = 'anonymous';
