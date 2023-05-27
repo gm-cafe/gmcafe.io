@@ -1,5 +1,5 @@
 import { createRef, useEffect, useState } from 'react';
-import Backgrounds from '../components/banners/Backgrounds';
+import Graphics from '../components/banners/Graphics';
 import Canvas from '../components/banners/Canvas';
 import Assets from '../components/banners/Assets';
 import { Asset } from '../lib/util/banners';
@@ -48,7 +48,7 @@ const Banners = () => {
           <Canvas background={background} assets={assets} setAssets={setAssets} />
         </div>
         <div className="col-span-2 h-full min-h-0">
-          <Backgrounds changeBackground={changeBackground} />
+          <Graphics addAsset={addAsset} changeBackground={changeBackground} />
         </div>
       </div>
       <div className="hidden w-full justify-end md:flex">

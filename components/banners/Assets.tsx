@@ -86,7 +86,7 @@ const Assets = ({ addAsset }: Props) => {
       onChange={onClick}
     >
       <h2 className="border-b border-purple-light pb-2 font-gmcafe text-2xl uppercase text-purple">
-        Assets
+        The Herd
       </h2>
       <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex gap-4 p-1">
@@ -126,7 +126,7 @@ const Assets = ({ addAsset }: Props) => {
             </Tab>
           </Tab.List>
         </div>
-        <Tab.Panels className="flex flex-col overflow-y-scroll">
+        <Tab.Panels className="flex flex-col overflow-y-auto">
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(moos).map(({ url }) => (
               <div
