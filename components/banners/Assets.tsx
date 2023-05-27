@@ -126,7 +126,7 @@ const Assets = ({ addAsset }: Props) => {
             </Tab>
           </Tab.List>
         </div>
-        <Tab.Panels className="flex flex-col overflow-y-auto">
+        <Tab.Panels className="flex flex-col overflow-y-scroll">
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(moos).map(({ url }) => (
               <div
