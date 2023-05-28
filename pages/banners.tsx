@@ -92,7 +92,7 @@ const Banners = () => {
           )) as Asset[]
         ); // reee
       } else {
-        addAsset(await dataURIFromBlob(input.files?.[0] as Blob));
+        addAsset(await dataURIFromBlob(blob));
       }
     });
     input.click();
