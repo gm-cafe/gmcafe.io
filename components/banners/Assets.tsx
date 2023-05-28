@@ -12,12 +12,12 @@ type AssetData = {
   url: string;
 };
 
-const moos = Array.from({length: 333}, (_, i) => ({
-    id: i + 1,
-    url: `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/transparent/${i + 1}.png`,
-})).filter(x => !unbornMoos.has(x.id));
+const moos = Array.from({ length: 333 }, (_, i) => ({
+  id: i + 1,
+  url: `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/transparent/${i + 1}.png`,
+})).filter((x) => !unbornMoos.has(x.id));
 
-const keeks = Array.from({length: 3333}, (_, i) => ({
+const keeks = Array.from({ length: 3333 }, (_, i) => ({
   id: i + 1,
   url: `https://gmcafe.s3.us-east-2.amazonaws.com/keek/transparent/${i + 1}.png`,
 }));
@@ -146,7 +146,11 @@ const Assets = ({ addAsset }: Props) => {
           </Tab.Panel>
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(keeks).map(({ url }) => (
-              <div className="flex cursor-pointer" key={url} onClick={() => addAsset(url)}>
+              <div
+                className="flex cursor-pointer rounded-xl border-4 border-transparent transition-colors hover:border-purple"
+                key={url}
+                onClick={() => addAsset(url)}
+              >
                 <Image
                   crossOrigin="anonymous"
                   src={url}
