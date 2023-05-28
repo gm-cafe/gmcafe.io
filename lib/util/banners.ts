@@ -33,7 +33,7 @@ export async function dataURIFromBlob(blob: Blob): Promise<string> {
 
 export async function dataURIFromImage(img: HTMLImageElement): Promise<string> {
   let {src} = img;
-  if (src.startsWith('blob:')) return src;
+  if (!src.startsWith('blob:')) return src;
   let {width, height} = img;
   let canvas = document.createElement('canvas');
   canvas.width = width;
