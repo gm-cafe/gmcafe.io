@@ -1,8 +1,8 @@
-import { createRef, useEffect, useState } from 'react';
+import {createRef, useEffect, useState } from 'react';
 import Graphics from '../components/banners/Graphics';
 import Canvas from '../components/banners/Canvas';
 import Assets from '../components/banners/Assets';
-import { Asset } from '../lib/util/banners';
+import { Asset, loadImage, randomId} from '../lib/util/banners';
 import NextImage from 'next/image';
 import mooWalk from '../public/moo_walk.gif';
 import { GetServerSideProps } from 'next';
@@ -10,29 +10,38 @@ import { GetServerSideProps } from 'next';
 const Banners = () => {
   const [background, setBackground] = useState<HTMLImageElement>();
   const [assets, setAssets] = useState<Asset[]>([]);
+  const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>();
+  const [canvasWidth, setCanvasWidth] = useState(1500);
+  const [canvasHeight, setCanvasHeight] = useState(500);
 
   const changeBackground = (url: string) => {
-    const image = new Image();
-    image.src = url;
-    image.crossOrigin = 'anonymous';
-    setBackground(image);
+    loadImage(url).then(img => {
+      setCanvasHeight(Math.round(canvasWidth * img.height / img.width));
+      setBackground(img);
+    });
   };
 
-  const addAsset = (url: string) =>
-    setAssets([
-      ...assets,
-      {
-        src: url,
-        width: 0,
-        x: 0,
-        y: 0,
-        deleted: false,
-        ref: createRef(),
-        groupRef: createRef(),
-        tfRef: createRef(),
-        flip: false,
-      },
-    ]);
+  const addAsset = (url: string) => {
+    loadImage(url).then(img => {
+      let {width, height} = img;
+      let scale = 0.8 * Math.min(canvasWidth / width, canvasHeight / height);
+      let asset: Asset = {
+        id: randomId(),
+        img,
+        init(image) {
+          image.image(img);
+          image.offsetX(Math.round(width/2));
+          image.offsetY(Math.round(height/2));
+          image.x(Math.round(canvasWidth/2));
+          image.y(Math.round(canvasHeight/2));
+          image.scaleX(scale);
+          image.scaleY(scale);
+        },
+        imageRef: createRef(),
+      };
+      setAssets([...assets, asset]);
+    });
+}
 
   useEffect(() => {
     changeBackground('/banners/gm_purple.png');
@@ -45,7 +54,13 @@ const Banners = () => {
           <Assets addAsset={addAsset} />
         </div>
         <div className="col-span-4 flex h-full flex-col">
-          <Canvas background={background} assets={assets} setAssets={setAssets} />
+          <Canvas 
+            changeBackground={changeBackground} background={background} 
+            setAssets={setAssets} assets={assets} addAsset={addAsset}
+            setSelectedAsset={setSelectedAsset} selectedAsset={selectedAsset}
+            canvasWidth={canvasWidth} 
+            canvasHeight={canvasHeight}  
+          />
         </div>
         <div className="col-span-2 h-full min-h-0">
           <Graphics addAsset={addAsset} changeBackground={changeBackground} />

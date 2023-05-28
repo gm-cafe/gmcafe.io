@@ -5,21 +5,19 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebounce, useIntersection } from 'react-use';
 
-const unbornMoos = [320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 333];
+const unbornMoos = new Set([322, 323, 324, 325, 326, 327, 328, 329, 330, 333]);
 
 type AssetData = {
   id: number;
   url: string;
 };
 
-const moos = Array.from(Array(333))
-  .map((_, i) => ({
+const moos = Array.from({length: 333}, (_, i) => ({
     id: i + 1,
     url: `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/transparent/${i + 1}.png`,
-  }))
-  .filter((_, i) => !unbornMoos.includes(i + 1));
+})).filter(x => !unbornMoos.has(x.id));
 
-const keeks = Array.from(Array(3333)).map((_, i) => ({
+const keeks = Array.from({length: 3333}, (_, i) => ({
   id: i + 1,
   url: `https://gmcafe.s3.us-east-2.amazonaws.com/keek/transparent/${i + 1}.png`,
 }));
@@ -100,7 +98,7 @@ const Assets = ({ addAsset }: Props) => {
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
-                <button
+                <div
                   className={classNames(
                     'rounded-lg px-2 uppercase transition-colors',
                     { 'bg-purple text-white': selected },
@@ -108,12 +106,12 @@ const Assets = ({ addAsset }: Props) => {
                   )}
                 >
                   Moos
-                </button>
+                </div>
               )}
             </Tab>
             <Tab>
               {({ selected }) => (
-                <button
+                <div
                   className={classNames(
                     'rounded-lg px-2 uppercase transition-colors',
                     { 'bg-purple text-white': selected },
@@ -121,7 +119,7 @@ const Assets = ({ addAsset }: Props) => {
                   )}
                 >
                   Keeks
-                </button>
+                </div>
               )}
             </Tab>
           </Tab.List>

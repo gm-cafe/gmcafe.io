@@ -1,142 +1,202 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
-import { Layer, Image as RKImage, Stage } from 'react-konva';
+import {createRef, Dispatch, SetStateAction, useCallback, useEffect, useLayoutEffect, useRef, useState, MouseEvent} from 'react';
+import { Layer, Group, Image as RKImage, Stage, Transformer as RKTransformer } from 'react-konva';
+import type {Transformer as KonvaTransformerType} from 'konva/lib/shapes/Transformer';
+import type {Stage as KonvaStageType} from 'konva/lib/Stage';
 import Asset from '../Asset';
-import { Asset as AssetType } from '../../../lib/util/banners';
-import { CollectionIcon, SaveIcon, SwitchHorizontalIcon, TrashIcon } from '@heroicons/react/solid';
-import { Stage as StageType } from 'konva/lib/Stage';
+import { Asset as AssetType, flipImage, isTopNode, loadImage, randomId, dataURIFromBlob } from '../../../lib/util/banners';
+import { CollectionIcon, SaveIcon, SwitchHorizontalIcon, TrashIcon, UploadIcon } from '@heroicons/react/solid';
 
-type Props = {
+async function serializeImage(img: HTMLImageElement): Promise<string> {
+  let {src} = img;
+  if (src.startsWith('blob:')) {
+    let {width, height} = img;
+    let canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    let ctx = canvas.getContext('2d')!; // reee
+    ctx.drawImage(img, 0, 0);
+    let blob = await new Promise(ful => canvas.toBlob(ful)); // reeeeee
+    return dataURIFromBlob(blob as Blob);
+  }
+  return src;
+}
+
+export type Props = {	
+  canvasWidth: number;
+  canvasHeight: number;  
+  changeBackground(url: string): void;
   background?: HTMLImageElement;
-  assets: AssetType[];
+  setSelectedAsset(asset?: AssetType): void; 
+  selectedAsset?: AssetType;
   setAssets: Dispatch<SetStateAction<AssetType[]>>;
+  assets: AssetType[];
+  addAsset(url: string): void;
 };
 
-const Canvas = ({ background, assets, setAssets }: Props) => {
+const MIME_JSON = 'application/json';
+const HEX_PURPLE = '#8946ab';
+
+const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAsset, selectedAsset, addAsset, canvasWidth, canvasHeight }: Props) => {
   const [, setHydrated] = useState(false);
-  const [selectedAsset, setSelectedAsset] = useState<number | null>(null);
-  const [download, setDownload] = useState(false);
+  const [width, setWidth] = useState(1);
+  const [height, setHeight] = useState(1);
+  const [scale, setScale] = useState(1); 
 
-  const [canvasWidth, setCanvasWidth] = useState(0);
-  const canvasHeight = canvasWidth / 3;
-
+  const trRef = useRef<KonvaTransformerType>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<StageType>(null);
-
+  const stageRef = useRef<KonvaStageType>(null);
+  
   const resize = useCallback(() => {
-    const oldWidth = canvasWidth;
-    const newWidth = canvasRef.current?.clientWidth || 0;
-
-    assets.forEach(({ ref: { current } }) => {
-      if (!current) return;
-      const width = (current.width() / oldWidth) * newWidth;
-      current.width(width);
-      current.height(width);
-      current.x((current.x() / oldWidth) * newWidth);
-      current.y((current.y() / oldWidth) * newWidth);
-    });
-
-    setCanvasWidth(newWidth);
-  }, [canvasRef, assets, canvasWidth]);
+    const {clientWidth} = canvasRef.current!;
+    setWidth(clientWidth);
+    setHeight(clientWidth * canvasHeight / canvasWidth);
+    setScale(clientWidth / canvasWidth);
+  }, [canvasRef, canvasWidth, canvasHeight]);
 
   const unset = useCallback(
-    (e: MouseEvent) =>
+    (e: globalThis.MouseEvent) =>
       e.target instanceof HTMLDivElement &&
       e.target.className.includes('unset-current-asset') &&
-      setSelectedAsset(null),
+      setSelectedAsset(),
     []
   );
 
-  const deleteAsset = useCallback(() => {
-    if (selectedAsset === null) return;
-    setAssets(
-      assets.map((asset, i) => (i === selectedAsset ? { ...asset, deleted: true } : asset))
-    );
-    setSelectedAsset(null);
-  }, [assets, setAssets, selectedAsset, setSelectedAsset]);
+  const deleteLayer = () => {
+    if (!selectedAsset) return;
+    let i = assets.findIndex(x => x.imageRef === selectedAsset.imageRef);
+    selectedAsset.imageRef!.current?.destroy(); // force delete
+    assets.splice(i, 1);
+    setAssets(assets);
+    setSelectedAsset(assets.at(Math.min(i, assets.length-1)));
+  };
 
-  const keydown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Delete' || e.key === 'Backspace') deleteAsset();
-    },
-    [deleteAsset]
-  );
+  const keydown = useCallback((e: KeyboardEvent) => {
+    if (!selectedAsset) return;
+    const image = selectedAsset.imageRef.current!;
+    const dp = 1;
+    const dr = 5;
+    switch (e.key) {
+      case 'Delete':
+      case 'Backspace':  return deleteLayer();
+      case 'ArrowLeft':  return image.x(image.x() - dp);
+      case 'ArrowRight': return image.x(image.x() + dp);
+      case 'ArrowUp':    return image.y(image.y() - dp);
+      case 'ArrowDown':  return image.y(image.y() + dp);
+      case 'a':          return image.rotation(image.rotation() - dr);
+      case 'z':          return image.rotation(image.rotation() + dr);
+      case 'f':          return flipLayer();
+    }
+  }, [selectedAsset]);
 
   useEffect(() => {
     setHydrated(true);
+    resize();
+      window.addEventListener('resize', resize);
+      window.addEventListener('click', unset);
+      window.addEventListener('keydown', keydown);
+      return () => {
+        window.removeEventListener('resize', resize);
+        window.removeEventListener('click', unset);
+        window.removeEventListener('keydown', keydown);
+      };
+    }, [resize, unset, keydown]);
 
-    const canvas = canvasRef.current;
-    canvas?.addEventListener('resize', resize);
-    window.addEventListener('resize', resize);
-    window.addEventListener('click', unset);
-    window.addEventListener('keydown', keydown);
+  const uploadImage = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = `image/*,${MIME_JSON}`;
+    input.addEventListener('input', async () => {
+      const blob = input.files?.[0] as Blob; // reeee
+      if (blob.type === MIME_JSON) {
+        let {bg, layers} = JSON.parse(await blob.text());
+        changeBackground(bg);
+        setAssets(await Promise.all(layers.map(async (layer: any) => { // reee
+          const {url, x, y, scale, rot, flip} = layer;
+          const img = await loadImage(url);
+          const asset : AssetType = {
+            id: randomId(),
+            img,
+            init(image) {
+              image.image(flip ? flipImage(img) : img);
+              image.x(x);
+              image.y(y);
+              image.offsetX(Math.round(img.width/2));
+              image.offsetY(Math.round(img.height/2));
+              image.scaleX(scale);
+              image.scaleY(scale);
+              image.rotation(rot);
+            },
+            imageRef: createRef(),
+          };
+          return asset;
+        })) as AssetType[]); // reee
+      } else {
+        const url = URL.createObjectURL(input.files?.[0] as Blob); // File is a Blob!
+        addAsset(url);
+        URL.revokeObjectURL(url);
+      }
+    });
+    input.click();
+  };
 
-    return () => {
-      canvas?.removeEventListener('resize', resize);
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('click', unset);
-      window.removeEventListener('keydown', keydown);
-    };
-  }, [resize, unset, keydown]);
+  const download = async (e: MouseEvent) => {
+    const copy = stageRef.current!.clone();
+    copy.scaleX(1);
+    copy.scaleY(1);
+    copy.width(canvasWidth);
+    copy.height(canvasHeight);
 
-  useEffect(() => {
-    setCanvasWidth(canvasRef.current?.clientWidth || 0);
-  }, [canvasRef]);
+    const a = document.createElement('a');
+    if (e.altKey) { // save serialized?
+      const json = {
+        bg: await serializeImage(background!),
+        layers: await Promise.all(assets
+          .filter(x => x.imageRef.current)
+          .sort((a, b) => a.imageRef.current!.zIndex() - b.imageRef.current!.zIndex())
+          .map(async ({img, imageRef})=> {
+            const image = imageRef.current!;
+            return {
+              url: await serializeImage(img),
+              x: image.x(),
+              y: image.y(),
+              scale: image.scaleX(),
+              rot: image.rotation(),
+              flip: image.image() !== img,
+            }
+          }))
+      };
+      let blob = new Blob([JSON.stringify(json, null, '\t')], {type: MIME_JSON});
+      a.download = 'banner.json';
+      a.href = await dataURIFromBlob(blob);
+    } else {
+      a.download = 'banner.png';
+      a.href = copy.toDataURL();
+    }
+    a.click();
+  };
 
-  useEffect(() => {
-    const newAsset = assets.findIndex((asset) => asset.width === 0);
-
-    if (newAsset < 0) return;
-
-    const width = canvasWidth / 4;
-    setAssets(
-      assets.map((asset) => ({
-        ...asset,
-        width: asset.width === 0 ? width : asset.width,
-      }))
-    );
-    assets[newAsset].ref.current?.move({ x: 0, y: canvasHeight - width });
-    setSelectedAsset(newAsset);
-  }, [assets, canvasWidth, canvasHeight, setAssets]);
-
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (selectedAsset !== null || !download || !stage) return;
-
-    setDownload(false);
-    const downloadURI = (uri: string, name: string) => {
-      var link = document.createElement('a');
-      link.download = name;
-      link.href = uri;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-
-    downloadURI(stage.toDataURL({ pixelRatio: 1500 / canvasWidth }), 'banner.png');
-  }, [selectedAsset, download, canvasWidth]);
-
-  const moveForward = useCallback(
-    () => assets[selectedAsset!].groupRef.current?.moveUp(),
-    [selectedAsset, assets]
-  );
+  const moveForward = useCallback(() => {
+    if (!selectedAsset) return;
+    selectedAsset.imageRef.current!.moveUp();
+    setSelectedAsset({...selectedAsset}); // trigger
+  }, [selectedAsset]);
 
   const moveBack = useCallback(() => {
-    const group = assets[selectedAsset!].groupRef.current;
-    if (!group) return;
-    group.getZIndex() > 1 && group.moveDown();
-  }, [selectedAsset, assets]);
+  if (!selectedAsset) return;
+    selectedAsset!.imageRef.current!.moveDown();
+    setSelectedAsset({...selectedAsset}); // trigger
+  }, [selectedAsset]);
 
-  const flip = useCallback(() => {
-    const image = assets[selectedAsset!].ref.current;
-    if (!image) return;
+  const flipLayer = useCallback(() => {
+    const {img, imageRef} = selectedAsset!;
+    imageRef.current!.image(imageRef.current!.image() === img ? flipImage(img) : img);
+  }, [selectedAsset]);
 
-    image.scaleX(image.scaleX() * -1);
-  }, [selectedAsset, assets]);
-
-  const initiateDownload = () => {
-    setSelectedAsset(null);
-    setDownload(true);
-  };
+  useLayoutEffect(() => {
+    if (trRef.current && selectedAsset && selectedAsset.imageRef.current) {
+      trRef.current.nodes([selectedAsset.imageRef.current]);
+    }
+  }, [trRef, selectedAsset]);
 
   return (
     <>
@@ -146,7 +206,7 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
             <button
               className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
               onClick={moveForward}
-              disabled={selectedAsset === null}
+              disabled={!(selectedAsset && selectedAsset.imageRef.current && !isTopNode(selectedAsset.imageRef.current))}
             >
               <CollectionIcon className="h-8 w-8" />
               Move forward
@@ -154,55 +214,75 @@ const Canvas = ({ background, assets, setAssets }: Props) => {
             <button
               className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
               onClick={moveBack}
-              disabled={selectedAsset === null}
+              disabled={!(selectedAsset && selectedAsset.imageRef.current && selectedAsset.imageRef.current.zIndex() > 0)}
             >
               <CollectionIcon className="h-8 w-8 rotate-180" />
               Move back
             </button>
             <button
               className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
-              onClick={flip}
-              disabled={selectedAsset === null}
+              onClick={flipLayer}
+              disabled={!selectedAsset}
             >
               <SwitchHorizontalIcon className="h-8 w-8" />
               Flip
             </button>
             <button
               className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
-              onClick={deleteAsset}
-              disabled={selectedAsset === null}
+              onClick={deleteLayer}
+              disabled={!selectedAsset}
             >
               <TrashIcon className="h-8 w-8" />
               Delete
             </button>
           </div>
         </div>
-        <Stage width={canvasWidth} height={canvasHeight} ref={stageRef}>
+        <Stage ref={stageRef} width={width} height={height} scaleX={scale} scaleY={scale}>
           <Layer>
             <RKImage
-              onMouseDown={() => setSelectedAsset(null)}
+              onMouseDown={() => setSelectedAsset()}
               width={canvasWidth}
               height={canvasHeight}
               image={background}
             />
-            {assets.map((asset, i) => (
-              <Asset
-                key={`${asset}_${i}`}
+            <Group>
+              {assets.map((asset, i) => <Asset 
+                key={asset.id}
                 asset={asset}
-                selected={selectedAsset === i}
-                select={() => setSelectedAsset(i)}
-              />
-            ))}
+                select={() => setSelectedAsset(asset)}
+              />)}
+            </Group>
+            {selectedAsset && <RKTransformer ref={trRef}
+              enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+              keepRatio
+              //useSingleNodeRotation={true}
+              anchorSize={15}
+              anchorStroke={HEX_PURPLE}
+              borderStroke={HEX_PURPLE}
+              flipEnabled={false}
+              anchorCornerRadius={9999}
+              rotationSnaps={[0, 90, 180, 270]}
+              rotateAnchorOffset={25}
+            />}
           </Layer>
         </Stage>
         <div className="unset-current-asset flex-grow">
-          <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
-            onClick={initiateDownload}
-          >
-            <SaveIcon className="h-8 w-8" />
-            Download
-          </button>
+          <div className="absolute mt-auto flex gap-4">
+            <button
+              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
+              onClick={download}
+            >
+              <SaveIcon className="h-8 w-8" />
+              Save Banner
+            </button>
+            <button
+              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
+              onClick={uploadImage}
+            >
+              <UploadIcon className="h-8 w-8" />
+              Upload Image
+             </button>
+          </div>
         </div>
       </div>
     </>

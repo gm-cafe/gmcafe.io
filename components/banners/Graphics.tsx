@@ -11,6 +11,7 @@ const backgrounds = [
   { file: 'plain_light_pink.png', alt: 'Plain Light Pink Background' },
   { file: 'plain_pink.png', alt: 'Plain Pink Background' },
   { file: 'spots_pink.png', alt: 'Pink Spots Background' },
+  { file: 'galaxy.png', alt: 'Galaxy Background' },
 ];
 
 const objects = [
@@ -61,7 +62,7 @@ const Graphics = ({ addAsset, changeBackground }: Props) => {
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
-                <button
+                <div
                   className={classNames(
                     'rounded-lg px-2 uppercase transition-colors',
                     { 'bg-purple text-white': selected },
@@ -69,12 +70,12 @@ const Graphics = ({ addAsset, changeBackground }: Props) => {
                   )}
                 >
                   Backgrounds
-                </button>
+                </div>
               )}
             </Tab>
             <Tab>
               {({ selected }) => (
-                <button
+                <div
                   className={classNames(
                     'rounded-lg px-2 uppercase transition-colors',
                     { 'bg-purple text-white': selected },
@@ -82,7 +83,7 @@ const Graphics = ({ addAsset, changeBackground }: Props) => {
                   )}
                 >
                   Objects
-                </button>
+                </div>
               )}
             </Tab>
           </Tab.List>
@@ -95,7 +96,14 @@ const Graphics = ({ addAsset, changeBackground }: Props) => {
                 key={file}
                 onClick={() => changeBackground(`/banners/${file}`)}
               >
-                <Image src={`/banners/${file}`} width={900} height={300} alt={alt} unoptimized />
+                <Image 
+                  src={`/banners/${file}`} 
+                  width={900} 
+                  height={300} 
+                  objectFit="cover"
+                  alt={alt} 
+                  unoptimized 
+                  />
               </div>
             ))}
           </Tab.Panel>
