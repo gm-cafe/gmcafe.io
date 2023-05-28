@@ -2,6 +2,7 @@ import { Tab } from '@headlessui/react';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+import { UploadIcon } from '@heroicons/react/solid';
 
 const backgrounds = [
   { file: 'gm_pink.png', alt: 'GM Pink Background' },
@@ -31,9 +32,10 @@ const objects = [
 type Props = {
   addAsset: (_file: string) => void;
   changeBackground: (_file: string) => void;
+  uploadImage: () => void;
 };
 
-const Graphics = ({ addAsset, changeBackground }: Props) => {
+const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
   const [hydrated, setHydrated] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -58,7 +60,7 @@ const Graphics = ({ addAsset, changeBackground }: Props) => {
         Graphics
       </h2>
       <div className="flex min-h-0 flex-col">
-        <div className="mb-2 flex gap-4 p-1 pl-0 pr-0">
+        <div className="mb-2 flex flex-col gap-3 p-1 pl-0 pr-0">
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
@@ -87,43 +89,54 @@ const Graphics = ({ addAsset, changeBackground }: Props) => {
               )}
             </Tab>
           </Tab.List>
+          <button
+            className="flex items-center gap-2 rounded-lg bg-purple-light py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:bg-pink-light"
+            onClick={uploadImage}
+          >
+            <UploadIcon className="h-8 w-8" />
+            Upload {selectedIndex === 0 ? 'Background' : 'Object'}
+          </button>
         </div>
         <Tab.Panels className="flex flex-col overflow-y-auto">
           <Tab.Panel className="grid grid-cols-1 gap-4">
-            {backgrounds.map(({ file, alt }) => (
-              <div
-                className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
-                key={file}
-                onClick={() => changeBackground(`/banners/${file}`)}
-              >
-                <Image 
-                  src={`/banners/${file}`} 
-                  width={900} 
-                  height={300} 
-                  objectFit="cover"
-                  alt={alt} 
-                  unoptimized 
+            <div className="grid grid-cols-1 gap-4">
+              {backgrounds.map(({ file, alt }) => (
+                <div
+                  className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
+                  key={file}
+                  onClick={() => changeBackground(`/banners/${file}`)}
+                >
+                  <Image
+                    src={`/banners/${file}`}
+                    width={900}
+                    height={300}
+                    objectFit="cover"
+                    alt={alt}
+                    unoptimized
                   />
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </Tab.Panel>
-          <Tab.Panel className="grid grid-cols-2 gap-4">
-            {objects.map(({ file, alt }) => (
-              <div
-                className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
-                key={file}
-                onClick={() => addAsset(`/banners/${file}`)}
-              >
-                <Image
-                  src={`/banners/${file}`}
-                  width={300}
-                  height={300}
-                  objectFit="contain"
-                  alt={alt}
-                  unoptimized
-                />
-              </div>
-            ))}
+          <Tab.Panel className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-2 gap-4 overflow-y-auto">
+              {objects.map(({ file, alt }) => (
+                <div
+                  className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
+                  key={file}
+                  onClick={() => addAsset(`/banners/${file}`)}
+                >
+                  <Image
+                    src={`/banners/${file}`}
+                    width={300}
+                    height={300}
+                    objectFit="contain"
+                    alt={alt}
+                    unoptimized
+                  />
+                </div>
+              ))}
+            </div>
           </Tab.Panel>
         </Tab.Panels>
       </div>

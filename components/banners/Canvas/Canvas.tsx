@@ -4,7 +4,7 @@ import type {Transformer as KonvaTransformerType} from 'konva/lib/shapes/Transfo
 import type {Stage as KonvaStageType} from 'konva/lib/Stage';
 import Asset from '../Asset';
 import { Asset as AssetType, flipImage, isTopNode, loadImage, randomId, dataURIFromBlob, dataURIFromImage } from '../../../lib/util/banners';
-import { CollectionIcon, SaveIcon, SwitchHorizontalIcon, TrashIcon, UploadIcon } from '@heroicons/react/solid';
+import { CollectionIcon, SaveIcon, SwitchHorizontalIcon, TrashIcon } from '@heroicons/react/solid';
 
 export type Props = {	
   canvasWidth: number;
@@ -85,44 +85,6 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
         window.removeEventListener('keydown', keydown);
       };
     }, [resize, unset, keydown]);
-
-  const uploadImage = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = `image/*,${MIME_JSON}`;
-    input.addEventListener('input', async () => {
-      const blob = input.files?.[0] as Blob; // reeee
-      if (blob.type === MIME_JSON) {
-        let {bg, layers} = JSON.parse(await blob.text());
-        changeBackground(bg);
-        setAssets(await Promise.all(layers.map(async (layer: any) => { // reee
-          const {url, x, y, scale, rot, flip} = layer;
-          const img = await loadImage(url);
-          const asset : AssetType = {
-            id: randomId(),
-            img,
-            init(image) {
-              image.image(flip ? flipImage(img) : img);
-              image.x(x);
-              image.y(y);
-              image.offsetX(Math.round(img.width/2));
-              image.offsetY(Math.round(img.height/2));
-              image.scaleX(scale);
-              image.scaleY(scale);
-              image.rotation(rot);
-            },
-            imageRef: createRef(),
-          };
-          return asset;
-        })) as AssetType[]); // reee
-      } else {
-        const url = URL.createObjectURL(input.files?.[0] as Blob); // File is a Blob!
-        addAsset(url);
-        URL.revokeObjectURL(url);
-      }
-    });
-    input.click();
-  };
 
   const download = async (e: MouseEvent) => {
     const copy = stageRef.current!.clone();
@@ -261,13 +223,6 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
               <SaveIcon className="h-8 w-8" />
               Save Banner
             </button>
-            <button
-              className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
-              onClick={uploadImage}
-            >
-              <UploadIcon className="h-8 w-8" />
-              Upload Image
-             </button>
           </div>
         </div>
       </div>
