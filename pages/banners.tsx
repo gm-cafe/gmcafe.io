@@ -100,7 +100,7 @@ const Banners = () => {
 
   return (
     <div className="flex h-screen flex-col items-center gap-2 bg-pink-background px-12 pb-12 pt-40">
-      <div className="mx-auto hidden min-h-0 w-full flex-grow grid-cols-8 flex-col items-center justify-center gap-x-4 md:grid">
+      <div className="mx-auto hidden min-h-0 w-full flex-grow grid-cols-8 flex-col items-center justify-center gap-x-4 lg:grid">
         <div className="col-span-2 h-full min-h-0">
           <Assets addAsset={addAsset} />
         </div>
@@ -125,17 +125,42 @@ const Banners = () => {
           />
         </div>
       </div>
-      <div className="hidden w-full justify-end md:flex">
+      <div className="hidden w-full justify-end lg:flex">
         <p className="font-gmcafe text-purple">Inspired by our amoozing herd member, Tchoupi.</p>
       </div>
-      <div className="flex h-full w-full flex-col items-center justify-center gap-4 md:hidden">
-        <h1 className="text-center font-gmcafe text-4xl text-purple">
+      <div className="flex h-full w-full flex-col items-center gap-4 lg:hidden">
+        <div className="mb-12 mt-12 flex w-full flex-col">
+          <Canvas
+            changeBackground={changeBackground}
+            background={background}
+            setAssets={setAssets}
+            assets={assets}
+            addAsset={addAsset}
+            setSelectedAsset={setSelectedAsset}
+            selectedAsset={selectedAsset}
+            canvasWidth={canvasWidth}
+            canvasHeight={canvasHeight}
+          />
+        </div>
+        <div className="flex w-full flex-1 gap-4 overflow-y-auto">
+          <div className="h-full min-w-0 flex-1">
+            <Assets addAsset={addAsset} />
+          </div>
+          <div className="h-full min-w-0 flex-1">
+            <Graphics
+              addAsset={addAsset}
+              changeBackground={changeBackground}
+              uploadImage={uploadImage}
+            />
+          </div>
+        </div>
+      </div>
+      {/* <h1 className="text-center font-gmcafe text-4xl text-purple">
           For the most succulent viewing pleasures, please open this page on desktop.
         </h1>
         <div className="w-40">
           <NextImage src={mooWalk} layout="responsive" alt="Moo Walk" />
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 };

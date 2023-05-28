@@ -84,14 +84,7 @@ const Assets = ({ addAsset }: Props) => {
       onChange={onClick}
     >
       <div className="flex min-h-0 flex-col">
-        <div className="mb-2 flex gap-4 p-1">
-          <div className="flex min-w-0 flex-grow gap-2 rounded bg-purple-light px-1.5 py-1 text-purple">
-            <SearchIcon className="h-6 w-6 shrink-0" />
-            <input
-              className="min-w-0 bg-purple-light focus:outline-none"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+        <div className="mb-2 flex-col gap-3 p-1 pl-0 pr-0">
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
@@ -120,6 +113,13 @@ const Assets = ({ addAsset }: Props) => {
               )}
             </Tab>
           </Tab.List>
+          <div className="flex min-w-0 flex-grow gap-2 rounded-lg bg-purple-light px-1.5 py-2 mt-3 text-purple">
+            <SearchIcon className="h-6 w-6 shrink-0" />
+            <input
+              className="min-w-0 bg-purple-light focus:outline-none"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         </div>
         <Tab.Panels className="flex flex-col overflow-y-scroll">
           <Tab.Panel className="grid grid-cols-2 gap-4">

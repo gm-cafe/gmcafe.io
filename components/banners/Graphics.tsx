@@ -87,7 +87,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
             </Tab>
           </Tab.List>
           <button
-            className="flex items-center gap-2 rounded-lg bg-purple-light py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:bg-pink-light"
+            className="flex items-center gap-2 rounded-lg bg-purple-light py-1 pl-2 pr-3 font-gmcafe text-purple transition-all hover:bg-pink-light"
             onClick={uploadImage}
           >
             <UploadIcon className="h-8 w-8" />
