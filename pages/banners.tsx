@@ -92,9 +92,7 @@ const Banners = () => {
           )) as Asset[]
         ); // reee
       } else {
-        const url = URL.createObjectURL(input.files?.[0] as Blob); // File is a Blob!
-        addAsset(url);
-        URL.revokeObjectURL(url);
+        addAsset(await dataURIFromBlob(input.files?.[0] as Blob));
       }
     });
     input.click();
