@@ -31,6 +31,19 @@ export async function dataURIFromBlob(blob: Blob): Promise<string> {
   });
 }
 
+export async function dataURIFromImage(img: HTMLImageElement): Promise<string> {
+  let {src} = img;
+  if (src.startsWith('blob:')) return src;
+  let {width, height} = img;
+  let canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  let ctx = canvas.getContext('2d')!; // reee
+  ctx.drawImage(img, 0, 0);
+  let blob = await new Promise(ful => canvas.toBlob(ful)); // reeeeee
+  return dataURIFromBlob(blob as Blob);
+}
+
 export async function loadImage(url: string): Promise<HTMLImageElement> {
   return new Promise((ful, rej) => {
     const img = new Image();

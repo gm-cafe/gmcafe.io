@@ -3,23 +3,8 @@ import { Layer, Group, Image as RKImage, Stage, Transformer as RKTransformer } f
 import type {Transformer as KonvaTransformerType} from 'konva/lib/shapes/Transformer';
 import type {Stage as KonvaStageType} from 'konva/lib/Stage';
 import Asset from '../Asset';
-import { Asset as AssetType, flipImage, isTopNode, loadImage, randomId, dataURIFromBlob } from '../../../lib/util/banners';
+import { Asset as AssetType, flipImage, isTopNode, loadImage, randomId, dataURIFromBlob, dataURIFromImage } from '../../../lib/util/banners';
 import { CollectionIcon, SaveIcon, SwitchHorizontalIcon, TrashIcon, UploadIcon } from '@heroicons/react/solid';
-
-async function serializeImage(img: HTMLImageElement): Promise<string> {
-  let {src} = img;
-  if (src.startsWith('blob:')) {
-    let {width, height} = img;
-    let canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    let ctx = canvas.getContext('2d')!; // reee
-    ctx.drawImage(img, 0, 0);
-    let blob = await new Promise(ful => canvas.toBlob(ful)); // reeeeee
-    return dataURIFromBlob(blob as Blob);
-  }
-  return src;
-}
 
 export type Props = {	
   canvasWidth: number;
@@ -63,7 +48,7 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
 
   const deleteLayer = () => {
     if (!selectedAsset) return;
-    let i = assets.findIndex(x => x.imageRef === selectedAsset.imageRef);
+    let i = assets.findIndex(x => x.imageRef === selectedAsset.imageRef); // because force update breaks identity
     selectedAsset.imageRef!.current?.destroy(); // force delete
     assets.splice(i, 1);
     setAssets(assets);
@@ -74,7 +59,7 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
     if (!selectedAsset) return;
     const image = selectedAsset.imageRef.current!;
     const dp = 1;
-    const dr = 5;
+    const dr = 1;
     switch (e.key) {
       case 'Delete':
       case 'Backspace':  return deleteLayer();
@@ -145,18 +130,17 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
     copy.scaleY(1);
     copy.width(canvasWidth);
     copy.height(canvasHeight);
-
     const a = document.createElement('a');
     if (e.altKey) { // save serialized?
       const json = {
-        bg: await serializeImage(background!),
+        bg: await dataURIFromImage(background!),
         layers: await Promise.all(assets
           .filter(x => x.imageRef.current)
           .sort((a, b) => a.imageRef.current!.zIndex() - b.imageRef.current!.zIndex())
           .map(async ({img, imageRef})=> {
             const image = imageRef.current!;
             return {
-              url: await serializeImage(img),
+              url: await dataURIFromImage(img),
               x: image.x(),
               y: image.y(),
               scale: image.scaleX(),
@@ -178,23 +162,25 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
   const moveForward = useCallback(() => {
     if (!selectedAsset) return;
     selectedAsset.imageRef.current!.moveUp();
-    setSelectedAsset({...selectedAsset}); // trigger
+    setSelectedAsset({...selectedAsset}); // force update
   }, [selectedAsset]);
 
   const moveBack = useCallback(() => {
-  if (!selectedAsset) return;
-    selectedAsset!.imageRef.current!.moveDown();
-    setSelectedAsset({...selectedAsset}); // trigger
+    if (!selectedAsset) return;
+    selectedAsset.imageRef.current!.moveDown();
+    setSelectedAsset({...selectedAsset}); // force update
   }, [selectedAsset]);
 
   const flipLayer = useCallback(() => {
-    const {img, imageRef} = selectedAsset!;
-    imageRef.current!.image(imageRef.current!.image() === img ? flipImage(img) : img);
+    if (!selectedAsset) return;
+    const {img, imageRef} = selectedAsset;
+    const image = imageRef.current!;
+    image.image(image.image() === img ? flipImage(img) : img);
   }, [selectedAsset]);
 
   useLayoutEffect(() => {
     if (trRef.current && selectedAsset && selectedAsset.imageRef.current) {
-      trRef.current.nodes([selectedAsset.imageRef.current]);
+      trRef.current.nodes([selectedAsset.imageRef.current]); // associate transformer with current selection
     }
   }, [trRef, selectedAsset]);
 
