@@ -16,17 +16,17 @@ const backgrounds = [
 ];
 
 const objects = [
-  { file: 'coffee.png', alt: 'GM Pink Background' },
-  { file: 'coffee_spill.png', alt: 'GM Purple Background' },
-  { file: 'cowla.png', alt: 'Moo Pink Background' },
-  { file: 'egg.png', alt: 'Moo Purple Background' },
-  { file: 'gacha.png', alt: 'Plain Light Pink Background' },
-  { file: 'gold_medal.png', alt: 'Plain Pink Background' },
-  { file: 'high_five.png', alt: 'Pink Spots Background' },
-  { file: 'portal.png', alt: 'Pink Spots Background' },
-  { file: 'randy.png', alt: 'Pink Spots Background' },
-  { file: 'table_cloth.png', alt: 'Pink Spots Background' },
-  { file: 'fence.png', alt: 'Pink Spots Background' },
+  { file: 'coffee.png', alt: 'Coffee' },
+  { file: 'coffee_spill.png', alt: 'Coffee Spill' },
+  { file: 'cowla.png', alt: 'Cowla' },
+  { file: 'egg.png', alt: 'Egg' },
+  { file: 'gacha.png', alt: 'Gachapon' },
+  { file: 'gold_medal.png', alt: 'Gold Moodel' },
+  { file: 'high_five.png', alt: 'Moos High Fiving' },
+  { file: 'portal.png', alt: 'Portal' },
+  { file: 'randy.png', alt: 'Randy' },
+  { file: 'table_cloth.png', alt: 'Pink Table Cloth' },
+  { file: 'fence.png', alt: 'White Fence with Grass' },
 ];
 
 type Props = {
