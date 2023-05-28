@@ -56,9 +56,6 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
       selectedIndex={selectedIndex}
       onChange={onClick}
     >
-      <h2 className="border-b border-purple-light pb-2 font-gmcafe text-2xl uppercase text-purple">
-        Graphics
-      </h2>
       <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex flex-col gap-3 p-1 pl-0 pr-0">
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
@@ -110,7 +107,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
                     src={`/banners/${file}`}
                     width={900}
                     height={300}
-                    objectFit="cover"
+                    objectFit="contain"
                     alt={alt}
                     unoptimized
                   />

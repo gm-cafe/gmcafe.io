@@ -83,15 +83,12 @@ const Assets = ({ addAsset }: Props) => {
       selectedIndex={selectedIndex}
       onChange={onClick}
     >
-      <h2 className="border-b border-purple-light pb-2 font-gmcafe text-2xl uppercase text-purple">
-        The Herd
-      </h2>
       <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex gap-4 p-1">
-          <div className="flex min-w-0 flex-grow gap-2 rounded border border-purple px-1.5 py-1 text-purple">
+          <div className="flex min-w-0 flex-grow gap-2 rounded bg-purple-light px-1.5 py-1 text-purple">
             <SearchIcon className="h-6 w-6 shrink-0" />
             <input
-              className="min-w-0 focus:outline-none"
+              className="min-w-0 bg-purple-light focus:outline-none"
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
