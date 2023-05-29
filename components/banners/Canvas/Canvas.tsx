@@ -21,9 +21,15 @@ import {
   randomId,
   dataURIFromBlob,
   dataURIFromImage,
-  assetFromJSON
+  assetFromJSON,
 } from '../../../lib/util/banners';
-import { CollectionIcon, SaveIcon, SwitchHorizontalIcon, DuplicateIcon, TrashIcon } from '@heroicons/react/solid';
+import {
+  CollectionIcon,
+  SaveIcon,
+  SwitchHorizontalIcon,
+  DuplicateIcon,
+  TrashIcon,
+} from '@heroicons/react/solid';
 
 export type Props = {
   canvasWidth: number;
@@ -42,7 +48,7 @@ const HEX_PURPLE = '#8946ab';
 const PASTE_OFFSET = 10;
 
 async function JSONFromAsset(asset: AssetType): Promise<any> {
-  const {img, imageRef} = asset;
+  const { img, imageRef } = asset;
   const image = imageRef.current!;
   return {
     url: await dataURIFromImage(img),
@@ -81,17 +87,14 @@ const Canvas = ({
     setScale(clientWidth / canvasWidth);
   }, [canvasRef, canvasWidth, canvasHeight]);
 
-  const unset = useCallback(
-    (e: globalThis.MouseEvent) => {
-      for (let node = e.target; node instanceof Node; node = node.parentNode) {
-        if (node instanceof HTMLElement && node.classList.contains('_retain')) {
-          return;
-        }
+  const unset = useCallback((e: globalThis.MouseEvent) => {
+    for (let node = e.target; node instanceof Node; node = node.parentNode) {
+      if (node instanceof HTMLElement && node.classList.contains('_retain')) {
+        return;
       }
-      setSelectedAsset();
-    },
-    []
-  );
+    }
+    setSelectedAsset();
+  }, []);
 
   const deleteLayer = useCallback(() => {
     if (!selectedAsset) return;
@@ -102,49 +105,61 @@ const Canvas = ({
     setSelectedAsset(assets.at(Math.min(i, assets.length - 1)));
   }, [selectedAsset, assets, setAssets, setSelectedAsset]);
 
-  const handleCut = useCallback(async (e: ClipboardEvent) => {
-    if (e.target instanceof HTMLInputElement) return;
-    if (!selectedAsset) return;
-    deleteLayer();
-    const json = await JSONFromAsset(selectedAsset);
-    json.id = selectedAsset.id;
-    navigator.clipboard.writeText(await dataURIFromBlob(new Blob([JSON.stringify(json)], { type: MIME_JSON })));
-  }, [selectedAsset, deleteLayer]);
+  const handleCut = useCallback(
+    async (e: ClipboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      if (!selectedAsset) return;
+      deleteLayer();
+      const json = await JSONFromAsset(selectedAsset);
+      json.id = selectedAsset.id;
+      navigator.clipboard.writeText(
+        await dataURIFromBlob(new Blob([JSON.stringify(json)], { type: MIME_JSON }))
+      );
+    },
+    [selectedAsset, deleteLayer]
+  );
 
-  const handleCopy = useCallback(async (e: ClipboardEvent) => {
-    if (e.target instanceof HTMLInputElement) return;
-    if (!selectedAsset) return;
-    const json = await JSONFromAsset(selectedAsset);
-    json.id = selectedAsset.id;
-    navigator.clipboard.writeText(await dataURIFromBlob(new Blob([JSON.stringify(json)], { type: MIME_JSON })));
-  }, [selectedAsset]);
+  const handleCopy = useCallback(
+    async (e: ClipboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      if (!selectedAsset) return;
+      const json = await JSONFromAsset(selectedAsset);
+      json.id = selectedAsset.id;
+      navigator.clipboard.writeText(
+        await dataURIFromBlob(new Blob([JSON.stringify(json)], { type: MIME_JSON }))
+      );
+    },
+    [selectedAsset]
+  );
 
-  const handlePaste = useCallback(async (e: ClipboardEvent) => {
-    if (e.target instanceof HTMLInputElement) return;
-    const dt = e.clipboardData;
-    if (!dt) return;
-    for (const item of dt.items) {
-      if (item.kind === 'file' && item.type.startsWith('image/')) {
-        return addAsset(await dataURIFromBlob(item.getAsFile() as Blob));
+  const handlePaste = useCallback(
+    async (e: ClipboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      const dt = e.clipboardData;
+      if (!dt) return;
+      for (const item of dt.items) {
+        if (item.kind === 'file' && item.type.startsWith('image/')) {
+          return addAsset(await dataURIFromBlob(item.getAsFile() as Blob));
+        }
       }
-    }
-    const data = dt.getData('text/plain');
-    try {
-      if (data.startsWith('data:')) {
-        const res = await fetch(data);
-        const json = await res.json();
-        const asset0 = assets.find(x => x.id === json.id);
-        if (asset0) json.url = asset0.img; // use same image
-        json.x = Math.round(canvasWidth / 2); // center it?
-        json.y = Math.round(canvasHeight / 2);
-        const asset = await assetFromJSON(json);
-        setAssets([...assets, asset]);
-      } else {
-        addAsset(new URL(data).toString());
-      }
-    } catch (ignored) {
-    }
-  }, [assets, setAssets, addAsset]);
+      const data = dt.getData('text/plain');
+      try {
+        if (data.startsWith('data:')) {
+          const res = await fetch(data);
+          const json = await res.json();
+          const asset0 = assets.find((x) => x.id === json.id);
+          if (asset0) json.url = asset0.img; // use same image
+          json.x = Math.round(canvasWidth / 2); // center it?
+          json.y = Math.round(canvasHeight / 2);
+          const asset = await assetFromJSON(json);
+          setAssets([...assets, asset]);
+        } else {
+          addAsset(new URL(data).toString());
+        }
+      } catch (ignored) {}
+    },
+    [assets, setAssets, addAsset]
+  );
 
   const flipLayer = useCallback(() => {
     if (!selectedAsset) return;
@@ -271,9 +286,9 @@ const Canvas = ({
   return (
     <>
       <div className="flex h-full flex-col justify-center gap-4" ref={canvasRef} tabIndex={0}>
-        <div className="flex gap-4 unset-current-asset">
+        <div className="unset-current-asset flex gap-4">
           <button
-            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
+            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={moveForward}
             disabled={
               !(
@@ -284,10 +299,10 @@ const Canvas = ({
             }
           >
             <CollectionIcon className="h-8 w-8" />
-            <span className="hidden md:block">Move forward</span>
+            <span className="hidden md:block lg:hidden xl:block">Forward</span>
           </button>
           <button
-            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
+            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={moveBack}
             disabled={
               !(
@@ -298,41 +313,48 @@ const Canvas = ({
             }
           >
             <CollectionIcon className="h-8 w-8 rotate-180" />
-            <span className="hidden md:block">Move back</span>
+            <span className="hidden md:block lg:hidden xl:block">Back</span>
           </button>
           <button
-            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
+            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={flipLayer}
             disabled={!selectedAsset}
           >
             <SwitchHorizontalIcon className="h-8 w-8" />
-            <span className="hidden md:block">Flip</span>
+            <span className="hidden md:block lg:hidden xl:block">Flip</span>
           </button>
           <button
-            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
+            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={cloneLayer}
             disabled={!selectedAsset}
           >
             <DuplicateIcon className="h-8 w-8" />
-            <span className="hidden md:block">Duplicate</span>
+            <span className="hidden md:block lg:hidden xl:block">Duplicate</span>
           </button>
           <button
-            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
+            className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={deleteLayer}
             disabled={!selectedAsset}
           >
             <TrashIcon className="h-8 w-8" />
-            <span className="hidden md:block">Delete</span>
+            <span className="hidden md:block lg:hidden xl:block">Delete</span>
           </button>
           <button
-            className="flex items-center gap-2 rounded-lg text-white bg-purple py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 md:pr-3 lg:hidden"
+            className="flex items-center gap-2 rounded-lg bg-purple py-1.5 pl-2 pr-2 font-gmcafe text-purple text-white transition-all hover:scale-110 md:pr-3 lg:pr-2 xl:hidden xl:pr-3"
             onClick={download}
           >
             <SaveIcon className="h-8 w-8" />
             <span className="hidden md:block">Save</span>
           </button>
         </div>
-        <Stage ref={stageRef} width={width} height={height} scaleX={scale} scaleY={scale} className='_retain'>
+        <Stage
+          ref={stageRef}
+          width={width}
+          height={height}
+          scaleX={scale}
+          scaleY={scale}
+          className="_retain"
+        >
           <Layer>
             <RKImage
               onPointerDown={() => setSelectedAsset()}
@@ -362,9 +384,9 @@ const Canvas = ({
             )}
           </Layer>
         </Stage>
-        <div className="hidden gap-4 lg:flex unset-current-asset">
+        <div className="unset-current-asset hidden gap-4 xl:flex">
           <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
+            className="flex items-center gap-2 rounded-lg bg-purple py-1.5 pl-2 pr-3 font-gmcafe text-white transition-all hover:scale-110"
             onClick={download}
           >
             <SaveIcon className="h-8 w-8" />

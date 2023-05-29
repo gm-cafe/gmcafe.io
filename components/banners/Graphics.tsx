@@ -112,7 +112,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
             </Tab>
           </Tab.List>
         </div>
-        <Tab.Panels className="flex flex-col overflow-y-auto">
+        <Tab.Panels className="flex flex-col overflow-y-auto overflow-x-hidden">
           <Tab.Panel className="grid grid-cols-1 gap-4">
             <div className="grid grid-cols-1 gap-2 md:gap-4">
               {backgrounds.map(({ file, alt }) => (
@@ -134,7 +134,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
             </div>
           </Tab.Panel>
           <Tab.Panel className="grid grid-cols-1 gap-4">
-            <div className="grid grid-cols-2 gap-2 overflow-y-auto md:gap-4">
+            <div className="grid grid-cols-2 gap-2 overflow-y-auto overflow-x-hidden md:gap-4">
               {objects.map(({ file, alt }) => (
                 <div
                   className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
