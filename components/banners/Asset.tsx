@@ -21,7 +21,7 @@ const Asset = ({ asset, select }: Props) => {
   return <RKImage 
     ref={asset.imageRef}
     image={undefined} // what the fuck is this
-    onClick={select}
+    onPointerDown={select}
     onDragStart={select} 
     draggable
   />
