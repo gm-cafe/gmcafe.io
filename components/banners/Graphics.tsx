@@ -64,7 +64,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
             <UploadIcon className="h-8 w-8" />
             Upload Image
           </button>
-          <Tab.List className="flex gap-2 font-gmcafe text-xl">
+          <Tab.List className="flex flex-col gap-2 font-gmcafe text-xl md:flex-row">
             <Tab>
               {({ selected }) => (
                 <div
