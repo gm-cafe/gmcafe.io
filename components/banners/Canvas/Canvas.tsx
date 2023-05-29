@@ -193,7 +193,7 @@ const Canvas = ({
       <div className="flex h-full flex-col justify-center gap-4" ref={canvasRef}>
         <div className="flex gap-4">
           <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
             onClick={moveForward}
             disabled={
               !(
@@ -207,7 +207,7 @@ const Canvas = ({
             <span className="hidden md:block">Move forward</span>
           </button>
           <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
             onClick={moveBack}
             disabled={
               !(
@@ -221,7 +221,7 @@ const Canvas = ({
             <span className="hidden md:block">Move back</span>
           </button>
           <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
             onClick={flipLayer}
             disabled={!selectedAsset}
           >
@@ -229,7 +229,7 @@ const Canvas = ({
             <span className="hidden md:block">Flip</span>
           </button>
           <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3"
             onClick={deleteLayer}
             disabled={!selectedAsset}
           >
@@ -237,11 +237,11 @@ const Canvas = ({
             <span className="hidden md:block">Delete</span>
           </button>
           <button
-            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 lg:hidden"
+            className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 md:pr-3 lg:hidden"
             onClick={download}
           >
             <SaveIcon className="h-8 w-8" />
-            <span className="hidden md:block"> Save Banner</span>
+            <span className="hidden md:block">Save Banner</span>
           </button>
         </div>
         <Stage ref={stageRef} width={width} height={height} scaleX={scale} scaleY={scale}>

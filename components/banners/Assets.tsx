@@ -79,13 +79,13 @@ const Assets = ({ addAsset }: Props) => {
   return (
     <Tab.Group
       as="div"
-      className="flex h-full flex-col gap-4 rounded-xl bg-white p-4"
+      className="flex h-full flex-col gap-4 rounded-xl bg-white p-2 md:p-4"
       selectedIndex={selectedIndex}
       onChange={onClick}
     >
       <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex-col gap-3 p-1 pl-0 pr-0">
-        <div className="flex min-w-0 flex-grow gap-2 rounded-lg bg-purple-light px-1.5 py-2 mb-3 text-purple">
+          <div className="mb-3 flex min-w-0 flex-grow gap-2 rounded-lg bg-purple-light px-1.5 py-2 text-purple">
             <SearchIcon className="h-6 w-6 shrink-0" />
             <input
               className="min-w-0 bg-purple-light focus:outline-none"

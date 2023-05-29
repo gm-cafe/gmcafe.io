@@ -51,7 +51,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
   return (
     <Tab.Group
       as="div"
-      className="flex h-full flex-col gap-4 rounded-xl bg-white p-4"
+      className="flex h-full flex-col gap-4 rounded-xl bg-white p-2 md:p-4"
       selectedIndex={selectedIndex}
       onChange={onClick}
     >
@@ -64,7 +64,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
             <UploadIcon className="h-8 w-8" />
             Upload Image
           </button>
-          <Tab.List className="flex flex-col gap-2 font-gmcafe text-xl md:flex-row">
+          <Tab.List className="flex flex-col gap-2 font-gmcafe text-xl md:flex-row lg:flex-col xl:flex-row">
             <Tab>
               {({ selected }) => (
                 <div
