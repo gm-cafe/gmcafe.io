@@ -116,11 +116,11 @@ const Canvas = ({
     setHydrated(true);
     resize();
     window.addEventListener('resize', resize);
-    window.addEventListener('click', unset);
+    window.addEventListener('pointerdown', unset);
     window.addEventListener('keydown', keydown);
     return () => {
       window.removeEventListener('resize', resize);
-      window.removeEventListener('click', unset);
+      window.removeEventListener('pointerdown', unset);
       window.removeEventListener('keydown', keydown);
     };
   }, [resize, unset, keydown]);
@@ -247,7 +247,7 @@ const Canvas = ({
         <Stage ref={stageRef} width={width} height={height} scaleX={scale} scaleY={scale}>
           <Layer>
             <RKImage
-              onMouseDown={() => setSelectedAsset()}
+              onPointerDown={() => setSelectedAsset()}
               width={canvasWidth}
               height={canvasHeight}
               image={background}
