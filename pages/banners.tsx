@@ -100,34 +100,8 @@ const Banners = () => {
 
   return (
     <div className="flex h-screen flex-col items-center gap-2 bg-pink-background px-12 pb-12 pt-40">
-      {/* <div className="mx-auto hidden min-h-0 w-full flex-grow grid-cols-8 flex-col items-center justify-center gap-x-4 lg:grid">
-        <div className="col-span-2 h-full min-h-0">
-          <Assets addAsset={addAsset} />
-        </div>
-        <div className="col-span-4 flex h-full flex-col">
-          <Canvas
-            changeBackground={changeBackground}
-            background={background}
-            setAssets={setAssets}
-            assets={assets}
-            addAsset={addAsset}
-            setSelectedAsset={setSelectedAsset}
-            selectedAsset={selectedAsset}
-            canvasWidth={canvasWidth}
-            canvasHeight={canvasHeight}
-          />
-        </div>
-        <div className="col-span-2 h-full min-h-0">
-          <Graphics
-            addAsset={addAsset}
-            changeBackground={changeBackground}
-            uploadImage={uploadImage}
-          />
-        </div>
-      </div> */}
-
       <div className="flex h-full w-full flex-wrap items-center justify-center lg:mx-auto lg:grid lg:min-h-0 lg:flex-grow lg:grid-cols-8 lg:flex-col lg:gap-x-4">
-        <div className="order-2 h-3/5 min-h-0 w-3/6 min-w-0 pr-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
+        <div className="order-2 h-3/4 min-h-0 w-3/6 min-w-0 pr-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
           <Assets addAsset={addAsset} />
         </div>
         <div className="order-1 h-auto min-h-0 w-full pb-4 min-w-0 lg:order-none lg:col-span-4 lg:h-full lg:w-auto lg:flex-col lg:p-0">
@@ -143,7 +117,7 @@ const Banners = () => {
             canvasHeight={canvasHeight}
           />
         </div>
-        <div className="order-3 h-3/5 min-h-0 w-3/6 min-w-0 pl-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
+        <div className="order-3 h-3/4 min-h-0 w-3/6 min-w-0 pl-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
           <Graphics
             addAsset={addAsset}
             changeBackground={changeBackground}
@@ -154,40 +128,6 @@ const Banners = () => {
       <div className="hidden w-full justify-end lg:flex">
         <p className="font-gmcafe text-purple">Inspired by our amoozing herd member, Tchoupi.</p>
       </div>
-
-      {/* <div className="flex h-full w-full flex-col items-center gap-4 lg:hidden">
-        <div className="mb-12 mt-12 flex w-full flex-col">
-          <Canvas
-            changeBackground={changeBackground}
-            background={background}
-            setAssets={setAssets}
-            assets={assets}
-            addAsset={addAsset}
-            setSelectedAsset={setSelectedAsset}
-            selectedAsset={selectedAsset}
-            canvasWidth={canvasWidth}
-            canvasHeight={canvasHeight}
-          />
-        </div>
-        <div className="flex w-full flex-1 gap-4 overflow-y-auto">
-          <div className="h-full min-w-0 flex-1">
-            <Assets addAsset={addAsset} />
-          </div>
-          <div className="h-full min-w-0 flex-1">
-            <Graphics
-              addAsset={addAsset}
-              changeBackground={changeBackground}
-              uploadImage={uploadImage}
-            />
-          </div>
-        </div>
-      </div> */}
-      {/* <h1 className="text-center font-gmcafe text-4xl text-purple">
-          For the most succulent viewing pleasures, please open this page on desktop.
-        </h1>
-        <div className="w-40">
-          <NextImage src={mooWalk} layout="responsive" alt="Moo Walk" />
-        </div> */}
     </div>
   );
 };

@@ -85,6 +85,13 @@ const Assets = ({ addAsset }: Props) => {
     >
       <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex-col gap-3 p-1 pl-0 pr-0">
+        <div className="flex min-w-0 flex-grow gap-2 rounded-lg bg-purple-light px-1.5 py-2 mb-3 text-purple">
+            <SearchIcon className="h-6 w-6 shrink-0" />
+            <input
+              className="min-w-0 bg-purple-light focus:outline-none"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
@@ -113,19 +120,12 @@ const Assets = ({ addAsset }: Props) => {
               )}
             </Tab>
           </Tab.List>
-          <div className="flex min-w-0 flex-grow gap-2 rounded-lg bg-purple-light px-1.5 py-2 mt-3 text-purple">
-            <SearchIcon className="h-6 w-6 shrink-0" />
-            <input
-              className="min-w-0 bg-purple-light focus:outline-none"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
         </div>
         <Tab.Panels className="flex flex-col overflow-y-scroll">
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(moos).map(({ url }) => (
               <div
-                className="flex cursor-pointer rounded-xl border-4 border-transparent transition-colors hover:border-purple"
+                className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
                 key={url}
                 onClick={() => addAsset(url)}
               >
@@ -144,7 +144,7 @@ const Assets = ({ addAsset }: Props) => {
           <Tab.Panel className="grid grid-cols-2 gap-4">
             {filter(keeks).map(({ url }) => (
               <div
-                className="flex cursor-pointer rounded-xl border-4 border-transparent transition-colors hover:border-purple"
+                className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
                 key={url}
                 onClick={() => addAsset(url)}
               >

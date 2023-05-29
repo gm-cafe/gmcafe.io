@@ -12,8 +12,6 @@ const backgrounds = [
   { file: 'plain_light_pink.png', alt: 'Plain Light Pink Background' },
   { file: 'plain_pink.png', alt: 'Plain Pink Background' },
   { file: 'spots_pink.png', alt: 'Pink Spots Background' },
-  { file: 'galaxy.png', alt: 'Galaxy Background' },
-  { file: 'mootoro.png', alt: 'Mootoro Background' },
 ];
 
 const objects = [
@@ -59,6 +57,13 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
     >
       <div className="flex min-h-0 flex-col">
         <div className="mb-2 flex flex-col gap-3 p-1 pl-0 pr-0">
+          <button
+            className="flex items-center gap-2 rounded-lg bg-purple-light py-1 pl-2 pr-3 font-gmcafe text-purple transition-all hover:bg-pink-light"
+            onClick={uploadImage}
+          >
+            <UploadIcon className="h-8 w-8" />
+            Upload Image
+          </button>
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
@@ -87,13 +92,6 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
               )}
             </Tab>
           </Tab.List>
-          <button
-            className="flex items-center gap-2 rounded-lg bg-purple-light py-1 pl-2 pr-3 font-gmcafe text-purple transition-all hover:bg-pink-light"
-            onClick={uploadImage}
-          >
-            <UploadIcon className="h-8 w-8" />
-            Upload {selectedIndex === 0 ? 'Background' : 'Object'}
-          </button>
         </div>
         <Tab.Panels className="flex flex-col overflow-y-auto">
           <Tab.Panel className="grid grid-cols-1 gap-4">
