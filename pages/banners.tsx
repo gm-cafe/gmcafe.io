@@ -99,7 +99,7 @@ const Banners = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center gap-2 bg-pink-background px-4 pt-36 md:px-12 md:pb-6 md:pt-40 lg:pb-12">
+    <div className="flex h-screen flex-col items-center gap-2 bg-pink-background px-4 pt-32 md:px-12 md:pb-6 md:pt-40 lg:pb-12">
       <div className="flex h-full w-full flex-wrap items-center justify-center lg:mx-auto lg:grid lg:min-h-0 lg:flex-grow lg:grid-cols-8 lg:flex-col lg:gap-x-4">
         <div className="order-2 h-2/3 min-h-0 w-3/6 min-w-0 pb-4 pr-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
           <Assets addAsset={addAsset} />
