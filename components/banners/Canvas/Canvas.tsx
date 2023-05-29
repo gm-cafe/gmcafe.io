@@ -148,9 +148,8 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
 
   return (
     <>
-      <div className="flex h-full flex-col gap-4" ref={canvasRef}>
-        <div className="unset-current-asset relative flex-grow">
-          <div className="absolute bottom-0 mt-auto flex gap-4">
+      <div className="flex h-full flex-col gap-4 justify-center" ref={canvasRef}>
+          <div className="flex gap-4">
             <button
               className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50"
               onClick={moveForward}
@@ -184,7 +183,6 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
               Delete
             </button>
           </div>
-        </div>
         <Stage ref={stageRef} width={width} height={height} scaleX={scale} scaleY={scale}>
           <Layer>
             <RKImage
@@ -214,8 +212,7 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
             />}
           </Layer>
         </Stage>
-        <div className="unset-current-asset flex-grow">
-          <div className="absolute mt-auto flex gap-4">
+          <div className="flex gap-4">
             <button
               className="flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-3 font-gmcafe text-purple transition-all hover:scale-110"
               onClick={download}
@@ -224,7 +221,6 @@ const Canvas = ({ changeBackground, background, setAssets, assets, setSelectedAs
               Save Banner
             </button>
           </div>
-        </div>
       </div>
     </>
   );

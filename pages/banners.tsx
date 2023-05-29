@@ -130,7 +130,7 @@ const Banners = () => {
         <div className="order-2 h-3/5 min-h-0 w-3/6 min-w-0 pr-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
           <Assets addAsset={addAsset} />
         </div>
-        <div className="order-1 h-2/5 min-h-0 w-full min-w-0 lg:order-none lg:col-span-4 lg:h-full lg:w-auto lg:flex-col lg:p-0">
+        <div className="order-1 h-auto min-h-0 w-full pb-4 min-w-0 lg:order-none lg:col-span-4 lg:h-full lg:w-auto lg:flex-col lg:p-0">
           <Canvas
             changeBackground={changeBackground}
             background={background}

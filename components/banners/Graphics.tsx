@@ -13,6 +13,7 @@ const backgrounds = [
   { file: 'plain_pink.png', alt: 'Plain Pink Background' },
   { file: 'spots_pink.png', alt: 'Pink Spots Background' },
   { file: 'galaxy.png', alt: 'Galaxy Background' },
+  { file: 'mootoro.png', alt: 'Mootoro Background' },
 ];
 
 const objects = [
