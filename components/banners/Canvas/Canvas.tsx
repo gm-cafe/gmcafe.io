@@ -379,7 +379,7 @@ const Canvas = ({
                 flipEnabled={false}
                 anchorCornerRadius={9999}
                 rotationSnaps={[0, 90, 180, 270]}
-                rotateAnchorOffset={25}
+                rotateAnchorOffset={15}
               />
             )}
           </Layer>
@@ -390,7 +390,7 @@ const Canvas = ({
             onClick={download}
           >
             <SaveIcon className="h-8 w-8" />
-            Save Banner
+            Save Your Masterpiece
           </button>
         </div>
       </div>
