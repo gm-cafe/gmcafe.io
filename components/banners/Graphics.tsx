@@ -56,7 +56,7 @@ const Graphics = ({ addAsset, changeBackground, uploadImage }: Props) => {
       onChange={onClick}
     >
       <div className="flex min-h-0 flex-col">
-        <div className="mb-2 flex flex-col gap-3 p-1 pl-0 pr-0">
+        <div className="mb-2 flex flex-col gap-3">
           <button
             className="flex items-center gap-2 rounded-lg bg-purple-light py-1 pl-2 pr-3 font-gmcafe text-purple transition-all hover:bg-pink-light"
             onClick={uploadImage}
