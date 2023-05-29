@@ -122,7 +122,7 @@ const Assets = ({ addAsset }: Props) => {
           </Tab.List>
         </div>
         <Tab.Panels className="flex flex-col overflow-y-scroll">
-          <Tab.Panel className="grid grid-cols-2 gap-4">
+          <Tab.Panel className="grid grid-cols-2 gap-2 md:gap-4">
             {filter(moos).map(({ url }) => (
               <div
                 className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
@@ -141,7 +141,7 @@ const Assets = ({ addAsset }: Props) => {
             ))}
             <div ref={ref} />
           </Tab.Panel>
-          <Tab.Panel className="grid grid-cols-2 gap-4">
+          <Tab.Panel className="grid grid-cols-2 gap-2 md:gap-4">
             {filter(keeks).map(({ url }) => (
               <div
                 className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
