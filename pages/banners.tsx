@@ -94,7 +94,18 @@ const Banners = () => {
         </div>
       </div>
       <div className="hidden w-full justify-end lg:flex">
-        <p className="font-gmcafe text-purple">Inspired by our amoozing herd member, Tchoupi.</p>
+        <p className="font-gmcafe text-purple">
+          Inspired by our amoozing herd member,{' '}
+          <a
+            className="underline underline-offset-4"
+            href="https://twitter.com/ToudeMoune"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Tchoupi
+          </a>
+          .
+        </p>
       </div>
     </div>
   );
