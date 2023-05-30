@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Image as RKImage } from 'react-konva';
-import { Asset as AssetType} from '../../lib/util/banners';
+import { Asset as AssetType } from '../../lib/util/banners';
 
 type Props = {
   asset: AssetType;
@@ -8,23 +8,27 @@ type Props = {
 };
 
 const Asset = ({ asset, select }: Props) => {
-  const {init, imageRef } = asset;
-  if (init) {
-    asset.init = undefined;
-    useEffect(() => {
+  const { init, imageRef } = asset;
+
+  useEffect(() => {
+    if (init) {
+      asset.init = undefined;
       const image = imageRef.current;
       if (!image) return;
       init(image);
       select();
-    }, [imageRef]);
-  }
-  return <RKImage 
-    ref={asset.imageRef}
-    image={undefined} // what the fuck is this
-    onPointerDown={select}
-    onDragStart={select} 
-    draggable
-  />
+    }
+  }, [imageRef, asset, init, select]);
+
+  return (
+    <RKImage
+      ref={asset.imageRef}
+      image={undefined} // what the fuck is this
+      onPointerDown={select}
+      onDragStart={select}
+      draggable
+    />
+  );
 };
 
 export default Asset;

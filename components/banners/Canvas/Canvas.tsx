@@ -17,7 +17,6 @@ import {
   Asset as AssetType,
   flipImage,
   isTopNode,
-  loadImage,
   randomId,
   dataURIFromBlob,
   dataURIFromImage,
@@ -34,13 +33,12 @@ import {
 export type Props = {
   canvasWidth: number;
   canvasHeight: number;
-  changeBackground(url: string): void;
   background?: HTMLImageElement;
-  setSelectedAsset(asset?: AssetType): void;
+  setSelectedAsset(_asset?: AssetType): void;
   selectedAsset?: AssetType;
   setAssets: Dispatch<SetStateAction<AssetType[]>>;
   assets: AssetType[];
-  addAsset(url: string): void;
+  addAsset(_url: string): void;
 };
 
 const MIME_JSON = 'application/json';
@@ -61,7 +59,6 @@ async function JSONFromAsset(asset: AssetType): Promise<any> {
 }
 
 const Canvas = ({
-  changeBackground,
   background,
   setAssets,
   assets,
@@ -80,6 +77,12 @@ const Canvas = ({
   const canvasRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<KonvaStageType>(null);
 
+  useLayoutEffect(() => {
+    if (trRef.current && selectedAsset && selectedAsset.imageRef.current) {
+      trRef.current.nodes([selectedAsset.imageRef.current]); // associate transformer with current selection
+    }
+  }, [trRef, selectedAsset]);
+
   const resize = useCallback(() => {
     const { clientWidth } = canvasRef.current!;
     setWidth(clientWidth);
@@ -87,14 +90,17 @@ const Canvas = ({
     setScale(clientWidth / canvasWidth);
   }, [canvasRef, canvasWidth, canvasHeight]);
 
-  const unset = useCallback((e: globalThis.MouseEvent) => {
-    for (let node = e.target; node instanceof Node; node = node.parentNode) {
-      if (node instanceof HTMLElement && node.classList.contains('_retain')) {
-        return;
+  const unset = useCallback(
+    (e: globalThis.MouseEvent) => {
+      for (let node = e.target; node instanceof Node; node = node.parentNode) {
+        if (node instanceof HTMLElement && node.classList.contains('_retain')) {
+          return;
+        }
       }
-    }
-    setSelectedAsset();
-  }, []);
+      setSelectedAsset();
+    },
+    [setSelectedAsset]
+  );
 
   const deleteLayer = useCallback(() => {
     if (!selectedAsset) return;
@@ -158,7 +164,7 @@ const Canvas = ({
         }
       } catch (ignored) {}
     },
-    [assets, setAssets, addAsset]
+    [assets, setAssets, addAsset, canvasWidth, canvasHeight]
   );
 
   const flipLayer = useCallback(() => {
@@ -167,6 +173,23 @@ const Canvas = ({
     const image = imageRef.current!;
     image.image(image.image() === img ? flipImage(img) : img);
   }, [selectedAsset]);
+
+  const cloneLayer = useCallback(() => {
+    if (!selectedAsset) return;
+    const { img, imageRef } = selectedAsset;
+    const image0 = imageRef.current!;
+    const asset: AssetType = {
+      id: randomId(),
+      img,
+      init(image) {
+        image.setAttrs(image0.getAttrs());
+        image.x(image0.x() + PASTE_OFFSET);
+        image.y(image0.y() + PASTE_OFFSET);
+      },
+      imageRef: createRef(),
+    };
+    setAssets([...assets, asset]);
+  }, [selectedAsset, assets, setAssets]);
 
   const keydown = useCallback(
     (e: KeyboardEvent) => {
@@ -197,7 +220,7 @@ const Canvas = ({
           return cloneLayer();
       }
     },
-    [selectedAsset, deleteLayer, flipLayer]
+    [selectedAsset, deleteLayer, flipLayer, cloneLayer]
   );
 
   useEffect(() => {
@@ -218,7 +241,7 @@ const Canvas = ({
     };
   }, [handleCut, handleCopy, handlePaste, resize, unset, keydown]);
 
-  useLayoutEffect(resize, [hydrated]);
+  useLayoutEffect(resize, [hydrated, resize]);
 
   const download = async (e: MouseEvent) => {
     const copy = stageRef.current!.clone();
@@ -252,36 +275,13 @@ const Canvas = ({
     if (!selectedAsset) return;
     selectedAsset.imageRef.current!.moveUp();
     setSelectedAsset({ ...selectedAsset }); // force update
-  }, [selectedAsset]);
+  }, [selectedAsset, setSelectedAsset]);
 
   const moveBack = useCallback(() => {
     if (!selectedAsset) return;
     selectedAsset.imageRef.current!.moveDown();
     setSelectedAsset({ ...selectedAsset }); // force update
-  }, [selectedAsset]);
-
-  const cloneLayer = useCallback(() => {
-    if (!selectedAsset) return;
-    const { img, imageRef } = selectedAsset;
-    const image0 = imageRef.current!;
-    const asset: AssetType = {
-      id: randomId(),
-      img,
-      init(image) {
-        image.setAttrs(image0.getAttrs());
-        image.x(image0.x() + PASTE_OFFSET);
-        image.y(image0.y() + PASTE_OFFSET);
-      },
-      imageRef: createRef(),
-    };
-    setAssets([...assets, asset]);
-  }, [selectedAsset]);
-
-  useLayoutEffect(() => {
-    if (trRef.current && selectedAsset && selectedAsset.imageRef.current) {
-      trRef.current.nodes([selectedAsset.imageRef.current]); // associate transformer with current selection
-    }
-  }, [trRef, selectedAsset]);
+  }, [selectedAsset, setSelectedAsset]);
 
   return (
     <>
@@ -363,7 +363,7 @@ const Canvas = ({
               image={background}
             />
             <Group>
-              {assets.map((asset, i) => (
+              {assets.map((asset) => (
                 <Asset key={asset.id} asset={asset} select={() => setSelectedAsset(asset)} />
               ))}
             </Group>

@@ -1,20 +1,9 @@
-import { createRef, useEffect, useState } from 'react';
+import { createRef, useCallback, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import NextImage from 'next/image';
 import Graphics from '../components/banners/Graphics';
 import Canvas from '../components/banners/Canvas';
 import Assets from '../components/banners/Assets';
-import {
-  Asset,
-  flipImage,
-  isTopNode,
-  loadImage,
-  randomId,
-  dataURIFromBlob,
-  dataURIFromImage,
-  assetFromJSON
-} from '../lib/util/banners';
-import mooWalk from '../public/moo_walk.gif';
+import { Asset, loadImage, randomId, dataURIFromBlob, assetFromJSON } from '../lib/util/banners';
 
 const MIME_JSON = 'application/json';
 
@@ -22,24 +11,27 @@ const Banners = () => {
   const [background, setBackground] = useState<HTMLImageElement>();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [selectedAsset, setSelectedAsset] = useState<Asset | undefined>();
-  const [canvasWidth, setCanvasWidth] = useState(1500);
+  const [canvasWidth] = useState(1500);
   const [canvasHeight, setCanvasHeight] = useState(500);
+
+  const changeBackground = useCallback(
+    (url: string) => {
+      loadImage(url).then((img) => {
+        setCanvasHeight(Math.round((canvasWidth * img.height) / img.width));
+        setBackground(img);
+      });
+    },
+    [canvasWidth]
+  );
 
   useEffect(() => {
     changeBackground('/banners/gm_purple.png');
-  }, []);
-
-  const changeBackground = (url: string) => {
-    loadImage(url).then((img) => {
-      setCanvasHeight(Math.round((canvasWidth * img.height) / img.width));
-      setBackground(img);
-    });
-  };
+  }, [changeBackground]);
 
   const addAsset = (url: string) => {
     loadImage(url).then((img) => {
       let { width, height } = img;
-      let scale = Math.min(0.4 * canvasWidth / width, 0.8 * canvasHeight / height);
+      let scale = Math.min((0.4 * canvasWidth) / width, (0.8 * canvasHeight) / height);
       let asset: Asset = {
         id: randomId(),
         img,
@@ -67,7 +59,7 @@ const Banners = () => {
       if (blob.type === MIME_JSON) {
         const { bg, layers } = JSON.parse(await blob.text());
         changeBackground(bg);
-        setAssets((await Promise.all(layers.map(assetFromJSON))));
+        setAssets(await Promise.all(layers.map(assetFromJSON)));
       } else {
         addAsset(await dataURIFromBlob(blob));
       }
@@ -83,7 +75,6 @@ const Banners = () => {
         </div>
         <div className="order-1 h-auto min-h-0 w-full min-w-0 pb-4 pt-2 lg:order-none lg:col-span-4 lg:h-full lg:w-auto lg:flex-col lg:p-0">
           <Canvas
-            changeBackground={changeBackground}
             background={background}
             setAssets={setAssets}
             assets={assets}
@@ -95,7 +86,7 @@ const Banners = () => {
           />
         </div>
         <div className="_retain order-3 h-2/3 min-h-0 w-3/6 min-w-0 pb-4 pl-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
-          <Graphics 
+          <Graphics
             addAsset={addAsset}
             changeBackground={changeBackground}
             uploadImage={uploadImage}
