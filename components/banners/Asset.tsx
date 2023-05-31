@@ -16,6 +16,8 @@ const Asset = ({ asset, select }: Props) => {
       const image = imageRef.current;
       if (!image) return;
       init(image);
+      image.cache();
+      image.drawHitFromCache();
       select();
     }
   }, [imageRef, asset, init, select]);
