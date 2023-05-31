@@ -38,6 +38,19 @@ export async function assetFromJSON(layer: any): Promise<Asset> {
   return asset;
 }
 
+export async function JSONFromAsset(asset: Asset): Promise<any> {
+  const { img, imageRef } = asset;
+  const image = imageRef.current!;
+  return {
+    url: await dataURIFromImage(img),
+    x: image.x(),
+    y: image.y(),
+    scale: image.scaleX(),
+    rot: image.rotation(),
+    flip: image.image() !== img,
+  };
+}
+
 export function flipImage(img: HTMLImageElement): HTMLCanvasElement {
   const { width, height } = img;
   const canvas = document.createElement('canvas');

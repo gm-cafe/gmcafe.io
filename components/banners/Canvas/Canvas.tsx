@@ -21,6 +21,7 @@ import {
   dataURIFromBlob,
   dataURIFromImage,
   assetFromJSON,
+  JSONFromAsset,
 } from '../../../lib/util/banners';
 import {
   CollectionIcon,
@@ -44,19 +45,6 @@ export type Props = {
 const MIME_JSON = 'application/json';
 const HEX_PURPLE = '#8946ab';
 const PASTE_OFFSET = 10;
-
-async function JSONFromAsset(asset: AssetType): Promise<any> {
-  const { img, imageRef } = asset;
-  const image = imageRef.current!;
-  return {
-    url: await dataURIFromImage(img),
-    x: image.x(),
-    y: image.y(),
-    scale: image.scaleX(),
-    rot: image.rotation(),
-    flip: image.image() !== img,
-  };
-}
 
 const Canvas = ({
   background,
