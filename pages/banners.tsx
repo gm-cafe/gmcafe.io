@@ -73,7 +73,7 @@ const Banners = () => {
         <div className="_retain order-2 h-2/3 min-h-0 w-3/6 min-w-0 pb-4 pr-2 lg:order-none lg:col-span-2 lg:h-full lg:w-auto lg:p-0">
           <Assets addAsset={addAsset} />
         </div>
-        <div className="order-1 h-auto min-h-0 w-full min-w-0 pb-4 pt-2 lg:order-none lg:col-span-4 lg:h-full lg:w-auto lg:flex-col lg:p-0">
+        <div className="order-1 h-auto min-h-0 w-full min-w-0 pb-4 pt-2 focus-visible:outline-none lg:order-none lg:col-span-4 lg:h-full lg:w-auto lg:flex-col lg:p-0">
           <Canvas
             background={background}
             setAssets={setAssets}

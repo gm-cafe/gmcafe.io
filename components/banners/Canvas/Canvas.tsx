@@ -193,20 +193,24 @@ const Canvas = ({
         case 'Backspace':
           return deleteLayer();
         case 'ArrowLeft':
+        case 'a':
           return image.x(image.x() - dp);
         case 'ArrowRight':
+        case 'd':
           return image.x(image.x() + dp);
         case 'ArrowUp':
+        case 'w':
           return image.y(image.y() - dp);
         case 'ArrowDown':
+        case 's':
           return image.y(image.y() + dp);
-        case 'a':
+        case 'q':
           return image.rotation(image.rotation() - dr);
-        case 'z':
+        case 'e':
           return image.rotation(image.rotation() + dr);
         case 'f':
           return flipLayer();
-        case 'd':
+        case 'r':
           return cloneLayer();
       }
     },
@@ -275,7 +279,11 @@ const Canvas = ({
 
   return (
     <>
-      <div className="flex h-full flex-col justify-center gap-4" ref={canvasRef} tabIndex={0}>
+      <div
+        className="flex h-full flex-col justify-center gap-4 focus-visible:outline-none"
+        ref={canvasRef}
+        tabIndex={0}
+      >
         <div className="unset-current-asset flex gap-4">
           <button
             className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
