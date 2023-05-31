@@ -172,6 +172,8 @@ const Canvas = ({
     const { img, imageRef } = selectedAsset;
     const image = imageRef.current!;
     image.image(image.image() === img ? flipImage(img) : img);
+    image.cache();
+    image.drawHitFromCache();
   }, [selectedAsset]);
 
   const cloneLayer = useCallback(() => {
