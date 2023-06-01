@@ -282,7 +282,6 @@ const Canvas = ({
       <div
         className="flex h-full flex-col justify-center gap-4 focus-visible:outline-none"
         ref={canvasRef}
-        tabIndex={0}
       >
         <div className="unset-current-asset flex gap-4">
           <button
