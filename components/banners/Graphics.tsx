@@ -61,6 +61,8 @@ const objects = [
   { file: 'mug_plant.png', alt: 'Mug Plant' },
   { file: 'camera.png', alt: 'Camera' },
   { file: 'game_moo.png', alt: 'Handheld Game Console' },
+  { file: 'fireball.png', alt: 'Fireball' },
+  { file: 'flames.png', alt: 'Flames' },
   { file: 'table_cloth.png', alt: 'Pink Table Cloth' },
   { file: 'fence.png', alt: 'White Fence with Grass' },
   { file: 'portal.png', alt: 'Portal' },

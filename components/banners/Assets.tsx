@@ -19,7 +19,7 @@ const moos = Array.from({ length: 333 }, (_, i) => ({
 
 const keeks = Array.from({ length: 3333 }, (_, i) => ({
   id: i + 1,
-  url: `https://gmcafe.s3.us-east-2.amazonaws.com/keek/transparent/${i + 1}.png`,
+  url: `https://gmcafe.s3.us-east-2.amazonaws.com/keek/edgeless/${i + 1}.png`,
 }));
 
 const PAGE = 30;
