@@ -12,6 +12,7 @@ import {
 import { Layer, Group, Image as RKImage, Stage, Transformer as RKTransformer } from 'react-konva';
 import type { Transformer as KonvaTransformerType } from 'konva/lib/shapes/Transformer';
 import type { Stage as KonvaStageType } from 'konva/lib/Stage';
+import { Image as KonvaImageType } from "konva/lib/shapes/Image";
 import Asset from '../Asset';
 import {
   Asset as AssetType,
@@ -22,6 +23,8 @@ import {
   dataURIFromImage,
   assetFromJSON,
   JSONFromAsset,
+  forEachNode,
+  downscaleImage
 } from '../../../lib/util/banners';
 import {
   CollectionIcon,
@@ -62,14 +65,16 @@ const Canvas = ({
   const [scale, setScale] = useState(1);
 
   const trRef = useRef<KonvaTransformerType>(null);
+  const opacityRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<KonvaStageType>(null);
 
   useLayoutEffect(() => {
-    if (trRef.current && selectedAsset && selectedAsset.imageRef.current) {
+    if (trRef.current && opacityRef.current && selectedAsset && selectedAsset.imageRef.current) {
       trRef.current.nodes([selectedAsset.imageRef.current]); // associate transformer with current selection
+      opacityRef.current.value = selectedAsset.imageRef.current.opacity() * 100;
     }
-  }, [trRef, selectedAsset]);
+  }, [trRef, opacityRef, selectedAsset]);
 
   const resize = useCallback(() => {
     const { clientWidth } = canvasRef.current!;
@@ -164,6 +169,10 @@ const Canvas = ({
     image.drawHitFromCache();
   }, [selectedAsset]);
 
+  const changeOpacity = useCallback(() => {
+    selectedAsset!.imageRef.current!.opacity(0.01 * parseFloat(opacityRef.current!.value));
+  }, [selectedAsset, opacityRef]);
+
   const cloneLayer = useCallback(() => {
     if (!selectedAsset) return;
     const { img, imageRef } = selectedAsset;
@@ -238,11 +247,6 @@ const Canvas = ({
   useLayoutEffect(resize, [hydrated, resize]);
 
   const download = async (e: MouseEvent) => {
-    const copy = stageRef.current!.clone();
-    copy.scaleX(1);
-    copy.scaleY(1);
-    copy.width(canvasWidth);
-    copy.height(canvasHeight);
     const a = document.createElement('a');
     if (e.altKey) {
       // save serialized?
@@ -259,7 +263,31 @@ const Canvas = ({
       a.download = 'banner.json';
       a.href = await dataURIFromBlob(blob);
     } else {
-      a.download = 'banner.png';
+      const copy = stageRef.current!.clone();
+      copy.scaleX(1);
+      copy.scaleY(1);
+      copy.width(canvasWidth);
+      copy.height(canvasHeight);
+      const minScale = 0.5;
+      for (let node of forEachNode(copy)) {
+        if (node instanceof KonvaImageType) {
+          const s = node.scaleX();
+          if (s > minScale) continue;
+          const imageLike = node.image();
+          const {width, height} = imageLike;
+          const w = Math.round(width*s/minScale);
+          const h = Math.round(height*s/minScale);
+          node.x(node.x() - node.offsetX()*s);
+          node.y(node.y() - node.offsetY()*s);
+          node.offsetX(0);
+          node.offsetY(0);
+          node.scaleX(minScale);
+          node.scaleY(minScale);
+          node.image(downscaleImage(imageLike, w, h));
+        }
+      }
+      a.target = '_blank'; 
+      //a.download = 'banner.png';
       a.href = copy.toDataURL();
     }
     a.click();
@@ -284,7 +312,7 @@ const Canvas = ({
         ref={canvasRef}
         tabIndex={0}
       >
-        <div className="unset-current-asset flex gap-4">
+        <div className="unset-current-asset flex flex-wrap gap-4">
           <button
             className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={moveForward}
@@ -329,6 +357,15 @@ const Canvas = ({
             <DuplicateIcon className="h-8 w-8" />
             <span className="hidden md:block lg:hidden xl:block">Duplicate</span>
           </button>
+          <input 
+            className="_retain"
+            ref={opacityRef}
+            type="range"
+            min="0"
+            max="100"
+            onInput={changeOpacity}
+            disabled={!selectedAsset}
+          />
           <button
             className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={deleteLayer}
