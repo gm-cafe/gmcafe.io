@@ -286,8 +286,8 @@ const Canvas = ({
           node.image(downscaleImage(imageLike, w, h));
         }
       }
-      a.target = '_blank'; 
-      //a.download = 'banner.png';
+      //a.target = '_blank'; 
+      a.download = 'banner.png';
       a.href = copy.toDataURL();
     }
     a.click();
