@@ -14,6 +14,14 @@ const backgrounds = [
   { file: 'spots_pink.png', alt: 'Pink Spots Background' },
   { file: 'mountains.png', alt: 'Mountains Background' },
   { file: 'rainbow.png', alt: 'Clouds and Rainbow Background' },
+  { file: 'clouds.png', alt: 'Clouds Background' },
+  { file: 'awning_pink.png', alt: 'Pink Awning Background' },
+  { file: 'sparkle_purple.png', alt: 'Sparkly Purple Background' },
+  { file: 'sparkle_blue.png', alt: 'Sparkly Blue Background' },
+  { file: 'cafe.png', alt: 'Cafe Background' },
+  { file: 'ranch.png', alt: 'Ranch Background' },
+  { file: 'cave.png', alt: 'Cave Background' },
+  { file: 'swings.png', alt: 'Swings Background' },
   { file: 'galaxy.png', alt: 'Galaxy Background' },
 ];
 
@@ -53,6 +61,8 @@ const objects = [
   { file: 'mug_plant.png', alt: 'Mug Plant' },
   { file: 'camera.png', alt: 'Camera' },
   { file: 'game_moo.png', alt: 'Handheld Game Console' },
+  { file: 'fireball.png', alt: 'Fireball' },
+  { file: 'flames.png', alt: 'Flames' },
   { file: 'table_cloth.png', alt: 'Pink Table Cloth' },
   { file: 'fence.png', alt: 'White Fence with Grass' },
   { file: 'portal.png', alt: 'Portal' },
