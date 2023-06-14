@@ -12,7 +12,7 @@ import {
 import { Layer, Group, Image as RKImage, Stage, Transformer as RKTransformer } from 'react-konva';
 import type { Transformer as KonvaTransformerType } from 'konva/lib/shapes/Transformer';
 import type { Stage as KonvaStageType } from 'konva/lib/Stage';
-import { Image as KonvaImageType } from "konva/lib/shapes/Image";
+import { Image as KonvaImageType } from 'konva/lib/shapes/Image';
 import Asset from '../Asset';
 import {
   Asset as AssetType,
@@ -24,7 +24,7 @@ import {
   assetFromJSON,
   JSONFromAsset,
   forEachNode,
-  downscaleImage
+  downscaleImage,
 } from '../../../lib/util/banners';
 import {
   CollectionIcon,
@@ -274,11 +274,11 @@ const Canvas = ({
           const s = node.scaleX();
           if (s > minScale) continue;
           const imageLike = node.image();
-          const {width, height} = imageLike;
-          const w = Math.round(width*s/minScale);
-          const h = Math.round(height*s/minScale);
-          node.x(node.x() - node.offsetX()*s);
-          node.y(node.y() - node.offsetY()*s);
+          const { width, height } = imageLike;
+          const w = Math.round((width * s) / minScale);
+          const h = Math.round((height * s) / minScale);
+          node.x(node.x() - node.offsetX() * s);
+          node.y(node.y() - node.offsetY() * s);
           node.offsetX(0);
           node.offsetY(0);
           node.scaleX(minScale);
@@ -286,7 +286,7 @@ const Canvas = ({
           node.image(downscaleImage(imageLike, w, h));
         }
       }
-      //a.target = '_blank'; 
+      //a.target = '_blank';
       a.download = 'banner.png';
       a.href = copy.toDataURL();
     }
@@ -312,6 +312,20 @@ const Canvas = ({
         ref={canvasRef}
         tabIndex={0}
       >
+        <div className="unset-current-asset flex gap-4">
+          <span className="hidden font-gmcafe text-purple md:block lg:hidden xl:block">
+            Opacity
+          </span>
+          <input
+            className="_retain"
+            ref={opacityRef}
+            type="range"
+            min="0"
+            max="100"
+            onInput={changeOpacity}
+            disabled={!selectedAsset}
+          />
+        </div>
         <div className="unset-current-asset flex flex-wrap gap-4">
           <button
             className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
@@ -357,15 +371,6 @@ const Canvas = ({
             <DuplicateIcon className="h-8 w-8" />
             <span className="hidden md:block lg:hidden xl:block">Duplicate</span>
           </button>
-          <input 
-            className="_retain"
-            ref={opacityRef}
-            type="range"
-            min="0"
-            max="100"
-            onInput={changeOpacity}
-            disabled={!selectedAsset}
-          />
           <button
             className="_retain flex items-center gap-2 rounded-lg bg-white py-1.5 pl-2 pr-2 font-gmcafe text-purple transition-all hover:scale-110 disabled:opacity-50 md:pr-3 lg:pr-2 xl:pr-3"
             onClick={deleteLayer}
