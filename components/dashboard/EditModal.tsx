@@ -53,8 +53,8 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
           return res.json();
         })
         .then((data) => {
-          setTitle(data.info.title || '');
-          setStory(data.info.story || '');
+          setTitle(data.custom.canTitle ? data.custom.title : data.info.title);
+          setStory(data.custom.story || '');
           setTokenMetadata(data);
         });
     } else {
@@ -77,14 +77,10 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
       })
         .then((res) => res.json())
         .then(() => {
-          console.log('here');
           setApiLoading(false);
           setToken({ ...token, info: { ...token.info, title, story } });
           setOpen(false);
-          toastSuccess(`Keekusaur #${token.id} has been updated!`);
-        })
-        .catch(() => {
-          console.log('errored');
+          toastSuccess(`${tokenMetadata?.base_name} has been updated!`);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,7 +140,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
             signMessage();
           } else {
             setOpen(false);
-            toastSuccess(`Keekusaur #${token.id} has been updated!`);
+            toastSuccess(`${tokenMetadata?.base_name} has been updated!`);
             setApiLoading(false);
           }
         }
