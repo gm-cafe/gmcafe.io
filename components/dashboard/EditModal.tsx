@@ -158,7 +158,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
         <Dialog.Panel className="mx-auto mt-12 max-h-[80%] w-full max-w-screen-sm overflow-y-auto rounded-xl bg-white p-8">
           <div className="flex justify-between">
             <Dialog.Title className="font-gmcafe text-4xl text-purple">
-              {type === 'gmoo' ? 'Highland Cow' : 'Keekusaur'} #{id}
+              {tokenMetadata?.base_name}
             </Dialog.Title>
             <div className="w-16">
               <Image

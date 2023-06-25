@@ -40,6 +40,7 @@ type Info = {
 export type Token = {
   id: number;
   name: string;
+  base_name: string;
   description: string;
   attributes: Attribute[];
   image: string;
