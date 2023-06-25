@@ -15,6 +15,7 @@ module.exports = {
         'pink-background': '#ffd6ea',
         'purple-light': '#f4dffe',
         purple: '#8946ab',
+        'purple-50': '#c4a2d5',
         'orange-light': '#fef0e5',
         'yellow-light': '#fffeca',
         discord: '#5865F2',
