@@ -22,7 +22,7 @@ export default defineConfig(() => {
           },
           {
             name: 'keek',
-            address: '0x01298589d7c2bd82f54ca84060d58967772123f2',
+            address: '0x01298589d7c2bD82f54Ca84060d58967772123F2',
           },
           {
             name: 'redeem',

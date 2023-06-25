@@ -15,10 +15,11 @@ import EditModal from './EditModal';
 type Props = {
   token: Token;
   isLocked: boolean;
+  setToken: Function;
   type: CollectionType;
 };
 
-const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
+const DashboardItemLoaded = ({ token, isLocked, setToken, type }: Props) => {
   const [lockModalOpen, setLockModalOpen] = useState(false);
   const [unlockModalOpen, setUnlockModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -97,7 +98,14 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
       {type === 'keek' && (
         <UnlockModalKeek id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} />
       )}
-      <EditModal id={id} open={editModalOpen} setOpen={setEditModalOpen} type={type} />
+      <EditModal
+        id={id}
+        open={editModalOpen}
+        setOpen={setEditModalOpen}
+        setToken={setToken}
+        token={token}
+        type={type}
+      />
     </div>
   );
 };
@@ -140,7 +148,9 @@ export const DashboardMoo = ({ id }: { id: number }) => {
   if (!moo) {
     return <DashboardItemLoading />;
   } else {
-    return <DashboardItemLoaded token={moo} isLocked={!!data?.isLocked} type="gmoo" />;
+    return (
+      <DashboardItemLoaded token={moo} isLocked={!!data?.isLocked} setToken={setMoo} type="gmoo" />
+    );
   }
 };
 
@@ -173,6 +183,13 @@ export const DashboardKeek = ({ id }: { id: number }) => {
   if (!keek) {
     return <DashboardItemLoading />;
   } else {
-    return <DashboardItemLoaded token={keek} isLocked={!!data?.isLocked} type="keek" />;
+    return (
+      <DashboardItemLoaded
+        token={keek}
+        isLocked={!!data?.isLocked}
+        setToken={setKeek}
+        type="keek"
+      />
+    );
   }
 };

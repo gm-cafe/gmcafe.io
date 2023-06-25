@@ -4,8 +4,8 @@ import { Address } from './address';
 
 export const openSeaContract: Address = '0x495f947276749Ce646f68AC8c248420045cb7b5e';
 export const gmooContract: Address = '0xE43D741e21d8Bf30545A88c46e4FF5681518eBad';
-export const redeemContract: Address = '0xa25066d7232069489b57db8755d0055ecd69daec';
-export const keekContract: Address = '0x01298589d7c2bd82f54ca84060d58967772123f2';
+export const redeemContract: Address = '0xa25066D7232069489B57dB8755D0055Ecd69dAEC';
+export const keekContract: Address = '0x01298589d7c2bD82f54Ca84060d58967772123F2';
 
 export { gmooABI, keekABI, redeemABI, openseaABI };
 
