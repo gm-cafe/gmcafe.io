@@ -53,7 +53,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
           return res.json();
         })
         .then((data) => {
-          setTitle(data.custom.canTitle ? data.custom.title : data.info.title);
+          setTitle(data.custom.canTitle ? data.custom.title || '' : data.info.title);
           setStory(data.custom.story || '');
           setTokenMetadata(data);
         });
