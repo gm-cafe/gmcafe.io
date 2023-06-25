@@ -55,6 +55,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
           setTitle(data.info.title || '');
           setStory(data.info.story || '');
           setTokenMetadata(data);
+          console.log(data);
         });
     } else {
       setErrors({});
@@ -163,14 +164,14 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
             </label>
             <input
               className={classNames(
-                { 'pointer-events-none opacity-50': loading || tokenMetadata?.custom.canTitle },
+                { 'pointer-events-none opacity-50': loading || !tokenMetadata?.custom.canTitle },
                 'rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0'
               )}
               value={tokenMetadata ? title : ' '}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter a custom name for your Keek/Moo"
               maxLength={32}
-              disabled={loading || tokenMetadata?.custom.canTitle}
+              disabled={loading || !tokenMetadata?.custom.canTitle}
             />
             {errors.title && <span className="text-pink">{errors.title}</span>}
           </div>
