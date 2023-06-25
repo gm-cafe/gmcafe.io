@@ -38,7 +38,7 @@ const Tag = ({ id, type }: Props) => {
     return <div />;
   }
 
-  const { image, name, attributes, info } = metadata;
+  const { image, name, baseName, styledTitle, attributes, info, custom } = metadata;
   const bgColor = info.bg?.color;
   const fgColor = info.fg?.color;
 
@@ -47,7 +47,7 @@ const Tag = ({ id, type }: Props) => {
   const birthday = timestamp ? format(fromUnixTime(parseInt(timestamp)), 'MMMM do, yyyy') : '???';
   const status = attributes.find(({ trait_type }) => trait_type === 'Status')?.value;
 
-  const displayName = info.title ?? name;
+  const displayName = styledTitle || baseName;
 
   const urlPrefix = type === 'gmoo' ? 'moo' : 'keek';
   const supply = type === 'gmoo' ? 333 : 3333;
@@ -171,10 +171,7 @@ const Tag = ({ id, type }: Props) => {
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-4">
-                  <h1 className="font-gmcafe text-4xl text-purple">
-                    {displayName}
-                    <span className={classNames('text-pink', { hidden: !info.titled })}>*</span>
-                  </h1>
+                  <h1 className="font-gmcafe text-4xl text-purple">{displayName}</h1>
                   <a
                     className="ml-auto"
                     href={`https://opensea.io/assets/ethereum/${
@@ -186,7 +183,7 @@ const Tag = ({ id, type }: Props) => {
                     <OpenSeaIcon className="h-6 w-6" fill="#2081E2" />
                   </a>
                 </div>
-                <div className="break-words text-xs leading-4 text-purple">{info.story}</div>
+                <div className="break-words text-xs leading-4 text-purple">{custom.story}</div>
                 <ENSName
                   style={{ borderColor: bgColor }}
                   className="mb-2 border-b-4 pb-2 pt-1 text-xs text-purple"
