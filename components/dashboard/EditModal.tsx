@@ -19,8 +19,8 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
   const [title, setTitle] = useState('');
   const [story, setStory] = useState('');
   const [errors, setErrors] = useState({} as any);
+  const [tokenMetadata, setTokenMetadata] = useState<Token>();
   const [apiLoading, setApiLoading] = useState(false);
-  const [tokenLoading, setTokenLoading] = useState(false);
 
   const { address } = useAccount();
 
@@ -39,11 +39,10 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
     message: JSON.stringify(obj),
   });
 
-  const loading = apiLoading || signLoading || tokenLoading;
+  const loading = apiLoading || signLoading || !tokenMetadata;
 
   useEffect(() => {
     if (open) {
-      setTokenLoading(true);
       const url = `https://api.gmcafe.io/metadata/info?${type === 'gmoo' ? 'moo' : 'keek'}=${id}`;
       fetch(url)
         .then((res) => {
@@ -55,13 +54,13 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
         .then((data) => {
           setTitle(data.info.title || '');
           setStory(data.info.story || '');
-          setTokenLoading(false);
+          setTokenMetadata(data);
         });
     } else {
       setErrors({});
       setTitle('');
       setStory('');
-      setTokenLoading(false);
+      setTokenMetadata(undefined);
     }
   }, [open, id, type]);
 
@@ -163,11 +162,15 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
               Name
             </label>
             <input
-              className="rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0"
-              value={tokenLoading ? ' ' : title}
+              className={classNames(
+                { 'pointer-events-none opacity-50': loading || tokenMetadata?.custom.canTitle },
+                'rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0'
+              )}
+              value={tokenMetadata ? title : ' '}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter a custom name for your Keek/Moo"
               maxLength={32}
+              disabled={loading || tokenMetadata?.custom.canTitle}
             />
             {errors.title && <span className="text-pink">{errors.title}</span>}
           </div>
@@ -176,11 +179,15 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
               Story
             </label>
             <textarea
-              className="rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0"
-              value={tokenLoading ? ' ' : story}
+              className={classNames(
+                { 'pointer-events-none opacity-50': loading },
+                'rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0'
+              )}
+              value={tokenMetadata ? story : ' '}
               onChange={(e) => setStory(e.target.value)}
               placeholder="Enter a backstory for your Keek/Moo (i.e. Where are they from? What is their personality? What do they like?)"
               maxLength={512}
+              disabled={loading}
             />
             {errors.story && <span className="text-pink">{errors.story}</span>}
           </div>

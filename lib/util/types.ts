@@ -44,6 +44,7 @@ export type Token = {
   attributes: Attribute[];
   image: string;
   info: Info;
+  custom: any;
 };
 
 export type Moo = Token;
