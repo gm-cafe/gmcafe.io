@@ -5,23 +5,21 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDebounce, useIntersection } from 'react-use';
 
-const unbornMoos = [320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 333];
+const unbornMoos = new Set([322, 323, 324, 325, 326, 327, 328, 329, 330, 333]);
 
 type AssetData = {
   id: number;
   url: string;
 };
 
-const moos = Array.from(Array(333))
-  .map((_, i) => ({
-    id: i + 1,
-    url: `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/transparent/${i + 1}.png`,
-  }))
-  .filter((_, i) => !unbornMoos.includes(i + 1));
-
-const keeks = Array.from(Array(3333)).map((_, i) => ({
+const moos = Array.from({ length: 333 }, (_, i) => ({
   id: i + 1,
-  url: `https://gmcafe.s3.us-east-2.amazonaws.com/keek/transparent/${i + 1}.png`,
+  url: `https://gmcafe.s3.us-east-2.amazonaws.com/gmoo/transparent/${i + 1}.png`,
+})).filter((x) => !unbornMoos.has(x.id));
+
+const keeks = Array.from({ length: 3333 }, (_, i) => ({
+  id: i + 1,
+  url: `https://gmcafe.s3.us-east-2.amazonaws.com/keek/edgeless/${i + 1}.png`,
 }));
 
 const PAGE = 30;
@@ -81,26 +79,23 @@ const Assets = ({ addAsset }: Props) => {
   return (
     <Tab.Group
       as="div"
-      className="flex h-full flex-col gap-4 rounded-xl bg-white p-4"
+      className="flex h-full flex-col gap-4 rounded-xl bg-white p-2 md:p-4"
       selectedIndex={selectedIndex}
       onChange={onClick}
     >
-      <h2 className="border-b border-purple-light pb-2 font-gmcafe text-2xl uppercase text-purple">
-        Assets
-      </h2>
       <div className="flex min-h-0 flex-col">
-        <div className="mb-2 flex gap-4 p-1">
-          <div className="flex min-w-0 flex-grow gap-2 rounded border border-purple px-1.5 py-1 text-purple">
+        <div className="mb-2 flex-col gap-3">
+          <div className="mb-3 flex min-w-0 flex-grow gap-2 rounded-lg bg-purple-light px-1.5 py-2 text-purple">
             <SearchIcon className="h-6 w-6 shrink-0" />
             <input
-              className="min-w-0 focus:outline-none"
+              className="min-w-0 bg-purple-light focus:outline-none"
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <Tab.List className="flex gap-2 font-gmcafe text-xl">
             <Tab>
               {({ selected }) => (
-                <button
+                <div
                   className={classNames(
                     'rounded-lg px-2 uppercase transition-colors',
                     { 'bg-purple text-white': selected },
@@ -108,12 +103,12 @@ const Assets = ({ addAsset }: Props) => {
                   )}
                 >
                   Moos
-                </button>
+                </div>
               )}
             </Tab>
             <Tab>
               {({ selected }) => (
-                <button
+                <div
                   className={classNames(
                     'rounded-lg px-2 uppercase transition-colors',
                     { 'bg-purple text-white': selected },
@@ -121,28 +116,46 @@ const Assets = ({ addAsset }: Props) => {
                   )}
                 >
                   Keeks
-                </button>
+                </div>
               )}
             </Tab>
           </Tab.List>
         </div>
         <Tab.Panels className="flex flex-col overflow-y-scroll">
-          <Tab.Panel className="grid grid-cols-2 gap-4">
+          <Tab.Panel className="grid grid-cols-2 gap-2 md:gap-4">
             {filter(moos).map(({ url }) => (
               <div
-                className="flex cursor-pointer rounded-xl border-4 border-transparent transition-colors hover:border-purple"
+                className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
                 key={url}
                 onClick={() => addAsset(url)}
               >
-                <Image src={url} width={300} height={300} alt="Moo" unoptimized />
+                <Image
+                  crossOrigin="anonymous"
+                  src={url}
+                  width={300}
+                  height={300}
+                  alt="Moo"
+                  unoptimized
+                />
               </div>
             ))}
             <div ref={ref} />
           </Tab.Panel>
-          <Tab.Panel className="grid grid-cols-2 gap-4">
+          <Tab.Panel className="grid grid-cols-2 gap-2 md:gap-4">
             {filter(keeks).map(({ url }) => (
-              <div className="flex cursor-pointer" key={url} onClick={() => addAsset(url)}>
-                <Image src={url} width={300} height={300} alt="Keek" unoptimized />
+              <div
+                className="flex cursor-pointer transition-transform duration-300 hover:scale-95"
+                key={url}
+                onClick={() => addAsset(url)}
+              >
+                <Image
+                  crossOrigin="anonymous"
+                  src={url}
+                  width={300}
+                  height={300}
+                  alt="Keek"
+                  unoptimized
+                />
               </div>
             ))}
             <div ref={ref} />

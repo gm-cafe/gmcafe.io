@@ -65,9 +65,9 @@ const DashboardItemLoaded = ({ token, isLocked, type }: Props) => {
         {isLocked && (
           <button
             onClick={() => setEditModalOpen(true)}
-            className="rounded-lg border-2 border-gray-100 bg-gray-100 p-1 transition-transform hover:scale-110"
+            className="group rounded-lg border-2 border-gray-100 bg-gray-100 p-1 transition-all hover:scale-110 hover:border-pink hover:bg-pink"
           >
-            <PencilIcon className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 md:w-8" />
+            <PencilIcon className="w-6 cursor-pointer text-purple transition-transform hover:scale-105 group-hover:text-white md:w-8" />
           </button>
         )}
         {isLocked && (
