@@ -186,6 +186,7 @@ const Tag = ({ id, type }: Props) => {
                     <OpenSeaIcon className="h-6 w-6" fill="#2081E2" />
                   </a>
                 </div>
+                <div className="break-words text-xs leading-4 text-purple">{info.story}</div>
                 <ENSName
                   style={{ borderColor: bgColor }}
                   className="mb-2 border-b-4 pb-2 pt-1 text-xs text-purple"

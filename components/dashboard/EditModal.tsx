@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { Dialog } from '@headlessui/react';
 import { toastSuccess } from '../../lib/util/toast';
 import { CollectionType, Token } from '../../lib/util/types';
-import { useTokenURI } from '../../lib/hooks/useTokenURI';
 import Image from 'next/image';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -21,9 +20,9 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
   const [story, setStory] = useState('');
   const [errors, setErrors] = useState({} as any);
   const [apiLoading, setApiLoading] = useState(false);
+  const [tokenLoading, setTokenLoading] = useState(false);
 
   const { address } = useAccount();
-  const tokenURI = useTokenURI(type, id);
 
   const obj = {
     ...(type === 'gmoo' && { moo: id }),
@@ -40,12 +39,31 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
     message: JSON.stringify(obj),
   });
 
-  const loading = apiLoading || signLoading;
+  const loading = apiLoading || signLoading || tokenLoading;
 
   useEffect(() => {
-    setTitle(tokenURI?.info.title || '');
-    setStory(tokenURI?.info.story || '');
-  }, [tokenURI]);
+    if (open) {
+      setTokenLoading(true);
+      const url = `https://api.gmcafe.io/metadata/info?${type === 'gmoo' ? 'moo' : 'keek'}=${id}`;
+      fetch(url)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(res.statusText);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setTitle(data.info.title || '');
+          setStory(data.info.story || '');
+          setTokenLoading(false);
+        });
+    } else {
+      setErrors({});
+      setTitle('');
+      setStory('');
+      setTokenLoading(false);
+    }
+  }, [open, id, type]);
 
   useEffect(() => {
     if (apiLoading && data) {
@@ -60,7 +78,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
         .then((res) => res.json())
         .then(() => {
           setApiLoading(false);
-          setToken({ ...token, info: { ...token.info, title } });
+          setToken({ ...token, info: { ...token.info, title, story } });
           setOpen(false);
           toastSuccess(`Keekusaur #${token.id} has been updated!`);
         });
@@ -146,7 +164,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
             </label>
             <input
               className="rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0"
-              value={title}
+              value={tokenLoading ? ' ' : title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter a custom name for your Keek/Moo"
               maxLength={32}
@@ -159,7 +177,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
             </label>
             <textarea
               className="rounded border-2 border-purple py-1 pl-2 text-purple placeholder:text-purple-50 focus-within:outline-0"
-              value={story}
+              value={tokenLoading ? ' ' : story}
               onChange={(e) => setStory(e.target.value)}
               placeholder="Enter a backstory for your Keek/Moo (i.e. Where are they from? What is their personality? What do they like?)"
               maxLength={512}
