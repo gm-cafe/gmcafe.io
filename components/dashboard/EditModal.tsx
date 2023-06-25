@@ -27,7 +27,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
   const obj = {
     ...(type === 'gmoo' && { moo: id }),
     ...(type === 'keek' && { keek: id }),
-    title: title,
+    ...(tokenMetadata?.custom.canTitle && { title: title }),
     story: story,
   };
 
@@ -35,6 +35,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
     signMessage,
     isLoading: signLoading,
     data,
+    error: signError,
   } = useSignMessage({
     message: JSON.stringify(obj),
   });
@@ -55,7 +56,6 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
           setTitle(data.info.title || '');
           setStory(data.info.story || '');
           setTokenMetadata(data);
-          console.log(data);
         });
     } else {
       setErrors({});
@@ -77,14 +77,24 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
       })
         .then((res) => res.json())
         .then(() => {
+          console.log('here');
           setApiLoading(false);
           setToken({ ...token, info: { ...token.info, title, story } });
           setOpen(false);
           toastSuccess(`Keekusaur #${token.id} has been updated!`);
+        })
+        .catch(() => {
+          console.log('errored');
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiLoading, data]);
+
+  useEffect(() => {
+    if (signError) {
+      setApiLoading(false);
+    }
+  }, [signError]);
 
   const getError = (field: any) => {
     if (!field) {
@@ -135,6 +145,7 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
           } else {
             setOpen(false);
             toastSuccess(`Keekusaur #${token.id} has been updated!`);
+            setApiLoading(false);
           }
         }
       });
@@ -146,7 +157,9 @@ const EditModal = ({ id, open, setOpen, setToken, token, type }: Props) => {
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="mx-auto mt-12 max-h-[80%] w-full max-w-screen-sm overflow-y-auto rounded-xl bg-white p-8">
           <div className="flex justify-between">
-            <Dialog.Title className="font-gmcafe text-4xl text-purple">Edit</Dialog.Title>
+            <Dialog.Title className="font-gmcafe text-4xl text-purple">
+              {type === 'gmoo' ? 'Highland Cow' : 'Keekusaur'} #{id}
+            </Dialog.Title>
             <div className="w-16">
               <Image
                 className="rounded-full"
