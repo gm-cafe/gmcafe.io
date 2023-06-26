@@ -10,9 +10,10 @@ import { CollectionType } from '../../lib/util/types';
 type Props = {
   id: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  refresh: Dispatch<void>;
 };
 
-export const UnlockBasicMoo = ({ id, setOpen }: Props) => {
+export const UnlockBasicMoo = ({ id, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { config } = usePrepareContractWrite({
@@ -32,9 +33,10 @@ export const UnlockBasicMoo = ({ id, setOpen }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
+	  refresh();
       unlockSuccess && toastSuccess('Unlocked!');
     }
-  }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
+  }, [isSuccess, setLoading, unlockSuccess, isError, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
@@ -44,7 +46,7 @@ export const UnlockBasicMoo = ({ id, setOpen }: Props) => {
   return <Shared onClick={onClick} loading={loading} type="gmoo" />;
 };
 
-export const UnlockBasicKeek = ({ id, setOpen }: Props) => {
+export const UnlockBasicKeek = ({ id, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { config } = usePrepareContractWrite({
@@ -64,9 +66,10 @@ export const UnlockBasicKeek = ({ id, setOpen }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
+	  refresh();
       unlockSuccess && toastSuccess('Unlocked!');
     }
-  }, [isSuccess, setLoading, unlockSuccess, isError, setOpen]);
+  }, [isSuccess, unlockSuccess, isError, setLoading, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);

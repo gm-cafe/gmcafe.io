@@ -18,9 +18,10 @@ type Props = {
   id: number;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  refresh: Dispatch<void>;
 };
 
-export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
+export const UnlockAdvancedMoo = ({ id, open, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [payBounty, setPayBounty] = useState(false);
@@ -74,6 +75,7 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen }: Props) => {
 
     setLoading(false);
     setOpen(false);
+	refresh();
     toastSuccess('Unlocked!');
   }, [writeSuccess, unlockSuccess, setOpen]);
 
@@ -168,6 +170,7 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
 
     setLoading(false);
     setOpen(false);
+	refresh();
     toastSuccess('Unlocked!');
   }, [writeSuccess, unlockSuccess, setOpen]);
 

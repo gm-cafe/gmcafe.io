@@ -41,12 +41,24 @@ export type Token = {
   id: number;
   name: string;
   baseName: string;
-  styledTitle: string;
+  styledTitle?: string;
   description: string;
   attributes: Attribute[];
   image: string;
+  thumb: string;
   info: Info;
-  custom: any;
+  custom: {
+    title?: string;
+    canTitle?: boolean;
+    story?: string;
+  };
+  holder?: {
+    owner: Address;
+    block: number;
+    transfers: number;
+    tag: number;
+    locked: boolean;
+  }
 };
 
 export type Moo = Token;

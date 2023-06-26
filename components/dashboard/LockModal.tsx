@@ -10,9 +10,10 @@ type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   type: CollectionType;
+  refresh: Dispatch<void>;
 };
 
-const LockModal = ({ id, open, setOpen, type }: Props) => {
+const LockModal = ({ id, open, setOpen, type, refresh }: Props) => {
   const name = type === 'gmoo' ? 'Moo' : 'Keek';
   return (
     <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
@@ -60,12 +61,12 @@ const LockModal = ({ id, open, setOpen, type }: Props) => {
             </Dialog.Description>
             <Tab.Panels>
               <Tab.Panel>
-                {type === 'gmoo' && <LockBasicMoo id={id} setOpen={setOpen} />}
-                {type === 'keek' && <LockBasicKeek id={id} setOpen={setOpen} />}
+                {type === 'gmoo' && <LockBasicMoo id={id} setOpen={setOpen} refresh={refresh} />}
+                {type === 'keek' && <LockBasicKeek id={id} setOpen={setOpen} refresh={refresh} />}
               </Tab.Panel>
               <Tab.Panel>
-                {type === 'gmoo' && <LockAdvancedMoo id={id} setOpen={setOpen} />}
-                {type === 'keek' && <LockAdvancedKeek id={id} setOpen={setOpen} />}
+                {type === 'gmoo' && <LockAdvancedMoo id={id} setOpen={setOpen} refresh={refresh} />}
+                {type === 'keek' && <LockAdvancedKeek id={id} setOpen={setOpen} refresh={refresh} />}
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

@@ -12,9 +12,10 @@ import { CollectionType } from '../../lib/util/types';
 type Props = {
   id: number;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  refresh: Dispatch<void>;
 };
 
-export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
+export const LockAdvancedMoo = ({ id, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
   const [confirm, setConfirm] = useState(false);
@@ -55,8 +56,9 @@ export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
 
     setLoading(false);
     setOpen(false);
+	refresh();
     toastSuccess('Locked!');
-  }, [writeSuccess, lockSuccess, setOpen]);
+  }, [writeSuccess, lockSuccess, setLoading, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
@@ -92,7 +94,7 @@ export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
   );
 };
 
-export const LockAdvancedKeek = ({ id, setOpen }: Props) => {
+export const LockAdvancedKeek = ({ id, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
   const [confirm, setConfirm] = useState(false);
@@ -133,8 +135,9 @@ export const LockAdvancedKeek = ({ id, setOpen }: Props) => {
 
     setLoading(false);
     setOpen(false);
+	refresh();
     toastSuccess('Locked!');
-  }, [writeSuccess, lockSuccess, setOpen]);
+  }, [writeSuccess, lockSuccess, setOpen, setLoading, refresh]);
 
   const onClick = () => {
     setLoading(true);
