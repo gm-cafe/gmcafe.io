@@ -9,11 +9,12 @@ import { CollectionType } from '../../lib/util/types';
 
 type Props = {
   id: number;
+  setDisableClose: Dispatch<SetStateAction<boolean>>;
   setOpen: Dispatch<SetStateAction<boolean>>;
   refresh: Dispatch<void>;
 };
 
-export const LockBasicMoo = ({ id, setOpen, refresh }: Props) => {
+export const LockBasicMoo = ({ id, setDisableClose, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { config } = usePrepareContractWrite({
@@ -32,21 +33,23 @@ export const LockBasicMoo = ({ id, setOpen, refresh }: Props) => {
   useEffect(() => {
     if ((isSuccess && lockSuccess) || isError) {
       setLoading(false);
+      setDisableClose(false);
       setOpen(false);
       refresh();
       lockSuccess && toastSuccess('Locked!');
     }
-  }, [isSuccess, setLoading, lockSuccess, isError, setOpen, refresh]);
+  }, [isSuccess, lockSuccess, isError, setDisableClose, setLoading, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
+    setDisableClose(true);
     lock?.();
   };
 
   return <Shared onClick={onClick} loading={loading} type="gmoo" />;
 };
 
-export const LockBasicKeek = ({ id, setOpen, refresh }: Props) => {
+export const LockBasicKeek = ({ id, setDisableClose, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const { config } = usePrepareContractWrite({
@@ -65,14 +68,16 @@ export const LockBasicKeek = ({ id, setOpen, refresh }: Props) => {
   useEffect(() => {
     if ((isSuccess && lockSuccess) || isError) {
       setLoading(false);
+      setDisableClose(false);
       setOpen(false);
       refresh();
       lockSuccess && toastSuccess('Locked!');
     }
-  }, [isSuccess, lockSuccess, isError, setLoading, setOpen, refresh]);
+  }, [isSuccess, lockSuccess, isError, setDisableClose, setLoading, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
+    setDisableClose(true);
     lock?.();
   };
 

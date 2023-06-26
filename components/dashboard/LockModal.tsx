@@ -1,6 +1,6 @@
 import { Dialog, Tab } from '@headlessui/react';
 import classNames from 'classnames';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { LockAdvancedKeek, LockAdvancedMoo } from './LockAdvanced';
 import { LockBasicKeek, LockBasicMoo } from './LockBasic';
 import { CollectionType } from '../../lib/util/types';
@@ -14,9 +14,11 @@ type Props = {
 };
 
 const LockModal = ({ id, open, setOpen, type, refresh }: Props) => {
+  const [disableClose, setDisableClose] = useState(false);
+
   const name = type === 'gmoo' ? 'Moo' : 'Keek';
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
+    <Dialog open={open} onClose={() => !disableClose && setOpen(false)} className="relative z-10">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="mx-auto mt-12 max-h-[80%] max-w-screen-md overflow-y-auto rounded-xl bg-white p-8">
@@ -61,13 +63,39 @@ const LockModal = ({ id, open, setOpen, type, refresh }: Props) => {
             </Dialog.Description>
             <Tab.Panels>
               <Tab.Panel>
-                {type === 'gmoo' && <LockBasicMoo id={id} setOpen={setOpen} refresh={refresh} />}
-                {type === 'keek' && <LockBasicKeek id={id} setOpen={setOpen} refresh={refresh} />}
+                {type === 'gmoo' && (
+                  <LockBasicMoo
+                    id={id}
+                    setDisableClose={setDisableClose}
+                    setOpen={setOpen}
+                    refresh={refresh}
+                  />
+                )}
+                {type === 'keek' && (
+                  <LockBasicKeek
+                    id={id}
+                    setDisableClose={setDisableClose}
+                    setOpen={setOpen}
+                    refresh={refresh}
+                  />
+                )}
               </Tab.Panel>
               <Tab.Panel>
-                {type === 'gmoo' && <LockAdvancedMoo id={id} setOpen={setOpen} refresh={refresh} />}
+                {type === 'gmoo' && (
+                  <LockAdvancedMoo
+                    id={id}
+                    setDisableClose={setDisableClose}
+                    setOpen={setOpen}
+                    refresh={refresh}
+                  />
+                )}
                 {type === 'keek' && (
-                  <LockAdvancedKeek id={id} setOpen={setOpen} refresh={refresh} />
+                  <LockAdvancedKeek
+                    id={id}
+                    setDisableClose={setDisableClose}
+                    setOpen={setOpen}
+                    refresh={refresh}
+                  />
                 )}
               </Tab.Panel>
             </Tab.Panels>
