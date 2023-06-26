@@ -58,7 +58,7 @@ export type Token = {
     transfers: number;
     tag: number;
     locked: boolean;
-  }
+  };
 };
 
 export type Moo = Token;

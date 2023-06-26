@@ -33,7 +33,7 @@ export const UnlockBasicMoo = ({ id, setOpen, refresh }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-	  refresh();
+      refresh();
       unlockSuccess && toastSuccess('Unlocked!');
     }
   }, [isSuccess, setLoading, unlockSuccess, isError, setOpen, refresh]);
@@ -66,7 +66,7 @@ export const UnlockBasicKeek = ({ id, setOpen, refresh }: Props) => {
     if ((isSuccess && unlockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-	  refresh();
+      refresh();
       unlockSuccess && toastSuccess('Unlocked!');
     }
   }, [isSuccess, unlockSuccess, isError, setLoading, setOpen, refresh]);

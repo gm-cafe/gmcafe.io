@@ -33,7 +33,7 @@ export const LockBasicMoo = ({ id, setOpen, refresh }: Props) => {
     if ((isSuccess && lockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-	  refresh();
+      refresh();
       lockSuccess && toastSuccess('Locked!');
     }
   }, [isSuccess, setLoading, lockSuccess, isError, setOpen, refresh]);
@@ -66,10 +66,10 @@ export const LockBasicKeek = ({ id, setOpen, refresh }: Props) => {
     if ((isSuccess && lockSuccess) || isError) {
       setLoading(false);
       setOpen(false);
-	  refresh();
+      refresh();
       lockSuccess && toastSuccess('Locked!');
     }
-  }, [isSuccess,  lockSuccess, isError, setLoading, setOpen, refresh]);
+  }, [isSuccess, lockSuccess, isError, setLoading, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);

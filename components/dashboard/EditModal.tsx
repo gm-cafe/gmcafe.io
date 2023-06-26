@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { Dialog } from '@headlessui/react';
 import { toastError, toastSuccess } from '../../lib/util/toast';
@@ -9,7 +9,6 @@ import { useAccount, useSignMessage } from 'wagmi';
 type Props = {
   id: number;
   open: boolean;
-  //token: Token;
   setOpen: Dispatch<SetStateAction<boolean>>;
   refresh: Dispatch<void>;
   type: CollectionType;
@@ -24,38 +23,39 @@ const EditModal = ({ id, open, setOpen, refresh, type }: Props) => {
 
   const { address } = useAccount();
 
-  const obj = {
-    ...(type === 'gmoo' && { moo: id }),
-    ...(type === 'keek' && { keek: id }),
-    ...(tokenMetadata?.custom.canTitle && { title: title }),
-    story: story,
-  };
+  const obj = useMemo(() => {
+    return {
+      ...(type === 'gmoo' && { moo: id }),
+      ...(type === 'keek' && { keek: id }),
+      ...(tokenMetadata?.custom.canTitle && { title: title }),
+      story: story,
+    };
+  }, [id, story, title, tokenMetadata, type]);
 
-  const {
-    signMessage,
-    isLoading: signLoading
-  } = useSignMessage({
+  const { signMessage, isLoading: signLoading } = useSignMessage({
     message: JSON.stringify(obj),
-	onSuccess(data) {
-		fetch('https://api.gmcafe.io/customize', {
-			method: 'POST',
-			body: JSON.stringify({
-			  ...obj,
-			  sig: data,
-			}),
-		  })
-		.then((res) => res.json())
-		.then(() => {
-			refresh(); //{ ...token, info: { ...token.info, title, story } });
-			toastSuccess(`${tokenMetadata?.baseName} has been updated!`);
-		}).catch(toastError).then(() => {
-			setApiLoading(false);
-			setOpen(false);
-		})
-	},
-	onError() {
-		setApiLoading(false);
-	}
+    onSuccess(data) {
+      fetch('https://api.gmcafe.io/customize', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...obj,
+          sig: data,
+        }),
+      })
+        .then((res) => res.json())
+        .then(() => {
+          refresh(); //{ ...token, info: { ...token.info, title, story } });
+          toastSuccess(`${tokenMetadata?.baseName} has been updated!`);
+        })
+        .catch(toastError)
+        .then(() => {
+          setApiLoading(false);
+          setOpen(false);
+        });
+    },
+    onError() {
+      setApiLoading(false);
+    },
   });
 
   const loading = apiLoading || signLoading || !tokenMetadata;
@@ -83,30 +83,33 @@ const EditModal = ({ id, open, setOpen, refresh, type }: Props) => {
     }
   }, [open, id, type, setErrors, setTitle, setStory, setTokenMetadata]);
 
-  const getError = (field: any) => {
-    if (!field) {
-      return null;
-    }
-    let error = '';
-    switch (field.error) {
-      case 'BAD_CHAR':
-        error = `You cannot use the characters: ${field.chars}`;
-        break;
-      case 'BAD_WORD':
-        error = `You cannot use the word(s): ${field.words.join(', ')}`;
-        break;
-      case 'NO_LETTER':
-        error = 'Your name must contain a letter.';
-        break;
-      case 'CANT_TITLE':
-        error = `This ${type === 'gmoo' ? 'Highland Cow' : 'Keekusaur'} cannot be renamed.`;
-        break;
-      default:
-        error = 'Something went wrong.';
-        break;
-    }
-    return error;
-  };
+  const getError = useCallback(
+    (field: any) => {
+      if (!field) {
+        return null;
+      }
+      let error = '';
+      switch (field.error) {
+        case 'BAD_CHAR':
+          error = `You cannot use the characters: ${field.chars}`;
+          break;
+        case 'BAD_WORD':
+          error = `You cannot use the word(s): ${field.words.join(', ')}`;
+          break;
+        case 'NO_LETTER':
+          error = 'Your name must contain a letter.';
+          break;
+        case 'CANT_TITLE':
+          error = `This ${type === 'gmoo' ? 'Highland Cow' : 'Keekusaur'} cannot be renamed.`;
+          break;
+        default:
+          error = 'Something went wrong.';
+          break;
+      }
+      return error;
+    },
+    [type]
+  );
 
   const onClick = useCallback(() => {
     setApiLoading(true);
@@ -119,7 +122,7 @@ const EditModal = ({ id, open, setOpen, refresh, type }: Props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-		if (data.error) {
+        if (data.error) {
           setErrors({
             ...errors,
             title: getError(data.error.title),
@@ -131,12 +134,11 @@ const EditModal = ({ id, open, setOpen, refresh, type }: Props) => {
             signMessage();
           } else {
             setOpen(false);
-            //toastSuccess(`${tokenMetadata?.baseName} has been updated!`);
             setApiLoading(false);
           }
         }
       });
-  }, [setApiLoading, setOpen, signMessage]);
+  }, [setApiLoading, setOpen, signMessage, address, errors, getError, obj]);
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">

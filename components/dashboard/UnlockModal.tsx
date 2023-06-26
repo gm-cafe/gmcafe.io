@@ -40,7 +40,9 @@ export const UnlockModalMoo = ({ id, open, setOpen, refresh }: Props) => {
               </div>
             </div>
             {!isAdvanced && <UnlockBasicMoo id={id} setOpen={setOpen} refresh={refresh} />}
-            {isAdvanced && <UnlockAdvancedMoo id={id} open={open} setOpen={setOpen} refresh={refresh} />}
+            {isAdvanced && (
+              <UnlockAdvancedMoo id={id} open={open} setOpen={setOpen} refresh={refresh} />
+            )}
           </Tab.Group>
         </Dialog.Panel>
       </div>
@@ -75,7 +77,9 @@ export const UnlockModalKeek = ({ id, open, setOpen, refresh }: Props) => {
               </div>
             </div>
             {!isAdvanced && <UnlockBasicKeek id={id} setOpen={setOpen} refresh={refresh} />}
-            {isAdvanced && <UnlockAdvancedKeek id={id} open={open} setOpen={setOpen} refresh={refresh} />}
+            {isAdvanced && (
+              <UnlockAdvancedKeek id={id} open={open} setOpen={setOpen} refresh={refresh} />
+            )}
           </Tab.Group>
         </Dialog.Panel>
       </div>

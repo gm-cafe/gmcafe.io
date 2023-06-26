@@ -17,7 +17,7 @@ import { toastError } from '../lib/util/toast';
 type Locked = {
   keeks: number;
   moos: number;
-}
+};
 
 const Dashboard = () => {
   const [hydrated, setHydrated] = useState(false);
@@ -28,15 +28,18 @@ const Dashboard = () => {
   const [locked, setLocked] = useState<Locked>();
   const [version, setVersion] = useState(0);
 
-  const refresh = useCallback(() => setVersion(version+1), [version]);
+  const refresh = useCallback(() => setVersion(version + 1), [version]);
 
   useEffect(() => {
     if (!address) return;
-    fetch(`https://api.gmcafe.io/dashboard/wallet?owner=${address}`).then(r => r.json()).then(json => {
-      setMoos(json.moos as Token[]);
-      setKeeks(json.keeks as Token[]);
-      setLocked(json.locked as Locked);
-    }).catch(toastError);
+    fetch(`https://api.gmcafe.io/dashboard/wallet?owner=${address}`)
+      .then((r) => r.json())
+      .then((json) => {
+        setMoos(json.moos as Token[]);
+        setKeeks(json.keeks as Token[]);
+        setLocked(json.locked as Locked);
+      })
+      .catch(toastError);
   }, [address, version]);
 
   useEffect(() => setHydrated(true), []);
@@ -56,8 +59,14 @@ const Dashboard = () => {
           <CustomConnectButton variation="mint" showAccount />
         </nav>
         <div className="my-4 flex w-full flex-col gap-4">
-          {!loading && moos.map((x, i) => <DashboardItem type="gmoo" token={x} refresh={refresh} key={`m${i}`} />)}
-          {!loading && keeks.map((x, i) => <DashboardItem type="keek" token={x} refresh={refresh} key={`k${i}`} />)}
+          {!loading &&
+            moos.map((x, i) => (
+              <DashboardItem type="gmoo" token={x} refresh={refresh} key={`m${i}`} />
+            ))}
+          {!loading &&
+            keeks.map((x, i) => (
+              <DashboardItem type="keek" token={x} refresh={refresh} key={`k${i}`} />
+            ))}
           {locked && moos.length === 0 && keeks.length === 0 && (
             <h2 className="my-2 text-center font-gmcafe text-xl text-purple md:text-3xl">
               No Moos or Keeks found in your wallet...
@@ -65,7 +74,7 @@ const Dashboard = () => {
           )}
           {loading && <LoadingIcon className="mx-auto mb-6 mt-4 h-8 w-8 text-purple" />}
         </div>
-        {(locked && (moos.length || keeks.length)) && (
+        {locked && (moos.length || keeks.length) && (
           <div className="flex gap-2 md:gap-4">
             <div className="flex items-center gap-1 rounded-xl bg-white px-3 py-0.5 font-gmcafe text-base uppercase text-purple md:py-1 md:pl-2 md:pr-1 md:text-xl">
               <div className="mr-1 w-6 shrink-0">

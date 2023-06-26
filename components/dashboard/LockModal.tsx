@@ -66,7 +66,9 @@ const LockModal = ({ id, open, setOpen, type, refresh }: Props) => {
               </Tab.Panel>
               <Tab.Panel>
                 {type === 'gmoo' && <LockAdvancedMoo id={id} setOpen={setOpen} refresh={refresh} />}
-                {type === 'keek' && <LockAdvancedKeek id={id} setOpen={setOpen} refresh={refresh} />}
+                {type === 'keek' && (
+                  <LockAdvancedKeek id={id} setOpen={setOpen} refresh={refresh} />
+                )}
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

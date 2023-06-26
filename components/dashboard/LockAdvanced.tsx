@@ -56,7 +56,7 @@ export const LockAdvancedMoo = ({ id, setOpen, refresh }: Props) => {
 
     setLoading(false);
     setOpen(false);
-	refresh();
+    refresh();
     toastSuccess('Locked!');
   }, [writeSuccess, lockSuccess, setLoading, setOpen, refresh]);
 
@@ -135,7 +135,7 @@ export const LockAdvancedKeek = ({ id, setOpen, refresh }: Props) => {
 
     setLoading(false);
     setOpen(false);
-	refresh();
+    refresh();
     toastSuccess('Locked!');
   }, [writeSuccess, lockSuccess, setOpen, setLoading, refresh]);
 

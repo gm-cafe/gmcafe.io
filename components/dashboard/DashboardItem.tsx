@@ -85,19 +85,34 @@ export const DashboardItem = ({ token, type, refresh }: Props) => {
         )}
       </div>
 
-      <LockModal id={id} open={lockModalOpen} setOpen={setLockModalOpen} type={type} refresh={refresh} />
+      <LockModal
+        id={id}
+        open={lockModalOpen}
+        setOpen={setLockModalOpen}
+        type={type}
+        refresh={refresh}
+      />
       {type === 'gmoo' && (
-        <UnlockModalMoo id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} refresh={refresh} />
+        <UnlockModalMoo
+          id={id}
+          open={unlockModalOpen}
+          setOpen={setUnlockModalOpen}
+          refresh={refresh}
+        />
       )}
       {type === 'keek' && (
-        <UnlockModalKeek id={id} open={unlockModalOpen} setOpen={setUnlockModalOpen} refresh={refresh} />
+        <UnlockModalKeek
+          id={id}
+          open={unlockModalOpen}
+          setOpen={setUnlockModalOpen}
+          refresh={refresh}
+        />
       )}
       <EditModal
         id={id}
         open={editModalOpen}
         setOpen={setEditModalOpen}
         refresh={refresh}
-		//token={token}
         type={type}
       />
     </div>
@@ -117,20 +132,20 @@ const DashboardItemLoading = () => {
 export const DashboardMoo = ({ id }: { id: number }) => {
   const [moo, setMoo] = useState<Moo>();
 
-//   const { data: tokenUri } = useContractRead({
-//     address: gmooContract,
-//     abi: gmooABI,
-//     functionName: 'tokenURI',
-//     args: [BigNumber.from(id)],
-//   });
+  const { data: tokenUri } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
+    functionName: 'tokenURI',
+    args: [BigNumber.from(id)],
+  });
 
-//   const { data } = useContractRead({
-//     address: gmooContract,
-//     abi: gmooABI,
-//     functionName: 'getMoo',
-//     args: [BigNumber.from(id)],
-//     watch: true,
-//   });
+  const { data } = useContractRead({
+    address: gmooContract,
+    abi: gmooABI,
+    functionName: 'getMoo',
+    args: [BigNumber.from(id)],
+    watch: true,
+  });
 
   useEffect(() => {
     fetch(`https://api.gmcafe.io/metadata/info?moo=${id}`)
@@ -143,26 +158,26 @@ export const DashboardMoo = ({ id }: { id: number }) => {
     return <DashboardItemLoading />;
   }
 
-  return (<DashboardItemLoaded token={moo} isLocked={!!moo.holder?.locked} setToken={setMoo} type="gmoo" />);
+  return (<DashboardItemLoaded token={moo} isLocked={!!moo.holder?.locked} type="gmoo" />);
 };
 
 export const DashboardKeek = ({ id }: { id: number }) => {
   const [keek, setKeek] = useState<Keeku>();
 
-//   const { data: tokenUri } = useContractRead({
-//     address: keekContract,
-//     abi: keekABI,
-//     functionName: 'tokenURI',
-//     args: [BigNumber.from(id)],
-//   });
+  const { data: tokenUri } = useContractRead({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'tokenURI',
+    args: [BigNumber.from(id)],
+  });
 
-//   const { data } = useContractRead({
-//     address: keekContract,
-//     abi: keekABI,
-//     functionName: 'getKeekInfo',
-//     args: [BigNumber.from(id)],
-//     watch: true,
-//   });
+  const { data } = useContractRead({
+    address: keekContract,
+    abi: keekABI,
+    functionName: 'getKeekInfo',
+    args: [BigNumber.from(id)],
+    watch: true,
+  });
 
   useEffect(() => {
     fetch(tokenUri)
@@ -178,7 +193,6 @@ export const DashboardKeek = ({ id }: { id: number }) => {
       <DashboardItemLoaded
         token={keek}
         isLocked={!!data?.isLocked}
-        setToken={setKeek}
         type="keek"
       />
     );

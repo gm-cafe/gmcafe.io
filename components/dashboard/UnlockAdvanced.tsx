@@ -75,9 +75,9 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen, refresh }: Props) => {
 
     setLoading(false);
     setOpen(false);
-	refresh();
+    refresh();
     toastSuccess('Unlocked!');
-  }, [writeSuccess, unlockSuccess, setOpen]);
+  }, [writeSuccess, unlockSuccess, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
@@ -116,7 +116,7 @@ export const UnlockAdvancedMoo = ({ id, open, setOpen, refresh }: Props) => {
   );
 };
 
-export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
+export const UnlockAdvancedKeek = ({ id, open, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [payBounty, setPayBounty] = useState(false);
@@ -170,9 +170,9 @@ export const UnlockAdvancedKeek = ({ id, open, setOpen }: Props) => {
 
     setLoading(false);
     setOpen(false);
-	refresh();
+    refresh();
     toastSuccess('Unlocked!');
-  }, [writeSuccess, unlockSuccess, setOpen]);
+  }, [writeSuccess, unlockSuccess, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
