@@ -11,10 +11,12 @@ import { CollectionType } from '../../lib/util/types';
 
 type Props = {
   id: number;
+  setDisableClose: Dispatch<SetStateAction<boolean>>;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  refresh: Dispatch<void>;
 };
 
-export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
+export const LockAdvancedMoo = ({ id, setDisableClose, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
   const [confirm, setConfirm] = useState(false);
@@ -35,6 +37,7 @@ export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
     write: lock,
     data,
     isSuccess: writeSuccess,
+    isError,
   } = useContractWrite({
     ...config,
     onError: (error) => {
@@ -49,17 +52,18 @@ export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
   });
 
   useEffect(() => {
-    if (!writeSuccess || !lockSuccess) {
-      return;
+    if ((writeSuccess && lockSuccess) || isError) {
+      setLoading(false);
+      setDisableClose(false);
+      setOpen(false);
+      refresh();
+      lockSuccess && toastSuccess('Locked!');
     }
-
-    setLoading(false);
-    setOpen(false);
-    toastSuccess('Locked!');
-  }, [writeSuccess, lockSuccess, setOpen]);
+  }, [writeSuccess, lockSuccess, isError, setDisableClose, setLoading, setOpen, refresh]);
 
   const onClick = () => {
     setLoading(true);
+    setDisableClose(true);
     lock?.();
   };
 
@@ -92,7 +96,7 @@ export const LockAdvancedMoo = ({ id, setOpen }: Props) => {
   );
 };
 
-export const LockAdvancedKeek = ({ id, setOpen }: Props) => {
+export const LockAdvancedKeek = ({ id, setDisableClose, setOpen, refresh }: Props) => {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(0);
   const [confirm, setConfirm] = useState(false);
@@ -113,6 +117,7 @@ export const LockAdvancedKeek = ({ id, setOpen }: Props) => {
     write: lock,
     data,
     isSuccess: writeSuccess,
+    isError,
   } = useContractWrite({
     ...config,
     onError: (error) => {
@@ -127,17 +132,18 @@ export const LockAdvancedKeek = ({ id, setOpen }: Props) => {
   });
 
   useEffect(() => {
-    if (!writeSuccess || !lockSuccess) {
-      return;
+    if ((writeSuccess && lockSuccess) || isError) {
+      setLoading(false);
+      setDisableClose(false);
+      setOpen(false);
+      refresh();
+      lockSuccess && toastSuccess('Locked!');
     }
-
-    setLoading(false);
-    setOpen(false);
-    toastSuccess('Locked!');
-  }, [writeSuccess, lockSuccess, setOpen]);
+  }, [writeSuccess, lockSuccess, isError, setDisableClose, setOpen, setLoading, refresh]);
 
   const onClick = () => {
     setLoading(true);
+    setDisableClose(true);
     lock?.();
   };
 

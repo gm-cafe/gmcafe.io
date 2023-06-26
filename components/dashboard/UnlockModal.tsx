@@ -10,9 +10,10 @@ type Props = {
   id: number;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  refresh: Dispatch<void>;
 };
 
-export const UnlockModalMoo = ({ id, open, setOpen }: Props) => {
+export const UnlockModalMoo = ({ id, open, setOpen, refresh }: Props) => {
   const { data } = useContractRead({
     address: gmooContract,
     abi: gmooABI,
@@ -38,8 +39,10 @@ export const UnlockModalMoo = ({ id, open, setOpen }: Props) => {
                 </div>
               </div>
             </div>
-            {!isAdvanced && <UnlockBasicMoo id={id} setOpen={setOpen} />}
-            {isAdvanced && <UnlockAdvancedMoo id={id} open={open} setOpen={setOpen} />}
+            {!isAdvanced && <UnlockBasicMoo id={id} setOpen={setOpen} refresh={refresh} />}
+            {isAdvanced && (
+              <UnlockAdvancedMoo id={id} open={open} setOpen={setOpen} refresh={refresh} />
+            )}
           </Tab.Group>
         </Dialog.Panel>
       </div>
@@ -47,7 +50,7 @@ export const UnlockModalMoo = ({ id, open, setOpen }: Props) => {
   );
 };
 
-export const UnlockModalKeek = ({ id, open, setOpen }: Props) => {
+export const UnlockModalKeek = ({ id, open, setOpen, refresh }: Props) => {
   const { data } = useContractRead({
     address: keekContract,
     abi: keekABI,
@@ -73,8 +76,10 @@ export const UnlockModalKeek = ({ id, open, setOpen }: Props) => {
                 </div>
               </div>
             </div>
-            {!isAdvanced && <UnlockBasicKeek id={id} setOpen={setOpen} />}
-            {isAdvanced && <UnlockAdvancedKeek id={id} open={open} setOpen={setOpen} />}
+            {!isAdvanced && <UnlockBasicKeek id={id} setOpen={setOpen} refresh={refresh} />}
+            {isAdvanced && (
+              <UnlockAdvancedKeek id={id} open={open} setOpen={setOpen} refresh={refresh} />
+            )}
           </Tab.Group>
         </Dialog.Panel>
       </div>
