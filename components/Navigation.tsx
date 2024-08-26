@@ -70,7 +70,7 @@ const Navigation = () => {
             <div className="flex justify-center space-x-3">
               <a
                 className="flex h-10 w-10 items-center rounded-full bg-white p-1.5"
-                href="https://discord.gg/gmcafe"
+                href="https://discord.gg/w5pNB92mQN"
               >
                 <DiscordIcon fill="#8946ab" />
               </a>

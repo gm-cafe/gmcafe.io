@@ -228,7 +228,7 @@ const Home: NextPage = () => {
         <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-10 sm:flex-row sm:gap-8">
           <div className="flex flex-grow flex-col justify-end">
             <div className="flex gap-4">
-              <AnchorLink href="https://discord.gg/gmcafe">Discord</AnchorLink>
+              <AnchorLink href="https://discord.gg/w5pNB92mQN">Discord</AnchorLink>
               <AnchorLink href="https://twitter.com/gmcafeNFT">Twitter</AnchorLink>
               <AnchorLink href="https://opensea.io/collection/goodmorningcafe">Moos</AnchorLink>
               <AnchorLink href="https://opensea.io/collection/keeks">Keeks</AnchorLink>
