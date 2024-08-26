@@ -16,7 +16,7 @@ type RainbowKitProviderProps = {
   children: ReactNode | ReactNode[];
 };
 
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, provider } = configureChains(
   [mainnet],
   [publicProvider(), infuraProvider({ apiKey: '47434bfa14b446bab19576bdab9d5205' })]
 );
@@ -29,7 +29,6 @@ const { connectors } = getDefaultWallets({
 const wagmiClient = createClient({
   connectors,
   provider,
-  webSocketProvider,
 });
 
 const cafeTheme = merge(lightTheme(), {
