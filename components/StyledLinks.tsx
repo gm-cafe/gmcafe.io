@@ -5,7 +5,7 @@ export const Discord = () => {
   return (
     <a
       className="font-semibold text-discord underline underline-offset-4"
-      href="https://discord.gg/w5pNB92mQN"
+      href="https://discord.gg/ABh8f99hBV"
       rel="noreferrer"
       target="_blank"
     >
