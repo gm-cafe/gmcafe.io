@@ -16,8 +16,3 @@ Runs a clean install of all the dependencies needed to run the repository locall
 Starts a local development server of the website.
 
 If you want the site to be accessible by all devices on your local network, append `-- -H <ip_address>` to the command. Use `ipconfig` or `ifconfig` to find what your local IP address is.
-
-#### `.env.local`
-```
-SENTRY_DSN= <sentry dsn>
-```
