@@ -32,6 +32,7 @@ type Info = {
   token: string;
   transfers: number;
   title: string;
+  story?: string;
   titled: boolean;
   prefs?: Pref[];
 };
@@ -39,10 +40,25 @@ type Info = {
 export type Token = {
   id: number;
   name: string;
+  baseName: string;
+  styledTitle?: string;
   description: string;
   attributes: Attribute[];
   image: string;
+  thumb: string;
   info: Info;
+  custom: {
+    title?: string;
+    canTitle?: boolean;
+    story?: string;
+  };
+  holder?: {
+    owner: Address;
+    block: number;
+    transfers: number;
+    tag: number;
+    locked: boolean;
+  };
 };
 
 export type Moo = Token;
