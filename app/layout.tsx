@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Hepta_Slab } from "next/font/google";
 import localFont from "next/font/local"
 import "./globals.css";
+import Script from "next/script";
 
 const heptaSlab = Hepta_Slab({
   subsets: ["latin"]
@@ -40,6 +41,7 @@ export default function RootLayout({
       >
         {children}
       </body>
+      <Script src="/cursor/trail.js" />
     </html>
   );
 }
