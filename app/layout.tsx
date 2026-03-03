@@ -1,12 +1,12 @@
-import type { Metadata, Viewport } from "next";
-import { Hepta_Slab } from "next/font/google";
-import localFont from "next/font/local"
-import "./globals.css";
-import Script from "next/script";
-import { Providers } from "./providers";
+import type { Metadata, Viewport } from 'next';
+import { Hepta_Slab } from 'next/font/google';
+import localFont from 'next/font/local'
+import './globals.css';
+import Script from 'next/script';
+import { Providers } from './providers';
 
 const heptaSlab = Hepta_Slab({
-  subsets: ["latin"]
+  subsets: ['latin']
 })
 
 const gmcafe = localFont({
@@ -16,18 +16,18 @@ const gmcafe = localFont({
 
 export const metadata: Metadata = {
   openGraph: {
-    url: "https://gmcafe.io",
-    type: "website",
-    title: "Good Morning Café"
+    url: 'https://gmcafe.io',
+    type: 'website',
+    title: 'Good Morning Café'
   },
   twitter: {
-    site: "@gmcafeNFT",
-    title: "Good Morning Café"
+    site: '@gmcafeNFT',
+    title: 'Good Morning Café'
   }
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ff7dbd"
+  themeColor: '#ff7dbd'
 }
 
 export default function RootLayout({
