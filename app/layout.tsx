@@ -4,6 +4,7 @@ import localFont from 'next/font/local'
 import './globals.css';
 import Script from 'next/script';
 import { Providers } from './providers';
+import { Navigation } from '@/src/components/Navigation';
 
 const heptaSlab = Hepta_Slab({
   subsets: ['latin']
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body
         className={`${heptaSlab.className} ${gmcafe.variable} antialiased`}
       >
+        <Navigation />
         <Providers>
           {children}
         </Providers>
