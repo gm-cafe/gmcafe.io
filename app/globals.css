@@ -40,17 +40,63 @@
   --color-sky: var(--sky);
 
   --font-gmcafe: var(--font-gmcafe);
+
+  --breakpoint-screen: 2000px;
+  --spacing-88: 22rem;
+  --text-10xl: 11.25rem;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-reverse: marquee 30s linear infinite reverse;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility bg-banner-repeat {
+  background-image: url('/home/hero/bg_repeat.png');
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: repeat-x;
+}
+
+@utility bg-two-tone-gray {
+  background-color: #ffffff;
+  background-image: linear-gradient(to right, #ffffff 50%, #f3f4f6 50%);
+}
+
+@utility bg-two-tone-purple {
+  background-color: #ffffff;
+  background-image: linear-gradient(to right, #ffffff 50%, #8946ab 50%);
+}
+
+@utility squiggle {
+  background-size: auto 101%;
+  background-repeat: no-repeat;
+  background-position: 75%;
+  background-image: url('/svgs/squiggle.svg');
+  height: 100%;
+  z-index: 1;
+}
+
+@utility text-border-white {
+  text-shadow: 6px 0 0 #fff, -6px 0 0 #fff, 0 6px 0 #fff, 0 -6px 0 #fff,
+    4px 4px #fff, -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: white;
+  color: black;
   font-family: Arial, Helvetica, sans-serif;
 
   cursor: url("/cursor/cursor.png") 18 7, auto;
 }
 
 a, button {
+  cursor: url("/cursor/pointer.png") 4 5, pointer;
+}
+
+summary {
   cursor: url("/cursor/pointer.png") 4 5, pointer;
 }
 
